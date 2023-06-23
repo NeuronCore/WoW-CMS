@@ -1,0 +1,32 @@
+html[data-theme="dark"]
+{
+    --color-primary: #ff583e;
+    --color-primary-dark: #d7442d;
+    --color-primary-darker: #41150e;
+    --color-primary-light: #ff674f;
+    --white: #ffffff;
+    --white-shadow: rgba(255, 255, 255, 0.25);
+    --red: #ff4141;
+    --red-light: #ff5f5f;
+    --red-shadow: rgba(253, 106, 106, 0.25);
+    --red-dark: #d12828;
+    --green-shadow: rgba(151, 179, 165, 0.25);
+    --green-light: #82bb9f;
+    --eth-shadow: rgba(118, 146, 255, 0.5);
+    --eth-light: #d1d7ff;
+    --yellow-shadow: rgba(235, 180, 46, 0.3);
+    --yellow-light: #ebb42e;
+    --color-base-text: #cccccc;
+    --color-base-text-primary: #ecbcbb;
+    --color-base-text-light: #a8aeb4;
+    --color-base-text-lighter: #8b9298;
+    --color-base-text-bold: #e7e7e7;
+    --color-base-text-bolder: #ffffff;
+    --base-primary: #150300;
+    --base-primary-light: #0a0200;
+    --base-primary-lighter: #0a0200;
+    --base-primary-dark: #0a0200;
+    --base-secondary: #dccdad;
+    --base-tertiary: #a7b3a5;
+    --color-rating-2-3: rgb(169, 175, 54);
+}

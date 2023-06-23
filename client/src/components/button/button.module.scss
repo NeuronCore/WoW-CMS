@@ -1,0 +1,33 @@
+.button
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: .5rem;
+    background: var(--color-primary);
+    color: var(--white);
+    border: none;
+    outline: none;
+    padding: 1.15rem 3rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover
+    {
+        background: var(--color-primary-light);
+    }
+
+    &[data-type='text']
+    {
+        color: var(--color-primary-light);
+        background: var(--color-base-text-bold);
+
+        &:hover
+        {
+            background: var(--color-base-text-bolder);
+        }
+    }
+}

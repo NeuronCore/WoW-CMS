@@ -1,0 +1,8 @@
+/node_modules
+/.next
+/.idea
+
+.env.local
+package-lock.json
+
+*.zip

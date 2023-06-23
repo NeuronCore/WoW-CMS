@@ -1,0 +1,34 @@
+{
+    "env":
+    {
+        "browser": true,
+        "es2021": true,
+        "node": true
+    },
+    "extends": "next/core-web-vitals",
+    "rules":
+    {
+        "@next/next/no-server-import-in-page": "off",
+        "@next/next/no-script-in-document": "off",
+        "semi": ["error", "always"],
+        "curly": ["error", "multi-or-nest"],
+        "brace-style": ["error", "allman"],
+        "indent":
+        [
+            "error", 4,
+            {
+                "SwitchCase": 1,
+                "VariableDeclarator": 1
+            }
+        ],
+        "template-curly-spacing": ["error", "always"],
+        "space-before-function-paren": ["error", "never"],
+        "quotes":
+        [
+            2, "single",
+            {
+                "avoidEscape": true
+            }
+        ]
+    }
+}

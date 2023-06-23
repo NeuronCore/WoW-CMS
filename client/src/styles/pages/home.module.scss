@@ -1,0 +1,139 @@
+.home
+{
+    &Header
+    {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 2rem;
+
+        position: relative;
+        z-index: 90;
+
+        width: 100%;
+        height: 70vh;
+        overflow: hidden;
+
+        &:after
+        {
+            content: '';
+            position: absolute;
+            bottom: 0;
+
+            width: 100%;
+            height: .25rem;
+            opacity: .5;
+            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
+        }
+
+        &Video
+        {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            position: absolute;
+
+            height: 70vh;
+            background: white;
+
+            & > video
+            {
+                width: 100vw;
+
+                @media only screen and (max-width: 1280px)
+                {
+                    width: auto;
+                    height: 70vh;
+                }
+            }
+        }
+
+        &Filter
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            background: radial-gradient(circle, rgba(0,212,255,0) 0%, var(--base-primary-dark) 100%);
+        }
+
+        &Hero
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 40%;
+            height: 100%;
+
+            & > img
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                height: 100%;
+                max-height: 50vh;
+            }
+        }
+
+        &Content
+        {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            gap: 3rem;
+
+            margin: auto 0;
+
+            max-width: 30%;
+
+            & > h1
+            {
+                color: var(--color-base-text-primary);
+                font-weight: lighter;
+                font-size: 10rem;
+                font-family: 'warcraft', sans-serif;
+            }
+            & > p
+            {
+                font-size: 2.5rem;
+                font-weight: 400;
+                color: var(--color-base-text-bold);
+            }
+
+            & a
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                position: relative;
+
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                font-size: 2rem;
+                height: 7rem;
+                width: 27rem;
+                color: rgb(203, 173, 119);
+                text-shadow: rgb(0, 0, 0) 0 0 0.3rem, rgb(0, 0, 0) 0 0.0625rem 0.3rem;
+                overflow: auto;
+                transition: all .2s;
+
+                &:hover
+                {
+                    -webkit-filter: drop-shadow(5px 5px 5px rgb(0, 0, 0));
+                    filter: drop-shadow(5px 5px 5px rgb(0, 0, 0));
+                }
+            }
+        }
+    }
+}

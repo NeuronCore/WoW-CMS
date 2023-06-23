@@ -1,0 +1,27 @@
+.tooltip
+{
+    display: inline-block;
+
+    color: #fff;
+    padding: 0.2rem 1.5rem;
+    text-align: center;
+    font-size: 1.15rem;
+    border-radius: 10rem;
+    background: #487ffe;
+    box-shadow: 0 30px 70px #48609233;
+
+    &::after
+    {
+        content: "";
+
+        position: absolute;
+        top: 100%;
+        left: 20%;
+
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        box-shadow: 0 30px 70px #48609233;
+        border-color: #487ffe transparent transparent;
+    }
+}
