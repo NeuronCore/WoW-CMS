@@ -38,12 +38,14 @@
         "slick-carousel": "^1.8.1",
         "sweetalert2": "^11.7.12",
         "sweetalert2-react-content": "^5.0.7",
+        "swiper": "^9.4.1",
         "swr": "^2.1.5",
         "universal-cookie": "^4.0.4",
         "uuid": "^9.0.0",
         "validator": "^13.9.0"
     },
     "devDependencies": {
+        "@svgr/webpack": "^8.0.1",
         "@types/node-sass": "^4.11.3",
         "@types/react-slick": "^0.23.10",
         "@types/redux-logger": "^3.0.9",
