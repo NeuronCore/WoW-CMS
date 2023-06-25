@@ -5,7 +5,9 @@
         "es2021": true,
         "node": true
     },
-    "extends": "next/core-web-vitals",
+    "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:@typescript-eslint/recommended"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
     "rules":
     {
         "@next/next/no-server-import-in-page": "off",
@@ -23,6 +25,7 @@
         ],
         "template-curly-spacing": ["error", "always"],
         "space-before-function-paren": ["error", "never"],
+        "no-unexpected-multiline": "off",
         "quotes":
         [
             2, "single",
