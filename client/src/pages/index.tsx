@@ -2,9 +2,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { v4 as uuidV4 } from 'uuid';
 import classnames from 'classnames';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
+import { Autoplay, Keyboard } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Keyboard, Pagination, A11y } from 'swiper';
 
 import HeroImage from '../../public/images/hero-image.png';
 import ButtonImage from '../../public/images/button-image.webp';
@@ -16,7 +16,6 @@ import styles from '../styles/pages/home.module.scss';
 
 const Home = () =>
 {
-    const paginationRef = useRef(null);
     const [blog, setBlog] = useState<any>(0);
 
     return (
@@ -78,10 +77,9 @@ const Home = () =>
                             slidesPerView={3}
                             spaceBetween={30}
                             keyboard={{ enabled: true }}
-                            pagination={{ clickable: true, el: paginationRef.current }}
                             onSlideChange={(swiper) => setBlog(swiper.realIndex)}
                             autoplay={{ delay: 2500, disableOnInteraction: false }}
-                            modules={[ Keyboard, Autoplay, Pagination, A11y ]}
+                            modules={[ Keyboard, Autoplay ]}
                         >
                             {
                                 blogs.map((item: any, index: number) =>
@@ -118,7 +116,6 @@ const Home = () =>
                                         </SwiperSlide>
                                     ))
                             }
-                            <SwiperSlide />
                             <SwiperSlide />
                             <SwiperSlide />
                         </Swiper>
