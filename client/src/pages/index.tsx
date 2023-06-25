@@ -16,7 +16,7 @@ import styles from '../styles/pages/home.module.scss';
 
 const Home = () =>
 {
-    const [blog, setBlog] = useState<any>(0);
+    const [blog, setBlog] = useState<number>(0);
 
     return (
         <>
