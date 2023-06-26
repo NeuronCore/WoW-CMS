@@ -17,7 +17,7 @@ axios.interceptors.response.use(response => response, async error =>
 
         if (response.status === 200)
         {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${ response.data.data }`;
             return axios(error.config);
         }
     }

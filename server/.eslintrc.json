@@ -19,7 +19,13 @@
             "error", 4,
             {
                 "SwitchCase": 1,
-                "VariableDeclarator": 1
+                "VariableDeclarator": 1,
+                "ignoredNodes":
+                [
+                    "PropertyDefinition[decorators]",
+                    "TSUnionType",
+                    "FunctionExpression[params]:has(Identifier[decorators])"
+                ]
             }
         ],
         "template-curly-spacing": ["error", "always"],
