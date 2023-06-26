@@ -170,6 +170,47 @@
         width: 100%;
         height: auto;
 
+
+        &:after
+        {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            bottom: 0;
+
+            width: 100%;
+            height: .25rem;
+            opacity: .5;
+            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
+        }
+
+        &Filter
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            background: radial-gradient(circle, rgba(0,212,255,0) 0%, var(--base-primary-dark) 70%);
+
+            &:before
+            {
+                content: '';
+
+                position: absolute;
+
+                width: 100%;
+                height: 100%;
+
+                opacity: .85;
+                background: var(--base-primary-dark);
+            }
+        }
+
         &Header
         {
             width: 60vw;
@@ -194,6 +235,10 @@
                 justify-content: center;
 
                 position: absolute;
+
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
 
                 width: 100%;
                 height: 100%;
@@ -479,6 +524,217 @@
             }
         }
     }
+
+    &Features
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 3rem;
+
+        padding: 10rem 0;
+        width: 100%;
+
+        & > p
+        {
+            font-family: 'warcraft', sans-serif;
+            margin-bottom: 2rem;
+            font-size: 7rem;
+            color: var(--color-primary-light);
+            text-align: center;
+        }
+
+        & > ul
+        {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            width: 100%;
+
+            & > li
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4rem;
+
+                width: 100%;
+                min-height: 50rem;
+
+                &[data-index='0'],
+                &[data-index='2'],
+                &[data-index='4']
+                {
+                    flex-direction: row-reverse;
+
+                    & > i
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        position: absolute;
+
+                        height: 70%;
+                        width: 100%;
+
+                        &:after
+                        {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            height: .25rem;
+                            width: 100%;
+                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 20%, rgba(253,45,45,0) 100%);
+                        }
+
+                        &:before
+                        {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            height: .25rem;
+                            width: 100%;
+                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 20%, rgba(253,45,45,0) 100%);
+                        }
+
+                        & > span
+                        {
+                            width: 100%;
+                            height: 100%;
+
+                            opacity: .35;
+                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 20%, rgba(253,45,45,0) 100%);
+                        }
+                    }
+                }
+
+                &[data-index='1'],
+                &[data-index='3'],
+                &[data-index='5']
+                {
+                    flex-direction: row;
+
+                    & > i
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        position: absolute;
+
+                        height: 70%;
+                        width: 100%;
+
+                        &:after
+                        {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            height: .25rem;
+                            width: 100%;
+                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 70%, rgba(253,45,45,0) 100%);
+                        }
+
+                        &:before
+                        {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            height: .25rem;
+                            width: 100%;
+                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 70%, rgba(253,45,45,0) 100%);
+                        }
+
+                        & > span
+                        {
+                            width: 100%;
+                            height: 100%;
+
+                            opacity: .35;
+                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 70%, rgba(253,45,45,0) 100%);
+                        }
+                    }
+                }
+
+                & > div
+                {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 2rem;
+
+                    max-width: 40%;
+
+                    & > h4
+                    {
+                        font-weight: 600;
+                        font-size: 4.5rem;
+                        color: var(--color-primary-lighter);
+                        font-family: 'warcraft', sans-serif;
+                    }
+
+                    & > p
+                    {
+                        line-height: 2.75rem;
+                        font-weight: 500;
+                        font-size: 2rem;
+                    }
+                }
+
+                & > span
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    position: relative;
+
+                    width: 45rem;
+                    height: 45rem;
+                    max-width: 45rem;
+                    max-height: 45rem;
+                    min-width: 45rem;
+                    min-height: 45rem;
+                    border-radius: 50rem;
+
+                    & > span
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        position: relative;
+
+                        width: 30rem;
+                        height: 30rem;
+                        max-width: 30rem;
+                        max-height: 30rem;
+                        border-radius: 50rem;
+                        overflow: hidden;
+                    }
+
+                    & > svg
+                    {
+                        position: absolute;
+
+                        width: 100%;
+                        height: 100%;
+
+                        color: var(--color-primary);
+                        filter: drop-shadow(0 0 1.5rem var(--color-primary));
+
+                        margin-left: -3rem;
+                        transform: scale(1.6);
+                    }
+                }
+            }
+        }
+    }
 }
 
 @keyframes animation-3d
@@ -495,5 +751,21 @@
     100%
     {
         transform: translateY(0);
+    }
+}
+
+
+@keyframes rotate-animation
+{
+    0%
+    {
+        margin-left: -3rem;
+        transform: scale(1.6) rotate(0deg);
+    }
+
+    100%
+    {
+        margin-left: 0;
+        transform: scale(1.6) rotate(360deg);
     }
 }

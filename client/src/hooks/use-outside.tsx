@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-const useOutside = (ref: any, callback: any) =>
+const useOutside = (ref: React.RefObject<HTMLInputElement>, callback: () => void) =>
 {
     useEffect(() =>
     {

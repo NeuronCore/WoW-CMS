@@ -9,14 +9,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import HeroImage from '../../public/images/hero-image.png';
 import ButtonImage from '../../public/images/button-image.webp';
 import HeaderBlogs from '../../public/images/header-blogs-image.png';
+import FeatureFrame from '../../public/images/circle-frame-image.svg';
 
 import blogs from '../data/blogs.data.json';
+import features from '../data/features.data.json';
 
 import styles from '../styles/pages/home.module.scss';
 
 const Home = () =>
 {
-    const [blog, setBlog] = useState<any>(0);
+    const [blog, setBlog] = useState<number>(0);
 
     return (
         <>
@@ -49,28 +51,23 @@ const Home = () =>
                     </div>
                 </div>
             </div>
+
             <div className={styles.homeBlogs}>
                 <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ HeaderBlogs.src })` }} />
-                <span className={styles.homeBlogsHeaderFilter} />
-                <span className={styles.homeHeaderFilter} />
-                <span className={styles.homeHeaderFilter} />
-                <span className={styles.homeHeaderFilter} />
-                <span className={styles.homeHeaderFilter} />
-                <span className={styles.homeHeaderFilter} />
-                <span className={styles.homeHeaderFilter} />
+                <span className={styles.homeBlogsFilter} />
 
                 <span className={styles.homeBlogsHeader} />
 
                 <div className={styles.homeBlogsList}>
                     <div className={styles.homeBlogsListContent}>
-                       <div>
-                           <h3>
-                               { blogs[blog]?.name }
-                           </h3>
-                           <p>
-                               { blogs[blog]?.description }
-                           </p>
-                       </div>
+                        <div>
+                            <h3>
+                                { blogs[blog]?.name }
+                            </h3>
+                            <p>
+                                { blogs[blog]?.description }
+                            </p>
+                        </div>
                     </div>
                     <div className={styles.homeBlogsListSwiper}>
                         <Swiper
@@ -123,6 +120,48 @@ const Home = () =>
                 </div>
 
                 <span className={styles.homeBlogsHeader} data-reverse />
+            </div>
+
+            <div className={styles.homeFeatures}>
+                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ HeaderBlogs.src })` }} />
+                <span className={styles.homeBlogsFilter} />
+
+                <p>
+                    WoW CMS Features
+                </p>
+
+                <ul>
+                    {
+                        features.map((item: any, index: number) =>
+                            (
+                                <li key={ uuidV4() } data-index={ index }>
+                                    <i><span /></i>
+
+                                    <div>
+                                        <h4>
+                                            Feature
+                                        </h4>
+                                        <p>
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                                        </p>
+                                    </div>
+
+                                    <span>
+                                        <span>
+                                             <Image
+                                                 src={ item.src }
+                                                 alt={ item.alt }
+                                                 layout='fill'
+                                                 objectFit='cover'
+                                             />
+                                        </span>
+
+                                        <FeatureFrame />
+                                    </span>
+                                </li>
+                            ))
+                    }
+                </ul>
             </div>
         </>
     );
