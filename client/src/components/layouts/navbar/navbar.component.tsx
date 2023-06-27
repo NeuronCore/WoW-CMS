@@ -1,11 +1,11 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 import Button from '../../button';
 
 import styles from './navbar.module.scss';
 
-import Logo from '../../../../public/logo.png';
-import Image from "next/image";
+import Logo from '../../../../public/images/logo.png';
 
 const Navbar = () =>
 {

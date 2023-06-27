@@ -5,7 +5,7 @@ import { BsGithub, BsTwitter } from 'react-icons/bs';
 
 import styles from './footer.module.scss';
 
-import Logo from '../../../../public/logo.png';
+import Logo from '../../../../public/images/logo.png';
 
 const Footer = () =>
 {

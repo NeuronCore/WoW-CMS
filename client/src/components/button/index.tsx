@@ -12,11 +12,13 @@ interface Props
 const Button = ({ children, content, type }: Props) =>
 {
     return (
-        <button className={styles.button} data-type={type}>
-            {
-                children ?? content
-            }
-        </button>
+        <div className={styles.buttonFrame}>
+            <button className={styles.button} data-type={type}>
+                {
+                    children ?? content
+                }
+            </button>
+        </div>
     );
 };
 
