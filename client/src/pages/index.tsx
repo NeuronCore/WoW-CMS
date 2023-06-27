@@ -15,10 +15,12 @@ import blogs from '../data/blogs.data.json';
 import features from '../data/features.data.json';
 
 import styles from '../styles/pages/home.module.scss';
+import {middleOfArray} from '../utils/help';
 
 const Home = () =>
 {
     const [blog, setBlog] = useState<number>(0);
+    const [headerBlog, setHeaderBlog] = useState<number>(0);
 
     return (
         <>
@@ -30,26 +32,83 @@ const Home = () =>
                     <span className={styles.homeHeaderFilter2} />
                 </span>
 
-                <div className={styles.homeHeaderHero}>
-                    <img src={ HeroImage.src } alt='Hero Image'/>
-                </div>
+                <div className={styles.homeHeaderContainer}>
+                    <div className={styles.homeHeaderHero}>
+                        <img src={ HeroImage.src } alt='Hero Image'/>
+                    </div>
 
-                <div className={styles.homeHeaderContent}>
-                    <h1>
-                        WOW CMS
-                    </h1>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
-                    </p>
-                    <div>
-                        <Link style={{ backgroundImage: `url(${ ButtonImage.src })` }} href='/'>
-                            <>
-                                Play Now!
-                                <span />
-                            </>
-                        </Link>
+                    <div className={styles.homeHeaderContent}>
+                        <h1>
+                            WOW CMS
+                        </h1>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                        </p>
+                        <div>
+                            <Link style={{ backgroundImage: `url(${ ButtonImage.src })` }} href='/'>
+                                <>
+                                    Play Now!
+                                    <span />
+                                </>
+                            </Link>
+                        </div>
                     </div>
                 </div>
+
+                <Swiper
+                    slidesPerView={4}
+                    centeredSlides
+                    initialSlide={middleOfArray(blogs)}
+                    keyboard={{ enabled: true }}
+                    className={styles.homeHeaderSwiper}
+                    onSlideChange={(swiper) => setHeaderBlog(swiper.realIndex)}
+                    autoplay={{ delay: 2500, disableOnInteraction: false }}
+                    modules={[ Keyboard, Autoplay ]}
+                >
+                    {
+                        blogs.map((item: any, index: number) =>
+                            (
+                                <SwiperSlide key={ uuidV4() } virtualIndex={ index }>
+                                    <div className={classnames(styles.homeHeaderItem, { [styles.homeHeaderItemActive]: index === headerBlog })}>
+                                        <div>
+                                            <i data-top_right>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <i data-top_left>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <i data-bottom_left>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <i data-bottom_right>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <span>
+                                                <Image
+                                                    src={ item.src }
+                                                    alt={ item.alt }
+                                                    layout='fill'
+                                                    objectFit='cover'
+                                                />
+                                                <div>
+                                                    <span>
+                                                        6/27/2023
+                                                    </span>
+                                                    <p>
+                                                        { item.name }
+                                                    </p>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            ))
+                    }
+                </Swiper>
             </div>
 
             <div className={styles.homeBlogs}>
@@ -152,12 +211,12 @@ const Home = () =>
 
                                     <span>
                                         <span>
-                                             <Image
-                                                 src={ item.src }
-                                                 alt={ item.alt }
-                                                 layout='fill'
-                                                 objectFit='cover'
-                                             />
+                                            <Image
+                                                src={ item.src }
+                                                alt={ item.alt }
+                                                layout='fill'
+                                                objectFit='cover'
+                                            />
                                         </span>
 
                                         <FeatureFrame />

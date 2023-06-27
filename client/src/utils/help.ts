@@ -1,3 +1,8 @@
+export const middleOfArray = (array: unknown[]) =>
+{
+    return Math.round((array.length - 1) / 2);
+};
+
 export const numberWithCommas = (num: number, per: number | undefined, places: number | undefined): string =>
 {
     if (per == undefined)
