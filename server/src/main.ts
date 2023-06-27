@@ -5,7 +5,7 @@ import * as cookieParser from 'cookie-parser';
 
 import { AppModule } from './app.module';
 
-async function bootstrap()
+async function bootstrap(): Promise<void>
 {
     const logger: Logger = new Logger('Bootstrap');
     const app: INestApplication = await NestFactory.create(AppModule);

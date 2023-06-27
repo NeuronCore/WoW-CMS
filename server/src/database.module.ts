@@ -39,9 +39,37 @@ import { Pool, createPool } from 'mysql2/promise';
 
                 return charactersDatabases;
             }
+        },
+        {
+            provide: 'WORLD_DATABASE',
+            useFactory: async(): Promise<Pool> =>
+            {
+                return createPool
+                ({
+                    host: process.env.WORLD_DATABASE_HOST,
+                    port: +process.env.WORLD_DATABASE_PORT,
+                    database: process.env.WORLD_DATABASE_NAME,
+                    user: process.env.WORLD_DATABASE_USERNAME,
+                    password: process.env.WORLD_DATABASE_PASSWORD
+                });
+            }
+        },
+        {
+            provide: 'WEB_DATABASE',
+            useFactory: async(): Promise<Pool> =>
+            {
+                return createPool
+                ({
+                    host: process.env.WEB_DATABASE_HOST,
+                    port: +process.env.WEB_DATABASE_PORT,
+                    database: process.env.WEB_DATABASE_NAME,
+                    user: process.env.WEB_DATABASE_USERNAME,
+                    password: process.env.WEB_DATABASE_PASSWORD
+                });
+            }
         }
     ],
-    exports: ['AUTH_DATABASE', 'CHARACTERS_DATABASE']
+    exports: ['AUTH_DATABASE', 'CHARACTERS_DATABASE', 'WORLD_DATABASE', 'WEB_DATABASE']
 })
 export class DatabaseModule
 {
