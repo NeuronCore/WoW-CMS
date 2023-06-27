@@ -5,13 +5,22 @@ import Button from '../../button';
 import styles from './navbar.module.scss';
 
 import Logo from '../../../../public/logo.png';
+import Image from "next/image";
 
 const Navbar = () =>
 {
     return (
         <nav className={styles.navbar}>
             <div className={styles.navbarContainer}>
-                <span style={{ backgroundImage: `url(${Logo.src})` }} />
+                <span>
+                    <Image
+                        src={Logo.src}
+                        alt='WoW CMS'
+                        layout='fill'
+                        objectFit='cover'
+                    />
+                </span>
+
                 <ul>
                     <li data-active>
                         <Link href='/'>

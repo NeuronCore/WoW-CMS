@@ -58,6 +58,10 @@ const Home = () =>
 
                 <span className={styles.homeBlogsHeader} />
 
+                <p>
+                    WoW CMS Blogs
+                </p>
+
                 <div className={styles.homeBlogsList}>
                     <div className={styles.homeBlogsListContent}>
                         <div>

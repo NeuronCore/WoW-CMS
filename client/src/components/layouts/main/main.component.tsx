@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import styles from './main.module.scss';
 
 const Navbar = dynamic(() => import('../navbar/navbar.component'));
+const Footer = dynamic(() => import('../footer/footer.component'));
 
 interface Props
 {
@@ -19,6 +20,8 @@ const Main = ({ children }: Props) =>
             <div className={styles.main}>
                 { children }
             </div>
+
+            <Footer />
         </>
     );
 };

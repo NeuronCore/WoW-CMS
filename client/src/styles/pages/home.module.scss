@@ -10,6 +10,7 @@
         position: relative;
         z-index: 90;
 
+        margin-top: 9.5rem;
         width: 100%;
         height: 70vh;
         overflow: hidden;
@@ -182,6 +183,15 @@
             height: .25rem;
             opacity: .5;
             background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
+        }
+
+        & > p
+        {
+            font-family: 'warcraft', sans-serif;
+            margin-bottom: 2rem;
+            font-size: 7rem;
+            color: var(--color-primary-light);
+            text-align: center;
         }
 
         &Filter
