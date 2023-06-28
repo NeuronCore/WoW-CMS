@@ -4,16 +4,36 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: .5rem;
+    position: relative;
+
     background: var(--color-primary);
     color: var(--white);
     border: none;
     outline: none;
-    padding: 1.15rem 3rem;
+    padding: 1rem 2.5rem;
     font-size: 1.5rem;
     font-weight: 500;
     cursor: pointer;
     transition: all .2s;
+
+    &Frame
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: relative;
+
+        padding: .5rem;
+
+        border: .0625rem solid var(--color-primary);
+        transition: all .2s;
+
+        &:hover
+        {
+            border-color: var(--color-primary-light);
+        }
+    }
 
     &:hover
     {

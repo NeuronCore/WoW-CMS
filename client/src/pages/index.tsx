@@ -8,14 +8,18 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import HeroImage from '../../public/images/hero-image.png';
 import ButtonImage from '../../public/images/button-image.webp';
+import Header1Image from '../../public/images/header-1-image.jpg';
+import Header2Image from '../../public/images/header-2-image.webp';
 import HeaderBlogs from '../../public/images/header-blogs-image.png';
 import FeatureFrame from '../../public/images/circle-frame-image.svg';
 
+import faq from '../data/faq.data.json';
 import blogs from '../data/blogs.data.json';
 import features from '../data/features.data.json';
 
 import styles from '../styles/pages/home.module.scss';
-import {middleOfArray} from '../utils/help';
+
+import { middleOfArray } from '../utils/help';
 
 const Home = () =>
 {
@@ -58,6 +62,7 @@ const Home = () =>
                 <Swiper
                     slidesPerView={4}
                     centeredSlides
+                    grabCursor
                     initialSlide={middleOfArray(blogs)}
                     keyboard={{ enabled: true }}
                     className={styles.homeHeaderSwiper}
@@ -136,6 +141,7 @@ const Home = () =>
                         <Swiper
                             slidesPerView={3}
                             spaceBetween={30}
+                            grabCursor
                             keyboard={{ enabled: true }}
                             onSlideChange={(swiper) => setBlog(swiper.realIndex)}
                             autoplay={{ delay: 2500, disableOnInteraction: false }}
@@ -186,7 +192,7 @@ const Home = () =>
             </div>
 
             <div className={styles.homeFeatures}>
-                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ HeaderBlogs.src })` }} />
+                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ Header1Image.src })` }} />
                 <span className={styles.homeBlogsFilter} />
 
                 <p>
@@ -225,6 +231,35 @@ const Home = () =>
                             ))
                     }
                 </ul>
+            </div>
+
+            <div className={styles.homeFaq}>
+                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ Header2Image.src })` }} />
+                <span className={styles.homeFaqFilter} />
+
+                <span className={styles.homeBlogsHeader} />
+
+                <p>
+                    Frequently Asked Questions
+                </p>
+
+                <ul>
+                    {
+                        faq.map((item: any) =>
+                            (
+                                <li key={ uuidV4() }>
+                                    <p>
+                                        { item.question }
+                                    </p>
+                                    <p>
+                                        { item.answer }
+                                    </p>
+                                </li>
+                            ))
+                    }
+                </ul>
+
+                <span className={styles.homeBlogsHeader} data-reverse />
             </div>
         </>
     );
