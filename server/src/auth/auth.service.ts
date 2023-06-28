@@ -1,7 +1,7 @@
 import { BadRequestException, ConflictException, HttpStatus, Inject, Injectable, UnauthorizedException }  from '@nestjs/common';
 import { Pool } from 'mysql2/promise';
-import { Response } from 'express';
-import { sign } from 'jsonwebtoken';
+import { Response, Request } from 'express';
+import { sign, verify } from 'jsonwebtoken';
 
 import { SRP6 } from '../utils/SRP6.util';
 
@@ -55,7 +55,47 @@ export class AuthService
         await this.generateAndSetToken(account, response, 'You\'re logged in successfully');
     }
 
-    public async generateAndSetToken(account: unknown, response: Response, message: string)
+    public async logout(request: Request, response: Response)
+    {
+        const refreshToken: string = request.cookies.refreshToken;
+        if (!refreshToken)
+            throw new UnauthorizedException('You are not logged in! Please log in to get access.');
+
+        const [account] = await this.webDatabase.query('SELECT `id`, `refresh_token` FROM `account_information` WHERE `refresh_token` = ?', [refreshToken]);
+        if (!account[0])
+            this.clearCookies(response);
+
+        await this.webDatabase.execute('UPDATE `account_information` SET `refresh_token` = NULL WHERE `id` = ?', [account[0].id]);
+
+        this.clearCookies(response);
+    }
+
+    public async refresh(request: Request)
+    {
+        const refreshToken: string = request.cookies.refreshToken;
+        if (!refreshToken)
+            throw new UnauthorizedException('You are not logged in! Please log in to get access.');
+
+        const [account] = await this.webDatabase.query('SELECT `id`, `refresh_token` FROM `account_information` WHERE `refresh_token` = ?', [refreshToken]);
+        if (!account[0])
+            throw new UnauthorizedException('Invalid Token. Please log in again!');
+
+        const verifyRefreshToken: any = verify(refreshToken, process.env.JWT_REFRESH_KEY);
+        if (!verifyRefreshToken || account[0]?.id !== verifyRefreshToken.id)
+            throw new UnauthorizedException('Invalid Token. Please log in again!');
+
+        const accessToken: string = sign({ id: account[0].id }, process.env.JWT_ACCESS_KEY, { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN });
+        return { statusCode: HttpStatus.OK, data: accessToken };
+    }
+
+    private clearCookies(response: Response)
+    {
+        response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', secure: true });
+
+        return response.status(HttpStatus.OK).json({ message: 'You are already logged out' });
+    }
+
+    private async generateAndSetToken(account: unknown, response: Response, message: string)
     {
         const accessToken: string = sign({ id: account[0].id }, process.env.JWT_ACCESS_KEY, { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN });
         const refreshToken: string = sign({ id: account[0].id }, process.env.JWT_REFRESH_KEY, { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN });
