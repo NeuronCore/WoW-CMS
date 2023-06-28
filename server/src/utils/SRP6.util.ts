@@ -15,7 +15,10 @@ export class SRP6
 
         const h1: Buffer = Buffer.from(sha1.arrayBuffer(`${ username }:${ password }`.toUpperCase()));
 
-        const h2: Buffer = Buffer.from(sha1.arrayBuffer(Buffer.concat([salt, h1]).toString())).reverse();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        /// @TODO FIX ME - REMOVE ESLINT DISABLE
+        const h2: Buffer = Buffer.from(sha1.arrayBuffer(Buffer.concat([salt, h1]))).reverse();
 
         const h2bigint: BigInteger = new BigInteger(h2.toString('hex'), 16);
 
