@@ -39,6 +39,7 @@
         "jsonwebtoken": "^9.0.0",
         "mysql2": "^3.4.1",
         "nest-winston": "^1.9.3",
+        "node-fetch": "^2.6.12",
         "nodemailer": "^6.9.3",
         "reflect-metadata": "^0.1.13",
         "rxjs": "^7.2.0",
