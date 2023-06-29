@@ -64,7 +64,7 @@
                 font-weight: 500;
                 color: var(--color-base-text-primary);
 
-                &[data-active]
+                &[data-active='true']
                 {
                     &:before
                     {

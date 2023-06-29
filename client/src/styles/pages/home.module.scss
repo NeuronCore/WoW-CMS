@@ -1080,7 +1080,7 @@
                 align-items: flex-start;
                 justify-content: flex-start;
                 flex-direction: column;
-                gap: 1.5rem;
+                gap: 1rem;
 
                 position: relative;
 
@@ -1111,6 +1111,7 @@
                 {
                     &:first-child
                     {
+                        font-family: 'warcraft', sans-serif;
                         font-size: 4rem;
                         color: var(--color-base-text-primary);
                         font-weight: 600;
@@ -1122,7 +1123,7 @@
                     &:last-child
                     {
                         font-weight: 400;
-                        font-size: 2.5rem;
+                        font-size: 2rem;
                     }
                 }
             }

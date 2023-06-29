@@ -7,6 +7,8 @@ import styles from './footer.module.scss';
 
 import Logo from '../../../../public/images/logo.png';
 
+import footerItems from '../../../data/footer.data.json';
+
 const Footer = () =>
 {
     return (
@@ -26,31 +28,16 @@ const Footer = () =>
                 </p>
                 <span />
                 <ul>
-                    <li>
-                        <Link href='/'>
-                            News
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href='/'>
-                            Support
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href='/'>
-                            Terms of Service
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href='/'>
-                            Privacy Policy
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href='/'>
-                            Refund Policy
-                        </Link>
-                    </li>
+                    {
+                        footerItems.map((item) =>
+                            (
+                                <li>
+                                    <Link href={ item.href }>
+                                        { item.name }
+                                    </Link>
+                                </li>
+                            ))
+                    }
                 </ul>
             </div>
 
