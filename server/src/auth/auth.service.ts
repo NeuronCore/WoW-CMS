@@ -4,6 +4,7 @@ import { Response, Request } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 
 import { SRP6 } from '../utils/SRP6.util';
+import { Helper } from '../utils/helper.util';
 
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -52,7 +53,7 @@ export class AuthService
         if (!account[0] || !SRP6.verifySRP6(username, password, account[0]?.salt, account[0]?.verifier))
             throw new UnauthorizedException('Incorrect username or password');
 
-        await this.generateAndSetToken(account, response, 'You\'re logged in successfully');
+        await Helper.generateAndSetToken(account, response, this.webDatabase, 'You\'re logged in successfully');
     }
 
     public async logout(request: Request, response: Response)
@@ -63,11 +64,11 @@ export class AuthService
 
         const [account] = await this.webDatabase.query('SELECT `id`, `refresh_token` FROM `account_information` WHERE `refresh_token` = ?', [refreshToken]);
         if (!account[0])
-            this.clearCookies(response);
+            Helper.clearCookies(response);
 
         await this.webDatabase.execute('UPDATE `account_information` SET `refresh_token` = NULL WHERE `id` = ?', [account[0].id]);
 
-        this.clearCookies(response);
+        Helper.clearCookies(response);
     }
 
     public async refresh(request: Request)
@@ -86,24 +87,5 @@ export class AuthService
 
         const accessToken: string = sign({ id: account[0].id }, process.env.JWT_ACCESS_KEY, { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN });
         return { statusCode: HttpStatus.OK, data: accessToken };
-    }
-
-    private clearCookies(response: Response)
-    {
-        response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', secure: true });
-
-        return response.status(HttpStatus.OK).json({ message: 'You are already logged out' });
-    }
-
-    private async generateAndSetToken(account: unknown, response: Response, message: string)
-    {
-        const accessToken: string = sign({ id: account[0].id }, process.env.JWT_ACCESS_KEY, { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN });
-        const refreshToken: string = sign({ id: account[0].id }, process.env.JWT_REFRESH_KEY, { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN });
-
-        await this.webDatabase.execute('UPDATE `account_information` SET `refresh_token` = ? WHERE `id` = ?', [refreshToken, account[0].id]);
-
-        response.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: +process.env.JWT_REFRESH_COOKIE_MAX_AGE });
-
-        return response.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, message, data: { accessToken } });
     }
 }
