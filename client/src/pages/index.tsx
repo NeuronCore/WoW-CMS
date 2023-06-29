@@ -46,7 +46,7 @@ const Home = () =>
                             WOW CMS
                         </h1>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                            WOW CMS is a Classless game that allows you to imagine and build the character of your dreams. Your custom character has any ability or talent within their reach. Imagine your hero and achieve glory!
                         </p>
                         <div>
                             <Link style={{ backgroundImage: `url(${ ButtonImage.src })` }} href='/'>

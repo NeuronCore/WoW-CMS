@@ -10,9 +10,9 @@
     "scripts": {
         "dev": "next dev",
         "export": "next export",
-        "build": "NODE_OPTIONS=--max_old_space_size=512 next build",
+        "build": "next build",
         "next-start": "next start",
-        "start": "NODE_ENV=production node server.js",
+        "start": "node server.js",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
         "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx ./src",
         "lint:scss": "stylelint \"src/styles/**/*.scss\" --custom-syntax postcss-scss",

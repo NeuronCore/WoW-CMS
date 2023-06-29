@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import { api } from '../data/api.data';
+import { apiData } from '../data/api.data';
 
-axios.defaults.baseURL = api.path;
+axios.defaults.baseURL = apiData.path;
 axios.defaults.withCredentials = true;
 
 let refresh = false;

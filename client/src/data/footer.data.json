@@ -1,0 +1,22 @@
+[
+    {
+        "name": "News",
+        "href": "/news"
+    },
+    {
+        "name": "Support",
+        "href": "/support"
+    },
+    {
+        "name": "Terms of Service",
+        "href": "/tos"
+    },
+    {
+        "name": "Privacy Policy",
+        "href": "/privacy-policy"
+    },
+    {
+        "name": "Refund Policy",
+        "href": "/refund-policy"
+    }
+]
