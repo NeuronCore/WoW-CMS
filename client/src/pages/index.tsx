@@ -6,6 +6,9 @@ import React, { useState } from 'react';
 import { Autoplay, Keyboard } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { HiChevronRight } from 'react-icons/hi';
+
+import Texture1 from '../../public/images/texture-1.jpg';
 import HeroImage from '../../public/images/hero-image.png';
 import ButtonImage from '../../public/images/button-image.webp';
 import Header1Image from '../../public/images/header-1-image.jpg';
@@ -23,6 +26,7 @@ import { middleOfArray } from '../utils/help';
 
 const Home = () =>
 {
+    const [faqs, setFaqs] = useState<number[]>([]);
     const [blog, setBlog] = useState<number>(0);
     const [headerBlog, setHeaderBlog] = useState<number>(0);
 
@@ -201,7 +205,7 @@ const Home = () =>
 
                 <ul>
                     {
-                        features.map((item: any, index: number) =>
+                        features.map((item, index: number) =>
                             (
                                 <li key={ uuidV4() } data-index={ index }>
                                     <i><span /></i>
@@ -245,12 +249,28 @@ const Home = () =>
 
                 <ul>
                     {
-                        faq.map((item: any) =>
+                        faq.map((item, index: number) =>
                             (
-                                <li key={ uuidV4() }>
-                                    <p>
-                                        { item.question }
-                                    </p>
+                                <li key={ uuidV4() } className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
+                                    <div style={{ backgroundImage: `url(${ Texture1.src })` }} onClick={() =>
+                                    {
+                                        let newFaqs = faqs;
+
+                                        if (newFaqs.includes(index))
+                                            newFaqs = newFaqs.filter(e => e !== index);
+                                        else
+                                            newFaqs.push(index);
+
+                                        setFaqs([...newFaqs]);
+                                    }}>
+                                        <p>
+                                            { item.question }
+                                        </p>
+                                        <i>
+                                            <HiChevronRight />
+                                        </i>
+                                    </div>
+
                                     <p>
                                         { item.answer }
                                     </p>
