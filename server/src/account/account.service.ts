@@ -2,8 +2,8 @@ import { BadRequestException, HttpStatus, Inject, Injectable, UnauthorizedExcept
 import { Response } from 'express';
 import { Pool } from 'mysql2/promise';
 
-import { Helper } from '../utils/helper.util';
-import { SRP6 } from '../utils/SRP6.util';
+import { Helper } from '@/utils/helper.util';
+import { SRP6 } from '@/utils/SRP6.util';
 
 import { UpdatePasswordDto } from './dto/update-password.dto';
 

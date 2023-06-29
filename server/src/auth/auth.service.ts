@@ -3,8 +3,8 @@ import { Pool } from 'mysql2/promise';
 import { Response, Request } from 'express';
 import { sign, verify } from 'jsonwebtoken';
 
-import { SRP6 } from '../utils/SRP6.util';
-import { Helper } from '../utils/helper.util';
+import { SRP6 } from '@/utils/SRP6.util';
+import { Helper } from '@/utils/helper.util';
 
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';

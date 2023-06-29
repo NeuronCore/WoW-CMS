@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { DatabaseModule } from '../database.module';
+import { DatabaseModule } from '@/database.module';
 
 import { AccountPasswordService } from './account-password.service';
 import { AccountPasswordController } from './account-password.controller';

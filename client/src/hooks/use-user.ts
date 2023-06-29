@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import axios from 'axios';
 
-import { apiData } from '../data/api.data';
+import { apiData } from '@/data/api.data';
 
 export const fetcher = (url: any) => axios.get(url).then(res => res.data);
 

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Patch, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from '@/auth/auth.guard';
 import { AccountDecorator } from './account.decorator';
 
 import { AccountService } from './account.service';

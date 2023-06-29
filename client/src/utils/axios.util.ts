@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { apiData } from '../data/api.data';
+import { apiData } from '@/data/api.data';
 
 axios.defaults.baseURL = apiData.path;
 axios.defaults.withCredentials = true;
