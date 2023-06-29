@@ -8,9 +8,8 @@ import stylesForm from '../styles/components/form.module.scss';
 
 import HeaderImage3Red from '../../public/images/header_image_3-red.jpg';
 
-import Button from '../components/button';
-
-const Input = dynamic(() => import('../components/input/input.component'));
+const Input = dynamic(() => import('../components/input'));
+const Button = dynamic(() => import('../components/button'));
 
 const Login = () =>
 {
@@ -110,9 +109,9 @@ const Login = () =>
 
                             <Input
                                 required
-                                name='email'
-                                label='Email Address or Username'
-                                placeholder='Your Email Address or Username'
+                                name='username'
+                                label='Username'
+                                placeholder='Your Username'
                             />
 
                             <Input
