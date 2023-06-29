@@ -6,6 +6,7 @@ import { memoryStorage } from 'multer';
 
 import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
+import { AccountPasswordModule } from './account-password/account-password.module';
 
 @Module
 ({
@@ -15,7 +16,8 @@ import { AccountModule } from './account/account.module';
         ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
         MulterModule.register({ storage: memoryStorage() }),
         AuthModule,
-        AccountModule
+        AccountModule,
+        AccountPasswordModule
     ]
 })
 export class AppModule
