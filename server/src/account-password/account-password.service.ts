@@ -1,6 +1,6 @@
 import { createHash, randomBytes } from 'crypto';
 
-import { BadRequestException, HttpStatus, Inject, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { Pool } from 'mysql2/promise';
 
 import { Email } from '../utils/email.util';
@@ -11,6 +11,8 @@ import { UpdateResetPasswordDto } from './dto/update-reset-password.dto';
 @Injectable()
 export class AccountPasswordService
 {
+    private logger: Logger = new Logger(AccountPasswordService.name);
+
     constructor(
         @Inject('AUTH_DATABASE') private authDatabase: Pool,
         @Inject('WEB_DATABASE') private webDatabase: Pool
@@ -38,11 +40,13 @@ export class AccountPasswordService
             await new Email(account, resetURL).sendPasswordReset();
             return { statusCode: HttpStatus.OK, message: 'Token sent to email' };
         }
-        catch (error)
+        catch (exception)
         {
             await this.webDatabase.execute('DELETE FROM `account_password` WHERE `id` = ?', [account[0].id]);
-            console.log(error);
-            if (error)
+
+            this.logger.error(exception);
+
+            if (exception)
                 throw new InternalServerErrorException('There was an error sending the email. Try again later!');
         }
     }
