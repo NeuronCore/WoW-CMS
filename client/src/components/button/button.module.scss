@@ -26,6 +26,8 @@
 
         padding: .5rem;
 
+        height: fit-content;
+        width: fit-content;
         border: .0625rem solid var(--color-primary);
         transition: all .2s;
 
@@ -33,21 +35,32 @@
         {
             border-color: var(--color-primary-light);
         }
+
+        &[data-type='text']
+        {
+            border-color: var(--color-base-text-bold);
+
+            &:hover
+            {
+                border-color: var(--color-base-text-bolder);
+            }
+
+            & > button,
+            & > a
+            {
+                color: var(--color-primary-light);
+                background: var(--color-base-text-bold);
+
+                &:hover
+                {
+                    background: var(--color-base-text-bolder);
+                }
+            }
+        }
     }
 
     &:hover
     {
         background: var(--color-primary-light);
-    }
-
-    &[data-type='text']
-    {
-        color: var(--color-primary-light);
-        background: var(--color-base-text-bold);
-
-        &:hover
-        {
-            background: var(--color-base-text-bolder);
-        }
     }
 }

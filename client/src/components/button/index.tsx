@@ -6,14 +6,15 @@ interface Props
 {
     children?: ReactNode,
     content?: string,
-    type?: string
+    type?: string,
+    onClick?: () => void
 }
 
-const Button = ({ children, content, type }: Props) =>
+const Button = ({ children, content, type, onClick }: Props) =>
 {
     return (
-        <div className={styles.buttonFrame}>
-            <button className={styles.button} data-type={type}>
+        <div className={styles.buttonFrame} onClick={onClick} data-type={type}>
+            <button className={styles.button}>
                 {
                     children ?? content
                 }

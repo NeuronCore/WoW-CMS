@@ -431,7 +431,6 @@
         width: 100%;
         height: auto;
 
-
         &:after
         {
             content: '';
@@ -488,8 +487,7 @@
 
             margin: 5rem 0;
 
-            background-color: var(--color-primary);
-            background: linear-gradient(0deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+            background: var(--color-primary) linear-gradient(0deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
             -webkit-mask: url(../../../public/images/header-image.svg) no-repeat center;
             mask: url(../../../public/images/header-image.svg) no-repeat center;
 

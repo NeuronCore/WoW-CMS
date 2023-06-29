@@ -34,7 +34,12 @@ const Navbar = () =>
                     </li>
                     <li>
                         <Link href='/'>
-                            News
+                            Leaderboards
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            Builder
                         </Link>
                     </li>
                     <li>
@@ -44,7 +49,9 @@ const Navbar = () =>
                     </li>
                 </ul>
                 <Button>
-                    Login
+                    <Link href='/login'>
+                        Login
+                    </Link>
                 </Button>
             </div>
         </nav>
