@@ -2,12 +2,12 @@ import { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import styles from './main.module.scss';
+import styles from '@/components/layouts/main/main.module.scss';
 
 import { routesData } from '@/data/routes.data';
 
-const Navbar = dynamic(() => import('../navbar/navbar.component'));
-const Footer = dynamic(() => import('../footer/footer.component'));
+const Navbar = dynamic(() => import('@/components/layouts/navbar/navbar.component'));
+const Footer = dynamic(() => import('@/components/layouts/footer/footer.component'));
 
 interface Props
 {

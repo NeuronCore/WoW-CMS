@@ -2,11 +2,11 @@ import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import React from 'react';
 
-import styles from '../styles/pages/auth.module.scss';
-import stylesForm from '../styles/components/form.module.scss';
+import styles from '@/styles/pages/auth.module.scss';
+import stylesForm from '@/styles/components/form.module.scss';
 
-const Input = dynamic(() => import('../components/input'));
-const Button = dynamic(() => import('../components/button'));
+const Input = dynamic(() => import('@/components/input'));
+const Button = dynamic(() => import('@/components/button'));
 
 const PasswordForgot = () =>
 {

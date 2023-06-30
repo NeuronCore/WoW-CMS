@@ -5,10 +5,25 @@
     justify-content: flex-end;
     flex-direction: column;
 
+    position: relative;
+
     width: 100%;
     height: fit-content;
     min-height: 40rem;
     background: var(--base-primary-dark);
+
+    &:after
+    {
+        content: '';
+        position: absolute;
+        z-index: 2;
+        top: 0;
+
+        width: 100%;
+        height: .25rem;
+        opacity: .5;
+        background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
+    }
 
     &Container
     {
@@ -18,6 +33,11 @@
 
         &Item
         {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-direction: column;
+
             padding: 7rem 0;
 
             & > span
@@ -88,6 +108,8 @@
                     align-items: center;
                     justify-content: center;
 
+                    position: relative;
+
                     width: 4.5rem;
                     height: 4.5rem;
                     min-width: 4.5rem;
@@ -98,6 +120,18 @@
                     transition: all .2s;
                     cursor: pointer;
                     border: .2rem solid var(--color-primary-dark);
+
+                    & > a
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%,-50%);
+                    }
 
                     &:hover
                     {
@@ -115,14 +149,43 @@
             }
         }
 
+        & > ul
+        {
+            display: grid;
+            grid-template-rows: repeat(auto-fit, 10rem);
+            grid-template-columns: repeat(auto-fit, 10rem);
+            gap: 2rem;
+
+            & > li
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 100%;
+                height: 100%;
+
+                & > a
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
         &Image
         {
             display: flex;
             align-items: center;
             justify-content: center;
 
-            width: 30rem;
+            width: 100%;
             height: 20rem;
+            margin-bottom: 3rem;
         }
     }
 
@@ -132,8 +195,23 @@
         align-items: center;
         justify-content: center;
 
+        position: relative;
+
         width: 100%;
         background: var(--base-primary-darker);
+
+        &:after
+        {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            top: 0;
+
+            width: 100%;
+            height: .15rem;
+            opacity: .1;
+            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--white) 50%, rgba(2,0,36,0) 100%);
+        }
 
         &Container
         {

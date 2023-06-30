@@ -488,8 +488,8 @@
             margin: 5rem 0;
 
             background: var(--color-primary) linear-gradient(0deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
-            -webkit-mask: url(../../../public/images/header-image.svg) no-repeat center;
-            mask: url(../../../public/images/header-image.svg) no-repeat center;
+            -webkit-mask: url(../../../public/images/textures/header.svg) no-repeat center;
+            mask: url(../../../public/images/textures/header.svg) no-repeat center;
 
             &[data-reverse]
             {
@@ -1215,7 +1215,7 @@
                 {
                     position: relative;
                     z-index: 1;
-                    
+
                     transition: all .2s;
                     font-family: 'warcraft', sans-serif;
                     font-size: 3.5rem;

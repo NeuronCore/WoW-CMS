@@ -7,32 +7,34 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { HiChevronRight } from 'react-icons/hi';
 
-import HeroImage from '../../public/images/hero-image.png';
-import ButtonImage from '../../public/images/button-image.webp';
-import Header1Image from '../../public/images/header-1-image.jpg';
-import Header2Image from '../../public/images/header-2-image.webp';
-import HeaderBlogs from '../../public/images/header-blogs-image.png';
-import FeatureFrame from '../../public/images/circle-frame-image.svg';
+import HeroImage from '@/../public/images//heros/hero_1-red.png';
 
-import faq from '../data/faq.data.json';
-import blogs from '../data/blogs.data.json';
-import features from '../data/features.data.json';
+import ButtonImage from '@/../public/images/textures/button-red.webp';
+import FeatureFrame from '@/../public/images/textures/frame_circle.svg';
 
-import styles from '../styles/pages/home.module.scss';
+import HeaderBlogs from '@/../public/images/backgrounds/background_4-red.png';
+import Header1Image from '@/../public/images/backgrounds/background_1-red.jpg';
+import Header2Image from '@/../public/images/backgrounds/background_3-red.webp';
 
-import { middleOfArray } from '../utils/help';
+import faq from '@/data/faq.data.json';
+import blogs from '@/data/blogs.data.json';
+import features from '@/data/features.data.json';
+
+import styles from '@/styles/pages/home.module.scss';
+
+import { middleOfArray } from '@/utils/help';
 
 const Home = () =>
 {
-    const [faqs, setFaqs] = useState<number[]>([]);
     const [blog, setBlog] = useState<number>(0);
+    const [faqs, setFaqs] = useState<number[]>([]);
     const [headerBlog, setHeaderBlog] = useState<number>(0);
 
     return (
         <>
             <div className={styles.homeHeader}>
                 <span className={styles.homeHeaderVideo}>
-                    <video src='/videos/header-video.mp4' loop autoPlay />
+                    <video src='/videos/video_1-red.mp4' loop autoPlay />
                     <span className={styles.homeHeaderFilter} />
                     <span className={styles.homeHeaderFilter} />
                     <span className={styles.homeHeaderFilter2} />
