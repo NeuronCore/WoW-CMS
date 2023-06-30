@@ -45,7 +45,9 @@ export class AccountService
             throw new BadRequestException('New password does not match');
 
         const verifier = SRP6.calculateSRP6Verifier(account[0].username, newPassword, account[0].salt);
-        await this.authDatabase.execute('UPDATE `account` SET `verifier` = ? WHERE `id` = ?', [verifier, account[0].id]);
+        await this.authDatabase.execute('UPDATE `account` SET `verifier` = ? WHERE `id` = ?', [verifier, accountID]);
+
+        await this.webDatabase.execute('REPLACE INTO `account_password` (`id`, `password_changed_at`) VALUES (?, ?)', [accountID, new Date(Date.now() - 1000)]);
 
         await Helper.generateAndSetToken(account, response, this.webDatabase, 'Password updated successfully');
     }
