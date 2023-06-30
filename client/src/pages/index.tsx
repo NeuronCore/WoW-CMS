@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { v4 as uuidV4 } from 'uuid';
 import classnames from 'classnames';
 import React, { useState } from 'react';
 import { Autoplay, Keyboard } from 'swiper';
@@ -8,7 +7,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { HiChevronRight } from 'react-icons/hi';
 
-import Texture1 from '../../public/images/texture-1.jpg';
 import HeroImage from '../../public/images/hero-image.png';
 import ButtonImage from '../../public/images/button-image.webp';
 import Header1Image from '../../public/images/header-1-image.jpg';
@@ -50,7 +48,7 @@ const Home = () =>
                             WOW CMS
                         </h1>
                         <p>
-                            WOW CMS is a Classless game that allows you to imagine and build the character of your dreams. Your custom character has any ability or talent within their reach. Imagine your hero and achieve glory!
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
                         </p>
                         <div>
                             <Link style={{ backgroundImage: `url(${ ButtonImage.src })` }} href='/'>
@@ -75,9 +73,9 @@ const Home = () =>
                     modules={[ Keyboard, Autoplay ]}
                 >
                     {
-                        blogs.map((item: any, index: number) =>
+                        blogs.map((item, index: number) =>
                             (
-                                <SwiperSlide key={ uuidV4() } virtualIndex={ index }>
+                                <SwiperSlide key={ item.alt.split('').join('_') + '_' + index.toLocaleString() + '_blogs_1' }  virtualIndex={ index }>
                                     <div className={classnames(styles.homeHeaderItem, { [styles.homeHeaderItemActive]: index === headerBlog })}>
                                         <div>
                                             <i data-top_right>
@@ -100,8 +98,8 @@ const Home = () =>
                                                 <Image
                                                     src={ item.src }
                                                     alt={ item.alt }
-                                                    layout='fill'
-                                                    objectFit='cover'
+                                                    fill
+                                                    style={{ objectFit: 'cover' }}
                                                 />
                                                 <div>
                                                     <span>
@@ -152,9 +150,9 @@ const Home = () =>
                             modules={[ Keyboard, Autoplay ]}
                         >
                             {
-                                blogs.map((item: any, index: number) =>
+                                blogs.map((item, index: number) =>
                                     (
-                                        <SwiperSlide key={ uuidV4() } virtualIndex={ index }>
+                                        <SwiperSlide key={ item.alt.split('').join('_') + '_' + index.toLocaleString() + '_blogs_2' } virtualIndex={ index }>
                                             <div className={classnames(styles.homeBlogsListSwiperItem, { [styles.homeBlogsListSwiperItemActive]: index === blog })}>
                                                 <div>
                                                     <i data-top_right>
@@ -177,8 +175,8 @@ const Home = () =>
                                                         <Image
                                                             src={ item.src }
                                                             alt={ item.alt }
-                                                            layout='fill'
-                                                            objectFit='cover'
+                                                            fill
+                                                            style={{ objectFit: 'cover' }}
                                                         />
                                                     </span>
                                                 </div>
@@ -207,7 +205,7 @@ const Home = () =>
                     {
                         features.map((item, index: number) =>
                             (
-                                <li key={ uuidV4() } data-index={ index }>
+                                <li key={ item.alt.split('').join('_') + '_' + index.toLocaleString() } data-index={ index }>
                                     <i><span /></i>
 
                                     <div>
@@ -224,8 +222,8 @@ const Home = () =>
                                             <Image
                                                 src={ item.src }
                                                 alt={ item.alt }
-                                                layout='fill'
-                                                objectFit='cover'
+                                                fill
+                                                style={{ objectFit: 'cover' }}
                                             />
                                         </span>
 
@@ -251,8 +249,25 @@ const Home = () =>
                     {
                         faq.map((item, index: number) =>
                             (
-                                <li key={ uuidV4() } className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
-                                    <div style={{ backgroundImage: `url(${ Texture1.src })` }} onClick={() =>
+                                <li key={ item.question.split('').join('_') + '_' + index.toLocaleString() } className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
+                                    <i data-top_right>
+                                        <span/>
+                                        <span/>
+                                    </i>
+                                    <i data-top_left>
+                                        <span/>
+                                        <span/>
+                                    </i>
+                                    <i data-bottom_left>
+                                        <span/>
+                                        <span/>
+                                    </i>
+                                    <i data-bottom_right>
+                                        <span/>
+                                        <span/>
+                                    </i>
+
+                                    <div onClick={() =>
                                     {
                                         let newFaqs = faqs;
 

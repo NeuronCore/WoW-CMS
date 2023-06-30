@@ -122,7 +122,7 @@ const Register = () =>
                                 placeholder='Your Password'
                             />
 
-                            <Link href='/'>
+                            <Link href='/password-forgot'>
                                 Forgot your password?
                             </Link>
 

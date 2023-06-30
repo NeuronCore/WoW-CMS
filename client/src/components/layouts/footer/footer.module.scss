@@ -1,123 +1,166 @@
 .footer
 {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4rem;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-direction: column;
 
-    position: relative;
+    width: 100%;
+    height: fit-content;
+    min-height: 40rem;
+    background: var(--base-primary-dark);
 
-    padding: 5rem 0;
-
-    &:after
+    &Container
     {
-        content: '';
-        position: absolute;
-        z-index: 2;
-        top: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
 
-        width: 100%;
-        height: .25rem;
-        opacity: .5;
-        background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
-    }
-
-    & > span
-    {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        width: 30rem;
-        height: 20rem;
-    }
-
-    & > div
-    {
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        flex-direction: column;
-        gap: 1rem;
-
-        & > p
+        &Item
         {
-            font-size: 1.5rem;
-            font-weight: 500;
-            opacity: .75;
-            color: var(--color-base-text-lighter);
-        }
+            padding: 7rem 0;
 
-        & > span
-        {
-            height: .1rem;
-            width: 100%;
-            opacity: .5;
-            background: var(--color-base-text-lighter);
-        }
-
-        & > ul
-        {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 2rem;
-            font-weight: 500;
-
-            & > li
+            & > span
             {
-                padding: 0 1rem;
-                border-left: .1rem solid var(--color-base-text-light);
-                color: var(--color-primary-lighter);
-                transition: all .1s;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
 
-                &:hover
-                {
-                    color: var(--color-primary-light);
-                }
+                position: relative;
 
-                &:first-child
+                font-family: 'warcraft', sans-serif;
+                font-size: 3.5rem;
+                font-weight: lighter;
+                color: var(--color-base-text-bolder);
+
+                &[data-border]
                 {
-                    border: none;
-                    padding-left: 0;
+                    &:after
+                    {
+                        content: '';
+
+                        position: relative;
+
+                        margin: 1rem 0 2.5rem .5rem;
+
+                        width: 7rem;
+                        height: .25rem;
+                        background: var(--color-primary);
+                    }
                 }
             }
+
+            & > ul[data-links]
+            {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+
+                width: 100%;
+
+                & > li
+                {
+                    color: var(--color-base-text-light);
+                    padding: 1rem 0;
+                    font-weight: 400;
+                    font-size: 1.75rem;
+                    transition: all .2s;
+
+                    &:hover
+                    {
+                        color: var(--color-base-text-bold);
+                    }
+                }
+            }
+
+            & > ul[data-social]
+            {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 1rem;
+
+                margin-top: 1rem;
+
+                & > li
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    width: 4.5rem;
+                    height: 4.5rem;
+                    min-width: 4.5rem;
+                    min-height: 4.5rem;
+                    font-size: 2rem;
+                    border-radius: 10rem;
+                    color: var(--white);
+                    transition: all .2s;
+                    cursor: pointer;
+                    border: .2rem solid var(--color-primary-dark);
+
+                    &:hover
+                    {
+                        background: var(--color-primary);
+                    }
+                }
+            }
+
+            & > p
+            {
+                font-weight: lighter;
+                font-size: 1.75rem;
+                margin-bottom: 3rem;
+                color: var(--color-base-text-light);
+            }
         }
-    }
 
-    & > ul
-    {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 1rem;
-
-        font-size: 2rem;
-        font-weight: 500;
-
-        & > li
+        &Image
         {
             display: flex;
             align-items: center;
             justify-content: center;
 
-            color: var(--color-base-text-bold);
-            width: 5rem;
-            height: 5rem;
-            max-width: 5rem;
-            max-height: 5rem;
-            min-width: 5rem;
-            min-height: 5rem;
-            border: .1rem solid var(--color-base-text-bold);
-            border-radius: 10rem;
-            cursor: pointer;
-            transition: all .1s;
+            width: 30rem;
+            height: 20rem;
+        }
+    }
 
-            &:hover
+    &Navigation
+    {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        background: var(--base-primary-darker);
+
+        &Container
+        {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+
+            width: 100%;
+            height: 9rem;
+
+            & > span
             {
-                color: var(--color-base-text-bolder);
-                border: .1rem solid var(--color-base-text-bolder);
+                font-weight: 400;
+                font-size: 1.5rem;
+            }
+
+            & > ul
+            {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: 2rem;
+
+                font-weight: 500;
+                font-size: 1.75rem;
+                color: var(--color-primary-lighter);
             }
         }
     }

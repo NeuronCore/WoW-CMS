@@ -43,7 +43,7 @@ const Login = () =>
                 </i>
 
                 <div className={stylesForm.form}>
-                    <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp, { [stylesForm.formContainerSignUpActive]: active })}>
+                    <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
                         <form>
                             <h2>
                                 Hello, Friend!
@@ -97,7 +97,7 @@ const Login = () =>
                         </form>
                     </div>
 
-                    <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn, { [stylesForm.formContainerSignInActive]: active })}>
+                    <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
                         <form>
                             <h2>
                                 Welcome Back!
@@ -122,7 +122,7 @@ const Login = () =>
                                 placeholder='Your Password'
                             />
 
-                            <Link href='/'>
+                            <Link href='/password-forgot'>
                                 Forgot your password?
                             </Link>
 

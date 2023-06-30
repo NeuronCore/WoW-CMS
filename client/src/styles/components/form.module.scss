@@ -343,16 +343,10 @@
         {
             left: 0;
             width: 50%;
-            opacity: 0;
-            z-index: 1;
-
-            &Active
-            {
-                transform: translateX(100%);
-                opacity: 1;
-                z-index: 5;
-                animation: show 0.6s;
-            }
+            transform: translateX(100%);
+            opacity: 1;
+            z-index: 5;
+            animation: show 0.6s;
         }
 
         &SignIn
@@ -401,7 +395,6 @@
     font-size: 1.75rem;
     width: 100%;
     padding: 1rem 1.5rem;
-    border-radius: .5rem;
     border: none;
     outline: none;
     color: var(--color-base-text-bold);

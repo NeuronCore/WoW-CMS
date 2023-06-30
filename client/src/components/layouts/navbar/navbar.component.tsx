@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { v4 as uuidV4 } from 'uuid';
 import { useRouter } from 'next/router';
 
 import Button from '../../button';
@@ -21,8 +22,8 @@ const Navbar = () =>
                     <Image
                         src={Logo.src}
                         alt='WoW CMS'
-                        layout='fill'
-                        objectFit='cover'
+                        fill
+                        style={{ objectFit: 'cover' }}
                     />
                 </span>
 
@@ -30,7 +31,7 @@ const Navbar = () =>
                     {
                         navbarItems.map((item) =>
                             (
-                                <li data-active={ item.href === router.pathname }>
+                                <li key={ uuidV4() } data-active={ item.href === router.pathname }>
                                     <Link href= { item.href }>
                                         { item.name }
                                     </Link>
@@ -38,10 +39,8 @@ const Navbar = () =>
                             ))
                     }
                 </ul>
-                <Button>
-                    <Link href='/login'>
-                        Login
-                    </Link>
+                <Button href='/login'>
+                    Login
                 </Button>
             </div>
         </nav>
