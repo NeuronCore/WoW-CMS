@@ -3,8 +3,8 @@ import { createHash, randomBytes } from 'crypto';
 import { BadRequestException, HttpStatus, Inject, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { Pool } from 'mysql2/promise';
 
-import { Email } from '../utils/email.util';
-import { SRP6 } from '../utils/SRP6.util';
+import { Email } from '@/utils/email.util';
+import { SRP6 } from '@/utils/SRP6.util';
 
 import { UpdateResetPasswordDto } from './dto/update-reset-password.dto';
 

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import styles from './main.module.scss';
 
-import { routesData } from '../../../data/routes.data';
+import { routesData } from '@/data/routes.data';
 
 const Navbar = dynamic(() => import('../navbar/navbar.component'));
 const Footer = dynamic(() => import('../footer/footer.component'));

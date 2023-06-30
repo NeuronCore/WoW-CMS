@@ -16,10 +16,10 @@ const transports =
         format: winston.format.combine
         (
             winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-            winston.format.colorize({ colors: { info: 'blue', debug: 'yellow', error: 'red' } }),
-            winston.format.printf((info) =>
+            winston.format.colorize({ all: true, colors: { info: 'blue', debug: 'yellow', error: 'red' } }),
+            winston.format.printf((info: winston.Logform.TransformableInfo) =>
             {
-                return `${ info.timestamp } [${ info.level }] [${ info.context ? info.context : info.stack }] ${ info.message }`;
+                return `[WoW-CMS] ${ info.timestamp } [${ info.level }] [${ info.context ? info.context : info.stack }] ${ info.message }`;
             })
         )
     }),
