@@ -1,6 +1,10 @@
+import * as path from 'path';
+
 import { BadRequestException, HttpStatus, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { Pool } from 'mysql2/promise';
+
+import * as sharp from 'sharp';
 
 import { Helper } from '@/utils/helper.util';
 import { SRP6 } from '@/utils/SRP6.util';
@@ -44,5 +48,24 @@ export class AccountService
         await this.authDatabase.execute('UPDATE `account` SET `verifier` = ? WHERE `id` = ?', [verifier, account[0].id]);
 
         await Helper.generateAndSetToken(account, response, this.webDatabase, 'Password updated successfully');
+    }
+
+    public async updateAvatar(accountID: number, avatar: Express.Multer.File)
+    {
+        try
+        {
+            const originalName = path.parse(avatar.originalname).name;
+            const filename = accountID + '-' + 'avatar' + '-' + Date.now() + '-' + originalName + '.jpg';
+
+            await sharp(avatar.buffer).resize(400, 400).toFile(path.join('uploads/avatar', filename));
+
+            await this.webDatabase.execute('UPDATE `account_information` SET `avatar` = ? WHERE `id` = ?', [filename, accountID]);
+
+            return { statusCode: HttpStatus.OK, data: filename };
+        }
+        catch (exception)
+        {
+            throw new BadRequestException('You are only allowed to upload images');
+        }
     }
 }
