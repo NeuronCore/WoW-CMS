@@ -13,7 +13,7 @@ const PasswordForgot = () =>
     return (
         <div className={styles.auth}>
             <span className={styles.authVideo}>
-                <video src='/videos/header-video.mp4' loop autoPlay />
+                <video src='/videos/video_1-red.mp4' loop autoPlay />
                 <span className={styles.authFilter} />
                 <span className={styles.authFilter} />
                 <span className={styles.authFilter2} />
