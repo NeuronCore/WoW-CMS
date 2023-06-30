@@ -7,7 +7,10 @@ export class AuthGuard implements CanActivate
 {
     private decoded: any;
 
-    constructor(@Inject('AUTH_DATABASE') private authDatabase: Pool)
+    constructor(
+        @Inject('AUTH_DATABASE') private authDatabase: Pool,
+        @Inject('WEB_DATABASE') private webDatabase: Pool
+    )
     { }
 
     async canActivate(context: ExecutionContext): Promise<boolean>
@@ -43,6 +46,15 @@ export class AuthGuard implements CanActivate
         const [accountExists] = await this.authDatabase.query('SELECT `id` FROM `account` WHERE `id` = ?', [this.decoded.id]);
         if (!accountExists)
             throw new UnauthorizedException('The account belonging to this token no longer exists.');
+
+        const [accountPassword] = await this.webDatabase.query('SELECT `password_changed_at` FROM `account_password` WHERE `id` = ?', [this.decoded.id]);
+        if (accountPassword[0]?.password_changed_at)
+        {
+            const changedTimestamp = accountPassword[0].password_changed_at.getTime() / 1000;
+
+            if (this.decoded.iat < changedTimestamp)
+                throw new UnauthorizedException('User recently changed password! Please log in again');
+        }
 
         request.account = this.decoded.id;
 
