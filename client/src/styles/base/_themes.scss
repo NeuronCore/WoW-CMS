@@ -1,4 +1,4 @@
-html[data-theme="dark"]
+html[data-theme="cataclysm"]
 {
     --color-primary: #ff583e;
     --color-primary-dark: #d7442d;
@@ -28,7 +28,36 @@ html[data-theme="dark"]
     --base-primary-lighter: #0a0200;
     --base-primary-dark: #0c0400;
     --base-primary-darker: #090200;
-    --base-secondary: #dccdad;
-    --base-tertiary: #a7b3a5;
-    --color-rating-2-3: rgb(169, 175, 54);
+}
+
+html[data-theme="wotlk"]
+{
+    --color-primary: #26ddf2;
+    --color-primary-dark: #1297a6;
+    --color-primary-darker: #0c7985;
+    --color-primary-light: #4eebfd;
+    --color-primary-lighter: #71ccd7;
+    --white: #ffffff;
+    --white-shadow: rgba(255, 255, 255, 0.25);
+    --red: #ff4141;
+    --red-light: #ff5f5f;
+    --red-shadow: rgba(253, 106, 106, 0.25);
+    --red-dark: #d12828;
+    --green-shadow: rgba(151, 179, 165, 0.25);
+    --green-light: #82bb9f;
+    --eth-shadow: rgba(118, 146, 255, 0.5);
+    --eth-light: #d1d7ff;
+    --yellow-shadow: rgba(235, 180, 46, 0.3);
+    --yellow-light: #ebb42e;
+    --color-base-text: #c5cbcb;
+    --color-base-text-primary: #bbece5;
+    --color-base-text-light: #a8b4b3;
+    --color-base-text-lighter: #8b9698;
+    --color-base-text-bold: #e0e5e5;
+    --color-base-text-bolder: #fbffff;
+    --base-primary: #111926;
+    --base-primary-light: #172332;
+    --base-primary-lighter: #223142;
+    --base-primary-dark: #111a28;
+    --base-primary-darker: #0b121c;
 }

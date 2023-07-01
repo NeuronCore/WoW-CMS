@@ -298,7 +298,7 @@
 
             height: 100%;
             width: 100%;
-            background: white;
+            background: var(--base-primary-light);
 
             & > video
             {
@@ -407,7 +407,7 @@
                 font-size: 2rem;
                 height: 7rem;
                 width: 27rem;
-                color: rgb(203, 173, 119);
+                color: var(--color-base-text-primary);
                 text-shadow: rgb(0, 0, 0) 0 0 0.3rem, rgb(0, 0, 0) 0 0.0625rem 0.3rem;
                 overflow: auto;
                 transition: all .2s;
@@ -488,8 +488,8 @@
             margin: 5rem 0;
 
             background: var(--color-primary) linear-gradient(0deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
-            -webkit-mask: url(../../../public/images/header-image.svg) no-repeat center;
-            mask: url(../../../public/images/header-image.svg) no-repeat center;
+            -webkit-mask: url(../../../public/images/textures/header.svg) no-repeat center;
+            mask: url(../../../public/images/textures/header.svg) no-repeat center;
 
             &[data-reverse]
             {
@@ -1215,7 +1215,7 @@
                 {
                     position: relative;
                     z-index: 1;
-                    
+
                     transition: all .2s;
                     font-family: 'warcraft', sans-serif;
                     font-size: 3.5rem;

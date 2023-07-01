@@ -11,13 +11,11 @@ class MyDocument extends Document
     render()
     {
         return (
-            <Html data-theme='dark'>
+            <Html data-theme={ process.env.THEME }>
                 <Head>
-                    <meta name="description" content="WOW CMS"/>
-
                     <link rel="icon" type="image/png" href="/favicon.png"/>
-                    <meta name="msapplication-TileColor" content="#00aaff"/>
-                    <meta name="theme-color" content="#00aaff"/>
+                    <meta name="msapplication-TileColor" content={ process.env.PRIMARY_COLOR }/>
+                    <meta name="theme-color" content={ process.env.PRIMARY_COLOR }/>
                 </Head>
 
                 <body>

@@ -1,15 +1,16 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { v4 as uuidV4 } from 'uuid';
 import { useRouter } from 'next/router';
 
-import Button from '../../button';
+const Button = dynamic(() => import('@/components/button'));
 
-import styles from './navbar.module.scss';
+import styles from '@/components/layouts/navbar/navbar.module.scss';
 
-import navbarItems from '../../../data/navbar.data.json';
+import navbarItems from '@/data/navbar.data.json';
 
-import Logo from '../../../../public/images/logo.png';
+import Logo from '@/../public/images/logos/wow_cms.png';
 
 const Navbar = () =>
 {

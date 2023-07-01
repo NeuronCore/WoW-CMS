@@ -5,11 +5,18 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { BsGithub, BsTwitter } from 'react-icons/bs';
 
-import styles from './footer.module.scss';
+import styles from '@/components/layouts/footer/footer.module.scss';
 
-import Logo from '../../../../public/images/logo.png';
+import Logo from '@/../public/images/logos/wow_cms.png';
+import IdPay from '@/../public/images/logos/id_pay.png';
+import Tether from '@/../public/images/logos/tether.png';
+import Stripe from '@/../public/images/logos/stripe.png';
+import Paypal from '@/../public/images/logos/paypal.png';
+import VisaCard from '@/../public/images/logos/visa_card.png';
+import ZarinPal from '@/../public/images/logos/zarin_pal.png';
+import MasterCard from '@/../public/images/logos/master_card.png';
 
-import footerItems from '../../../data/footer.data.json';
+import footerItems from '@/data/footer.data.json';
 
 const Footer = () =>
 {
@@ -88,6 +95,76 @@ const Footer = () =>
                 </div>
 
                 <ul className={styles.footerContainerItem}>
+                    <li>
+                        <Link href='/'>
+                            <Image
+                                src={Paypal.src}
+                                alt='Paypal'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            <Image
+                                src={MasterCard.src}
+                                alt='MasterCard'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            <Image
+                                src={VisaCard.src}
+                                alt='Paypal'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            <Image
+                                src={Stripe.src}
+                                alt='Paypal'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            <Image
+                                src={Tether.src}
+                                alt='Paypal'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            <Image
+                                src={ZarinPal.src}
+                                alt='Paypal'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            <Image
+                                src={IdPay.src}
+                                alt='Paypal'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </Link>
+                    </li>
                 </ul>
             </div>
 
