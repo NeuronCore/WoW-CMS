@@ -11,14 +11,13 @@ export const numberWithCommas = (num: number, per: number | undefined, places: n
     if (places == undefined)
         places = 2;
 
-
     if (places == 0)
         num = Math.round(num);
 
+    const cString = num.toString();
+    const cDot = cString.indexOf('.');
 
-    let cString = num.toString(),
-        cDot = cString.indexOf('.'),
-        cWhole = '', cDec;
+    let cWhole = '', cDec;
 
     if (cDot == -1)
     {
@@ -49,7 +48,6 @@ export const numberWithCommas = (num: number, per: number | undefined, places: n
     else
         aComma = cWhole;
 
-
     if (places==0)
         cDec = '';
 
@@ -62,3 +60,7 @@ export const numberWithCommas = (num: number, per: number | undefined, places: n
     return aComma + cDec;
 };
 
+export const createUniqueKey = (array: unknown[]) =>
+{
+    return array.map(item => item?.toString().split(' ').join('_')).join('_');
+};

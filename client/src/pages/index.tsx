@@ -7,14 +7,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { HiChevronRight } from 'react-icons/hi';
 
-import HeroImage from '@/../public/images//heros/hero_1-red.png';
+import HeroImage1 from '@/../public/images/heros/hero_1-cataclysm.png';
+import HeroImage2 from '@/../public/images/heros/hero_1-wotlk.png';
 
-import ButtonImage from '@/../public/images/textures/button-red.webp';
+import ButtonImage1 from '@/../public/images/textures/button-cataclysm.png';
+import ButtonImage2 from '@/../public/images/textures/button-wotlk.png';
 import FeatureFrame from '@/../public/images/textures/frame_circle.svg';
 
-import HeaderBlogs from '@/../public/images/backgrounds/background_4-red.png';
-import Header1Image from '@/../public/images/backgrounds/background_1-red.jpg';
-import Header2Image from '@/../public/images/backgrounds/background_3-red.webp';
+import HeaderBlogs1 from '@/../public/images/backgrounds/background_4-cataclysm.png';
+import HeaderBlogs2 from '@/../public/images/backgrounds/background_4-wotlk.jpg';
+import Header1Image1 from '@/../public/images/backgrounds/background_1-cataclysm.jpg';
+import Header1Image2 from '@/../public/images/backgrounds/background_1-wotlk.jpeg';
+import Header3Image1 from '@/../public/images/backgrounds/background_3-cataclysm.png';
+import Header3Image2 from '@/../public/images/backgrounds/background_3-wotlk.png';
 
 import faq from '@/data/faq.data.json';
 import blogs from '@/data/blogs.data.json';
@@ -22,7 +27,7 @@ import features from '@/data/features.data.json';
 
 import styles from '@/styles/pages/home.module.scss';
 
-import { middleOfArray } from '@/utils/help';
+import { createUniqueKey, middleOfArray } from '@/utils/helper.util';
 
 const Home = () =>
 {
@@ -34,7 +39,9 @@ const Home = () =>
         <>
             <div className={styles.homeHeader}>
                 <span className={styles.homeHeaderVideo}>
-                    <video src='/videos/video_1-red.mp4' loop autoPlay />
+                    <video autoPlay loop>
+                        <source src={ `/videos/video_1-${ process.env.THEME }.mp4` } />
+                    </video>
                     <span className={styles.homeHeaderFilter} />
                     <span className={styles.homeHeaderFilter} />
                     <span className={styles.homeHeaderFilter2} />
@@ -42,7 +49,13 @@ const Home = () =>
 
                 <div className={styles.homeHeaderContainer}>
                     <div className={styles.homeHeaderHero}>
-                        <img src={ HeroImage.src } alt='Hero Image'/>
+                        <img src={
+                            process.env.THEME === 'cataclysm'
+                                ? HeroImage1.src
+                                : process.env.THEME === 'wotlk'
+                                    ? HeroImage2.src
+                                    : HeroImage1.src
+                        } alt='Hero Image'/>
                     </div>
 
                     <div className={styles.homeHeaderContent}>
@@ -53,7 +66,13 @@ const Home = () =>
                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
                         </p>
                         <div>
-                            <Link style={{ backgroundImage: `url(${ ButtonImage.src })` }} href='/'>
+                            <Link style={{ backgroundImage: `url(${
+                                process.env.THEME === 'cataclysm'
+                                    ? ButtonImage1.src
+                                    : process.env.THEME === 'wotlk'
+                                        ? ButtonImage2.src
+                                        : ButtonImage1.src
+                            })` }} href='/'>
                                 <>
                                     Play Now!
                                     <span />
@@ -77,7 +96,7 @@ const Home = () =>
                     {
                         blogs.map((item, index: number) =>
                             (
-                                <SwiperSlide key={ item.alt.split('').join('_') + '_' + index.toLocaleString() + '_blogs_1' }  virtualIndex={ index }>
+                                <SwiperSlide key={ createUniqueKey([item.alt, index, 'blogs_1']) }  virtualIndex={ index }>
                                     <div className={classnames(styles.homeHeaderItem, { [styles.homeHeaderItemActive]: index === headerBlog })}>
                                         <div>
                                             <i data-top_right>
@@ -121,7 +140,13 @@ const Home = () =>
             </div>
 
             <div className={styles.homeBlogs}>
-                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ HeaderBlogs.src })` }} />
+                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${
+                    process.env.THEME === 'cataclysm'
+                        ? HeaderBlogs1.src
+                        : process.env.THEME === 'wotlk'
+                            ? HeaderBlogs2.src
+                            : HeaderBlogs1.src
+                })` }} />
                 <span className={styles.homeBlogsFilter} />
 
                 <span className={styles.homeBlogsHeader} />
@@ -154,7 +179,7 @@ const Home = () =>
                             {
                                 blogs.map((item, index: number) =>
                                     (
-                                        <SwiperSlide key={ item.alt.split('').join('_') + '_' + index.toLocaleString() + '_blogs_2' } virtualIndex={ index }>
+                                        <SwiperSlide key={ createUniqueKey([item.alt, index, 'blogs_2']) } virtualIndex={ index }>
                                             <div className={classnames(styles.homeBlogsListSwiperItem, { [styles.homeBlogsListSwiperItemActive]: index === blog })}>
                                                 <div>
                                                     <i data-top_right>
@@ -196,7 +221,13 @@ const Home = () =>
             </div>
 
             <div className={styles.homeFeatures}>
-                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ Header1Image.src })` }} />
+                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${
+                    process.env.THEME === 'cataclysm'
+                        ? Header1Image1.src
+                        : process.env.THEME === 'wotlk'
+                            ? Header1Image2.src
+                            : Header1Image1.src
+                })` }} />
                 <span className={styles.homeBlogsFilter} />
 
                 <p>
@@ -207,15 +238,15 @@ const Home = () =>
                     {
                         features.map((item, index: number) =>
                             (
-                                <li key={ item.alt.split('').join('_') + '_' + index.toLocaleString() } data-index={ index }>
+                                <li key={ createUniqueKey([item.alt, index, 'features_1']) } data-index={ index }>
                                     <i><span /></i>
 
                                     <div>
                                         <h4>
-                                            Feature
+                                            { item.name }
                                         </h4>
                                         <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                                            { item.description }
                                         </p>
                                     </div>
 
@@ -238,7 +269,13 @@ const Home = () =>
             </div>
 
             <div className={styles.homeFaq}>
-                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${ Header2Image.src })` }} />
+                <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${
+                    process.env.THEME === 'cataclysm'
+                        ? Header3Image1.src
+                        : process.env.THEME === 'wotlk'
+                            ? Header3Image2.src
+                            : Header3Image1.src
+                })` }} />
                 <span className={styles.homeFaqFilter} />
 
                 <span className={styles.homeBlogsHeader} />
@@ -251,7 +288,7 @@ const Home = () =>
                     {
                         faq.map((item, index: number) =>
                             (
-                                <li key={ item.question.split('').join('_') + '_' + index.toLocaleString() } className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
+                                <li key={ createUniqueKey([item.question, index, 'faq_1']) } className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
                                     <i data-top_right>
                                         <span/>
                                         <span/>
