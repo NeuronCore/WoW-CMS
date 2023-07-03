@@ -6,7 +6,8 @@ import React, { useState } from 'react';
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
 
-import HeaderImage3Red from '@/../public/images/backgrounds/background_2-red.jpg';
+import HeaderImage1 from '@/../public/images/backgrounds/background_2-cataclysm.jpg';
+import HeaderImage2 from '@/../public/images/backgrounds/background_2-wotlk.webp';
 
 const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
@@ -18,7 +19,9 @@ const Login = () =>
     return (
         <div className={styles.auth}>
             <span className={styles.authVideo}>
-                <video src='/videos/video_1-red.mp4' loop autoPlay />
+                <video autoPlay loop>
+                    <source src={ `/videos/video_1-${ process.env.THEME }.mp4` } />
+                </video>
                 <span className={styles.authFilter} />
                 <span className={styles.authFilter} />
                 <span className={styles.authFilter2} />
@@ -133,7 +136,13 @@ const Login = () =>
                     </div>
 
                     <div className={classnames(stylesForm.formOverlayContainer, { [stylesForm.formOverlayContainerActive]: active })}>
-                        <div className={classnames(stylesForm.formOverlay, { [stylesForm.formOverlayActive]: active })} style={{ backgroundImage: `url(${ HeaderImage3Red.src })` }}>
+                        <div className={classnames(stylesForm.formOverlay, { [stylesForm.formOverlayActive]: active })} style={{ backgroundImage: `url(${
+                            process.env.THEME === 'cataclysm'
+                                ? HeaderImage1.src
+                                : process.env.THEME === 'wotlk'
+                                    ? HeaderImage2.src
+                                    : HeaderImage1.src
+                        })` }}>
                             <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelLeft, { [stylesForm.formOverlayPanelLeftActive]: active })}>
                                 <h3>Welcome Back!</h3>
 

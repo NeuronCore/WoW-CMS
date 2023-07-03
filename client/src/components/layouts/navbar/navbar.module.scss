@@ -23,6 +23,15 @@
         background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
     }
 
+    &[data-secondery='true']
+    {
+        &:after
+        {
+            opacity: .025;
+            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--white) 50%, rgba(2,0,36,0) 100%);
+        }
+    }
+
     &Container
     {
         display: flex;

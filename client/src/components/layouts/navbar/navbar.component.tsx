@@ -17,7 +17,7 @@ const Navbar = () =>
     const router = useRouter();
 
     return (
-        <nav className={styles.navbar}>
+        <nav className={styles.navbar} data-secondery={ router.pathname.includes('blogs/') }>
             <div className={styles.navbarContainer}>
                 <span>
                     <Image
