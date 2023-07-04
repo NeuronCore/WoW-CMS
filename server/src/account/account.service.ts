@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { BadRequestException, HttpStatus, Inject, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Inject, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { Pool } from 'mysql2/promise';
 
@@ -10,10 +10,13 @@ import { Helper } from '@/utils/helper.util';
 import { SRP6 } from '@/utils/SRP6.util';
 
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { UpdateInformationDto } from '@/account/dto/update-information.dto';
 
 @Injectable()
 export class AccountService
 {
+    private logger: Logger = new Logger(AccountService.name);
+
     constructor(
         @Inject('AUTH_DATABASE') private authDatabase: Pool,
         @Inject('WEB_DATABASE') private webDatabase: Pool
@@ -68,6 +71,27 @@ export class AccountService
         catch (exception)
         {
             throw new BadRequestException('You are only allowed to upload images');
+        }
+    }
+
+    public async updateInformation(accountID: number, updateInformationDto: UpdateInformationDto)
+    {
+        try
+        {
+            const { firstName, lastName, phone } = updateInformationDto;
+
+            const [accountInformation] = await this.webDatabase.query('SELECT `first_name`, `last_name`, `phone` FROM `account_information` WHERE id = ?', [accountID]);
+
+            await this.webDatabase.execute('UPDATE `account_information` SET `first_name` = ?, `last_name` = ?, `phone` = ? WHERE `id` = ?', [firstName || accountInformation[0].first_name, lastName || accountInformation[0].last_name, phone || accountInformation[0].phone, accountID]);
+
+            return { statusCode: HttpStatus.OK, message: 'Information updated successfully' };
+        }
+        catch (exception)
+        {
+            this.logger.error(exception);
+
+            if (exception)
+                throw new InternalServerErrorException('There was an error sending the email. Try again later!');
         }
     }
 }

@@ -90,7 +90,7 @@ export class ZarinPalGateway implements PaymentGateway
         }
         catch (exception)
         {
-            Logger.error(`${ response.statusMessage } ${ response.statusCode }`, null, 'PaymentGateway');
+            Logger.error(`${ exception }`, null, 'PaymentGateway');
         }
     }
 }

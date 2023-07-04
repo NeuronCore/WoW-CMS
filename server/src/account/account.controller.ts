@@ -10,6 +10,7 @@ import { AccountDecorator } from './account.decorator';
 import { AccountService } from './account.service';
 
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { UpdateInformationDto } from '@/account/dto/update-information.dto';
 
 @Controller('account')
 export class AccountController
@@ -46,5 +47,12 @@ export class AccountController
     public async getAvatar(@Param('folder') folder: string, @Param('image') image: string, @Res() res: Response)
     {
         return res.sendFile(join(__dirname, '..', '..', `uploads/${ folder }/${ image }`));
+    }
+
+    @Patch('update-information')
+    @UseGuards(AuthGuard)
+    public async updateInformation(@AccountDecorator() accountID: number, @Body() updateInformationDto: UpdateInformationDto)
+    {
+        return this.accountService.updateInformation(accountID, updateInformationDto);
     }
 }
