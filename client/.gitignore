@@ -2,7 +2,7 @@
 /.next
 /.idea
 
-.env.local
+../.env.local
 package-lock.json
 
 *.zip

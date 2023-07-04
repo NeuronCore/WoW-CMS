@@ -1,14 +1,14 @@
-import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import React, { Fragment } from 'react';
 
 import { BsArrow90DegDown, BsArrow90DegUp, BsArrowBarLeft, BsArrowBarRight, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsPrinter } from 'react-icons/bs';
 
 import styles from '@/styles/pages/blog.module.scss';
 
-import { capitalizeFirstLetter } from '@/utils/helper.util';
+import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
 
 const Button = dynamic(() => import('@/components/button'));
 
@@ -29,18 +29,18 @@ const Blog = () =>
                                 (
                                     item
                                         ?
-                                        <>
+                                        <Fragment key={createUniqueKey([item, index, 'blog_router'])}>
                                             <BsChevronRight />
                                             <Link href={ '/' + item } data-active={ index === router.asPath.split('/').length - 1 }>
                                                 { capitalizeFirstLetter(item) }
                                             </Link>
-                                        </>
+                                        </Fragment>
                                         : null
                                 ))
                         }
                     </div>
 
-                    <Link href='/'>
+                    <Link href='/blogs'>
                         Back to blogs
                         <BsArrow90DegDown />
                     </Link>
@@ -178,20 +178,6 @@ const Blog = () =>
                 <p>
                     It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
                 </p>
-            </section>
-
-            <section className={styles.blogMainFooter}>
-                <span>
-                    Tutorial
-                </span>
-                <div>
-                    <span>
-                        <BsBookmark />
-                    </span>
-                    <span>
-                        <BsPrinter />
-                    </span>
-                </div>
             </section>
 
             <section className={styles.blogMainAuthor}>
