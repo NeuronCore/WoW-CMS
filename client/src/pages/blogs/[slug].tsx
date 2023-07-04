@@ -180,6 +180,20 @@ const Blog = () =>
                 </p>
             </section>
 
+            <section className={styles.blogMainFooter}>
+                <span>
+                    Tutorial
+                </span>
+                <div>
+                    <span>
+                        <BsBookmark />
+                    </span>
+                    <span>
+                        <BsPrinter />
+                    </span>
+                </div>
+            </section>
+
             <section className={styles.blogMainAuthor}>
                 <i data-top_right>
                     <span/>
