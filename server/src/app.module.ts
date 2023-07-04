@@ -7,6 +7,7 @@ import { memoryStorage } from 'multer';
 import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
 import { AccountPasswordModule } from './account-password/account-password.module';
+import { PaymentModule } from './payment/payment.module';
 
 @Module
 ({
@@ -17,7 +18,8 @@ import { AccountPasswordModule } from './account-password/account-password.modul
         MulterModule.register({ storage: memoryStorage() }),
         AuthModule,
         AccountModule,
-        AccountPasswordModule
+        AccountPasswordModule,
+        PaymentModule
     ]
 })
 export class AppModule
