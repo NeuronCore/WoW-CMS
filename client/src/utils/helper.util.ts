@@ -3,6 +3,11 @@ export const middleOfArray = (array: unknown[]) =>
     return Math.round((array.length - 1) / 2);
 };
 
+export const  capitalizeFirstLetter = (string: string) =>
+{
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 export const numberWithCommas = (num: number, per: number | undefined, places: number | undefined): string =>
 {
     if (per == undefined)
