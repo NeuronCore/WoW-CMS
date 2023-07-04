@@ -32,6 +32,7 @@
         "template-curly-spacing": ["error", "always"],
         "space-before-function-paren": ["error", "never"],
         "no-unexpected-multiline": "off",
+        "@typescript-eslint/no-var-requires": "off",
         "quotes":
         [
             2, "single",
