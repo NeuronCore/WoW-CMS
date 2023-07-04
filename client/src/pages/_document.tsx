@@ -11,7 +11,7 @@ class MyDocument extends Document
     render()
     {
         return (
-            <Html data-theme={ process.env.THEME }>
+            <Html data-theme={ process.env.NEXT_PUBLIC_THEME }>
                 <Head>
                     <link rel="icon" type="image/png" href="/favicon.png"/>
                     <meta name="msapplication-TileColor" content={ process.env.PRIMARY_COLOR }/>
