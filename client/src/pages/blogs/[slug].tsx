@@ -1,14 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { BsArrow90DegDown, BsArrowBarLeft, BsArrowBarRight, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsPrinter } from 'react-icons/bs';
+import { BsArrow90DegDown, BsArrow90DegUp, BsArrowBarLeft, BsArrowBarRight, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsPrinter } from 'react-icons/bs';
 
 import styles from '@/styles/pages/blog.module.scss';
 
 import { capitalizeFirstLetter } from '@/utils/helper.util';
-import Button from '@/components/button';
+
+const Button = dynamic(() => import('@/components/button'));
 
 const Blog = () =>
 {
@@ -61,7 +63,33 @@ const Blog = () =>
                     <h1>
                         Are you noob in WOW?
                     </h1>
-                    <span style={{ backgroundImage: 'url(https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg)' }} />
+                    <span>
+                        <i data-top_right>
+                            <span/>
+                            <span/>
+                        </i>
+                        <i data-top_left>
+                            <span/>
+                            <span/>
+                        </i>
+                        <i data-bottom_left>
+                            <span/>
+                            <span/>
+                        </i>
+                        <i data-bottom_right>
+                            <span/>
+                            <span/>
+                        </i>
+
+                        <span>
+                            <Image
+                                src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'
+                                alt='WoW CMS'
+                                fill
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </span>
+                    </span>
                     <footer>
                         <div>
                             <span>
@@ -72,12 +100,12 @@ const Blog = () =>
                                     style={{ objectFit: 'cover' }}
                                 />
                             </span>
-                            <p>
+                            <div>
                                 By
                                 <h2>
                                     im-parsa
                                 </h2>
-                            </p>
+                            </div>
                         </div>
                         <div>
                             <p>
@@ -95,6 +123,7 @@ const Blog = () =>
                         </div>
                     </footer>
                 </div>
+
                 <nav>
                     <div>
                         <i>
@@ -212,7 +241,7 @@ const Blog = () =>
                 </h3>
                 <Link href='/blogs'>
                     More
-                    <BsArrow90DegDown />
+                    <BsArrow90DegUp />
                 </Link>
             </header>
 
