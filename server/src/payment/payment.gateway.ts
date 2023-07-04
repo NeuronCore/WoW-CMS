@@ -86,7 +86,7 @@ export class ZarinPalGateway implements PaymentGateway
                 return response.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, message: 'Your payment has been successfully completed', data: { verifyResult } });
             }
 
-            return response.status(HttpStatus.BAD_REQUEST).json({ statusCode: HttpStatus.BAD_REQUEST, message: 'Your payment has been successfully completed', data: { verifyResult } });
+            return response.status(HttpStatus.BAD_REQUEST).json({ statusCode: HttpStatus.BAD_REQUEST, message: 'Your payment was not successful' });
         }
         catch (exception)
         {

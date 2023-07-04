@@ -13,7 +13,7 @@ import { PaymentModule } from './payment/payment.module';
 ({
     imports:
     [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({ envFilePath: ['../.env'] }),
         ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
         MulterModule.register({ storage: memoryStorage() }),
         AuthModule,
