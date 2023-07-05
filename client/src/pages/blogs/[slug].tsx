@@ -4,13 +4,14 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { Fragment } from 'react';
 
-import { BsArrow90DegDown, BsArrow90DegUp, BsArrowBarLeft, BsArrowBarRight, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsPrinter } from 'react-icons/bs';
+import { BsArrow90DegDown, BsArrow90DegUp, BsArrowBarLeft, BsArrowBarRight, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsPrinter } from 'react-icons/bs';
 
 import styles from '@/styles/pages/blog.module.scss';
 
 import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
 
 const Button = dynamic(() => import('@/components/button'));
+const Tooltip = dynamic(() => import('@/components/tooltips'));
 
 const Blog = () =>
 {
@@ -90,7 +91,7 @@ const Blog = () =>
                             />
                         </span>
                     </span>
-                    <footer>
+                    <footer data-info>
                         <div>
                             <span>
                                 <Image
@@ -109,12 +110,20 @@ const Blog = () =>
                         </div>
                         <div>
                             <p>
-                                Published on August 4, 2022
+                                Published on May 8, 2020 · Updated on January 23, 2023
                                 <BsCalendar />
                             </p>
+                        </div>
+                    </footer>
+                    <footer>
+                        <div data-stats>
                             <p>
                                 85 Comments
                                 <BsChat />
+                            </p>
+                            <p>
+                                8585 Likes
+                                <BsHeart />
                             </p>
                             <p>
                                 8585 Reads
@@ -185,12 +194,21 @@ const Blog = () =>
                     Tutorial
                 </span>
                 <div>
-                    <span>
-                        <BsBookmark />
-                    </span>
-                    <span>
-                        <BsPrinter />
-                    </span>
+                    <Tooltip content='Liked The Blog'>
+                        <span>
+                            <BsHeart />
+                        </span>
+                    </Tooltip>
+                    <Tooltip content='Save The Blog'>
+                        <span>
+                            <BsBookmark />
+                        </span>
+                    </Tooltip>
+                    <Tooltip content='Print The Blog'>
+                        <span>
+                            <BsPrinter />
+                        </span>
+                    </Tooltip>
                 </div>
             </section>
 

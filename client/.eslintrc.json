@@ -33,6 +33,7 @@
         "space-before-function-paren": ["error", "never"],
         "no-unexpected-multiline": "off",
         "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-empty-function": "off",
         "quotes":
         [
             2, "single",

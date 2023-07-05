@@ -32,6 +32,7 @@
         "react-icons": "^4.9.0",
         "react-redux": "^8.0.7",
         "react-slick": "^0.29.0",
+        "react-spring": "^9.7.2",
         "redux-logger": "^3.0.6",
         "sass": "^1.62.1",
         "sharp": "^0.32.1",
