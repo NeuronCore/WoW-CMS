@@ -5,19 +5,15 @@ import classnames from 'classnames';
 import styles from '../../styles/pages/auth.module.scss';
 import stylesForm from '../../styles/components/form.module.scss';
 
-import { useAppSelector } from '@/redux/app/hooks';
-
 const Input = dynamic(() => import('../../components/input'));
 const Button = dynamic(() => import('../../components/button'));
 
 const PasswordReset = () =>
 {
-    const theme = useAppSelector(state => state.environment.theme);
-
     return (
         <div className={styles.auth}>
             <span className={styles.authVideo}>
-                <video src={ `/videos/video_1-${ theme }.mp4` } loop autoPlay />
+                <video src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } loop autoPlay />
                 <span className={styles.authFilter} />
                 <span className={styles.authFilter} />
                 <span className={styles.authFilter2} />

@@ -443,73 +443,6 @@
                     background: var(--base-primary-dark);
                     padding: 3rem;
 
-                    & footer
-                    {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-between;
-
-                        position: relative;
-
-                        padding-top: 3rem;
-
-                        &:before
-                        {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-
-                            width: 100%;
-                            height: .15rem;
-                            opacity: .05;
-                            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-base-text-bolder) 50%, rgba(2,0,36,0) 100%);
-                        }
-
-                        @media only screen and (max-width: 50rem)
-                        {
-                            flex-wrap: wrap;
-                        }
-
-                        & > div
-                        {
-                            width: 100%;
-                            padding: 0 2rem;
-
-                            position: relative;
-
-                            @media only screen and (max-width: 50rem)
-                            {
-                                padding: 1rem 0;
-                            }
-
-                            &:nth-child(2)
-                            {
-                                position: relative;
-
-                                &:before
-                                {
-                                    content: '';
-                                    position: absolute;
-                                    left: 0;
-
-                                    margin: auto;
-                                    height: 100%;
-                                    width: .15rem;
-                                    opacity: .05;
-                                    background: linear-gradient(0deg, rgba(2,0,36,0) 0%, var(--color-base-text-bolder) 50%, rgba(2,0,36,0) 100%);
-                                }
-
-                                @media only screen and (max-width: 50rem)
-                                {
-                                    &:before
-                                    {
-                                        opacity: 0;
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                     & textarea
                     {
                         resize: none;
@@ -1105,6 +1038,363 @@
                             }
                         }
                     }
+                }
+
+                &sPage
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: 2rem;
+
+                    position: relative;
+
+                    width: 100%;
+                    height: 70vh;
+                    overflow: hidden;
+                    padding-top: 15rem;
+
+                    @media only screen and (max-width: 1500px)
+                    {
+                        height: 80vh;
+                    }
+
+                    & > ul
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        height: 5rem;
+                        max-width: 120rem;
+                        width: 100%;
+                        padding: 0 .5rem;
+
+                        & h1
+                        {
+                            font-size: 5rem;
+                            font-family: 'warcraft', sans-serif;
+                            color: var(--color-primary);
+                        }
+
+                        & input
+                        {
+                            border: none;
+                            outline: none;
+                            padding: 1.25rem 2rem;
+                            font-size: 1.5rem;
+                            backdrop-filter: blur(.3125rem);
+                            background: var(--color-primary-01);
+                            min-width: 30rem;
+                            color: var(--color-base-text-bold);
+
+                            &::placeholder
+                            {
+                                color: var(--color-base-text-lighter);
+                            }
+                        }
+                    }
+
+                    & > div
+                    {
+                        display: grid;
+                        grid-template-columns: 2fr 1fr 1fr;
+                        grid-template-rows: repeat(2, 1fr);
+                        grid-template-areas:
+                        "a b c"
+                        "a d f";
+
+                        position: relative;
+                        z-index: 1;
+
+                        padding: 0;
+                        max-width: 120rem;
+                        width: 100%;
+                        height: 100%;
+                        max-height: 40rem;
+
+                        & > a
+                        {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%,-50%);
+
+                            height: 100%;
+                            width: 100%;
+                            padding: 1rem;
+                            margin: auto;
+                            transition: all .2s;
+
+                            & > div
+                            {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
+                                width: 100%;
+                                height: 100%;
+                                border: .25rem solid var(--color-primary);
+                                padding: 1rem;
+
+                                & > i
+                                {
+                                    position: absolute;
+
+                                    width: 4rem;
+                                    height: 4rem;
+                                    min-width: 4rem;
+                                    min-height: 4rem;
+                                    max-width: 4rem;
+                                    max-height: 4rem;
+
+                                    & > span
+                                    {
+                                        position: absolute;
+
+                                        background: var(--color-primary);
+                                        box-shadow: 0 0 1rem 0 var(--color-primary);
+                                    }
+
+                                    &[data-top_right]
+                                    {
+                                        top: -.5rem;
+                                        right: -.5rem;
+
+                                        & > span
+                                        {
+                                            top: 0;
+
+                                            &:first-child
+                                            {
+                                                width: 100%;
+                                                height: .75rem;
+                                                max-height: .75rem;
+                                                min-height: .75rem;
+                                            }
+
+                                            &:last-child
+                                            {
+                                                right: 0;
+
+                                                width: .75rem;
+                                                max-width: .75rem;
+                                                min-width: .75rem;
+                                                height: 100%;
+                                            }
+                                        }
+                                    }
+
+                                    &[data-top_left]
+                                    {
+                                        top: -.5rem;
+                                        left: -.5rem;
+
+                                        & > span
+                                        {
+                                            top: 0;
+
+                                            &:first-child
+                                            {
+                                                width: 100%;
+                                                height: .75rem;
+                                                max-height: .75rem;
+                                                min-height: .75rem;
+                                            }
+
+                                            &:last-child
+                                            {
+                                                left: 0;
+
+                                                width: .75rem;
+                                                max-width: .75rem;
+                                                min-width: .75rem;
+                                                height: 100%;
+                                            }
+                                        }
+                                    }
+
+                                    &[data-bottom_left]
+                                    {
+                                        bottom: -.5rem;
+                                        left: -.5rem;
+
+                                        & > span
+                                        {
+                                            bottom: 0;
+
+                                            &:first-child
+                                            {
+                                                width: 100%;
+                                                height: .75rem;
+                                                max-height: .75rem;
+                                                min-height: .75rem;
+                                            }
+
+                                            &:last-child
+                                            {
+                                                left: 0;
+
+                                                width: .75rem;
+                                                max-width: .75rem;
+                                                min-width: .75rem;
+                                                height: 100%;
+                                            }
+                                        }
+                                    }
+
+                                    &[data-bottom_right]
+                                    {
+                                        bottom: -.5rem;
+                                        right: -.5rem;
+
+                                        & > span
+                                        {
+                                            bottom: 0;
+
+                                            &:first-child
+                                            {
+                                                width: 100%;
+                                                height: .75rem;
+                                                max-height: .75rem;
+                                                min-height: .75rem;
+                                            }
+
+                                            &:last-child
+                                            {
+                                                right: 0;
+
+                                                width: .75rem;
+                                                max-width: .75rem;
+                                                min-width: .75rem;
+                                                height: 100%;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                & > span
+                                {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    width: 100%;
+                                    height: 100%;
+                                    background: var(--base-primary);
+
+                                    position: relative;
+
+                                    & > div
+                                    {
+                                        display: flex;
+                                        align-items: flex-start;
+                                        justify-content: flex-end;
+                                        flex-direction: column;
+                                        gap: 1rem;
+
+                                        position: absolute;
+                                        bottom: 0;
+
+                                        width: 100%;
+                                        height: 100%;
+
+                                        & > p
+                                        {
+                                            position: relative;
+                                            z-index: 1;
+
+                                            font-size: 1.75rem;
+                                            margin-bottom: 2rem;
+                                            margin-left: 2rem;
+                                        }
+
+                                        & > span
+                                        {
+                                            position: relative;
+                                            z-index: 1;
+
+                                            font-size: 1rem;
+                                            margin-left: 2rem;
+                                            font-weight: 400;
+                                            color: var(--color-base-text);
+                                        }
+
+                                        &:after
+                                        {
+                                            content: '';
+
+                                            position: absolute;
+                                            bottom: 0;
+
+                                            height: 100%;
+                                            width: 100%;
+
+                                            background: linear-gradient(0deg, var(--base-primary-lighter) 0%, rgba(253,45,45,0) 100%);
+                                        }
+
+                                        &:before
+                                        {
+                                            content: '';
+
+                                            position: absolute;
+                                            bottom: 0;
+
+                                            height: 100%;
+                                            width: 100%;
+                                            opacity: .5;
+
+                                            background: linear-gradient(0deg, var(--base-primary-lighter) 0%, rgba(253,45,45,0) 100%);
+                                        }
+                                    }
+                                }
+                            }
+
+                            &:nth-child(1)
+                            {
+                                grid-area: a;
+
+                                & > div > span > div
+                                {
+                                    & > p
+                                    {
+                                        font-size: 2.75rem;
+                                    }
+
+                                    & > span
+                                    {
+                                        font-size: 2rem;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(2)
+                            {
+                                grid-area: b;
+                            }
+
+                            &:nth-child(3)
+                            {
+                                grid-area: c;
+                            }
+
+                            &:nth-child(4)
+                            {
+                                grid-area: d;
+                            }
+
+                            &:nth-child(5)
+                            {
+                                grid-area: f;
+                            }
+                        }
+                    }
+
                 }
             }
 

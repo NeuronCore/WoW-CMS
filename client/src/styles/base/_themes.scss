@@ -1,6 +1,7 @@
 html[data-theme="cataclysm"]
 {
     --color-primary: #ff583e;
+    --color-primary-01: rgba(255, 88, 62, 0.1);
     --color-primary-dark: #d7442d;
     --color-primary-darker: #41150e;
     --color-primary-light: #ff6f59;
@@ -33,6 +34,7 @@ html[data-theme="cataclysm"]
 html[data-theme="wotlk"]
 {
     --color-primary: #26ddf2;
+    --color-primary-01: rgba(38, 221, 242, 0.1);
     --color-primary-dark: #1297a6;
     --color-primary-darker: #0c7985;
     --color-primary-light: #4eebfd;

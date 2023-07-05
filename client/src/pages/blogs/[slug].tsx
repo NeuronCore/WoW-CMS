@@ -10,15 +10,11 @@ import styles from '@/styles/pages/blog.module.scss';
 
 import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
 
-import { useAppSelector } from '@/redux/app/hooks';
-
 const Button = dynamic(() => import('@/components/button'));
 
 const Blog = () =>
 {
     const router = useRouter();
-
-    const theme = useAppSelector(state => state.environment.theme);
 
     return (
         <>
@@ -54,7 +50,7 @@ const Blog = () =>
             <header className={styles.blogNavbarHeaderBlog}>
                 <span className={styles.blogHeaderVideo}>
                     <video autoPlay loop>
-                        <source src={ `/videos/video_1-${ theme }.mp4` } />
+                        <source src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } />
                     </video>
                     <span className={styles.blogHeaderFilter} />
                     <span className={styles.blogHeaderFilter} />
@@ -262,14 +258,6 @@ const Blog = () =>
                     </h3>
                     <form>
                         <textarea placeholder='Your comment content' />
-                        <footer>
-                            <div>
-                                <input type='text' placeholder='Your first name' />
-                            </div>
-                            <div>
-                                <input type='text' placeholder='Your email' />
-                            </div>
-                        </footer>
                     </form>
 
                     <Button>

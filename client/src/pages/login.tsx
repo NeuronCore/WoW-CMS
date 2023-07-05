@@ -9,22 +9,18 @@ import stylesForm from '@/styles/components/form.module.scss';
 import HeaderImage1 from '@/../public/images/backgrounds/background_2-cataclysm.jpg';
 import HeaderImage2 from '@/../public/images/backgrounds/background_2-wotlk.webp';
 
-import { useAppSelector } from '@/redux/app/hooks';
-
 const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
 const Login = () =>
 {
-    const theme = useAppSelector(state => state.environment.theme);
-
     const [active, setActive] = useState<boolean>(false);
 
     return (
         <div className={styles.auth}>
             <span className={styles.authVideo}>
                 <video autoPlay loop>
-                    <source src={ `/videos/video_1-${ theme }.mp4` } />
+                    <source src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } />
                 </video>
                 <span className={styles.authFilter} />
                 <span className={styles.authFilter} />
@@ -141,9 +137,9 @@ const Login = () =>
 
                     <div className={classnames(stylesForm.formOverlayContainer, { [stylesForm.formOverlayContainerActive]: active })}>
                         <div className={classnames(stylesForm.formOverlay, { [stylesForm.formOverlayActive]: active })} style={{ backgroundImage: `url(${
-                            theme === 'cataclysm'
+                            process.env.NEXT_PUBLIC_THEME === 'cataclysm'
                                 ? HeaderImage1.src
-                                : theme === 'wotlk'
+                                : process.env.NEXT_PUBLIC_THEME === 'wotlk'
                                     ? HeaderImage2.src
                                     : HeaderImage1.src
                         })` }}>

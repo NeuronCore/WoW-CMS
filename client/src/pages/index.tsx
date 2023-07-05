@@ -29,12 +29,8 @@ import styles from '@/styles/pages/home.module.scss';
 
 import { createUniqueKey, middleOfArray } from '@/utils/helper.util';
 
-import { useAppSelector } from '@/redux/app/hooks';
-
 const Home = () =>
 {
-    const theme = useAppSelector(state => state.environment.theme);
-
     const [blog, setBlog] = useState<number>(0);
     const [faqs, setFaqs] = useState<number[]>([]);
     const [headerBlog, setHeaderBlog] = useState<number>(0);
@@ -44,7 +40,7 @@ const Home = () =>
             <div className={styles.homeHeader}>
                 <span className={styles.homeHeaderVideo}>
                     <video autoPlay loop>
-                        <source src={ `/videos/video_1-${ theme }.mp4` } />
+                        <source src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } />
                     </video>
                     <span className={styles.homeHeaderFilter} />
                     <span className={styles.homeHeaderFilter} />
@@ -54,9 +50,9 @@ const Home = () =>
                 <div className={styles.homeHeaderContainer}>
                     <div className={styles.homeHeaderHero}>
                         <img src={
-                            theme === 'cataclysm'
+                            process.env.NEXT_PUBLIC_THEME === 'cataclysm'
                                 ? HeroImage1.src
-                                : theme === 'wotlk'
+                                : process.env.NEXT_PUBLIC_THEME === 'wotlk'
                                     ? HeroImage2.src
                                     : HeroImage1.src
                         } alt='Hero Image'/>
@@ -71,9 +67,9 @@ const Home = () =>
                         </p>
                         <div>
                             <Link style={{ backgroundImage: `url(${
-                                theme === 'cataclysm'
+                                process.env.NEXT_PUBLIC_THEME === 'cataclysm'
                                     ? ButtonImage1.src
-                                    : theme === 'wotlk'
+                                    : process.env.NEXT_PUBLIC_THEME === 'wotlk'
                                         ? ButtonImage2.src
                                         : ButtonImage1.src
                             })` }} href='/'>
@@ -145,9 +141,9 @@ const Home = () =>
 
             <div className={styles.homeBlogs}>
                 <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${
-                    theme === 'cataclysm'
+                    process.env.NEXT_PUBLIC_THEME === 'cataclysm'
                         ? HeaderBlogs1.src
-                        : theme === 'wotlk'
+                        : process.env.NEXT_PUBLIC_THEME === 'wotlk'
                             ? HeaderBlogs2.src
                             : HeaderBlogs1.src
                 })` }} />
@@ -226,9 +222,9 @@ const Home = () =>
 
             <div className={styles.homeFeatures}>
                 <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${
-                    theme === 'cataclysm'
+                    process.env.NEXT_PUBLIC_THEME === 'cataclysm'
                         ? Header1Image1.src
-                        : theme === 'wotlk'
+                        : process.env.NEXT_PUBLIC_THEME === 'wotlk'
                             ? Header1Image2.src
                             : Header1Image1.src
                 })` }} />
@@ -274,9 +270,9 @@ const Home = () =>
 
             <div className={styles.homeFaq}>
                 <span  className={styles.homeBlogsHeaderImage} style={{ backgroundImage: `url(${
-                    theme === 'cataclysm'
+                    process.env.NEXT_PUBLIC_THEME === 'cataclysm'
                         ? Header3Image1.src
-                        : theme === 'wotlk'
+                        : process.env.NEXT_PUBLIC_THEME === 'wotlk'
                             ? Header3Image2.src
                             : Header3Image1.src
                 })` }} />
