@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response, Request } from 'express';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from './auth.guard';
 
@@ -9,6 +10,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController
 {
     constructor(private readonly authService: AuthService)
@@ -28,6 +30,7 @@ export class AuthController
     }
 
     @Get('logout')
+    @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     public async logout(@Req() request: Request, @Res() response: Response)
     {

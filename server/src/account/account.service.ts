@@ -66,7 +66,7 @@ export class AccountService
 
             await this.webDatabase.execute('UPDATE `account_information` SET `avatar` = ? WHERE `id` = ?', [filename, accountID]);
 
-            return { statusCode: HttpStatus.OK, data: filename };
+            return { statusCode: HttpStatus.OK, message: 'Avatar updated successfully' };
         }
         catch (exception)
         {

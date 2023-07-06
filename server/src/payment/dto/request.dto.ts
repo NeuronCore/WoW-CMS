@@ -1,17 +1,21 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsNumber } from 'class-validator';
 
 import { PaymentMethod } from '@/payment/payment.gateway';
 
 export class RequestDto
 {
+    @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
-    coinID: number;
+    public readonly coinID: number;
 
+    @ApiProperty()
     @IsNumber()
     @IsNotEmpty()
-    coins: number;
+    public readonly coins: number;
 
+    @ApiProperty()
     @IsEnum(PaymentMethod)
-    paymentMethod: PaymentMethod;
+    public readonly paymentMethod: PaymentMethod;
 }

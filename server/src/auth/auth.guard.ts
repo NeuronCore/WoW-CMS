@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate
 
         let token: string;
 
-        if (request.headers.authorization && request.headers.authorization.startsWith('WoW-CMS'))
+        if (request.headers.authorization && request.headers.authorization.startsWith('Bearer'))
             token = request.headers.authorization.split(' ')[1];
         else
             token = request.cookies.accessToken;

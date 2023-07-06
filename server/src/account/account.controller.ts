@@ -3,6 +3,7 @@ import { join } from 'path';
 import { Body, Controller, Get, Param, Patch, Post, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Response } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
 import { AccountDecorator } from './account.decorator';
@@ -13,6 +14,8 @@ import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateInformationDto } from '@/account/dto/update-information.dto';
 
 @Controller('account')
+@ApiTags('Account')
+@ApiSecurity('JsonWebToken')
 export class AccountController
 {
     constructor(private readonly accountService: AccountService)
@@ -35,6 +38,8 @@ export class AccountController
     }
 
     @Post('avatar')
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({ schema: { type: 'object', properties: { avatar: { type: 'string', format: 'binary' } } } })
     @UseGuards(AuthGuard)
     @UseInterceptors(FileInterceptor('avatar'))
     public async updateAvatar(@AccountDecorator() accountID: number, @UploadedFile() avatar: Express.Multer.File)

@@ -7,7 +7,7 @@ import * as sharp from 'sharp';
 
 import { Helper } from '@/utils/helper.util';
 
-import { CreateBlogDto } from './dto/create-blog.dto';
+import { CreateBlogDto, PublishedStatus } from './dto/create-blog.dto';
 
 @Injectable()
 export class BlogService
@@ -36,7 +36,7 @@ export class BlogService
             if (blog[0]?.slug)
                 return { statusCode: HttpStatus.CONFLICT, message: 'Slug already exists' };
 
-            await this.webDatabase.execute(sql, [accountID, title, meta_title, Helper.stringToSlug(slug), filename, summary, content, published, published ? new Date(Date.now()) : null]);
+            await this.webDatabase.execute(sql, [accountID, title, meta_title, Helper.stringToSlug(slug), filename, summary, content, published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : null]);
 
             return { statusCode: HttpStatus.OK, message: 'The blog was created successfully' };
         }

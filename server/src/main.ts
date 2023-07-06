@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import * as winston from 'winston';
 import * as winstonDailyRotateFile from 'winston-daily-rotate-file';
@@ -63,8 +64,17 @@ async function bootstrap(): Promise<void>
     app.useGlobalPipes(new ValidationPipe());
     app.use(cookieParser());
 
+    const config = new DocumentBuilder()
+        .setTitle('WoW-CMS API')
+        .setVersion('1.0')
+        .addBearerAuth({ type: 'http', scheme: 'bearer', description: 'Enter Access Token', in: 'header' }, 'JsonWebToken')
+        .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api', app, document);
+
     await app.listen(port);
     logger.log(`Application listening on port ${ port }`);
+    logger.log(`Swagger running on http://localhost:${ port }/api`);
 }
 
 bootstrap();

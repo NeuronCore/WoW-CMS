@@ -1,4 +1,11 @@
-import { IsBoolean, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+
+export enum PublishedStatus
+{
+    CONFIRMED = 'Confirmed',
+    REJECTED = 'Rejected',
+    WAITING = 'Waiting'
+}
 
 export class CreateBlogDto
 {
@@ -6,29 +13,29 @@ export class CreateBlogDto
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(75)
-    title: string;
+    public readonly title: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(100)
-    meta_title: string;
+    public readonly meta_title: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(100)
-    slug: string;
+    public readonly slug: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(255)
-    summary: string;
+    public readonly summary: string;
 
     @IsNotEmpty()
-    content: string;
+    public readonly content: string;
 
-    @IsBoolean()
-    published: boolean;
+    @IsEnum(PublishedStatus)
+    public readonly published: PublishedStatus;
 }
