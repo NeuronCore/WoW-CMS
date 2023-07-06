@@ -1,41 +1,42 @@
-import { IsEnum, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
-export enum PublishedStatus
-{
-    CONFIRMED = 'Confirmed',
-    REJECTED = 'Rejected',
-    WAITING = 'Waiting'
-}
+import { PublishedStatus } from '@/blog/dto/create-blog.dto';
 
-export class CreateBlogDto
+export class UpdateBlogDto
 {
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(75)
+    @IsOptional()
     public readonly title: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(100)
+    @IsOptional()
     public readonly metaTitle: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(100)
+    @IsOptional()
     public readonly slug: string;
 
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(255)
+    @IsOptional()
     public readonly summary: string;
 
     @IsNotEmpty()
+    @IsOptional()
     public readonly content: string;
 
     @IsEnum(PublishedStatus)
+    @IsOptional()
     public readonly published: PublishedStatus;
 }

@@ -26,6 +26,9 @@ export class Helper
 
     public static stringToSlug(str: string): string
     {
+        if (str === '' || str === undefined || str === null)
+            return;
+
         str = str.replace(/^\s+|\s+$/g, '');
         str = str.toLowerCase();
 
