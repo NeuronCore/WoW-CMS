@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { AccountModule } from './account/account.module';
 import { AccountPasswordModule } from './account-password/account-password.module';
 import { PaymentModule } from './payment/payment.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module
 ({
@@ -19,7 +20,8 @@ import { PaymentModule } from './payment/payment.module';
         AuthModule,
         AccountModule,
         AccountPasswordModule,
-        PaymentModule
+        PaymentModule,
+        BlogModule
     ]
 })
 export class AppModule

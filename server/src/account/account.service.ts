@@ -91,7 +91,7 @@ export class AccountService
             this.logger.error(exception);
 
             if (exception)
-                throw new InternalServerErrorException('There was an error sending the email. Try again later!');
+                throw new InternalServerErrorException('There was an error sending the update information. Try again later!');
         }
     }
 }
