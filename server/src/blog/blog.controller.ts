@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch, Delete } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
@@ -73,5 +73,13 @@ export class BlogController
     public async update(@AccountDecorator() accountID: number, @Param('id', ParseIntPipe) id: number, @Body() updateBlogDto: UpdateBlogDto, @UploadedFile() thumbnail: Express.Multer.File)
     {
         return this.blogService.update(accountID, id, updateBlogDto, thumbnail);
+    }
+
+    @Delete('/delete/:id')
+    @UseGuards(AuthGuard)
+    @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
+    public async delete(@Param('id', ParseIntPipe) id: number)
+    {
+        return this.blogService.delete(id);
     }
 }

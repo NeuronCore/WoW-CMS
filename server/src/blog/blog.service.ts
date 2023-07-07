@@ -75,7 +75,25 @@ export class BlogService
             await this.webDatabase.execute('UPDATE `blog` SET `title` = ?, `meta_title` = ?, `slug` = ?, `thumbnail` = ?, `summary` = ?, `content` = ?, `published` = ?, `published_at` = ? WHERE `id` = ?',
                 [title || blog[0].title, metaTitle || blog[0].meta_title, Helper.stringToSlug(slug) || blog[0].slug, filename || blog[0].thumbnail, summary || blog[0].summary, content || blog[0].content, published || blog[0].published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : blog[0].published_at, id]);
 
-            return { statusCode: HttpStatus.OK, message: 'The blog was updated successfully' };
+            return { statusCode: HttpStatus.OK, message: 'Blog updated successfully' };
+        }
+        catch (exception)
+        {
+            this.logger.error(exception);
+        }
+    }
+
+    public async delete(id: number)
+    {
+        try
+        {
+            const [blog] = await this.webDatabase.query('SELECT `id` FROM `blog` WHERE `id` = ?', [id]);
+            if (!blog[0])
+                return { statusCode: HttpStatus.NOT_FOUND, message: 'Blog with this id not found' };
+
+            await this.webDatabase.execute('DELETE FROM `blog` WHERE `id` = ?', [id]);
+
+            return { statusCode: HttpStatus.OK, message: 'The blog has been successfully deleted' };
         }
         catch (exception)
         {
