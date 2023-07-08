@@ -21,6 +21,7 @@ export class CharactersService
         `
             SELECT
                 arena_team.*,
+                characters.guid AS captainGuid,
                 characters.name AS captainName,
                 characters.race AS captainRace
             FROM
@@ -30,8 +31,8 @@ export class CharactersService
             WHERE
                 arena_team.type = ?
             ORDER BY
-                arena_team.rating DESC;
-            LIMIT ${ page - 1 }, ${ limit }
+                arena_team.rating DESC
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [arenaTeamType] = await charactersDatabase.query(sql, [type]);
@@ -50,6 +51,7 @@ export class CharactersService
         `
             SELECT
                 arena_team.*,
+                characters.guid AS captainGuid,
                 characters.name AS captainName,
                 characters.race AS captainRace
             FROM
@@ -58,7 +60,7 @@ export class CharactersService
                 characters ON arena_team.captainGuid = characters.guid
             WHERE
                 arena_team.arenaTeamId = ?
-            LIMIT ${ page - 1 }, ${ limit }
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [arenaTeamId] = await charactersDatabase.query(sql, [id]);
@@ -92,7 +94,7 @@ export class CharactersService
                 character_arena_stats ON (arena_team_member.guid = character_arena_stats.guid AND arena_team.type = (CASE character_arena_stats.slot WHEN 0 THEN 2 WHEN 1 THEN 3 WHEN 2 THEN 5 END))
             WHERE
                 arena_team.arenaTeamId = ?
-            LIMIT ${ page - 1 }, ${ limit }
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [arenaTeamMember] = await charactersDatabase.query(sql, [id]);
@@ -110,12 +112,12 @@ export class CharactersService
         const sql =
         `
             SELECT
-                name, race, class, totalKills, todayKills, yesterdayKills
+                guid, name, race, class, totalKills, todayKills, yesterdayKills
             FROM
                 characters
             ORDER BY
-                totalKills DESC;
-            LIMIT ${ page - 1 }, ${ limit }
+                totalKills DESC
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [topKillers] = await charactersDatabase.query(sql);
@@ -135,6 +137,7 @@ export class CharactersService
             SELECT
                 (COUNT(character_achievement.guid) * 10) AS achievements,
                 characters.name,
+                characters.guid,
                 characters.race,
                 characters.class
             FROM
@@ -145,11 +148,36 @@ export class CharactersService
                 character_achievement.guid
             ORDER BY
                 achievements DESC
-            LIMIT ${ page - 1 }, ${ limit }
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [topAchievements] = await charactersDatabase.query(sql);
 
         return { statusCode: HttpStatus.OK, data: { totals: topAchievements.length, topAchievements } };
+    }
+
+    public async getTopPlayedTime(realm: string, page = 1, limit = 20)
+    {
+        const charactersDatabase = this.charactersDatabase[realm];
+
+        if (!charactersDatabase)
+            throw new BadRequestException('A realm with this name doesn\'t exist');
+
+        const sql =
+        `
+            SELECT
+                guid, name, race, class, totaltime
+            FROM
+                characters
+            WHERE
+                name != ''
+            ORDER BY
+                totaltime DESC
+            LIMIT ${ page - 1 }, ${ limit };
+        `;
+
+        const [topPlayedTime] = await charactersDatabase.query(sql);
+
+        return { statusCode: HttpStatus.OK, data: { totals: topPlayedTime.length, topPlayedTime } };
     }
 }

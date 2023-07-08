@@ -41,4 +41,10 @@ export class CharactersController
     {
         return this.charactersService.getTopAchievements(realm, page, limit);
     }
+
+    @Get('realm/:realm/top-played-time')
+    public async getTopPlayedTime(@Param('realm') realm: string, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.charactersService.getTopPlayedTime(realm, page, limit);
+    }
 }
