@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
 import { Pool, createPool } from 'mysql2/promise';
 
+import { DatabaseController } from '@/database/database.controller';
+import { DatabaseService } from '@/database/database.service';
+
 @Module
 ({
+    controllers: [DatabaseController],
     providers:
     [
         {
@@ -21,7 +25,7 @@ import { Pool, createPool } from 'mysql2/promise';
         },
         {
             provide: 'CHARACTERS_DATABASE',
-            useFactory: async(): Promise<{ [key: string]: Pool }> =>
+            useFactory: async(): Promise<{ [p: string]: Pool }> =>
             {
                 const charactersDatabases: { [key: string]: Pool } = { };
 
@@ -67,7 +71,8 @@ import { Pool, createPool } from 'mysql2/promise';
                     password: process.env.WEB_DATABASE_PASSWORD
                 });
             }
-        }
+        },
+        DatabaseService
     ],
     exports: ['AUTH_DATABASE', 'CHARACTERS_DATABASE', 'WORLD_DATABASE', 'WEB_DATABASE']
 })

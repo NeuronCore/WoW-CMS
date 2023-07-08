@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
 
-import { DatabaseModule } from '@/database.module';
+import { DatabaseModule } from '@/database/database.module';
 
 @Module
 ({
