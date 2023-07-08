@@ -1,8 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CharactersService } from './characters.service';
 
 @Controller('characters')
+@ApiTags('Characters')
 export class CharactersController
 {
     constructor(private readonly charactersService: CharactersService)
@@ -26,5 +28,11 @@ export class CharactersController
     public async getArenaTeamMember(@Param('realm') realm: string, @Param('id') id: number)
     {
         return this.charactersService.getArenaTeamMember(realm, id);
+    }
+
+    @Get('realm/:realm/top-killers')
+    public async getTopKillers(@Param('realm') realm: string)
+    {
+        return this.charactersService.getTopKillers(realm);
     }
 }

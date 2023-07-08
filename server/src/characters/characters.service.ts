@@ -96,4 +96,26 @@ export class CharactersService
 
         return { statusCode: HttpStatus.OK, data: { arenaTeamMember } };
     }
+
+    public async getTopKillers(realm: string)
+    {
+        const charactersDatabase = this.charactersDatabase[realm];
+
+        if (!charactersDatabase)
+            throw new BadRequestException('A realm with this name doesn\'t exist');
+
+        const sql =
+        `
+            SELECT
+                name, race, class, totalKills, todayKills, yesterdayKills
+            FROM
+                characters
+            ORDER BY
+                totalKills DESC;
+        `;
+
+        const [topKillers] = await charactersDatabase.query(sql);
+
+        return { statusCode: HttpStatus.OK, data: { topKillers } };
+    }
 }
