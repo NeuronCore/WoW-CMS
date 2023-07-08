@@ -118,4 +118,31 @@ export class CharactersService
 
         return { statusCode: HttpStatus.OK, data: { topKillers } };
     }
+
+    public async getTopAchievements(realm: string)
+    {
+        const charactersDatabase = this.charactersDatabase[realm];
+
+        if (!charactersDatabase)
+            throw new BadRequestException('A realm with this name doesn\'t exist');
+
+        const sql =
+        `
+            SELECT
+                (COUNT(character_achievement.guid) * 10) AS achievements,
+                characters.name
+            FROM
+                character_achievement
+            INNER JOIN
+                characters ON characters.guid = character_achievement.guid
+            GROUP BY
+                character_achievement.guid
+            ORDER BY
+                character_achievement.guid
+        `;
+
+        const [topAchievements] = await charactersDatabase.query(sql);
+
+        return { statusCode: HttpStatus.OK, data: { topAchievements } };
+    }
 }

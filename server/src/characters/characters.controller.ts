@@ -35,4 +35,10 @@ export class CharactersController
     {
         return this.charactersService.getTopKillers(realm);
     }
+
+    @Get('realm/:realm/top-achievements')
+    public async getTopAchievements(@Param('realm') realm: string)
+    {
+        return this.charactersService.getTopAchievements(realm);
+    }
 }
