@@ -1,5 +1,10 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Param, ParseIntPipe, Post, Query, Res, UseGuards } from '@nestjs/common';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
+
+import { AuthGuard } from '@/auth/auth.guard';
+
+import { AccountDecorator } from '@/account/account.decorator';
 
 import { CharactersService } from './characters.service';
 
@@ -12,6 +17,7 @@ export class CharactersController
 
     }
 
+    // Top Players
     @Get('realm/:realm/arena-team/type/:type')
     public async getArenaTeamByType(@Param('realm') realm: string, @Param('type') type: number, @Query('page') page: number, @Query('limit') limit: number)
     {
@@ -46,5 +52,46 @@ export class CharactersController
     public async getTopPlayedTime(@Param('realm') realm: string, @Query('page') page: number, @Query('limit') limit: number)
     {
         return this.charactersService.getTopPlayedTime(realm, page, limit);
+    }
+
+    // Character Service
+    @Post('realm/:realm/rename/guid/:guid')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async rename(@Param('realm') realm: string, @AccountDecorator() accountID: number, @Param('guid', ParseIntPipe) guid: number, @Res() response: Response)
+    {
+        return this.charactersService.rename(realm, accountID, guid, response);
+    }
+
+    @Post('realm/:realm/customize/guid/:guid')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async customize(@Param('realm') realm: string, @AccountDecorator() accountID: number, @Param('guid', ParseIntPipe) guid: number, @Res() response: Response)
+    {
+        return this.charactersService.customize(realm, accountID, guid, response);
+    }
+
+    @Post('realm/:realm/changeFaction/guid/:guid')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async changeFaction(@Param('realm') realm: string, @AccountDecorator() accountID: number, @Param('guid', ParseIntPipe) guid: number, @Res() response: Response)
+    {
+        return this.charactersService.changeFaction(realm, accountID, guid, response);
+    }
+
+    @Post('realm/:realm/changeRace/guid/:guid')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async changeRace(@Param('realm') realm: string, @AccountDecorator() accountID: number, @Param('guid', ParseIntPipe) guid: number, @Res() response: Response)
+    {
+        return this.charactersService.changeRace(realm, accountID, guid, response);
+    }
+
+    @Post('realm/:realm/unstuck/guid/:guid')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async unstuck(@Param('realm') realm: string, @AccountDecorator() accountID: number, @Param('guid', ParseIntPipe) guid: number, @Res() response: Response)
+    {
+        return this.charactersService.unstuck(realm, accountID, guid, response);
     }
 }

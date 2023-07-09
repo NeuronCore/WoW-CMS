@@ -1,19 +1,24 @@
-import { BadRequestException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-
+import { BadRequestException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Pool } from 'mysql2/promise';
+import { Response } from 'express';
+
+import { Soap } from '@/utils/soap.util';
 
 @Injectable()
 export class CharactersService
 {
-    constructor(@Inject('CHARACTERS_DATABASE') private charactersDatabase: Pool)
+    constructor(
+        @Inject('CHARACTERS_DATABASE') private charactersDatabase: Pool,
+        @Inject('WEB_DATABASE') private webDatabase: Pool,
+    )
     {
 
     }
 
+    // Top Players
     public async getArenaTeamByType(realm: string, type: number, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
-
         if (!charactersDatabase)
             throw new BadRequestException('A realm with this name doesn\'t exist');
 
@@ -43,7 +48,6 @@ export class CharactersService
     public async getArenaTeamById(realm: string, id: number, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
-
         if (!charactersDatabase)
             throw new BadRequestException('A realm with this name doesn\'t exist');
 
@@ -71,7 +75,6 @@ export class CharactersService
     public async getArenaTeamMember(realm: string, id: number, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
-
         if (!charactersDatabase)
             throw new BadRequestException('A realm with this name doesn\'t exist');
 
@@ -105,7 +108,6 @@ export class CharactersService
     public async getTopKillers(realm: string, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
-
         if (!charactersDatabase)
             throw new BadRequestException('A realm with this name doesn\'t exist');
 
@@ -128,7 +130,6 @@ export class CharactersService
     public async getTopAchievements(realm: string, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
-
         if (!charactersDatabase)
             throw new BadRequestException('A realm with this name doesn\'t exist');
 
@@ -159,7 +160,6 @@ export class CharactersService
     public async getTopPlayedTime(realm: string, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
-
         if (!charactersDatabase)
             throw new BadRequestException('A realm with this name doesn\'t exist');
 
@@ -179,5 +179,71 @@ export class CharactersService
         const [topPlayedTime] = await charactersDatabase.query(sql);
 
         return { statusCode: HttpStatus.OK, data: { totals: topPlayedTime.length, topPlayedTime } };
+    }
+
+    // Character Service
+    private async characterService(realm: string, accountID: number, guid: number, service: number, command: string, unstuck: boolean, response: Response)
+    {
+        const charactersDatabase = this.charactersDatabase[realm];
+        if (!charactersDatabase)
+            throw new BadRequestException('A realm with this name doesn\'t exist');
+
+        const [character] = await charactersDatabase.query('SELECT `guid`, `name` FROM `characters` WHERE `account` = ? AND `guid` = ?', [accountID, guid]);
+        if (character[0]?.guid !== guid)
+            throw new NotFoundException('Account with that character not found');
+
+        const [accountInformation] = await this.webDatabase.query('SELECT `coins` FROM `account_information` WHERE `id` = ?', [accountID]);
+        if (!accountInformation[0])
+            throw new NotFoundException('There are no accounts with this ID');
+
+        const [characterService] = await this.webDatabase.query('SELECT `coins` FROM `character_service` WHERE `id` = ?', [service]);
+        if (!characterService[0])
+            throw new NotFoundException('There are no services with this ID');
+
+        if (accountInformation[0].coins < characterService[0].coins)
+            throw new NotFoundException('You don\'t have enough coins');
+
+        if (unstuck)
+        {
+            const soapResponse = Soap.command(`unstuck ${ character[0].name } graveyard`);
+            Soap.command(`revive ${ character[0].name }`);
+            if (soapResponse.status === 401)
+                return response.status(HttpStatus.UNAUTHORIZED).json({ statusCode: HttpStatus.UNAUTHORIZED, message: 'Please login to your SOAP account' });
+        }
+        else
+        {
+            const soapResponse = await Soap.command(`character ${ command } ${ character[0].name }`);
+            if (soapResponse.status === 401)
+                return response.status(HttpStatus.UNAUTHORIZED).json({ statusCode: HttpStatus.UNAUTHORIZED, message: 'Please login to your SOAP account' });
+        }
+
+        await this.webDatabase.execute('UPDATE `account_information` SET `coins` = ? WHERE `id` = ?', [accountInformation[0].coins - characterService[0].coins, accountID]);
+
+        return response.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, message: `This operation was done successfully for ${ character[0].name }'s character` });
+    }
+
+    public async rename(realm: string, accountID: number, guid: number, response: Response)
+    {
+        await this.characterService(realm, accountID, guid, 1, 'rename', false, response);
+    }
+
+    public async customize(realm: string, accountID: number, guid: number, response: Response)
+    {
+        await this.characterService(realm, accountID, guid, 2, 'customize', false, response);
+    }
+
+    public async changeFaction(realm: string, accountID: number, guid: number, response: Response)
+    {
+        await this.characterService(realm, accountID, guid, 3, 'changefaction', false, response);
+    }
+
+    public async changeRace(realm: string, accountID: number, guid: number, response: Response)
+    {
+        await this.characterService(realm, accountID, guid, 4, 'changerace', false, response);
+    }
+
+    public async unstuck(realm: string, accountID: number, guid: number, response: Response)
+    {
+        await this.characterService(realm, accountID, guid, 5, '', true, response);
     }
 }
