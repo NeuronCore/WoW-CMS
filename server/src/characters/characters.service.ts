@@ -182,7 +182,7 @@ export class CharactersService
     }
 
     // Character Service
-    private async characterService(realm: string, accountID: number, guid: number, service: number, command: string, unstuck: boolean, response: Response)
+    private async characterServiceValidation(realm: string, accountID: number, guid: number, service: number)
     {
         const charactersDatabase = this.charactersDatabase[realm];
         if (!charactersDatabase)
@@ -203,47 +203,62 @@ export class CharactersService
         if (accountInformation[0].coins < characterService[0].coins)
             throw new NotFoundException('You don\'t have enough coins');
 
-        if (unstuck)
-        {
-            const soapResponse = await Soap.command(`unstuck ${ character[0].name } graveyard`);
-            await Soap.command(`revive ${ character[0].name }`);
-            if (soapResponse.status === 401)
-                return response.status(HttpStatus.UNAUTHORIZED).json({ statusCode: HttpStatus.UNAUTHORIZED, message: 'Please login to your SOAP account' });
-        }
-        else
-        {
-            const soapResponse = await Soap.command(`character ${ command } ${ character[0].name }`);
-            if (soapResponse.status === 401)
-                return response.status(HttpStatus.UNAUTHORIZED).json({ statusCode: HttpStatus.UNAUTHORIZED, message: 'Please login to your SOAP account' });
-        }
-
-        await this.webDatabase.execute('UPDATE `account_information` SET `coins` = ? WHERE `id` = ?', [accountInformation[0].coins - characterService[0].coins, accountID]);
-
-        return response.status(HttpStatus.OK).json({ statusCode: HttpStatus.OK, message: `This operation was done successfully for ${ character[0].name }'s character` });
+        return [character[0], accountInformation[0].coins, characterService[0].coins];
     }
 
-    public async rename(realm: string, accountID: number, guid: number, response: Response)
+    public async rename(realm: string, accountID: number, guid: number)
     {
-        await this.characterService(realm, accountID, guid, 1, 'rename', false, response);
+        const [character, accountInformation, characterService] = await this.characterServiceValidation(realm, accountID, guid, 1);
+
+        await Soap.command(`character rename ${ character.name }`);
+
+        await this.webDatabase.execute('UPDATE `account_information` SET `coins` = ? WHERE `id` = ?', [accountInformation - characterService, accountID]);
+
+        return { statusCode: HttpStatus.OK, message: `This operation was done successfully for ${ character.name }'s character` };
     }
 
-    public async customize(realm: string, accountID: number, guid: number, response: Response)
+    public async customize(realm: string, accountID: number, guid: number)
     {
-        await this.characterService(realm, accountID, guid, 2, 'customize', false, response);
+        const [character, accountInformation, characterService] = await this.characterServiceValidation(realm, accountID, guid, 2);
+
+        await Soap.command(`character customize ${ character.name }`);
+
+        await this.webDatabase.execute('UPDATE `account_information` SET `coins` = ? WHERE `id` = ?', [accountInformation - characterService, accountID]);
+
+        return { statusCode: HttpStatus.OK, message: `This operation was done successfully for ${ character.name }'s character` };
     }
 
-    public async changeFaction(realm: string, accountID: number, guid: number, response: Response)
+    public async changeFaction(realm: string, accountID: number, guid: number)
     {
-        await this.characterService(realm, accountID, guid, 3, 'changefaction', false, response);
+        const [character, accountInformation, characterService] = await this.characterServiceValidation(realm, accountID, guid, 3);
+
+        await Soap.command(`character changefaction ${ character.name }`);
+
+        await this.webDatabase.execute('UPDATE `account_information` SET `coins` = ? WHERE `id` = ?', [accountInformation - characterService, accountID]);
+
+        return { statusCode: HttpStatus.OK, message: `This operation was done successfully for ${ character.name }'s character` };
     }
 
-    public async changeRace(realm: string, accountID: number, guid: number, response: Response)
+    public async changeRace(realm: string, accountID: number, guid: number)
     {
-        await this.characterService(realm, accountID, guid, 4, 'changerace', false, response);
+        const [character, accountInformation, characterService] = await this.characterServiceValidation(realm, accountID, guid, 4);
+
+        await Soap.command(`character changerace ${ character.name }`);
+
+        await this.webDatabase.execute('UPDATE `account_information` SET `coins` = ? WHERE `id` = ?', [accountInformation - characterService, accountID]);
+
+        return { statusCode: HttpStatus.OK, message: `This operation was done successfully for ${ character.name }'s character` };
     }
 
-    public async unstuck(realm: string, accountID: number, guid: number, response: Response)
+    public async unstuck(realm: string, accountID: number, guid: number)
     {
-        await this.characterService(realm, accountID, guid, 5, '', true, response);
+        const [character, accountInformation, characterService] = await this.characterServiceValidation(realm, accountID, guid, 5);
+
+        await Soap.command(`unstuck ${ character.name } graveyard`);
+        await Soap.command(`revive ${ character.name }`);
+
+        await this.webDatabase.execute('UPDATE `account_information` SET `coins` = ? WHERE `id` = ?', [accountInformation - characterService, accountID]);
+
+        return { statusCode: HttpStatus.OK, message: `This operation was done successfully for ${ character.name }'s character` };
     }
 }

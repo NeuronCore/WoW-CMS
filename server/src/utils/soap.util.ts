@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { UnauthorizedException } from '@nestjs/common';
 
 export class Soap
 {
@@ -12,6 +13,10 @@ export class Soap
                 'Content-Type': 'text/xml',
                 'Authorization': `Basic ${ Buffer.from(`${ process.env.SOAP_USERNAME }:${ process.env.SOAP_PASSWORD }`).toString('base64') }`
             }
+        }).then(response =>
+        {
+            if (response.status === 401)
+                throw new UnauthorizedException('Please login to your SOAP account');
         });
     }
 

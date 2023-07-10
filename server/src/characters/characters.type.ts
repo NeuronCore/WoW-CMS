@@ -6,4 +6,7 @@ export class CharactersType
 {
     @Field(() => GraphQLJSON)
     data: JSON;
+
+    @Field(() => GraphQLJSON)
+    message: JSON;
 }

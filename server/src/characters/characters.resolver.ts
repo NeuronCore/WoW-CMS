@@ -1,11 +1,12 @@
-import {Resolver, Query, Args, Context} from '@nestjs/graphql';
-
+import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
+
 import { AuthGuard } from '@/auth/auth.guard';
+
+import { AccountDecorator } from '@/account/account.decorator';
 
 import { CharactersService } from '@/characters/characters.service';
 import { CharactersType } from '@/characters/characters.type';
-import {AccountDecorator} from '@/account/account.decorator';
 
 @Resolver(() => CharactersType)
 export class CharactersResolver
@@ -49,38 +50,38 @@ export class CharactersResolver
         return this.charactersService.getTopPlayedTime(realm, page, limit);
     }
 
-    @Query(() => CharactersType)
+    @Mutation(() => CharactersType)
     @UseGuards(AuthGuard)
-    public async rename(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number, @Context() ctx)
+    public async rename(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number)
     {
-        return this.charactersService.rename(realm, accountID, guid, ctx.res);
+        return this.charactersService.rename(realm, accountID, guid);
     }
 
-    @Query(() => CharactersType)
+    @Mutation(() => CharactersType)
     @UseGuards(AuthGuard)
-    public async customize(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number, @Context() ctx)
+    public async customize(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number)
     {
-        return this.charactersService.customize(realm, accountID, guid, ctx.res);
+        return this.charactersService.customize(realm, accountID, guid);
     }
 
-    @Query(() => CharactersType)
+    @Mutation(() => CharactersType)
     @UseGuards(AuthGuard)
-    public async changeFaction(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number, @Context() ctx)
+    public async changeFaction(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number)
     {
-        return this.charactersService.changeFaction(realm, accountID, guid, ctx.res);
+        return this.charactersService.changeFaction(realm, accountID, guid);
     }
 
-    @Query(() => CharactersType)
+    @Mutation(() => CharactersType)
     @UseGuards(AuthGuard)
-    public async changeRace(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number, @Context() ctx)
+    public async changeRace(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number)
     {
-        return this.charactersService.changeRace(realm, accountID, guid, ctx.res);
+        return this.charactersService.changeRace(realm, accountID, guid);
     }
 
-    @Query(() => CharactersType)
+    @Mutation(() => CharactersType)
     @UseGuards(AuthGuard)
-    public async unstuck(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number, @Context() ctx)
+    public async unstuck(@Args('realm') realm: string, @AccountDecorator() accountID: number, @Args('guid') guid: number)
     {
-        return this.charactersService.unstuck(realm, accountID, guid, ctx.res);
+        return this.charactersService.unstuck(realm, accountID, guid);
     }
 }
