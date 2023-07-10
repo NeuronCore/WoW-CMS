@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { verify } from 'jsonwebtoken';
 import { Pool } from 'mysql2/promise';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 @Injectable()
 export class AuthGuard implements CanActivate
@@ -15,7 +16,7 @@ export class AuthGuard implements CanActivate
 
     async canActivate(context: ExecutionContext): Promise<boolean>
     {
-        const request = context.switchToHttp().getRequest();
+        const request = GqlExecutionContext.create(context).getContext().req;
 
         let token: string;
 

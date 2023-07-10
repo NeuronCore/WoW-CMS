@@ -73,8 +73,9 @@ async function bootstrap(): Promise<void>
     SwaggerModule.setup('api', app, document);
 
     await app.listen(port);
-    logger.log(`Application listening on port ${ port }`);
+    logger.log(`Application running on http://localhost:${ port }`);
     logger.log(`Swagger running on http://localhost:${ port }/api`);
+    logger.log(`GraphQL running on http://localhost:${ port }/graphql`);
 }
 
 bootstrap();

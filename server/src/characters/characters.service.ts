@@ -205,8 +205,8 @@ export class CharactersService
 
         if (unstuck)
         {
-            const soapResponse = Soap.command(`unstuck ${ character[0].name } graveyard`);
-            Soap.command(`revive ${ character[0].name }`);
+            const soapResponse = await Soap.command(`unstuck ${ character[0].name } graveyard`);
+            await Soap.command(`revive ${ character[0].name }`);
             if (soapResponse.status === 401)
                 return response.status(HttpStatus.UNAUTHORIZED).json({ statusCode: HttpStatus.UNAUTHORIZED, message: 'Please login to your SOAP account' });
         }
