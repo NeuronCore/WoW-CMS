@@ -94,85 +94,120 @@
 
         &Footer
         {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            position: relative;
-
-            max-width: 90rem;
-            padding: 2.5rem 0;
-            margin: auto;
-
-            &:after
-            {
-                content: '';
-                position: absolute;
-                top: 0;
-
-                width: 100%;
-                height: .1rem;
-                opacity: .25;
-                background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-base-text-bolder) 50%, rgba(2,0,36,0) 100%);
-            }
-
-            &:before
-            {
-                content: '';
-                position: absolute;
-                bottom: 0;
-
-                width: 100%;
-                height: .15rem;
-                opacity: .25;
-                background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-base-text-bolder) 50%, rgba(2,0,36,0) 100%);
-            }
-
-            @media only screen and (max-width: 90rem)
-            {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-
-            & > span
+            & > ul
             {
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                gap: .75rem;
 
-                font-size: 1.5rem;
-                white-space: nowrap;
-                word-wrap: anywhere;
-                width: fit-content;
-                padding: 0.75rem 2rem;
-                background: var(--color-primary);
-                clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
-                color: var(--color-base-text-bolder);
+                position: relative;
+
+                max-width: 90rem;
+                padding: 2.5rem 0;
+                margin: auto;
+
+                & > li
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    font-size: 1.25rem;
+                    font-weight: 400;
+                    white-space: nowrap;
+                    word-wrap: anywhere;
+                    width: fit-content;
+                    padding: 0.75rem 1.25rem;
+                    background: var(--base-primary-dark);
+                    color: var(--color-base-text-bolder);
+                    transition: all .2s;
+                    border-radius: .25rem;
+
+                    &:hover
+                    {
+                        background: var(--color-primary-light);
+                    }
+                }
             }
 
             & > div
             {
                 display: flex;
                 align-items: center;
-                justify-content: center;
-                gap: 3rem;
+                justify-content: space-between;
 
-                & > span
+                position: relative;
+
+                max-width: 90rem;
+                padding: 2.5rem 0;
+                margin: auto;
+
+                &:before
+                {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+
+                    width: 100%;
+                    height: .15rem;
+                    opacity: .25;
+                    background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-base-text-bolder) 50%, rgba(2,0,36,0) 100%);
+                }
+
+                @media only screen and (max-width: 90rem)
+                {
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                }
+
+                & > a
                 {
                     display: flex;
                     align-items: center;
                     justify-content: center;
 
-                    position: relative;
-
-                    cursor: pointer;
-                    font-size: 2.5rem;
-                    transition: all 0.2s;
-                    color: var(--color-primary);
+                    font-size: 1.5rem;
+                    white-space: nowrap;
+                    word-wrap: anywhere;
+                    width: fit-content;
+                    padding: 0.75rem 2rem;
+                    background: var(--color-primary);
+                    color: var(--color-base-text-bolder);
+                    transition: all .2s;
+                    border-radius: .25rem;
 
                     &:hover
                     {
-                        color: var(--color-primary-dark);
+                        background: var(--color-primary-light);
+                    }
+                }
+
+                & > div
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 3rem;
+
+                    & > span
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        position: relative;
+
+                        cursor: pointer;
+                        font-size: 2.5rem;
+                        transition: all 0.2s;
+                        color: var(--color-primary);
+
+                        &:hover
+                        {
+                            color: var(--color-primary-dark);
+                        }
                     }
                 }
             }
@@ -184,7 +219,7 @@
 
             max-width: 90rem;
             margin: 5rem auto;
-            padding: 2rem;
+            padding: 1rem;
             height: fit-content;
             border: .2rem solid var(--base-primary-darker);
 
@@ -410,11 +445,41 @@
                 width: 100%;
             }
 
+            &List
+            {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 2rem;
+
+                width: 100%;
+                margin-top: 10rem;
+            }
+
             &Form
             {
                 display: flex;
                 flex-direction: column;
                 gap: 2rem;
+
+                position: relative;
+
+                width: 100%;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+
+                &:before
+                {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+
+                    width: 100%;
+                    height: .15rem;
+                    opacity: .15;
+                    background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-base-text-bolder) 50%, rgba(2,0,36,0) 100%);
+                }
 
                 & h3
                 {
@@ -423,6 +488,7 @@
                     gap: 1rem;
 
                     font-size: 2.65rem;
+                    margin-top: 5rem;
 
                     & svg
                     {
@@ -436,6 +502,7 @@
                     width: 100%;
                     background: var(--base-primary-dark);
                     padding: 3rem;
+                    border-radius: 0.5rem;
 
                     & textarea
                     {
@@ -444,7 +511,7 @@
                         outline: none;
                         background: transparent;
                         font-size: 2rem;
-                        min-height: 20rem;
+                        min-height: 15rem;
                         width: 100%;
                         color: var(--color-base-text);
 

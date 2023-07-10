@@ -2,20 +2,145 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import { BsArrow90DegDown, BsArrow90DegUp, BsArrowBarLeft, BsArrowBarRight, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsPrinter } from 'react-icons/bs';
 
 import styles from '@/styles/pages/blog.module.scss';
 
+import data from '@/data/comments.data.json';
+
 import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
 
-const Button = dynamic(() => import('@/components/button'));
 const Tooltip = dynamic(() => import('@/components/tooltips'));
+const Comment = dynamic(() => import('@/components/comment/comment.component'));
+const AddComment = dynamic(() => import('@/components/comment/add-comment.component'));
 
 const Blog = () =>
 {
     const router = useRouter();
+
+    const [comments, updateComments] = useState<any[]>([]);
+    const [deleteModalState, setDeleteModalState] = useState(false);
+
+    useEffect(() =>
+    {
+        console.log(data.comments);
+        updateComments(data.comments);
+    }, []);
+
+    useEffect(() =>
+    {
+        deleteModalState
+            ? document.body.classList.add('overflow--hidden')
+            : document.body.classList.remove('overflow--hidden');
+    }, [comments, deleteModalState]);
+
+    const updateScore = (score: any, id: any, type: any, method: any) =>
+    {
+        const updatedComments = [...comments];
+
+        if (type === 'comment')
+        {
+            updatedComments.forEach((data: any) =>
+            {
+                if (data.id === id)
+                {
+                    data.score = score;
+                    data.voted = method === 'upvote';
+                }
+            });
+        }
+        else if (type === 'reply')
+        {
+            updatedComments.forEach((comment: any) =>
+            {
+                comment.replies.forEach((data: any) =>
+                {
+                    if (data.id === id)
+                    {
+                        data.score = score;
+                        data.voted = method === 'upvote';
+                    }
+                });
+            });
+        }
+        updateComments(updatedComments);
+    };
+
+    const addComments = (newComment: any) =>
+    {
+        const updatedComments = [...comments, newComment];
+        updateComments(updatedComments);
+    };
+
+    const updateReplies = (replies: any, id: any) =>
+    {
+        const updatedComments = [...comments];
+        updatedComments.forEach((data) =>
+        {
+            if (data.id === id)
+
+                data.replies = [...replies];
+
+        });
+        updateComments(updatedComments);
+    };
+
+    const editComment = (content: any, id: any, type: any) =>
+    {
+        const updatedComments = [...comments];
+
+        if (type === 'comment')
+        {
+            updatedComments.forEach((data) =>
+            {
+                if (data.id === id)
+
+                    data.content = content;
+
+            });
+        }
+        else if (type === 'reply')
+        {
+            updatedComments.forEach((comment) =>
+            {
+                comment.replies.forEach((data: any) =>
+                {
+                    if (data.id === id)
+
+                        data.content = content;
+
+                });
+            });
+        }
+
+        updateComments(updatedComments);
+    };
+
+    const commentDelete = (id: any, type: any, parentComment: any) =>
+    {
+        let updatedComments = [...comments];
+        let updatedReplies = [];
+
+        if (type === 'comment')
+
+            updatedComments = updatedComments.filter((data) => data.id !== id);
+
+        else if (type === 'reply')
+        {
+            comments.forEach((comment) =>
+            {
+                if (comment.id === parentComment)
+                {
+                    updatedReplies = comment.replies.filter((data: any) => data.id !== id);
+                    comment.replies = updatedReplies;
+                }
+            });
+        }
+
+        updateComments(updatedComments);
+    };
 
     return (
         <>
@@ -190,25 +315,51 @@ const Blog = () =>
             </section>
 
             <section className={styles.blogMainFooter}>
-                <span>
-                    Tutorial
-                </span>
+                <ul>
+                    <li>
+                        <Link href='/'>
+                            #Tag
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            #Tag
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            #Tag
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href='/'>
+                            #Tag
+                        </Link>
+                    </li>
+                </ul>
                 <div>
-                    <Tooltip content='Liked The Blog'>
+                    <Link href='/'>
                         <span>
-                            <BsHeart />
+                            Tutorial
                         </span>
-                    </Tooltip>
-                    <Tooltip content='Save The Blog'>
-                        <span>
-                            <BsBookmark />
-                        </span>
-                    </Tooltip>
-                    <Tooltip content='Print The Blog'>
-                        <span>
-                            <BsPrinter />
-                        </span>
-                    </Tooltip>
+                    </Link>
+                    <div>
+                        <Tooltip content='Liked The Blog'>
+                            <span>
+                                <BsHeart />
+                            </span>
+                        </Tooltip>
+                        <Tooltip content='Save The Blog'>
+                            <span>
+                                <BsBookmark />
+                            </span>
+                        </Tooltip>
+                        <Tooltip content='Print The Blog'>
+                            <span>
+                                <BsPrinter />
+                            </span>
+                        </Tooltip>
+                    </div>
                 </div>
             </section>
 
@@ -270,17 +421,22 @@ const Blog = () =>
             </section>
 
             <section className={styles.blogMainComments}>
-                <div className={styles.blogMainCommentsForm}>
-                    <h3>
-                        Post comment
-                    </h3>
-                    <form>
-                        <textarea placeholder='Your comment content' />
-                    </form>
-
-                    <Button>
-                        Confirm
-                    </Button>
+                <div className={styles.blogMainCommentsList}>
+                    {
+                        comments.map((comment) =>
+                            (
+                                <Comment
+                                    key={comment.id}
+                                    commentData={comment}
+                                    updateScore={updateScore}
+                                    updateReplies={updateReplies}
+                                    editComment={editComment}
+                                    commentDelete={commentDelete}
+                                    setDeleteModalState={setDeleteModalState}
+                                />
+                            ))
+                    }
+                    <AddComment buttonValue='send' addComments={addComments} />
                 </div>
             </section>
         </>

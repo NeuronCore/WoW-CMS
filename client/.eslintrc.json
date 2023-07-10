@@ -34,6 +34,7 @@
         "no-unexpected-multiline": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/ban-types": "off",
         "quotes":
         [
             2, "single",
