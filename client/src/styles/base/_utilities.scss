@@ -25,3 +25,20 @@
         border-color: #487ffe transparent transparent;
     }
 }
+
+.container
+{
+    max-width: 140rem;
+    margin: 0 auto;
+    padding: 0 1.6rem;
+}
+
+.display--none
+{
+    display: none !important;
+}
+
+.overflow--hidden
+{
+    overflow-y: hidden !important;;
+}

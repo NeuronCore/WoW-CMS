@@ -1,0 +1,116 @@
+.addComment
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    animation: come-in 1.5s ease-in-out;
+
+    &Profile
+    {
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    &Input
+    {
+        position: relative;
+        height: 100px;
+        border: 2px solid gray;
+        color: darkblue;
+        border-radius: 10px;
+        padding: 15px 25px;
+        resize: none;
+        scrollbar-width: none;
+
+        &::placeholder
+        {
+            color: blue;
+        }
+
+        &::-webkit-scrollbar
+        {
+            width: 0;
+        }
+
+        &:focus
+        {
+            outline: 1.5px solid blue;
+        }
+    }
+
+    &SendContainer
+    {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &Add
+    {
+        color: white;
+        font-weight: 500;
+        text-transform: uppercase;
+        padding: 15px 30px;
+        background: blue;
+        border: 0;
+        border-radius: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+
+        &:hover,
+        &:focus
+        {
+            opacity: 0.65;
+        }
+    }
+
+    @media (min-width: 47em)
+    {
+        flex-direction: row;
+        padding: 25px;
+        gap: 25px;
+
+        &Input
+        {
+            width: 100%;
+        }
+
+        &SendContainer
+        {
+            align-items: flex-start;
+
+            & > div
+            {
+                display: none;
+            }
+        }
+    }
+}
+
+@keyframes come-in
+{
+    0%
+    {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    75%
+    {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    100%
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,320 @@
+.comment
+{
+    display: flex;
+    flex-direction: column;
+
+    background: var(--base-primary-darker);
+    padding: 1.5rem;
+    border-radius: .5rem;
+    gap: 1.5rem;
+    animation: come-in .25s ease-in-out;
+
+    &Votes
+    {
+        display: none;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        height: max-content;
+        padding: .8rem 1.2rem 1rem;
+        background: var(--base-primary-dark);
+        border-radius: .5rem;
+        color: var(--color-base-text-lighter);
+        font-size: 3rem;
+
+        &Plus,
+        &Minus
+        {
+            display: grid;
+            place-items: center;
+
+            width: 2rem;
+            height: 2rem;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            color: var(--color-base-text-light);
+            transition: all .2s;
+
+            &:hover
+            {
+                color: var(--color-primary-dark);
+            }
+        }
+
+        &Counter
+        {
+            color: var(--color-primary);
+            font-size: 1.1rem;
+            margin-block: .8rem;
+            font-weight: 400;
+        }
+    }
+
+    &Body
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+
+        &Header
+        {
+            display: flex;
+            align-items: center;
+
+            &Profile
+            {
+                width: 30px;
+                height: 30px;
+                background-size: cover;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            &Username
+            {
+                color: var(--color-primary-dark);
+                font-weight: 400;
+            }
+
+            &YouTag
+            {
+                color: var(--base-primary-dark);
+                font-weight: 400;
+                font-size: 0.9rem;
+                padding: .2rem 1rem .3rem;
+                background: var(--color-primary-lighter);
+                border-radius: .2rem;
+                margin-left: 1rem;
+            }
+
+            &Time
+            {
+                margin-left: .75rem;
+                font-size: 1.5rem;
+                color: var(--color-base-text-lighter);
+            }
+
+            &Button
+            {
+                display: none;
+            }
+        }
+
+        &Content
+        {
+            width: 100%;
+            color: var(--color-base-text);
+            line-height: 1.5;
+            word-wrap: break-word;
+            word-break: break-word;
+            font-size: 1.75rem;
+
+            &ReplyingTo
+            {
+                color: var(--color-primary-light);
+                font-weight: 500;
+                display: inline-block;
+                margin-right: 1rem;
+            }
+        }
+
+        &ContentEdit
+        {
+            border-radius: 0.5rem;
+            height: fit-content;
+            min-height: 15rem;
+            color: var(--color-base-text-bolder);
+            line-height: 1.5;
+            resize: none;
+            scrollbar-width: none;
+            border: none;
+            outline: none;
+            width: 100%;
+            background: var(--base-primary-dark);
+            padding: 2rem;
+
+            &::-webkit-scrollbar
+            {
+                width: 0;
+            }
+        }
+    }
+
+    &Footer
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &Votes
+        {
+            padding: .8rem 1.5rem;
+            display: flex;
+            flex-direction: row;
+
+            &Counter
+            {
+                margin-block: 0;
+                margin-inline: 1.5rem;
+            }
+
+            &Plus,
+            &Minus
+            {
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+    }
+
+    &Container
+    {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    &Button
+    {
+        display: flex;
+        align-items: center;
+
+        gap: 2rem;
+        margin-left: auto;
+
+        button
+        {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+
+            color: var(--color-primary-lighter);
+            font-weight: 500;
+            background: transparent;
+            border: none;
+            transition: 0.2s;
+            cursor: pointer;
+
+            &:hover,
+            &:focus
+            {
+                opacity: 0.5;
+            }
+
+            &[data-delete]
+            {
+                color: var(--red);
+            }
+        }
+    }
+
+    &ReplyContainer
+    {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        padding-left: 1.5rem;
+        border-left: .2rem solid var(--base-primary-darker);
+        margin-left: 1.5rem;
+        gap: 1.5rem;
+
+        &Gap > div[data-reply]
+        {
+            margin-top: 1.5rem;
+
+            @media (min-width: 47em)
+            {
+                margin-top: 2rem;
+            }
+        }
+
+        &CommentContainer
+        {
+            width: 100%;
+
+            &Comment
+            {
+                animation: come-in 1.5s ease-in-out;
+            }
+        }
+    }
+
+    &Add
+    {
+        width: 100%;
+        margin-top: .5rem;
+        animation-duration: 0.5s;
+    }
+
+    @media (min-width: 47em)
+    {
+        flex-direction: row;
+        padding: 2.5rem;
+        gap: 2.5rem;
+
+        &Votes
+        {
+            display: flex;
+        }
+
+        &BodyHeader
+        {
+            &Button
+            {
+                display: flex !important;
+            }
+        }
+
+        &Content
+        {
+            width: 100%;
+        }
+
+        .content-edit-box
+        {
+            height: 100px;
+        }
+
+        &Footer
+        {
+            display: none;
+        }
+
+        &Add
+        {
+            margin-top: 1rem;
+        }
+
+        &ReplyContainer
+        {
+            padding-left: 3.5rem;
+            margin-left: 3.5rem;
+            gap: 2rem;
+        }
+    }
+}
+
+@keyframes come-in
+{
+    0%
+    {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+
+    75%
+    {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    100%
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
