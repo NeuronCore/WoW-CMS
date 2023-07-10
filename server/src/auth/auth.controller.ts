@@ -24,7 +24,7 @@ export class AuthController
     }
 
     @Post('login')
-    public async login(@Body() loginDto: LoginDto, @Res() response: Response)
+    public async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) response: Response)
     {
         return this.authService.login(loginDto, response);
     }
@@ -32,7 +32,7 @@ export class AuthController
     @Get('logout')
     @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
-    public async logout(@Req() request: Request, @Res() response: Response)
+    public async logout(@Req() request: Request, @Res({ passthrough: true }) response: Response)
     {
         return this.authService.logout(request, response);
     }

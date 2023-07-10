@@ -52,7 +52,9 @@ export class AccountService
 
         await this.webDatabase.execute('REPLACE INTO `account_password` (`id`, `password_changed_at`) VALUES (?, ?)', [accountID, new Date(Date.now() - 1000)]);
 
-        await Helper.generateAndSetToken(account, response, this.webDatabase, 'Password updated successfully');
+        const accessToken = await Helper.generateAndSetToken(account, response, this.webDatabase);
+
+        return { statusCode: HttpStatus.OK, message: 'Your Password updated successfully', data: { accessToken } };
     }
 
     public async updateAvatar(accountID: number, avatar: Express.Multer.File)

@@ -53,7 +53,9 @@ export class AuthService
         if (!account[0] || !SRP6.verifySRP6(username, password, account[0]?.salt, account[0]?.verifier))
             throw new UnauthorizedException('Incorrect username or password');
 
-        await Helper.generateAndSetToken(account, response, this.webDatabase, 'You\'re logged in successfully');
+        const accessToken = await Helper.generateAndSetToken(account, response, this.webDatabase);
+
+        return { statusCode: HttpStatus.OK, message: 'You\'re logged in successfully', data: { accessToken } };
     }
 
     public async logout(request: Request, response: Response)
@@ -64,11 +66,15 @@ export class AuthService
 
         const [account] = await this.webDatabase.query('SELECT `id`, `refresh_token` FROM `account_information` WHERE `refresh_token` = ?', [refreshToken]);
         if (!account[0])
-            Helper.clearCookies(response);
+        {
+            response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', secure: true });
+            return { statusCode: HttpStatus.OK, message: 'You are already logged out' };
+        }
 
         await this.webDatabase.execute('UPDATE `account_information` SET `refresh_token` = NULL WHERE `id` = ?', [account[0].id]);
 
-        Helper.clearCookies(response);
+        response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', secure: true });
+        return { statusCode: HttpStatus.OK, message: 'You are already logged out' };
     }
 
     public async refresh(request: Request)
