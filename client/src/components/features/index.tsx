@@ -1,11 +1,15 @@
 import React from 'react';
 import Image from 'next/image';
 
-import {createUniqueKey} from '@/utils/helper.util';
-
 import FeatureFrame from '@/../public/images/textures/frame_circle.svg';
 
-const Features = ({ index, item }: any) =>
+type Props =
+    {
+        index: number,
+        item: { name: string, description: string, src: string, alt: string }
+    };
+
+const Features = ({ index, item }: Props) =>
 {
     return (
         <li data-index={ index }>

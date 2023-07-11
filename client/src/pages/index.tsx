@@ -175,7 +175,7 @@ const Home = () =>
                     {
                         features.map((item, index: number) =>
                             (
-                                <Features key={ createUniqueKey([item.alt, index, 'features_1']) }/>
+                                <Features index={ index } item={ item } key={ createUniqueKey([item.alt, index, 'features_1']) }/>
                             ))
                     }
                 </ul>
@@ -201,7 +201,7 @@ const Home = () =>
                     {
                         faq.map((item, index: number) =>
                             (
-                                <FAQ setFaqs={ setFaqs } faq={ faqs } index={ index } item={ item } key={ createUniqueKey([item.question, index, 'faq_1']) }/>
+                                <FAQ setFaqs={ setFaqs } faqs={ faqs } index={ index } item={ item } key={ createUniqueKey([item.question, index, 'faq_1']) }/>
                             ))
                     }
                 </ul>

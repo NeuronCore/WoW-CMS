@@ -4,7 +4,15 @@ import { HiChevronRight } from 'react-icons/hi';
 
 import styles from '@/styles/pages/home.module.scss';
 
-const FAQ = ({ index, item, faqs, setFaqs }: any) =>
+type Props =
+    {
+        index: number,
+        item: { answer: string, question: string },
+        faqs: number[],
+        setFaqs: Function
+    };
+
+const FAQ = ({ index, item, faqs, setFaqs }: Props) =>
 {
     return (
         <li className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
@@ -30,7 +38,7 @@ const FAQ = ({ index, item, faqs, setFaqs }: any) =>
                 let newFaqs = faqs;
 
                 if (newFaqs.includes(index))
-                    newFaqs = newFaqs.filter(e => e !== index);
+                    newFaqs = newFaqs.filter((newIndex: number) => newIndex !== index);
                 else
                     newFaqs.push(index);
 
