@@ -18,7 +18,7 @@ import { CharactersModule } from './characters/characters.module';
 ({
     imports:
     [
-        ConfigModule.forRoot({ envFilePath: ['../.env'] }),
+        ConfigModule.forRoot({ envFilePath: ['../../.env'] }),
         ThrottlerModule.forRoot({ ttl: 60, limit: 10 }),
         MulterModule.register({ storage: memoryStorage() }),
         GraphQLModule.forRoot<ApolloDriverConfig>({ driver: ApolloDriver, autoSchemaFile: true, resolvers: { JSON: GraphQLJSON } }),

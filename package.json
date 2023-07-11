@@ -1,0 +1,20 @@
+{
+    "name": "wow-cms",
+    "version": "0.1.0",
+    "author":
+    {
+        "email": "NeuronCore@ProtonMail.Com",
+        "name": "NeuronCore",
+        "url": "NeuronCore.diff"
+    },
+    "scripts":
+    {
+        "dev": "turbo run dev",
+        "build": "turbo run build"
+    },
+    "devDependencies":
+    {
+        "turbo": "^1.10.7"
+    },
+    "workspaces": ["apps/*"]
+}
