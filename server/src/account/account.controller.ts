@@ -32,7 +32,7 @@ export class AccountController
 
     @Patch('update-password')
     @UseGuards(AuthGuard)
-    public async updatePassword(@AccountDecorator() accountID: number, @Body() updatePasswordDto: UpdatePasswordDto, @Res() response: Response)
+    public async updatePassword(@AccountDecorator() accountID: number, @Body() updatePasswordDto: UpdatePasswordDto, @Res({ passthrough: true }) response: Response)
     {
         return this.accountService.updatePassword(accountID, updatePasswordDto, response);
     }
