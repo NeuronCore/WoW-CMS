@@ -1,19 +1,14 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import classnames from 'classnames';
 import React, { useState } from 'react';
 import { Autoplay, Keyboard } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
-import { HiChevronRight } from 'react-icons/hi';
 
 import HeroImage1 from '@/../public/images/heros/hero_1-cataclysm.png';
 import HeroImage2 from '@/../public/images/heros/hero_1-wotlk.png';
 
 import ButtonImage1 from '@/../public/images/textures/button-cataclysm.png';
 import ButtonImage2 from '@/../public/images/textures/button-wotlk.png';
-import FeatureFrame from '@/../public/images/textures/frame_circle.svg';
 
 import HeaderBlogs1 from '@/../public/images/backgrounds/background_4-cataclysm.png';
 import HeaderBlogs2 from '@/../public/images/backgrounds/background_4-wotlk.jpg';
@@ -30,6 +25,8 @@ import styles from '@/styles/pages/home.module.scss';
 
 import { createUniqueKey, middleOfArray } from '@/utils/helper.util';
 
+const FAQ = dynamic(() => import('@/components/faq'));
+const Features = dynamic(() => import('@/components/features'));
 const BlogsHot = dynamic(() => import('@/components/blogs-card/blogs-hot.component'));
 const BlogsNew = dynamic(() => import('@/components/blogs-card/blogs-new.component'));
 
@@ -159,7 +156,7 @@ const Home = () =>
                     </div>
                 </div>
 
-                <span className={styles.homeBlogsHeader} data-reverse />
+                <span className={styles.homeBlogsHeader} data-reverse/>
             </div>
 
             <div className={styles.homeFeatures}>
@@ -170,41 +167,15 @@ const Home = () =>
                             ? Header1Image2.src
                             : Header1Image1.src
                 })` }} />
-                <span className={styles.homeBlogsFilter} />
-
+                <span className={styles.homeBlogsFilter}/>
                 <p>
                     WoW CMS Features
                 </p>
-
                 <ul>
                     {
                         features.map((item, index: number) =>
                             (
-                                <li key={ createUniqueKey([item.alt, index, 'features_1']) } data-index={ index }>
-                                    <i><span /></i>
-
-                                    <div>
-                                        <h4>
-                                            { item.name }
-                                        </h4>
-                                        <p>
-                                            { item.description }
-                                        </p>
-                                    </div>
-
-                                    <span>
-                                        <span>
-                                            <Image
-                                                src={ item.src }
-                                                alt={ item.alt }
-                                                fill
-                                                style={{ objectFit: 'cover' }}
-                                            />
-                                        </span>
-
-                                        <FeatureFrame />
-                                    </span>
-                                </li>
+                                <Features key={ createUniqueKey([item.alt, index, 'features_1']) }/>
                             ))
                     }
                 </ul>
@@ -218,9 +189,9 @@ const Home = () =>
                             ? Header3Image2.src
                             : Header3Image1.src
                 })` }} />
-                <span className={styles.homeFaqFilter} />
+                <span className={styles.homeFaqFilter}/>
 
-                <span className={styles.homeBlogsHeader} />
+                <span className={styles.homeBlogsHeader}/>
 
                 <p>
                     Frequently Asked Questions
@@ -230,52 +201,12 @@ const Home = () =>
                     {
                         faq.map((item, index: number) =>
                             (
-                                <li key={ createUniqueKey([item.question, index, 'faq_1']) } className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
-                                    <i data-top_right>
-                                        <span/>
-                                        <span/>
-                                    </i>
-                                    <i data-top_left>
-                                        <span/>
-                                        <span/>
-                                    </i>
-                                    <i data-bottom_left>
-                                        <span/>
-                                        <span/>
-                                    </i>
-                                    <i data-bottom_right>
-                                        <span/>
-                                        <span/>
-                                    </i>
-
-                                    <div onClick={() =>
-                                    {
-                                        let newFaqs = faqs;
-
-                                        if (newFaqs.includes(index))
-                                            newFaqs = newFaqs.filter(e => e !== index);
-                                        else
-                                            newFaqs.push(index);
-
-                                        setFaqs([...newFaqs]);
-                                    }}>
-                                        <p>
-                                            { item.question }
-                                        </p>
-                                        <i>
-                                            <HiChevronRight />
-                                        </i>
-                                    </div>
-
-                                    <p>
-                                        { item.answer }
-                                    </p>
-                                </li>
+                                <FAQ setFaqs={ setFaqs } faq={ faqs } index={ index } item={ item } key={ createUniqueKey([item.question, index, 'faq_1']) }/>
                             ))
                     }
                 </ul>
 
-                <span className={styles.homeBlogsHeader} data-reverse />
+                <span className={styles.homeBlogsHeader} data-reverse/>
             </div>
         </>
     );
