@@ -1633,7 +1633,170 @@
 
             width: 100%;
             max-width: 90rem;
-            margin: 10rem auto;
+            margin: 4rem auto;
+
+            &Navbar
+            {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 2rem;
+
+                width: 100%;
+                max-width: 90rem;
+                margin: 10rem auto;
+                margin-bottom: 2rem;
+
+                &Filter
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    cursor: pointer;
+                    color: var(--color-base-text-lighter);
+                    font-weight: 400;
+                    font-size: 1.5rem;
+                    padding: 1rem 1.5rem;
+                    border-radius: .35rem;
+                    border: .15rem solid var(--color-base-text-lighter);
+                    transition: all .2s;
+
+                    &:hover
+                    {
+                        border: .15rem solid var(--color-base-text-light);
+                    }
+
+                    &Active
+                    {
+                        color: var(--color-primary);
+                        border: .15rem solid var(--color-primary);
+
+                        &:hover
+                        {
+                            border: .15rem solid var(--color-primary-dark);
+                        }
+                    }
+                }
+
+                &Categories
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 3rem;
+
+                    padding: 1rem 1.5rem;
+
+                    &Item
+                    {
+                        color: var(--color-base-text-lighter);
+                        transition: all .2s;
+                        font-weight: 400;
+                        font-size: 1.75rem;
+                        cursor: pointer;
+
+                        &:hover
+                        {
+                            color: var(--color-base-text-light);
+                        }
+
+                        &Active
+                        {
+                            color: var(--color-primary);
+                        }
+                    }
+                }
+
+                &Sort
+                {
+                    position: relative;
+
+                    &By
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        cursor: pointer;
+                        color: var(--color-base-text-lighter);
+                        font-weight: 400;
+                        font-size: 1.5rem;
+                        padding: 1rem 1.5rem;
+                        border-radius: .35rem;
+                        border: .15rem solid var(--color-base-text-lighter);
+                        transition: all .2s;
+
+                        &:hover
+                        {
+                            border: .15rem solid var(--color-base-text-light);
+                        }
+
+                        &Active
+                        {
+                            color: var(--color-primary);
+                            border: .15rem solid var(--color-primary);
+
+                            &:hover
+                            {
+                                border: .15rem solid var(--color-primary-dark);
+                            }
+                        }
+                    }
+
+                    &List
+                    {
+                        position: absolute;
+                        z-index: 1;
+                        top: 5rem;
+
+                        display: none;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+
+                        background: var(--color-primary-darker);
+                        height: auto;
+                        overflow: hidden;
+                        cursor: pointer;
+                        color: var(--color-base-text-lighter);
+                        font-weight: 500;
+                        font-size: 1.5rem;
+                        border-radius: .5rem;
+                        padding: .5rem 0;
+                        transition: height .2s, padding .2s;
+                        width: 15rem;
+
+                        &Item
+                        {
+                            width: 100%;
+                            padding: 1rem 2.5rem;
+                            color: var(--color-base-text);
+                            transition: all .2s;
+
+                            &:hover
+                            {
+                                background: var(--color-primary-dark);
+                            }
+
+                            &Active
+                            {
+                                color: var(--color-primary-dark);
+
+                                &:hover
+                                {
+                                    color: var(--color-base-text);
+                                }
+                            }
+                        }
+
+                        &Active
+                        {
+                            display: flex;
+                        }
+                    }
+                }
+            }
         }
 
         &Item

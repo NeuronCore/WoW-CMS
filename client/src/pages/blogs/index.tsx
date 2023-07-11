@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import classnames from 'classnames';
 
 import styles from '@/styles/pages/blog.module.scss';
 
@@ -13,6 +14,10 @@ const BlogsCard = dynamic(() => import('@/components/blogs-card/blogs-card.compo
 
 const Blogs = () =>
 {
+    const [sort, setSort] = useState({ hidden: true, by: 'newest' });
+    const [category, setCategory] = useState('tutorial');
+    const [filter, setFilter] = useState({ hidden: true });
+
     return (
         <>
             <header className={styles.blogNavbarHeaderBlogsPage}>
@@ -222,6 +227,42 @@ const Blogs = () =>
                     </Link>
                 </div>
             </header>
+
+            <ul className={styles.blogsListNavbar}>
+                <li className={styles.blogsListNavbarSort}>
+                    <div className={classnames(styles.blogsListNavbarSortBy, { [styles.blogsListNavbarSortByActive]: !sort.hidden })} onClick={() => setSort({ ...sort, hidden: !sort.hidden })}>
+                        { sort.by }
+                    </div>
+
+                    <ul className={classnames(styles.blogsListNavbarSortList, { [styles.blogsListNavbarSortListActive]: !sort.hidden })}>
+                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'viewed' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'viewed' })}>
+                            Most viewed
+                        </li>
+                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'liked' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'liked' })}>
+                            Most liked
+                        </li>
+                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'newest' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'newest' })}>
+                            Newest
+                        </li>
+                    </ul>
+                </li>
+
+                <li className={styles.blogsListNavbarCategories}>
+                    <span onClick={() => setCategory('tutorial')} className={classnames(styles.blogsListNavbarCategoriesItem, { [styles.blogsListNavbarCategoriesItemActive]: category === 'tutorial' })}>
+                        Tutorial
+                    </span>
+                    <span onClick={() => setCategory('updates')} className={classnames(styles.blogsListNavbarCategoriesItem, { [styles.blogsListNavbarCategoriesItemActive]: category === 'updates' })}>
+                        Updates
+                    </span>
+                    <span onClick={() => setCategory('news')} className={classnames(styles.blogsListNavbarCategoriesItem, { [styles.blogsListNavbarCategoriesItemActive]: category === 'news' })}>
+                        News
+                    </span>
+                </li>
+
+                <li className={classnames(styles.blogsListNavbarFilter, { [styles.blogsListNavbarFilterActive]: !filter.hidden })} onClick={() => setFilter({ hidden: !filter.hidden })}>
+                    Filters
+                </li>
+            </ul>
 
             <ul className={styles.blogsList}>
                 {
