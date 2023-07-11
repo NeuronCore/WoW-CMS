@@ -1,8 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
 import styles from '@/styles/pages/blog.module.scss';
+
+import blogs from '@/data/blogs.data.json';
+
+import { createUniqueKey } from '@/utils/helper.util';
+
+const BlogsCard = dynamic(() => import('@/components/blogs-card/blogs-card.component'));
 
 const Blogs = () =>
 {
@@ -216,6 +223,14 @@ const Blogs = () =>
                 </div>
             </header>
 
+            <ul className={styles.blogsList}>
+                {
+                    blogs.map((item, index: number) =>
+                        (
+                            <BlogsCard key={ createUniqueKey([item.alt, index, 'blogs_page_1'])}/>
+                        ))
+                }
+            </ul>
         </>
     );
 };

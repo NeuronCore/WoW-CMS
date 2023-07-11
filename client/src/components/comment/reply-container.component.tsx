@@ -17,11 +17,11 @@ const ReplyContainer = ({
     return (
         <div className={styles.commentReplyContainer} data-reply>
             {
-                commentData.map((data: any) =>
+                commentData.map((comment: any) =>
                     (
                         <Reply
-                            key={data.id}
-                            commentData={data}
+                            key={comment.id}
+                            commentData={comment}
                             updateScore={updateScore}
                             addNewReply={addReply}
                             editComment={editComment}

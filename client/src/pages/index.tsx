@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import React, { useState } from 'react';
 import { Autoplay, Keyboard } from 'swiper';
@@ -28,6 +29,9 @@ import features from '@/data/features.data.json';
 import styles from '@/styles/pages/home.module.scss';
 
 import { createUniqueKey, middleOfArray } from '@/utils/helper.util';
+
+const BlogsHot = dynamic(() => import('@/components/blogs-card/blogs-hot.component'));
+const BlogsNew = dynamic(() => import('@/components/blogs-card/blogs-new.component'));
 
 const Home = () =>
 {
@@ -96,43 +100,8 @@ const Home = () =>
                     {
                         blogs.map((item, index: number) =>
                             (
-                                <SwiperSlide key={ createUniqueKey([item.alt, index, 'blogs_1']) }  virtualIndex={ index }>
-                                    <div className={classnames(styles.homeHeaderItem, { [styles.homeHeaderItemActive]: index === headerBlog })}>
-                                        <div>
-                                            <i data-top_right>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <i data-top_left>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <i data-bottom_left>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <i data-bottom_right>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <span>
-                                                <Image
-                                                    src={ item.src }
-                                                    alt={ item.alt }
-                                                    fill
-                                                    style={{ objectFit: 'cover' }}
-                                                />
-                                                <div>
-                                                    <span>
-                                                        6/27/2023
-                                                    </span>
-                                                    <p>
-                                                        { item.name }
-                                                    </p>
-                                                </div>
-                                            </span>
-                                        </div>
-                                    </div>
+                                <SwiperSlide key={ createUniqueKey([item.alt, index, 'blogs_1']) } virtualIndex={ index }>
+                                    <BlogsHot item={ item } active={ index === headerBlog }/>
                                 </SwiperSlide>
                             ))
                     }
@@ -180,34 +149,7 @@ const Home = () =>
                                 blogs.map((item, index: number) =>
                                     (
                                         <SwiperSlide key={ createUniqueKey([item.alt, index, 'blogs_2']) } virtualIndex={ index }>
-                                            <div className={classnames(styles.homeBlogsListSwiperItem, { [styles.homeBlogsListSwiperItemActive]: index === blog })}>
-                                                <div>
-                                                    <i data-top_right>
-                                                        <span/>
-                                                        <span/>
-                                                    </i>
-                                                    <i data-top_left>
-                                                        <span/>
-                                                        <span/>
-                                                    </i>
-                                                    <i data-bottom_left>
-                                                        <span/>
-                                                        <span/>
-                                                    </i>
-                                                    <i data-bottom_right>
-                                                        <span/>
-                                                        <span/>
-                                                    </i>
-                                                    <span>
-                                                        <Image
-                                                            src={ item.src }
-                                                            alt={ item.alt }
-                                                            fill
-                                                            style={{ objectFit: 'cover' }}
-                                                        />
-                                                    </span>
-                                                </div>
-                                            </div>
+                                            <BlogsNew item={ item } active={ index === blog }/>
                                         </SwiperSlide>
                                     ))
                             }
