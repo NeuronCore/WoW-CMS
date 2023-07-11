@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
+import React, { useState } from 'react';
 
 import styles from '@/styles/pages/blog.module.scss';
 
@@ -10,6 +10,7 @@ import blogs from '@/data/blogs.data.json';
 
 import { createUniqueKey } from '@/utils/helper.util';
 
+const Input = dynamic(() => import('@/components/input'));
 const BlogsCard = dynamic(() => import('@/components/blogs-card/blogs-card.component'));
 
 const Blogs = () =>
@@ -263,6 +264,10 @@ const Blogs = () =>
                     Filters
                 </li>
             </ul>
+            <div className={classnames(styles.blogsListFilters, { [styles.blogsListFiltersActive]: !filter.hidden })}>
+                <Input label='Search in Tags'/>
+                <Input label='Search in Contents'/>
+            </div>
 
             <ul className={styles.blogsList}>
                 {

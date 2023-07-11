@@ -1635,6 +1635,35 @@
             max-width: 90rem;
             margin: 4rem auto;
 
+            &Filters
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+
+                height: 0;
+                opacity: 0;
+                overflow: hidden;
+                width: 100%;
+                max-width: 90rem;
+                margin: 2rem auto;
+                transition: all .5s;
+                padding: 0;
+
+                & > label
+                {
+                    max-width: 100%;
+                }
+
+                &Active
+                {
+                    padding: 1rem 0;
+                    opacity: 1;
+                    height: auto;
+                }
+            }
+
             &Navbar
             {
                 display: flex;
