@@ -15,7 +15,7 @@
         height: 100vh;
         overflow: hidden;
 
-        &:after
+        &::after
         {
             content: '';
             position: absolute;
@@ -25,7 +25,7 @@
             width: 100%;
             height: .25rem;
             opacity: .5;
-            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
+            background: linear-gradient(90deg, rgb(2 0 36 / 0%) 0%, var(--color-primary) 50%, rgb(2 0 36 / 0%) 100%);
         }
 
         &Container
@@ -265,7 +265,7 @@
                             color: var(--color-base-text-light);
                         }
 
-                        &:after
+                        &::after
                         {
                             content: '';
 
@@ -275,7 +275,7 @@
                             height: 100%;
                             width: 100%;
 
-                            background: linear-gradient(0deg, var(--base-primary) 0%, rgba(253,45,45,0) 100%);
+                            background: linear-gradient(0deg, var(--base-primary) 0%, rgb(253 45 45 / 0%) 100%);
                         }
                     }
                 }
@@ -323,7 +323,7 @@
             width: 100%;
             height: 100%;
 
-            background: radial-gradient(circle, rgba(0,212,255,0) 0%, var(--base-primary-dark) 100%);
+            background: radial-gradient(circle, rgb(0 212 255 / 0%) 0%, var(--base-primary-dark) 100%);
 
             &2
             {
@@ -338,7 +338,7 @@
                 width: 100%;
                 height: 50%;
 
-                background: linear-gradient(0deg, var(--base-primary) 0%, rgba(253,45,45,0) 100%);
+                background: linear-gradient(0deg, var(--base-primary) 0%, rgb(253 45 45 / 0%) 100%);
             }
         }
 
@@ -383,8 +383,9 @@
                 color: var(--color-primary-lighter);
                 font-weight: lighter;
                 font-size: 10rem;
-                font-family: 'warcraft', sans-serif;
+                font-family: warcraft, sans-serif;
             }
+
             & > p
             {
                 color: var(--color-base-text-primary);
@@ -408,14 +409,13 @@
                 height: 7rem;
                 width: 27rem;
                 color: var(--color-base-text-primary);
-                text-shadow: rgb(0, 0, 0) 0 0 0.3rem, rgb(0, 0, 0) 0 0.0625rem 0.3rem;
+                text-shadow: rgb(0 0 0) 0 0 0.3rem, rgb(0 0 0) 0 0.0625rem 0.3rem;
                 overflow: auto;
                 transition: all .2s;
 
                 &:hover
                 {
-                    -webkit-filter: drop-shadow(5px 5px 5px rgb(0, 0, 0));
-                    filter: drop-shadow(5px 5px 5px rgb(0, 0, 0));
+                    filter: drop-shadow(5px 5px 5px rgb(0 0 0));
                 }
             }
         }
@@ -431,7 +431,7 @@
         width: 100%;
         height: auto;
 
-        &:after
+        &::after
         {
             content: '';
             position: absolute;
@@ -441,12 +441,12 @@
             width: 100%;
             height: .25rem;
             opacity: .5;
-            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
+            background: linear-gradient(90deg, rgb(2 0 36 / 0%) 0%, var(--color-primary) 50%, rgb(2 0 36 / 0%) 100%);
         }
 
         & > p
         {
-            font-family: 'warcraft', sans-serif;
+            font-family: warcraft, sans-serif;
             margin-bottom: 2rem;
             font-size: 7rem;
             color: var(--color-primary-light);
@@ -464,9 +464,9 @@
             width: 100%;
             height: 100%;
 
-            background: radial-gradient(circle, rgba(0,212,255,0) 0%, var(--base-primary-dark) 70%);
+            background: radial-gradient(circle, rgb(0 212 255 / 0%) 0%, var(--base-primary-dark) 70%);
 
-            &:before
+            &::before
             {
                 content: '';
 
@@ -488,8 +488,7 @@
             margin: 5rem 0;
 
             background: var(--color-primary) linear-gradient(0deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
-            -webkit-mask: url(../../../public/images/textures/header.svg) no-repeat center;
-            mask: url(../../../public/images/textures/header.svg) no-repeat center;
+            mask: url("../../../public/images/textures/header.svg") no-repeat center;
 
             &[data-reverse]
             {
@@ -534,24 +533,24 @@
 
                 width: 100%;
 
-                &:before
+                &::before
                 {
                     content: '';
                     position: absolute;
                     height: 100%;
                     width: 100%;
                     opacity: .35;
-                    background: linear-gradient(90deg, var(--color-primary-darker) 0%, rgba(253,45,45,0) 80%);
+                    background: linear-gradient(90deg, var(--color-primary-darker) 0%, rgb(253 45 45 / 0%) 80%);
                 }
 
-                &:after
+                &::after
                 {
                     content: '';
                     position: absolute;
                     top: 0;
                     height: .25rem;
                     width: 100%;
-                    background: linear-gradient(90deg, var(--color-primary-darker) 0%, rgba(253,45,45,0) 80%);
+                    background: linear-gradient(90deg, var(--color-primary-darker) 0%, rgb(253 45 45 / 0%) 80%);
                 }
 
                 & > div
@@ -569,7 +568,7 @@
                     & > h3
                     {
                         font-size: 5rem;
-                        font-family: 'warcraft', sans-serif;
+                        font-family: warcraft, sans-serif;
                         font-weight: lighter;
                         color: var(--color-primary-lighter);
                     }
@@ -805,7 +804,7 @@
         padding: 10rem 0;
         width: 100%;
 
-        &:after
+        &::after
         {
             content: '';
             position: absolute;
@@ -815,12 +814,12 @@
             width: 100%;
             height: .25rem;
             opacity: .5;
-            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, var(--color-primary) 50%, rgba(2,0,36,0) 100%);
+            background: linear-gradient(90deg, rgb(2 0 36 / 0%) 0%, var(--color-primary) 50%, rgb(2 0 36 / 0%) 100%);
         }
 
         & > p
         {
-            font-family: 'warcraft', sans-serif;
+            font-family: warcraft, sans-serif;
             margin-bottom: 2rem;
             font-size: 7rem;
             color: var(--color-primary-light);
@@ -863,24 +862,24 @@
                         height: 70%;
                         width: 100%;
 
-                        &:after
+                        &::after
                         {
                             content: '';
                             position: absolute;
                             bottom: 0;
                             height: .25rem;
                             width: 100%;
-                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 20%, rgba(253,45,45,0) 100%);
+                            background: linear-gradient(90deg, rgb(34 41 195 / 0%) 0%, var(--color-primary-darker) 20%, rgb(253 45 45 / 0%) 100%);
                         }
 
-                        &:before
+                        &::before
                         {
                             content: '';
                             position: absolute;
                             top: 0;
                             height: .25rem;
                             width: 100%;
-                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 20%, rgba(253,45,45,0) 100%);
+                            background: linear-gradient(90deg, rgb(34 41 195 / 0%) 0%, var(--color-primary-darker) 20%, rgb(253 45 45 / 0%) 100%);
                         }
 
                         & > span
@@ -889,7 +888,7 @@
                             height: 100%;
 
                             opacity: .35;
-                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 20%, rgba(253,45,45,0) 100%);
+                            background: linear-gradient(90deg, rgb(34 41 195 / 0%) 0%, var(--color-primary-darker) 20%, rgb(253 45 45 / 0%) 100%);
                         }
                     }
                 }
@@ -911,24 +910,24 @@
                         height: 70%;
                         width: 100%;
 
-                        &:after
+                        &::after
                         {
                             content: '';
                             position: absolute;
                             bottom: 0;
                             height: .25rem;
                             width: 100%;
-                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 70%, rgba(253,45,45,0) 100%);
+                            background: linear-gradient(90deg, rgb(34 41 195 / 0%) 0%, var(--color-primary-darker) 70%, rgb(253 45 45 / 0%) 100%);
                         }
 
-                        &:before
+                        &::before
                         {
                             content: '';
                             position: absolute;
                             top: 0;
                             height: .25rem;
                             width: 100%;
-                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 70%, rgba(253,45,45,0) 100%);
+                            background: linear-gradient(90deg, rgb(34 41 195 / 0%) 0%, var(--color-primary-darker) 70%, rgb(253 45 45 / 0%) 100%);
                         }
 
                         & > span
@@ -937,7 +936,7 @@
                             height: 100%;
 
                             opacity: .35;
-                            background: linear-gradient(90deg, rgba(34,41,195,0) 0%, var(--color-primary-darker) 70%, rgba(253,45,45,0) 100%);
+                            background: linear-gradient(90deg, rgb(34 41 195 / 0%) 0%, var(--color-primary-darker) 70%, rgb(253 45 45 / 0%) 100%);
                         }
                     }
                 }
@@ -957,7 +956,7 @@
                         font-weight: 600;
                         font-size: 4.5rem;
                         color: var(--color-primary-lighter);
-                        font-family: 'warcraft', sans-serif;
+                        font-family: warcraft, sans-serif;
                     }
 
                     & > p
@@ -1031,7 +1030,7 @@
 
         & > p
         {
-            font-family: 'warcraft', sans-serif;
+            font-family: warcraft, sans-serif;
             margin-bottom: 5rem;
             font-size: 7rem;
             color: var(--color-primary-light);
@@ -1217,7 +1216,7 @@
                     z-index: 1;
 
                     transition: all .2s;
-                    font-family: 'warcraft', sans-serif;
+                    font-family: warcraft, sans-serif;
                     font-size: 3.5rem;
                     color: var(--white);
                 }
@@ -1283,9 +1282,9 @@
             height: 100%;
 
             opacity: .65;
-            background: radial-gradient(circle, rgba(0,212,255,0) 0%, var(--base-primary-dark) 70%);
+            background: radial-gradient(circle, rgb(0 212 255 / 0%) 0%, var(--base-primary-dark) 70%);
 
-            &:before
+            &::before
             {
                 content: '';
 
@@ -1319,11 +1318,13 @@
     {
         transform: translateY(0);
     }
+
     50%
     {
-        filter: drop-shadow(0 25mm 5mm rgba(0, 0, 0, 0.35));
+        filter: drop-shadow(0 25mm 5mm rgb(0 0 0 / 35%));
         transform: translateY(-25px);
     }
+
     100%
     {
         transform: translateY(0);

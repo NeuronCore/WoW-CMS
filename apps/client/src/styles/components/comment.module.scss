@@ -226,7 +226,7 @@
         {
             margin-top: 1.5rem;
 
-            @media (min-width: 47em)
+            @media (width >= 47em)
             {
                 margin-top: 2rem;
             }
@@ -250,7 +250,7 @@
         animation-duration: 0.5s;
     }
 
-    @media (min-width: 47em)
+    @media (width >= 47em)
     {
         flex-direction: row;
         padding: 2.5rem;

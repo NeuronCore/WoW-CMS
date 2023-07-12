@@ -1,29 +1,29 @@
 html[data-theme="cataclysm"]
 {
     --color-primary: #ff583e;
-    --color-primary-01: rgba(255, 88, 62, 0.1);
+    --color-primary-01: rgb(255 88 62 / 10%);
     --color-primary-dark: #d7442d;
     --color-primary-darker: #41150e;
     --color-primary-light: #ff6f59;
     --color-primary-lighter: #ff8c7b;
-    --white: #ffffff;
-    --white-shadow: rgba(255, 255, 255, 0.25);
+    --white: #fff;
+    --white-shadow: rgb(255 255 255 / 25%);
     --red: #ff4141;
     --red-light: #ff5f5f;
-    --red-shadow: rgba(253, 106, 106, 0.25);
+    --red-shadow: rgb(253 106 106 / 25%);
     --red-dark: #d12828;
-    --green-shadow: rgba(151, 179, 165, 0.25);
+    --green-shadow: rgb(151 179 165 / 25%);
     --green-light: #82bb9f;
-    --eth-shadow: rgba(118, 146, 255, 0.5);
+    --eth-shadow: rgb(118 146 255 / 50%);
     --eth-light: #d1d7ff;
-    --yellow-shadow: rgba(235, 180, 46, 0.3);
+    --yellow-shadow: rgb(235 180 46 / 30%);
     --yellow-light: #ebb42e;
-    --color-base-text: #cccccc;
+    --color-base-text: #ccc;
     --color-base-text-primary: #ecbcbb;
     --color-base-text-light: #b4a8a8;
     --color-base-text-lighter: #988b8b;
     --color-base-text-bold: #e7e7e7;
-    --color-base-text-bolder: #ffffff;
+    --color-base-text-bolder: #fff;
     --base-primary: #150300;
     --base-primary-light: #0a0200;
     --base-primary-lighter: #1f0803;
@@ -34,22 +34,22 @@ html[data-theme="cataclysm"]
 html[data-theme="wotlk"]
 {
     --color-primary: #26ddf2;
-    --color-primary-01: rgba(38, 221, 242, 0.1);
+    --color-primary-01: rgb(38 221 242 / 10%);
     --color-primary-dark: #1297a6;
     --color-primary-darker: #0c7985;
     --color-primary-light: #4eebfd;
     --color-primary-lighter: #71ccd7;
-    --white: #ffffff;
-    --white-shadow: rgba(255, 255, 255, 0.25);
+    --white: #fff;
+    --white-shadow: rgb(255 255 255 / 25%);
     --red: #ff4141;
     --red-light: #ff5f5f;
-    --red-shadow: rgba(253, 106, 106, 0.25);
+    --red-shadow: rgb(253 106 106 / 25%);
     --red-dark: #d12828;
-    --green-shadow: rgba(151, 179, 165, 0.25);
+    --green-shadow: rgb(151 179 165 / 25%);
     --green-light: #82bb9f;
-    --eth-shadow: rgba(118, 146, 255, 0.5);
+    --eth-shadow: rgb(118 146 255 / 50%);
     --eth-light: #d1d7ff;
-    --yellow-shadow: rgba(235, 180, 46, 0.3);
+    --yellow-shadow: rgb(235 180 46 / 30%);
     --yellow-light: #ebb42e;
     --color-base-text: #c5cbcb;
     --color-base-text-primary: #bbece5;

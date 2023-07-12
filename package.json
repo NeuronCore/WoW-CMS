@@ -10,10 +10,17 @@
     "scripts":
     {
         "dev": "turbo run dev",
-        "build": "turbo run build"
+        "build": "turbo run build",
+        "lint": "turbo run lint",
+        "lint:fix": "turbo run lint:fix",
+        "lint:scss": "turbo run lint:scss",
+        "lint:scss:fix": "turbo run lint:scssfix",
+        "test": "turbo run test",
+        "prepare": "husky install"
     },
     "devDependencies":
     {
+        "husky": "^8.0.3",
         "turbo": "^1.10.7"
     },
     "workspaces": ["apps/*"]

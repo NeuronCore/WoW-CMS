@@ -45,7 +45,7 @@
         width: 100%;
         height: 100%;
 
-        background: radial-gradient(circle, rgba(0,212,255,0) 0%, var(--base-primary-dark) 100%);
+        background: radial-gradient(circle, rgb(0 212 255 / 0%) 0%, var(--base-primary-dark) 100%);
 
         &2
         {
@@ -60,7 +60,7 @@
             width: 100%;
             height: 50%;
 
-            background: linear-gradient(0deg, var(--base-primary) 0%, rgba(253,45,45,0) 100%);
+            background: linear-gradient(0deg, var(--base-primary) 0%, rgb(253 45 45 / 0%) 100%);
         }
     }
 }

@@ -10,6 +10,7 @@
     "plugins": ["@typescript-eslint"],
     "rules":
     {
+        "no-console": "warn",
         "@next/next/no-server-import-in-page": "off",
         "@next/next/no-script-in-document": "off",
         "semi": ["error", "always"],

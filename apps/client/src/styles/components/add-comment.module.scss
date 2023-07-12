@@ -71,7 +71,7 @@
         }
     }
 
-    @media (min-width: 47em)
+    @media (width >= 47em)
     {
         flex-direction: row;
         padding: 25px;

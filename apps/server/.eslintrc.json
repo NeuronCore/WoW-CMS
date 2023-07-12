@@ -11,6 +11,7 @@
     "root": true,
     "rules":
     {
+        "no-console": "warn",
         "semi": ["error", "always"],
         "curly": ["error", "multi-or-nest"],
         "brace-style": ["error", "allman"],
@@ -31,6 +32,8 @@
         "template-curly-spacing": ["error", "always"],
         "space-before-function-paren": ["error", "never"],
         "no-unexpected-multiline": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/ban-types": "off",
         "quotes":
         [
             2, "single",

@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(#000000, 0.5);
+    background: rgba(#000, 0.5);
 
     & > div > i
     {
@@ -193,14 +193,13 @@
         margin-top: 2rem;
     }
 
-    @media (min-width: 47em)
+    @media (width >= 47em)
     {
         width: 400px;
         padding: 30px;
 
         &ButtonContainer
         {
-
             button
             {
                 padding: 15px 30px;
