@@ -6,6 +6,7 @@
         "name": "NeuronCore",
         "url": "NeuronCore.diff"
     },
+    "private": true,
     "main": "server.js",
     "scripts": {
         "dev": "next dev",
