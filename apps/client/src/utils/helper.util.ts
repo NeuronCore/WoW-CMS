@@ -3,7 +3,7 @@ export const middleOfArray = (array: unknown[]) =>
     return Math.round((array.length - 1) / 2);
 };
 
-export const  capitalizeFirstLetter = (string: string) =>
+export const capitalizeFirstLetter = (string: string) =>
 {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
@@ -32,18 +32,19 @@ export const numberWithCommas = (num: number, per: number | undefined, places: n
     else
     {
         cWhole = cString.substring(0, cDot);
-        cDec = cString.substring(cDot+1);
+        cDec = cString.substring(cDot + 1);
     }
 
     let aComma = '', count = 0;
 
     if (cWhole.length > per)
     {
-        for (let i=(cWhole.length-1); i>=0; i--)
+        for (let i = (cWhole.length - 1); i >= 0; i--)
         {
             aComma = cWhole.charAt(i) + aComma;
             count++;
-            if (count == per && i!=0)
+
+            if (count == per && i != 0)
             {
                 aComma = ',' + aComma;
                 count = 0;
@@ -53,9 +54,8 @@ export const numberWithCommas = (num: number, per: number | undefined, places: n
     else
         aComma = cWhole;
 
-    if (places==0)
+    if (places == 0)
         cDec = '';
-
     else
     {
         cDec = +('0.' + cDec);

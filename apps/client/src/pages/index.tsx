@@ -1,6 +1,6 @@
+import React, { useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
 import { Autoplay, Keyboard } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 

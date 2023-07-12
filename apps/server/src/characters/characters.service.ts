@@ -1,6 +1,5 @@
 import { BadRequestException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Pool } from 'mysql2/promise';
-import { Response } from 'express';
 
 import { Soap } from '@/utils/soap.util';
 

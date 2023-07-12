@@ -1,7 +1,7 @@
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
-import React, { useEffect, useState } from 'react';
 
 import '../utils/axios.util';
 

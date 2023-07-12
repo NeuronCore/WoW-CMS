@@ -2,6 +2,7 @@
 /.next
 /.idea
 *.log
+.turbo
 ../.env.local
 package-lock.json
 

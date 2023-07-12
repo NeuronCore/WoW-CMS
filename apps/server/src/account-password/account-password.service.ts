@@ -29,7 +29,7 @@ export class AccountPasswordService
             throw new NotFoundException('There is no account with this email address');
 
         const resetToken: string = randomBytes(32).toString('hex');
-        const passwordResetExpires: any = new Date(Date.now() + 10 * 60 * 1000);
+        const passwordResetExpires: Date = new Date(Date.now() + 10 * 60 * 1000);
         const passwordResetToken: string = createHash('sha256').update(resetToken).digest('hex');
 
         await this.webDatabase.execute('REPLACE INTO `account_password` (`id`, `password_reset_expires`, `password_reset_token`) VALUES (?, ?, ?)', [account[0].id, passwordResetExpires, passwordResetToken]);

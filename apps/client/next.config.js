@@ -1,30 +1,31 @@
 require('dotenv').config({ path: '../../.env' });
 
 const nextConfig =
+{
+    webpack(config)
     {
-        webpack(config)
-        {
-            config.module.rules.push({
-                test: /\.svg$/i,
-                issuer: /\.[jt]sx?$/,
-                use: ['@svgr/webpack'],
-            });
+        config.module.rules.push
+        ({
+            test: /\.svg$/i,
+            issuer: /\.[jt]sx?$/,
+            use: ['@svgr/webpack'],
+        });
 
-            return config;
-        },
-        images:
+        return config;
+    },
+    images:
+    {
+        remotePatterns:
+        [
             {
-                remotePatterns:
-                    [
-                        {
-                            protocol: 'https',
-                            hostname: 'wallpaper-mania.com',
-                            port: ''
-                        }
-                    ]
-            },
-        reactStrictMode: true,
-        swcMinify: true
-    };
+                protocol: 'https',
+                hostname: 'wallpaper-mania.com',
+                port: ''
+            }
+        ]
+    },
+    reactStrictMode: true,
+    swcMinify: true
+};
 
 module.exports = nextConfig;

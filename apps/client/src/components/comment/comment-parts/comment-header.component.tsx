@@ -9,7 +9,8 @@ import styles from '@/styles/components/comment.module.scss';
 
 import MasterCard from '@/../public/images/logos/master_card.png';
 
-const CommentHeader = ({
+const CommentHeader =
+({
     commentData,
     replying,
     setReplying,

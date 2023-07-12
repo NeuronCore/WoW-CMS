@@ -1,6 +1,6 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
-import React from 'react';
 
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
