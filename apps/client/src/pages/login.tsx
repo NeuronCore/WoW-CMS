@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
+import React, { ChangeEvent, useState } from 'react';
 
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
@@ -12,9 +12,33 @@ import HeaderImage2 from '@/../public/images/backgrounds/background_2-wotlk.webp
 const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
+const defaultForm =
+    {
+        register:
+            {
+                first_name: '',
+                last_name: '',
+                email: '',
+                password: '',
+                confirm_password: ''
+            },
+        login:
+            {
+                username: '',
+                password: ''
+            }
+    };
+
 const Login = () =>
 {
+    const [errors] = useState([]);
     const [active, setActive] = useState<boolean>(false);
+    const [formValues, setFormValues] = useState(defaultForm);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>, type: 'register' | 'login') =>
+    {
+        setFormValues({ ...formValues, [type]: { [event.target.name]: event.target.value }});
+    };
 
     return (
         <div className={styles.auth}>
@@ -61,6 +85,8 @@ const Login = () =>
                                 name='first_name'
                                 label='First Name'
                                 placeholder='Your first name'
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('first_name'))}
                             />
 
                             <Input
@@ -68,6 +94,8 @@ const Login = () =>
                                 name='last_name'
                                 label='Last Name'
                                 placeholder='Your last name'
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('last_name'))}
                             />
 
                             <Input
@@ -75,6 +103,8 @@ const Login = () =>
                                 name='email'
                                 label='Email Address'
                                 placeholder='Your email address'
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('email'))}
                             />
 
                             <Input
@@ -83,6 +113,8 @@ const Login = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your password'
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
 
@@ -92,6 +124,8 @@ const Login = () =>
                                 name='confirm_password'
                                 label='Confirm Password'
                                 placeholder='Confirm your password'
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('confirm_password'))}
                             />
 
                             <Button>
@@ -115,6 +149,8 @@ const Login = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your Username'
+                                onChange={(event) => handleChange(event, 'login')}
+                                errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
                             <Input
@@ -123,6 +159,8 @@ const Login = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your Password'
+                                onChange={(event) => handleChange(event, 'login')}
+                                errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
                             <Link href='/password-forgot'>

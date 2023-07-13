@@ -13,6 +13,8 @@
         "no-console": "warn",
         "@next/next/no-server-import-in-page": "off",
         "@next/next/no-script-in-document": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
         "semi": ["error", "always"],
         "curly": ["error", "multi-or-nest"],
         "brace-style": ["error", "allman"],
