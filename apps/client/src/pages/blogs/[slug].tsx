@@ -25,7 +25,6 @@ const Blog = () =>
 
     useEffect(() =>
     {
-        console.log(data.comments);
         updateComments(data.comments);
     }, []);
 
@@ -36,13 +35,13 @@ const Blog = () =>
             : document.body.classList.remove('overflow--hidden');
     }, [comments, deleteModalState]);
 
-    const updateScore = (score: any, id: any, type: any, method: any) =>
+    const updateScore = (score: string, id: string, type: string, method: string) =>
     {
         const updatedComments = [...comments];
 
         if (type === 'comment')
         {
-            updatedComments.forEach((data: any) =>
+            updatedComments.forEach((data: { id: string | number, score: string, voted: boolean }) =>
             {
                 if (data.id === id)
                 {
@@ -53,9 +52,9 @@ const Blog = () =>
         }
         else if (type === 'reply')
         {
-            updatedComments.forEach((comment: any) =>
+            updatedComments.forEach((comment: { replies: [] }) =>
             {
-                comment.replies.forEach((data: any) =>
+                comment.replies.forEach((data: { id: string | number, score: string, voted: boolean }) =>
                 {
                     if (data.id === id)
                     {
@@ -68,13 +67,13 @@ const Blog = () =>
         updateComments(updatedComments);
     };
 
-    const addComments = (newComment: any) =>
+    const addComments = (newComment: string) =>
     {
         const updatedComments = [...comments, newComment];
         updateComments(updatedComments);
     };
 
-    const updateReplies = (replies: any, id: any) =>
+    const updateReplies = (replies: [], id: string | number) =>
     {
         const updatedComments = [...comments];
         updatedComments.forEach((data) =>
@@ -87,7 +86,7 @@ const Blog = () =>
         updateComments(updatedComments);
     };
 
-    const editComment = (content: any, id: any, type: any) =>
+    const editComment = (content: string, id: string, type: string) =>
     {
         const updatedComments = [...comments];
 
@@ -105,7 +104,7 @@ const Blog = () =>
         {
             updatedComments.forEach((comment) =>
             {
-                comment.replies.forEach((data: any) =>
+                comment.replies.forEach((data: { id: string, content: string }) =>
                 {
                     if (data.id === id)
 
@@ -118,14 +117,14 @@ const Blog = () =>
         updateComments(updatedComments);
     };
 
-    const commentDelete = (id: any, type: any, parentComment: any) =>
+    const commentDelete = (id: string | number, type: string, parentComment: unknown) =>
     {
         let updatedComments = [...comments];
         let updatedReplies = [];
 
         if (type === 'comment')
 
-            updatedComments = updatedComments.filter((data) => data.id !== id);
+            updatedComments = updatedComments.filter((data: { id: string }) => data.id !== id);
 
         else if (type === 'reply')
         {
@@ -133,7 +132,7 @@ const Blog = () =>
             {
                 if (comment.id === parentComment)
                 {
-                    updatedReplies = comment.replies.filter((data: any) => data.id !== id);
+                    updatedReplies = comment.replies.filter((data: { id: string | number }) => data.id !== id);
                     comment.replies = updatedReplies;
                 }
             });
@@ -436,7 +435,7 @@ const Blog = () =>
                                 />
                             ))
                     }
-                    <AddComment buttonValue='send' addComments={addComments} />
+                    <AddComment addComments={addComments} />
                 </div>
             </section>
         </>

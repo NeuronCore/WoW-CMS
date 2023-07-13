@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import styles from '@/styles/pages/blog.module.scss';
 
@@ -13,11 +13,25 @@ import { createUniqueKey } from '@/utils/helper.util';
 const Input = dynamic(() => import('@/components/input'));
 const BlogsCard = dynamic(() => import('@/components/blogs-card/blogs-card.component'));
 
+const defaultForm =
+    {
+        tag: '',
+        content: ''
+    };
+
 const Blogs = () =>
 {
-    const [sort, setSort] = useState({ hidden: true, by: 'newest' });
+    const [errors] = useState([]);
+    const [formValues, setFormValues] = useState(defaultForm);
+
     const [category, setCategory] = useState('tutorial');
     const [filter, setFilter] = useState({ hidden: true });
+    const [sort, setSort] = useState({ hidden: true, by: 'newest' });
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    {
+        setFormValues({ ...formValues, [event.target.name]: event.target.value });
+    };
 
     return (
         <>
@@ -265,8 +279,18 @@ const Blogs = () =>
                 </li>
             </ul>
             <div className={classnames(styles.blogsListFilters, { [styles.blogsListFiltersActive]: !filter.hidden })}>
-                <Input label='Search in Tags'/>
-                <Input label='Search in Contents'/>
+                <Input
+                    id='tag'
+                    label='Search in Tags'
+                    onChange={handleChange}
+                    errors={errors.filter((item: string) => item.startsWith('traffic'))}
+                />
+                <Input
+                    id='content'
+                    label='Search in Contents'
+                    onChange={handleChange}
+                    errors={errors.filter((item: string) => item.startsWith('traffic'))}
+                />
             </div>
 
             <ul className={styles.blogsList}>

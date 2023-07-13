@@ -1183,7 +1183,9 @@
                     & > div
                     {
                         display: grid;
-                        grid-template: "a b c" repeat(2, "a d f" 1fr) / 2fr 1fr 1fr;
+                        grid-template-columns: 2fr 1fr 1fr;
+                        grid-template-rows: repeat(2, 1fr);
+                        grid-template-areas: "a b c" "a d f";
 
                         position: relative;
                         z-index: 1;
