@@ -5,6 +5,16 @@ import { BsPen, BsReply, BsTrash } from 'react-icons/bs';
 
 import styles from '@/styles/components/comment.module.scss';
 
+interface Props
+{
+    commentData: { currentUser: unknown },
+    replying: Function,
+    setReplying: Function,
+    setDeleting: Function,
+    setDeleteModalState: Function,
+    setEditing: Function
+}
+
 const CommentButton = ({
     commentData,
     replying,
@@ -12,7 +22,7 @@ const CommentButton = ({
     setDeleting,
     setDeleteModalState,
     setEditing,
-}: any) =>
+}: Props) =>
 {
     const showAddComment = () =>
     {

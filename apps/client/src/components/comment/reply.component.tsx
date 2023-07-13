@@ -11,6 +11,16 @@ const CommentHeader = dynamic(() => import('@/components/comment/comment-parts/c
 
 import styles from '@/styles/components/comment.module.scss';
 
+interface Props
+{
+    commentData: any,
+    updateScore?: Function,
+    addNewReply?: Function,
+    editComment?: Function,
+    deleteComment?: Function,
+    setDeleteModalState?: Function
+}
+
 const Reply = ({
     commentData,
     updateScore,
@@ -18,22 +28,25 @@ const Reply = ({
     editComment,
     deleteComment,
     setDeleteModalState,
-}: any) =>
+}: Props) =>
 {
     const [content, setContent] = useState(commentData.content);
     const [replying, setReplying] = useState(false);
     const [editing, setEditing] = useState(false);
     const [deleting, setDeleting] = useState(false);
 
-    const addReply = (newReply: any) =>
+    const addReply = (newReply: string) =>
     {
-        addNewReply(newReply);
-        setReplying(false);
+        if (addNewReply)
+        {
+            addNewReply(newReply);
+            setReplying(false);
+        }
     };
 
     const commentContent = () =>
     {
-        const text = commentData.content.trim().split(' ');
+        const text: any = commentData.content.trim().split(' ');
         const firstWord = text.shift().split(',');
 
         return (
@@ -58,14 +71,20 @@ const Reply = ({
 
     const updateComment = () =>
     {
-        editComment(content, commentData.id, 'reply');
-        setEditing(false);
+        if (editComment)
+        {
+            editComment(content, commentData.id, 'reply');
+            setEditing(false);
+        }
     };
 
     const deleteReply = () =>
     {
-        deleteComment(commentData.id, 'reply');
-        setDeleting(false);
+        if (deleteComment)
+        {
+            deleteComment(commentData.id, 'reply');
+            setDeleting(false);
+        }
     };
 
     return (
@@ -88,7 +107,7 @@ const Reply = ({
                     { commentContent() }
                     {
                         editing &&
-                        <Button>
+                        <Button onClick={updateComment}>
                             Update
                         </Button>
                     }
@@ -108,15 +127,14 @@ const Reply = ({
             {
                 replying &&
                 <AddComment
-                    buttonValue={'reply'}
                     addComments={addReply}
                     replyingTo={commentData.username}
                 />
             }
             {
-                commentData.replies.map((reply: any) =>
+                commentData.replies.map((reply: { id: string }) =>
                     (
-                        <Reply key={reply.id} commentData={reply} addReply={addReply} />
+                        <Reply key={reply.id} commentData={reply} addNewReply={addReply} />
                     ))}
 
             {

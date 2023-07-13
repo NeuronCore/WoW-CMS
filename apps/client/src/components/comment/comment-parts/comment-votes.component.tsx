@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import {BsDash, BsPlus, BsSlash} from 'react-icons/bs';
+import { BsDash, BsPlus } from 'react-icons/bs';
 
 import styles from '@/styles/components/comment.module.scss';
 

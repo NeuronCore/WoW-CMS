@@ -4,7 +4,13 @@ import classnames from 'classnames';
 
 import styles from '@/styles/pages/home.module.scss';
 
-const BlogsHot = ({ active, item }: any) =>
+interface Props
+{
+    active: boolean,
+    item: { name: string, src: string, alt: string }
+}
+
+const BlogsHot = ({ active, item }: Props) =>
 {
     return (
         <div className={classnames(styles.homeHeaderItem, { [styles.homeHeaderItemActive]: active })}>

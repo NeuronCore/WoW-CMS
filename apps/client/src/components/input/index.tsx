@@ -1,4 +1,6 @@
-import stylesForm from '../../styles/components/form.module.scss';
+import React, { ChangeEvent } from 'react';
+
+import stylesForm from '@/styles/components/form.module.scss';
 
 interface Props
 {
@@ -7,12 +9,12 @@ interface Props
     label?: string,
     type?: string,
     placeholder?: string,
-    error?: string,
-    onChange?: () => void,
+    errors?: string[],
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
     required?: boolean
 }
 
-const Input = ({ id, label, type, placeholder, error, onChange, required, name }: Props) =>
+const Input = ({ id, label, type, placeholder, errors, onChange, required, name }: Props) =>
 {
     return (
         <label className={stylesForm.label} htmlFor={ id }>
@@ -20,8 +22,8 @@ const Input = ({ id, label, type, placeholder, error, onChange, required, name }
                 { label }
             </span>
             <input required={ required } onChange={onChange} className={stylesForm.input} placeholder={ placeholder } type={ type ?? 'text' } id={ id ?? name } name={ name ?? id }/>
-            <p className={stylesForm.messageError} data-active={ !!error }>
-                { error }
+            <p className={stylesForm.messageError} data-active={ !!errors }>
+                { errors ? errors[0] : null }
             </p>
         </label>
     );

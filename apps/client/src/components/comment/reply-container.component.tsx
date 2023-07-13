@@ -17,7 +17,7 @@ const ReplyContainer = ({
     return (
         <div className={styles.commentReplyContainer} data-reply>
             {
-                commentData.map((comment: any) =>
+                commentData.map((comment: { id: string | number }) =>
                     (
                         <Reply
                             key={comment.id}

@@ -4,7 +4,13 @@ import classnames from 'classnames';
 
 import styles from '@/styles/pages/home.module.scss';
 
-const BlogsNew = ({ active, item }: any) =>
+interface Props
+{
+    active: boolean,
+    item: { src: string, alt: string }
+}
+
+const BlogsNew = ({ active, item }: Props) =>
 {
     return (
         <div className={classnames(styles.homeBlogsListSwiperItem, { [styles.homeBlogsListSwiperItemActive]: active })}>

@@ -5,7 +5,13 @@ const Button = dynamic(() => import('@/components/button'));
 
 import styles from '@/styles/pages/blog.module.scss';
 
-const AddComment = ({ addComments, replyingTo }: any) =>
+interface Props
+{
+    addComments: any,
+    replyingTo?: string
+}
+
+const AddComment = ({ addComments, replyingTo }: Props) =>
 {
     const replyingToUser = replyingTo ? `@${ replyingTo }, ` : '';
     const [comment, setComment] = useState(replyingToUser);

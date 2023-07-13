@@ -106,7 +106,6 @@ const Comment = ({
             {
                 replying &&
                 <AddComment
-                    buttonValue={'reply'}
                     addComments={addReply}
                     replyingTo={commentData.username}
                 />

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, {createContext, ReactNode, useEffect, useState} from 'react';
 import _ from 'lodash';
 
 export const GlobalContext = createContext({});
@@ -24,70 +24,71 @@ export const GlobalProvider = ({
     removeEmoji,
     advancedInput
 }: {
-  children: any
-  currentUser?: {
-    currentUserId: string
-    currentUserImg: string
-    currentUserProfile?: string | undefined
-    currentUserFullName: string
-  } | null
-  replyTop?: boolean
-  customImg?: string
-  inputStyle?: object
-  formStyle?: object
-  submitBtnStyle?: object
-  cancelBtnStyle?: object
-  imgStyle?: object
-  replyInputStyle?: object
-  commentsCount?: number
-  removeEmoji?: boolean
-  commentData?: Array<{
-    userId: string
-    comId: string
-    fullName: string
-    avatarUrl: string
-    text: string
-    userProfile?: string
-    replies?:
-      | Array<{
-          userId: string
-          comId: string
-          fullName: string
-          avatarUrl: string
-          text: string
-          userProfile?: string
-        }>
-      | undefined
-  }>
-  onSubmitAction?: Function
-  onDeleteAction?: Function
-  onReplyAction?: Function
-  onEditAction?: Function
-  currentData?: Function
-  advancedInput?: boolean
-}) =>
-{
-    const [currentUserData] = useState(currentUser);
-    const [data, setData] = useState<
-    Array<{
-      userId: string
-      comId: string
-      fullName: string
-      avatarUrl: string
-      text: string
-      userProfile?: string
-      replies?:
-        | Array<{
+    children: ReactNode
+    currentUser?:
+        {
+        currentUserId: string
+        currentUserImg: string
+        currentUserProfile?: string | undefined
+        currentUserFullName: string
+    } | null
+    replyTop?: boolean
+    customImg?: string
+    inputStyle?: object
+    formStyle?: object
+    submitBtnStyle?: object
+    cancelBtnStyle?: object
+    imgStyle?: object
+    replyInputStyle?: object
+    commentsCount?: number
+    removeEmoji?: boolean
+    commentData?: Array<{
+        userId: string
+        comId: string
+        fullName: string
+        avatarUrl: string
+        text: string
+        userProfile?: string
+        replies?:
+            | Array<{
             userId: string
             comId: string
             fullName: string
             avatarUrl: string
             text: string
             userProfile?: string
-          }>
-        | undefined
+        }>
+            | undefined
     }>
-  >([]);
+    onSubmitAction?: Function
+    onDeleteAction?: Function
+    onReplyAction?: Function
+    onEditAction?: Function
+    currentData?: Function
+    advancedInput?: boolean
+}) =>
+{
+    const [currentUserData] = useState(currentUser);
+    const [data, setData] = useState<
+        Array<{
+            userId: string
+            comId: string
+            fullName: string
+            avatarUrl: string
+            text: string
+            userProfile?: string
+            replies?:
+                | Array<{
+                userId: string
+                comId: string
+                fullName: string
+                avatarUrl: string
+                text: string
+                userProfile?: string
+            }>
+                | undefined
+        }>
+    >([]);
     const [editArr, setEdit] = useState<string[]>([]);
     const [replyArr, setReply] = useState<string[]>([]);
 
@@ -167,9 +168,9 @@ export const GlobalProvider = ({
             const indexOfId = _.findIndex(copyData[indexOfParent].replies, {
                 comId: comId
             });
-      copyData[indexOfParent].replies![indexOfId].text = text;
-      setData(copyData);
-      handleAction(comId, true);
+            copyData[indexOfParent].replies![indexOfId].text = text;
+            setData(copyData);
+            handleAction(comId, true);
         }
         else
         {
@@ -191,50 +192,53 @@ export const GlobalProvider = ({
         if (parentId)
         {
             const indexOfParent = _.findIndex(copyData, { comId: parentId });
-      copyData[indexOfParent].replies!.push({
-          userId: currentUserData!.currentUserId,
-          comId: uuid,
-          avatarUrl: currentUserData!.currentUserImg,
-          userProfile: currentUserData!.currentUserProfile
-              ? currentUserData!.currentUserProfile
-              : undefined,
-          fullName: currentUserData!.currentUserFullName,
-          text: text
-      });
-      setData(copyData);
-      handleAction(comId, false);
+            copyData[indexOfParent].replies!.push({
+                userId: currentUserData!.currentUserId,
+                comId: uuid,
+                avatarUrl: currentUserData!.currentUserImg,
+                userProfile: currentUserData!.currentUserProfile
+                    ? currentUserData!.currentUserProfile
+                    : undefined,
+                fullName: currentUserData!.currentUserFullName,
+                text: text
+            });
+            setData(copyData);
+            handleAction(comId, false);
         }
         else
         {
             const indexOfId = _.findIndex(copyData, {
                 comId: comId
             });
-      copyData[indexOfId].replies!.push({
-          userId: currentUserData!.currentUserId,
-          comId: uuid,
-          avatarUrl: currentUserData!.currentUserImg,
-          userProfile: currentUserData!.currentUserProfile
-              ? currentUserData!.currentUserProfile
-              : undefined,
-          fullName: currentUserData!.currentUserFullName,
-          text: text
-      });
-      setData(copyData);
-      handleAction(comId, false);
+            copyData[indexOfId].replies!.push({
+                userId: currentUserData!.currentUserId,
+                comId: uuid,
+                avatarUrl: currentUserData!.currentUserImg,
+                userProfile: currentUserData!.currentUserProfile
+                    ? currentUserData!.currentUserProfile
+                    : undefined,
+                fullName: currentUserData!.currentUserFullName,
+                text: text
+            });
+            setData(copyData);
+            handleAction(comId, false);
         }
     };
 
     const onDelete = (comId: string, parentId: string) =>
     {
         const copyData = [...data];
+
         if (parentId)
         {
             const indexOfParent = _.findIndex(copyData, { comId: parentId });
             const indexOfId = _.findIndex(copyData[indexOfParent].replies, {
                 comId: comId
             });
-      copyData[indexOfParent].replies!.splice(indexOfId, 1);
-      setData(copyData);
+
+            copyData[indexOfParent].replies!.splice(indexOfId, 1);
+
+            setData(copyData);
         }
         else
         {
