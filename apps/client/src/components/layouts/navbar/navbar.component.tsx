@@ -10,7 +10,8 @@ import styles from '@/components/layouts/navbar/navbar.module.scss';
 
 import navbarItems from '@/data/navbar.data.json';
 
-import Logo from '@/../public/images/logos/wow_cms.png';
+import Logo1 from '@/../public/images/logos/wow_cms-cataclysm.png';
+import Logo2 from '@/../public/images/logos/wow_cms-wotlk.png';
 
 const Navbar = () =>
 {
@@ -21,7 +22,14 @@ const Navbar = () =>
             <div className={styles.navbarContainer}>
                 <span>
                     <Image
-                        src={Logo.src}
+                        src={
+                            process.env.NEXT_PUBLIC_THEME === 'cataclysm'
+                                ? Logo1
+                                :
+                                process.env.NEXT_PUBLIC_THEME === 'wotlk'
+                                    ? Logo2
+                                    : Logo1
+                        }
                         alt='WoW CMS'
                         fill
                         style={{ objectFit: 'cover' }}
