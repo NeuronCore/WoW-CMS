@@ -44,5 +44,5 @@ export class RegisterDto
     @MinLength(4)
     @MaxLength(30)
     @Field()
-    public readonly passwordConfirm: string;
+    public readonly confirmPassword: string;
 }

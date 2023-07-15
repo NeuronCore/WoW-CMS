@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-import { apiData } from '@/data/api.data';
-
-axios.defaults.baseURL = apiData.path;
+axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials = true;
 
 let refresh = false;

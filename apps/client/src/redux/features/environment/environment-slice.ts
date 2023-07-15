@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState =
 {
-    theme: 'cataclysm'
+    theme: 'wotlk'
 };
 
 const environmentSlice = createSlice

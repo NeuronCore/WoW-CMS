@@ -4,6 +4,9 @@ import GraphQLJSON from 'graphql-type-json';
 @ObjectType('Auth')
 export class AuthType
 {
+    @Field()
+    statusCode: number;
+
     @Field(() => GraphQLJSON)
     data: JSON;
 

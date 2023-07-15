@@ -20,7 +20,7 @@ export class AuthService
 
     public async register(registerDto: RegisterDto)
     {
-        const { firstName, lastName, username, email, password, passwordConfirm } = registerDto;
+        const { firstName, lastName, username, email, password, confirmPassword } = registerDto;
 
         const [emailExists] = await this.authDatabase.query('SELECT `email` FROM `account` WHERE `email` = ?', [email]);
 
@@ -31,7 +31,7 @@ export class AuthService
         if (usernameExists[0]?.username)
             throw new ConflictException('This Username already exists');
 
-        if (passwordConfirm !== password)
+        if (confirmPassword !== password)
             throw new BadRequestException('Password does not match');
 
         const [salt, verifier] = SRP6.GetSRP6RegistrationData(username, password);

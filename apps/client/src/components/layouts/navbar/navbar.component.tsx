@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { v4 as uuidV4 } from 'uuid';
 import { useRouter } from 'next/router';
+import { v4 as uuidV4 } from 'uuid';
 
 const Button = dynamic(() => import('@/components/button'));
 
@@ -30,18 +30,17 @@ const Navbar = () =>
 
                 <ul>
                     {
-                        navbarItems.map((item) =>
-                            (
-                                <li key={ uuidV4() } data-active={ item.href === router.pathname }>
-                                    <Link href= { item.href }>
-                                        { item.name }
-                                    </Link>
-                                </li>
-                            ))
+                        navbarItems.map((item) => (
+                            <li key={ uuidV4() } data-active={ item.href === router.pathname }>
+                                <Link href= { item.href }>
+                                    { item.name }
+                                </Link>
+                            </li>
+                        ))
                     }
                 </ul>
-                <Button href='/login'>
-                    Login
+                <Button href='/auth'>
+                    Login/Register
                 </Button>
             </div>
         </nav>

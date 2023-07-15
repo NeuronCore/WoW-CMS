@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 
-import '../utils/axios.util';
+import '../services/axios.service';
 
 import 'swiper/css';
 import 'swiper/css/navigation';

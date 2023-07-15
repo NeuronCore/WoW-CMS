@@ -1,43 +1,54 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 
+import HttpService from '@/services/http.service';
+
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
 
-import HeaderImage1 from '@/../public/images/backgrounds/background_2-cataclysm.jpg';
-import HeaderImage2 from '@/../public/images/backgrounds/background_2-wotlk.webp';
+import HeaderImage1 from '../../public/images/backgrounds/background_2-cataclysm.jpg';
+import HeaderImage2 from '../../public/images/backgrounds/background_2-wotlk.webp';
 
 const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
-const defaultForm =
+const defaultRegisterForm =
+{
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+};
+
+const Auth = () =>
+{
+    const [errors, setErrors] = useState([]);
+    const [active, setActive] = useState<boolean>(true);
+    const [formValues, setFormValues] = useState(defaultRegisterForm);
+    const httpService = React.useMemo(() => (new HttpService()), []);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
-        register:
-            {
-                first_name: '',
-                last_name: '',
-                email: '',
-                password: '',
-                confirm_password: ''
-            },
-        login:
-            {
-                username: '',
-                password: ''
-            }
+        setFormValues({ ...formValues, [event.target.name]: event.target.value });
     };
 
-const Register = () =>
-{
-    const [errors] = useState([]);
-    const [active, setActive] = useState<boolean>(true);
-    const [formValues, setFormValues] = useState(defaultForm);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>, type: 'register' | 'login') =>
+    const handleSubmit = (event: React.SyntheticEvent) =>
     {
-        setFormValues({ ...formValues, [type]: { [event.target.name]: event.target.value }});
+        event.preventDefault();
+
+        httpService.post('/auth/register', formValues).then(response =>
+        {
+            console.log(response);
+
+        }).catch(error =>
+        {
+            console.log(error.response.data.message);
+            setErrors(error.response.data.message);
+        });
     };
 
     return (
@@ -71,7 +82,7 @@ const Register = () =>
 
                 <div className={stylesForm.form}>
                     <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <h2>
                                 Hello, Friend!
                             </h2>
@@ -81,51 +92,53 @@ const Register = () =>
                             </p>
 
                             <Input
-                                required
-                                name='first_name'
+                                name='firstName'
                                 label='First Name'
                                 placeholder='Your first name'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('first_name'))}
+                                onChange={(event) => handleChange(event)}
+                                errors={errors.filter((item: string) => item.startsWith('firstName'))}
                             />
 
                             <Input
-                                required
-                                name='last_name'
+                                name='lastName'
                                 label='Last Name'
                                 placeholder='Your last name'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('last_name'))}
+                                onChange={(event) => handleChange(event)}
+                                errors={errors.filter((item: string) => item.startsWith('lastName'))}
                             />
 
                             <Input
-                                required
+                                name='username'
+                                label='Username'
+                                placeholder='Your username'
+                                onChange={(event) => handleChange(event)}
+                                errors={errors.filter((item: string) => item.startsWith('username'))}
+                            />
+
+                            <Input
                                 name='email'
                                 label='Email Address'
                                 placeholder='Your email address'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('email'))}
                             />
 
                             <Input
-                                required
                                 type='password'
                                 name='password'
                                 label='Password'
                                 placeholder='Your password'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
-
                             <Input
-                                required
                                 type='password'
-                                name='confirm_password'
+                                name='confirmPassword'
                                 label='Confirm Password'
                                 placeholder='Confirm your password'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('confirm_password'))}
+                                onChange={(event) => handleChange(event)}
+                                errors={errors.filter((item: string) => item.startsWith('confirmPassword'))}
                             />
 
                             <Button>
@@ -149,7 +162,7 @@ const Register = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your Username'
-                                onChange={(event) => handleChange(event, 'login')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
@@ -159,7 +172,7 @@ const Register = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your Password'
-                                onChange={(event) => handleChange(event, 'login')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
@@ -189,11 +202,9 @@ const Register = () =>
                                 <Button type='text' onClick={() =>
                                 {
                                     setActive(false);
-                                    window.history.pushState({ urlPath:'/login' },'', '/login');
                                 }}>
                                     Sign In
                                 </Button>
-
                             </div>
                             <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelRight, { [stylesForm.formOverlayPanelRightActive]: active })}>
                                 <h3>Hello, Friend!</h3>
@@ -203,7 +214,6 @@ const Register = () =>
                                 <Button type='text' onClick={() =>
                                 {
                                     setActive(true);
-                                    window.history.pushState({ urlPath:'/register' },'', '/register');
                                 }}>
                                     Sign Up
                                 </Button>
@@ -216,4 +226,4 @@ const Register = () =>
     );
 };
 
-export default Register;
+export default Auth;
