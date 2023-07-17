@@ -1,4 +1,5 @@
 require('dotenv').config({ path: '../../.env' });
+const nextTranslate = require('next-translate-plugin');
 
 const nextConfig =
 {
@@ -28,4 +29,4 @@ const nextConfig =
     swcMinify: true
 };
 
-module.exports = nextConfig;
+module.exports = nextTranslate(nextConfig);

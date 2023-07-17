@@ -1,17 +1,17 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString } from 'class-validator';
+import { Length } from 'class-validator';
 
 @InputType()
 export class LoginDto
 {
     @ApiProperty()
-    @IsString()
+    @Length(1, 30, { message: '1000' })
     @Field()
     public readonly username: string;
 
     @ApiProperty()
-    @IsString()
+    @Length(8, 30, { message: '1002' })
     @Field()
     public readonly password: string;
 }
