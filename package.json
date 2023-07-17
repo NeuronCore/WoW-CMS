@@ -2,14 +2,12 @@
     "name": "wow-cms",
     "version": "0.1.0",
     "private": true,
-    "author":
-    {
+    "author": {
         "email": "NeuronCore@ProtonMail.Com",
         "name": "NeuronCore",
         "url": "NeuronCore.diff"
     },
-    "scripts":
-    {
+    "scripts": {
         "dev": "turbo run dev",
         "build": "turbo run build",
         "lint": "turbo run lint",
@@ -19,11 +17,13 @@
         "test": "turbo run test",
         "prepare": "husky install"
     },
-    "devDependencies":
-    {
+    "devDependencies": {
+        "@types/lodash": "^4.14.195",
         "husky": "^8.0.3",
         "turbo": "^1.10.7"
     },
-    "workspaces": ["apps/*"],
+    "workspaces": [
+        "apps/*"
+    ],
     "packageManager": "npm@9.6.4"
 }

@@ -25,7 +25,7 @@ const BlogsCard = () =>
                 <span/>
             </i>
 
-            <Link className={styles.blogsItem} href='/'>
+            <Link className={styles.blogsItem} href='/blogs/test'>
                 <span className={styles.blogsItemImage}>
                     <Image
                         src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'

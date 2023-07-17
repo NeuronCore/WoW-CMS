@@ -1,5 +1,5 @@
-import React, {createContext, ReactNode, useEffect, useState} from 'react';
 import _ from 'lodash';
+import React, { createContext, ReactNode, useEffect, useState } from 'react';
 
 export const GlobalContext = createContext({});
 
