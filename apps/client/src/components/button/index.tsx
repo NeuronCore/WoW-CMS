@@ -8,7 +8,7 @@ interface Props
     children?: ReactNode,
     content?: string,
     type?: string,
-    onClick?: () => void,
+    onClick?: (event?: any) => Promise<void> | void,
     href?: string
 }
 

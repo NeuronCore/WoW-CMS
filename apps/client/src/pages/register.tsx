@@ -1,9 +1,9 @@
+import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
-import React, { ChangeEvent, useState } from 'react';
-
-import HttpService from '@/services/http.service';
+import { useRouter} from 'next/router';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
@@ -14,42 +14,64 @@ import HeaderImage2 from '@/../public/images/backgrounds/background_2-wotlk.webp
 const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
+import { useUser } from '@/hooks/use-user';
+
 const defaultForm =
-{
-    firstName: '',
-    lastName: '',
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-};
-
-const Login = () =>
-{
-    const [errors, setErrors] = useState([]);
-    const [active, setActive] = useState<boolean>(true);
-    const [formValues, setFormValues] = useState(defaultForm);
-    const httpService = React.useMemo(() => (new HttpService()), []);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
-        setFormValues({ ...formValues, [event.target.name]: event.target.value });
+        register:
+            {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            },
+        login:
+            {
+                username: '',
+                password: ''
+            }
     };
 
-    const handleSubmit = (event: React.SyntheticEvent) =>
+const Register = () =>
+{
+    const [user] = useUser();
+    const { push } = useRouter();
+
+    const [errors] = useState([]);
+    const [active, setActive] = useState<boolean>(true);
+    const [formValues, setFormValues] = useState(defaultForm);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>, type: 'register' | 'login') =>
+    {
+        setFormValues({ ...formValues, [type]: { [event.target.name]: event.target.value }});
+    };
+
+    const handleRegister = async(event: any) =>
     {
         event.preventDefault();
 
-        httpService.post('/auth/register', formValues).then(response =>
-        {
-            console.log(response);
+        const data: any = await axios.post('/auth/register', formValues);
 
-        }).catch(error =>
+        if (data?.response?.data?.message)
         {
-            setErrors(error.response.data.message);
-            // errors.filter((error: any) => console.log(error));
-        });
+            console.log('Error: ');
+            console.log(data?.response?.data?.message);
+        }
+        else
+            await push('/login');
     };
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                if (user)
+                    await push('/account');
+            }
+        )();
+    }, [user]);
 
     return (
         <div className={styles.auth}>
@@ -82,7 +104,7 @@ const Login = () =>
 
                 <div className={stylesForm.form}>
                     <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleRegister}>
                             <h2>
                                 Hello, Friend!
                             </h2>
@@ -92,64 +114,61 @@ const Login = () =>
                             </p>
 
                             <Input
+                                required
                                 style='register'
                                 name='firstName'
                                 label='First Name'
                                 placeholder='Your first name'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('lastName'))}
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('first_name'))}
                             />
 
                             <Input
+                                required
                                 name='lastName'
                                 label='Last Name'
                                 placeholder='Your last name'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('lastName'))}
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('last_name'))}
                             />
 
                             <Input
-                                name='username'
-                                label='Username'
-                                placeholder='Your username'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('username'))}
-                            />
-
-                            <Input
+                                required
                                 name='email'
                                 label='Email Address'
                                 placeholder='Your email address'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('email'))}
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('email'))}
                             />
 
                             <Input
+                                required
                                 type='password'
                                 name='password'
                                 label='Password'
                                 placeholder='Your password'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('password'))}
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
 
                             <Input
+                                required
                                 type='password'
                                 name='confirmPassword'
                                 label='Confirm Password'
                                 placeholder='Confirm your password'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('confirmPassword'))}
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('confirm_password'))}
                             />
 
-                            <Button>
+                            <Button onClick={handleRegister}>
                                 Sign Up
                             </Button>
                         </form>
                     </div>
 
-                    <div data-deacive className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
+                    <div data-deactive className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
                         <form>
                             <h2>
                                 Welcome Back!
@@ -165,8 +184,8 @@ const Login = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your Username'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('username'))}
+                                onChange={(event) => handleChange(event, 'login')}
+                                errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
                             <Input
@@ -175,8 +194,8 @@ const Login = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your Password'
-                                onChange={(event) => handleChange(event)}
-                                // errors={errors.filter((item: string) => item.startsWith('password'))}
+                                onChange={(event) => handleChange(event, 'login')}
+                                errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
                             <Link href='/password-forgot'>
@@ -205,6 +224,7 @@ const Login = () =>
                                 <Button type='text' onClick={() =>
                                 {
                                     setActive(false);
+                                    window.history.pushState({ urlPath:'/login' },'', '/login');
                                 }}>
                                     Sign In
                                 </Button>
@@ -217,6 +237,7 @@ const Login = () =>
                                 <Button type='text' onClick={() =>
                                 {
                                     setActive(true);
+                                    window.history.pushState({ urlPath:'/register' },'', '/register');
                                 }}>
                                     Sign Up
                                 </Button>
@@ -229,4 +250,4 @@ const Login = () =>
     );
 };
 
-export default Login;
+export default Register;

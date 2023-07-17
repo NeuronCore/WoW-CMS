@@ -48,12 +48,12 @@
             & > button,
             & > a
             {
-                color: var(--color-primary-light);
-                background: var(--color-base-text-bold);
+                color: var(--color-primary);
+                background: var(--color-base-text-bolder);
 
                 &:hover
                 {
-                    background: var(--color-base-text-bolder);
+                    background: var(--color-base-text-bold);
                 }
             }
         }
