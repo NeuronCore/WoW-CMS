@@ -4,9 +4,29 @@
 
     background-color: var(--base-primary);
 
-    width: 60vw;
+    width: 100%;
     max-width: 60vw;
+    min-width: 60vw;
     height: 70vh;
+
+    @media only screen and (max-width: 1350px)
+    {
+        max-width: 80vw;
+        min-width: 80vw;
+    }
+
+    @media only screen and (max-width: 900px)
+    {
+        height: auto;
+        max-width: 90vw;
+        min-width: 90vw;
+    }
+
+    @media only screen and (max-width: 600px)
+    {
+        max-width: 85vw;
+        min-width: 85vw;
+    }
 
     &Little
     {
@@ -32,6 +52,15 @@
         width: fit-content;
         height: fit-content;
         border: .25rem solid var(--color-primary);
+
+        @media only screen and (max-width: 600px)
+        {
+            &[data-register]
+            {
+                margin-top: 24rem;
+                margin-bottom: 2rem;
+            }
+        }
 
         & > i
         {
@@ -266,6 +295,11 @@
             transition: transform 0.6s ease-in-out;
             z-index: 100;
 
+            @media only screen and (max-width: 600px)
+            {
+                display: none;
+            }
+
             &Active
             {
                 transform: translateX(-100%);
@@ -285,6 +319,21 @@
 
         height: 100%;
         transition: all 0.6s ease-in-out;
+
+        &[data-deacive]
+        {
+            @media only screen and (max-width: 600px)
+            {
+                display: none;
+            }
+        }
+
+        @media only screen and (max-width: 600px)
+        {
+            transform: translateX(0) !important;
+            width: 100% !important;
+            position: relative;
+        }
 
         & > form
         {
@@ -380,8 +429,36 @@
 
     & > span
     {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        width: 100%;
         font-size: 1.5rem;
-        font-weight: 400;
+        font-weight: 500;
+
+        & > p
+        {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+
+            font-weight: lighter;
+
+            & > a
+            {
+                transition: all .2s;
+                font-weight: 500;
+                cursor: pointer;
+                color: var(--color-primary);
+
+                &:hover
+                {
+                    color: var(--color-primary-dark);
+                }
+            }
+        }
     }
 }
 

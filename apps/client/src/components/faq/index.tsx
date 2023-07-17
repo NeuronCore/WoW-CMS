@@ -9,7 +9,7 @@ type Props =
         index: number,
         item: { answer: string, question: string },
         faqs: number[],
-        setFaqs: Function
+        setFaqs: any
     };
 
 const FAQ = ({ index, item, faqs, setFaqs }: Props) =>

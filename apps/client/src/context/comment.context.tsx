@@ -60,11 +60,11 @@ export const GlobalProvider = ({
         }>
             | undefined
     }>
-    onSubmitAction?: Function
-    onDeleteAction?: Function
-    onReplyAction?: Function
-    onEditAction?: Function
-    currentData?: Function
+    onSubmitAction?: any
+    onDeleteAction?: any
+    onReplyAction?: any
+    onEditAction?: any
+    currentData?: any
     advancedInput?: boolean
 }) =>
 {

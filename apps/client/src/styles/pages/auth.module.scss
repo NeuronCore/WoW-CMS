@@ -10,13 +10,19 @@
     height: 100vh;
     padding-top: 9.5rem;
 
+    @media only screen and (max-width: 600px)
+    {
+        overflow: scroll;
+        padding-top: 0;
+    }
+
     &Video
     {
         display: flex;
         align-items: center;
         justify-content: flex-start;
 
-        position: absolute;
+        position: fixed;
 
         height: 100%;
         width: 100%;

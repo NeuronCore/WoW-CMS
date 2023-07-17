@@ -33,8 +33,6 @@ const TooltipPrimary = ({ content, interactive, placement, render, light, childr
         setSpring(
             {
                 opacity: 1,
-                onRest: () =>
-                {},
                 config: stylesConfig
             });
     };

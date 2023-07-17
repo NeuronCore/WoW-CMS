@@ -1,9 +1,11 @@
+import Link from 'next/link';
 import React, { ChangeEvent } from 'react';
 
 import stylesForm from '@/styles/components/form.module.scss';
 
 interface Props
 {
+    style?: string,
     name?: string,
     id?: string,
     value?: string,
@@ -15,12 +17,32 @@ interface Props
     required?: boolean
 }
 
-const Input = ({ id, label, type, placeholder, errors, onChange, required, name, value }: Props) =>
+const Input = ({ id, label, type, placeholder, errors, onChange, required, name, value, style }: Props) =>
 {
     return (
         <label className={stylesForm.label} htmlFor={ id }>
             <span>
                 { label }
+                {
+                    style === 'login'
+                        ?
+                        <p>
+                            Need an account?
+                            <Link href='/register'>
+                                Sign up
+                            </Link>
+                        </p>
+                        :
+                        style === 'register'
+                            ?
+                            <p>
+                                Already have an account?
+                                <Link href='/login'>
+                                    Log in
+                                </Link>
+                            </p>
+                            : null
+                }
             </span>
             <input
                 required={ required }

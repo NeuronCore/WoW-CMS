@@ -14,11 +14,11 @@ import styles from '@/styles/components/comment.module.scss';
 interface Props
 {
     commentData: any,
-    updateScore?: Function,
-    addNewReply?: Function,
-    editComment?: Function,
-    deleteComment?: Function,
-    setDeleteModalState?: Function
+    updateScore?: any,
+    addNewReply?: any,
+    editComment?: any,
+    deleteComment?: any,
+    setDeleteModalState?: any
 }
 
 const Reply = ({
