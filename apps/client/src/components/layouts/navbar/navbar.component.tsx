@@ -47,7 +47,7 @@ const Navbar = () =>
                         ))
                     }
                 </ul>
-                <Button href='/auth'>
+                <Button href='/login'>
                     Login/Register
                 </Button>
             </div>

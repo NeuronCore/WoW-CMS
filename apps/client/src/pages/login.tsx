@@ -16,11 +16,11 @@ const defaultForm =
     {
         register:
             {
-                first_name: '',
-                last_name: '',
+                firstName: '',
+                lastName: '',
                 email: '',
                 password: '',
-                confirm_password: ''
+                confirmPassword: ''
             },
         login:
             {
@@ -83,7 +83,7 @@ const Login = () =>
                             <Input
                                 required
                                 style='register'
-                                name='first_name'
+                                name='firstName'
                                 label='First Name'
                                 placeholder='Your first name'
                                 onChange={(event) => handleChange(event, 'register')}
@@ -92,7 +92,7 @@ const Login = () =>
 
                             <Input
                                 required
-                                name='last_name'
+                                name='lastName'
                                 label='Last Name'
                                 placeholder='Your last name'
                                 onChange={(event) => handleChange(event, 'register')}
@@ -122,7 +122,7 @@ const Login = () =>
                             <Input
                                 required
                                 type='password'
-                                name='confirm_password'
+                                name='confirmPassword'
                                 label='Confirm Password'
                                 placeholder='Confirm your password'
                                 onChange={(event) => handleChange(event, 'register')}
@@ -195,7 +195,6 @@ const Login = () =>
                                 }}>
                                     Sign In
                                 </Button>
-
                             </div>
                             <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelRight, { [stylesForm.formOverlayPanelRightActive]: active })}>
                                 <h3>Hello, Friend!</h3>
