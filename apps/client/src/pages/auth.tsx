@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import React, { ChangeEvent, useState } from 'react';
 
+import HttpService from '@/services/http.service';
+
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
 
@@ -13,31 +15,40 @@ const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
 const defaultForm =
-    {
-        register:
-            {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            },
-        login:
-            {
-                username: '',
-                password: ''
-            }
-    };
+{
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+};
 
 const Login = () =>
 {
-    const [errors] = useState([]);
-    const [active, setActive] = useState<boolean>(false);
+    const [errors, setErrors] = useState([]);
+    const [active, setActive] = useState<boolean>(true);
     const [formValues, setFormValues] = useState(defaultForm);
+    const httpService = React.useMemo(() => (new HttpService()), []);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>, type: 'register' | 'login') =>
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
-        setFormValues({ ...formValues, [type]: { [event.target.name]: event.target.value }});
+        setFormValues({ ...formValues, [event.target.name]: event.target.value });
+    };
+
+    const handleSubmit = (event: React.SyntheticEvent) =>
+    {
+        event.preventDefault();
+
+        httpService.post('/auth/register', formValues).then(response =>
+        {
+            console.log(response);
+
+        }).catch(error =>
+        {
+            setErrors(error.response.data.message);
+            // errors.filter((error: any) => console.log(error));
+        });
     };
 
     return (
@@ -51,7 +62,7 @@ const Login = () =>
                 <span className={styles.authFilter2} />
             </span>
 
-            <div className={stylesForm.formFrame}>
+            <div data-register className={stylesForm.formFrame}>
                 <i data-top_right>
                     <span/>
                     <span/>
@@ -70,8 +81,8 @@ const Login = () =>
                 </i>
 
                 <div className={stylesForm.form}>
-                    <div data-deacive className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
-                        <form>
+                    <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
+                        <form onSubmit={handleSubmit}>
                             <h2>
                                 Hello, Friend!
                             </h2>
@@ -81,52 +92,55 @@ const Login = () =>
                             </p>
 
                             <Input
-                                required
                                 style='register'
                                 name='firstName'
                                 label='First Name'
                                 placeholder='Your first name'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('first_name'))}
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('lastName'))}
                             />
 
                             <Input
-                                required
                                 name='lastName'
                                 label='Last Name'
                                 placeholder='Your last name'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('last_name'))}
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('lastName'))}
                             />
 
                             <Input
-                                required
+                                name='username'
+                                label='Username'
+                                placeholder='Your username'
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('username'))}
+                            />
+
+                            <Input
                                 name='email'
                                 label='Email Address'
                                 placeholder='Your email address'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('email'))}
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('email'))}
                             />
 
                             <Input
-                                required
                                 type='password'
                                 name='password'
                                 label='Password'
                                 placeholder='Your password'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('password'))}
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
 
                             <Input
-                                required
                                 type='password'
                                 name='confirmPassword'
                                 label='Confirm Password'
                                 placeholder='Confirm your password'
-                                onChange={(event) => handleChange(event, 'register')}
-                                errors={errors.filter((item: string) => item.startsWith('confirm_password'))}
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('confirmPassword'))}
                             />
 
                             <Button>
@@ -135,7 +149,7 @@ const Login = () =>
                         </form>
                     </div>
 
-                    <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
+                    <div data-deacive className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
                         <form>
                             <h2>
                                 Welcome Back!
@@ -151,8 +165,8 @@ const Login = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your Username'
-                                onChange={(event) => handleChange(event, 'login')}
-                                errors={errors.filter((item: string) => item.startsWith('username'))}
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
                             <Input
@@ -161,8 +175,8 @@ const Login = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your Password'
-                                onChange={(event) => handleChange(event, 'login')}
-                                errors={errors.filter((item: string) => item.startsWith('password'))}
+                                onChange={(event) => handleChange(event)}
+                                // errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
                             <Link href='/password-forgot'>
@@ -191,7 +205,6 @@ const Login = () =>
                                 <Button type='text' onClick={() =>
                                 {
                                     setActive(false);
-                                    window.history.pushState({ urlPath:'/login' },'', '/login');
                                 }}>
                                     Sign In
                                 </Button>
@@ -204,7 +217,6 @@ const Login = () =>
                                 <Button type='text' onClick={() =>
                                 {
                                     setActive(true);
-                                    window.history.pushState({ urlPath:'/register' },'', '/register');
                                 }}>
                                     Sign Up
                                 </Button>
