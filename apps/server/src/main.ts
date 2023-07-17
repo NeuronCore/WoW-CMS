@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
-import { INestApplication, Logger, ValidationPipe } from '@nestjs/common';
+import { BadRequestException, INestApplication, Logger, ValidationPipe } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ValidationError } from 'class-validator';
 
 import * as winston from 'winston';
 import * as winstonDailyRotateFile from 'winston-daily-rotate-file';
@@ -61,8 +62,20 @@ async function bootstrap(): Promise<void>
         }),
     );
     app.enableCors({ origin: process.env.CORS, credentials: true });
-    app.useGlobalPipes(new ValidationPipe());
     app.use(cookieParser());
+    app.useGlobalPipes
+    (
+        new ValidationPipe
+        ({
+            exceptionFactory: (validationErrors: ValidationError[] = []) =>
+            {
+                return new BadRequestException
+                (
+                    validationErrors.map((error) => ({ field: error.property, code: Object.values(error.constraints)[0] }))
+                );
+            }
+        })
+    );
 
     const config = new DocumentBuilder()
         .setTitle('WoW-CMS API')

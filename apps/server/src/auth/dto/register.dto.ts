@@ -1,48 +1,37 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEmail, Length } from 'class-validator';
 
 @InputType()
 export class RegisterDto
 {
     @ApiProperty()
-    @IsString()
-    @MinLength(2)
-    @MaxLength(20)
+    @Length(1, 30, { message: '1000' })
     @Field()
     public readonly firstName: string;
 
     @ApiProperty()
-    @IsString()
-    @MinLength(2)
-    @MaxLength(20)
+    @Length(1, 30, { message: '1000' })
     @Field()
     public readonly lastName: string;
 
     @ApiProperty()
-    @IsString()
-    @MinLength(4)
-    @MaxLength(20)
+    @Length(1, 30, { message: '1000' })
     @Field()
     public readonly username: string;
 
     @ApiProperty()
-    @IsString()
-    @IsEmail()
+    @IsEmail({}, { message: '1001' })
     @Field()
     public readonly email: string;
 
     @ApiProperty()
-    @IsString()
-    @MinLength(4)
-    @MaxLength(30)
+    @Length(8, 30, { message: '1002' })
     @Field()
     public readonly password: string;
 
     @ApiProperty()
-    @IsString()
-    @MinLength(4)
-    @MaxLength(30)
+    @Length(8, 30, { message: '1002' })
     @Field()
     public readonly confirmPassword: string;
 }
