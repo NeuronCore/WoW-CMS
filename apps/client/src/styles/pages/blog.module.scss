@@ -1666,6 +1666,11 @@
             max-width: 90rem;
             margin: 4rem auto;
 
+            @media only screen and (max-width: 950px)
+            {
+                padding: 0 1rem;
+            }
+
             &Filters
             {
                 display: flex;
@@ -1704,8 +1709,13 @@
 
                 width: 100%;
                 max-width: 90rem;
-                margin: 10rem auto;
-                margin-bottom: 2rem;
+                margin: 10rem auto 2rem;
+                padding: 0 1rem;
+
+                @media only screen and (max-width: 950px)
+                {
+                    padding: 0 1rem;
+                }
 
                 &Filter
                 {
@@ -1871,6 +1881,11 @@
             padding: 2rem;
             background: var(--base-primary-darker);
             transition: all .2s;
+
+            @media only screen and (max-width: 750px)
+            {
+                flex-direction: column;
+            }
 
             &:hover
             {
@@ -2049,6 +2064,11 @@
                     justify-content: space-between;
 
                     width: 100%;
+
+                    @media only screen and (max-width: 450px)
+                    {
+                        flex-direction: column;
+                    }
 
                     & > p
                     {
