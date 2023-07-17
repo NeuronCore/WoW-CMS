@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 import { v4 as uuidV4 } from 'uuid';
+import { useRouter } from 'next/router';
+import { BsPerson, BsList } from 'react-icons/bs';
 
 const Button = dynamic(() => import('@/components/button'));
 
@@ -32,7 +33,7 @@ const Navbar = () =>
                         }
                         alt='WoW CMS'
                         fill
-                        style={{ objectFit: 'cover' }}
+                        style={{ objectFit: 'contain' }}
                     />
                 </span>
 
@@ -50,6 +51,32 @@ const Navbar = () =>
                 <Button href='/login'>
                     Login/Register
                 </Button>
+            </div>
+
+            <div className={styles.navbarContainerMobile}>
+                <button>
+                    <BsList />
+                </button>
+
+                <span>
+                    <Image
+                        src={
+                            process.env.NEXT_PUBLIC_THEME === 'cataclysm'
+                                ? Logo1
+                                :
+                                process.env.NEXT_PUBLIC_THEME === 'wotlk'
+                                    ? Logo2
+                                    : Logo1
+                        }
+                        alt='WoW CMS'
+                        fill
+                        style={{ objectFit: 'contain' }}
+                    />
+                </span>
+
+                <Link href='/login'>
+                    <BsPerson />
+                </Link>
             </div>
         </nav>
     );

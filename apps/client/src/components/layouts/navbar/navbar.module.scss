@@ -34,6 +34,54 @@
         max-width: 160rem;
         padding: 2rem 1.5rem;
 
+        @media only screen and (max-width: 800px)
+        {
+            display: none;
+        }
+
+        &Mobile
+        {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+
+            height: 100%;
+            width: 100%;
+            max-width: 160rem;
+            padding: 2rem 2.5rem;
+
+            @media only screen and (max-width: 800px)
+            {
+                display: flex;
+            }
+
+            & > span
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 13rem;
+                height: 7rem;
+            }
+
+            & > button,
+            & > a
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: 3rem;
+                height: 3rem;
+                font-size: 3rem;
+                background: transparent;
+                color: var(--color-base-text-bold);
+                border: none;
+                transition: all .2s;
+            }
+        }
+
         & > span
         {
             display: flex;
@@ -41,7 +89,7 @@
             justify-content: center;
 
             width: 13rem;
-            height: 6rem;
+            height: 7rem;
         }
 
         & > ul

@@ -37,7 +37,7 @@ const Footer = () =>
                             }
                             alt='WoW CMS'
                             fill
-                            style={{ objectFit: 'cover' }}
+                            style={{ objectFit: 'contain' }}
                         />
                     </span>
 
