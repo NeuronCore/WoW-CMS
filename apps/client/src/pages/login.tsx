@@ -101,6 +101,15 @@ const Login = () =>
 
                             <Input
                                 required
+                                name='username'
+                                label='Username'
+                                placeholder='Your username'
+                                onChange={(event) => handleChange(event, 'register')}
+                                errors={errors.filter((item: string) => item.startsWith('username'))}
+                            />
+
+                            <Input
+                                required
                                 name='email'
                                 label='Email Address'
                                 placeholder='Your email address'
