@@ -8,6 +8,8 @@
     max-width: 60vw;
     min-width: 60vw;
     height: 70vh;
+    min-height: 80rem;
+    overflow: hidden;
 
     @media only screen and (max-width: 1350px)
     {
@@ -26,6 +28,7 @@
         height: auto;
         max-width: 85vw;
         min-width: 85vw;
+        min-height: auto;
     }
 
     &Little
@@ -58,15 +61,7 @@
         width: fit-content;
         height: fit-content;
         border: .25rem solid var(--color-primary);
-
-        @media only screen and (max-width: 600px)
-        {
-            &[data-register]
-            {
-                margin-top: 24rem;
-                margin-bottom: 2rem;
-            }
-        }
+        margin: auto;
 
         & > i
         {

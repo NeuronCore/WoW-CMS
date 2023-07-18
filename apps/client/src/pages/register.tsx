@@ -16,6 +16,7 @@ const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
 import { useUser } from '@/hooks/use-user';
+import Modal from "@/components/modal";
 
 const defaultForm =
 {
@@ -36,6 +37,7 @@ const Register = () =>
     const [errors, setErrors] = useState([]);
     const [active, setActive] = useState<boolean>(true);
     const [formValues, setFormValues] = useState(defaultForm);
+    const [modal, setModal] = useState<any>({ hidden: true, title: '', description: '', onHidden: null });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
@@ -48,12 +50,26 @@ const Register = () =>
 
         httpService.post('/auth/register', formValues).then(async response =>
         {
-            await push('/auth/login');
-
             console.log(response);
+
+            setModal(
+                {
+                    hidden: false,
+                    title: 'Successful',
+                    description: 'You are successfully created your account, you can login to your account now!',
+                    onHidden: async() => await push('/auth/login')
+                });
 
         }).catch(error =>
         {
+            setModal(
+                {
+                    hidden: true,
+                    title: 'Error',
+                    description: 'Error',
+                    onHidden: async() => await push('/auth/login')
+                });
+
             console.log(error.response);
         });
     };
@@ -251,6 +267,12 @@ const Register = () =>
                     </div>
                 </div>
             </div>
+
+            {
+                modal.hidden
+                    ? null
+                    : <Modal modal={modal} setModal={setModal} />
+            }
         </div>
     );
 };

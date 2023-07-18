@@ -1,4 +1,4 @@
 export const routesData =
 {
-    noFooterRoutes: ['/auth', '/password-forgot']
+    noFooterRoutes: ['/login', '/register', '/password-forgot']
 };
