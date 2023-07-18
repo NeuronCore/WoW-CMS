@@ -3,6 +3,8 @@ import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import React, { ChangeEvent, useState } from 'react';
 
+import HttpService from '@/services/http.service';
+
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
 
@@ -13,31 +15,35 @@ const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
 const defaultForm =
-    {
-        register:
-            {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            },
-        login:
-            {
-                username: '',
-                password: ''
-            }
-    };
+{
+    username: '',
+    password: ''
+};
 
 const Login = () =>
 {
     const [errors] = useState([]);
     const [active, setActive] = useState<boolean>(false);
     const [formValues, setFormValues] = useState(defaultForm);
+    const httpService = React.useMemo(() => (new HttpService()), []);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>, type: 'register' | 'login') =>
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
-        setFormValues({ ...formValues, [type]: { [event.target.name]: event.target.value }});
+        setFormValues({ ...formValues, [event.target.name]: event.target.value });
+    };
+
+    const handleSubmit = async(event: any) =>
+    {
+        event.preventDefault();
+
+        httpService.post('auth/login', formValues).then(response =>
+        {
+            console.log(response);
+
+        }).catch(error =>
+        {
+            console.log(error.response);
+        });
     };
 
     return (
@@ -86,7 +92,7 @@ const Login = () =>
                                 name='firstName'
                                 label='First Name'
                                 placeholder='Your first name'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('first_name'))}
                             />
 
@@ -95,7 +101,7 @@ const Login = () =>
                                 name='lastName'
                                 label='Last Name'
                                 placeholder='Your last name'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('last_name'))}
                             />
 
@@ -104,7 +110,7 @@ const Login = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your username'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
@@ -113,7 +119,7 @@ const Login = () =>
                                 name='email'
                                 label='Email Address'
                                 placeholder='Your email address'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('email'))}
                             />
 
@@ -123,7 +129,7 @@ const Login = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your password'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
@@ -134,7 +140,7 @@ const Login = () =>
                                 name='confirmPassword'
                                 label='Confirm Password'
                                 placeholder='Confirm your password'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('confirm_password'))}
                             />
 
@@ -145,7 +151,7 @@ const Login = () =>
                     </div>
 
                     <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <h2>
                                 Welcome Back!
                             </h2>
@@ -160,7 +166,7 @@ const Login = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your Username'
-                                onChange={(event) => handleChange(event, 'login')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
@@ -170,7 +176,7 @@ const Login = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your Password'
-                                onChange={(event) => handleChange(event, 'login')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 

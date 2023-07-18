@@ -1,9 +1,10 @@
-import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter} from 'next/router';
 import React, { ChangeEvent, useState, useEffect } from 'react';
+
+import HttpService from '@/services/http.service';
 
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
@@ -17,49 +18,42 @@ const Button = dynamic(() => import('@/components/button'));
 import { useUser } from '@/hooks/use-user';
 
 const defaultForm =
-    {
-        register:
-            {
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            },
-        login:
-            {
-                username: '',
-                password: ''
-            }
-    };
+{
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+};
 
 const Register = () =>
 {
     const [user] = useUser();
     const { push } = useRouter();
 
-    const [errors] = useState([]);
+    const [errors, setErrors] = useState([]);
     const [active, setActive] = useState<boolean>(true);
     const [formValues, setFormValues] = useState(defaultForm);
+    const httpService = React.useMemo(() => (new HttpService()), []);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>, type: 'register' | 'login') =>
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
-        setFormValues({ ...formValues, [type]: { [event.target.name]: event.target.value }});
+        setFormValues({ ...formValues, [event.target.name]: event.target.value });
     };
 
-    const handleRegister = async(event: any) =>
+    const handleSubmit = async(event: any) =>
     {
         event.preventDefault();
 
-        const data: any = await axios.post('/auth/register', formValues);
-
-        if (data?.response?.data?.message)
+        httpService.post('auth/register', formValues).then(response =>
         {
-            console.log('Error: ');
-            console.log(data?.response?.data?.message);
-        }
-        else
-            await push('/login');
+            console.log(response);
+
+        }).catch(error =>
+        {
+            console.log(error.response);
+        });
     };
 
     useEffect(() =>
@@ -104,7 +98,7 @@ const Register = () =>
 
                 <div className={stylesForm.form}>
                     <div className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
-                        <form onSubmit={handleRegister}>
+                        <form onSubmit={handleSubmit}>
                             <h2>
                                 Hello, Friend!
                             </h2>
@@ -119,7 +113,7 @@ const Register = () =>
                                 name='firstName'
                                 label='First Name'
                                 placeholder='Your first name'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('first_name'))}
                             />
 
@@ -128,7 +122,7 @@ const Register = () =>
                                 name='lastName'
                                 label='Last Name'
                                 placeholder='Your last name'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('last_name'))}
                             />
 
@@ -137,7 +131,7 @@ const Register = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your username'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
@@ -146,7 +140,7 @@ const Register = () =>
                                 name='email'
                                 label='Email Address'
                                 placeholder='Your email address'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('email'))}
                             />
 
@@ -156,7 +150,7 @@ const Register = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your password'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 
@@ -167,11 +161,11 @@ const Register = () =>
                                 name='confirmPassword'
                                 label='Confirm Password'
                                 placeholder='Confirm your password'
-                                onChange={(event) => handleChange(event, 'register')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('confirm_password'))}
                             />
 
-                            <Button onClick={handleRegister}>
+                            <Button>
                                 Sign Up
                             </Button>
                         </form>
@@ -193,7 +187,7 @@ const Register = () =>
                                 name='username'
                                 label='Username'
                                 placeholder='Your Username'
-                                onChange={(event) => handleChange(event, 'login')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('username'))}
                             />
 
@@ -203,7 +197,7 @@ const Register = () =>
                                 name='password'
                                 label='Password'
                                 placeholder='Your Password'
-                                onChange={(event) => handleChange(event, 'login')}
+                                onChange={(event) => handleChange(event)}
                                 errors={errors.filter((item: string) => item.startsWith('password'))}
                             />
 

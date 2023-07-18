@@ -1,3 +1,10 @@
 {
-    "HELLO": "Hallo"
+    "1000": "Muss länger als oder gleich 2 und kürzer als oder gleich 30 Zeichen sein",
+    "1001": "Muss eine E-Mail sein",
+    "1002": "Muss länger als oder gleich 8 und kürzer als oder gleich 30 Zeichen sein",
+
+    "2000": "Diese E-Mail Adresse ist bereits vergeben",
+    "2001": "eser Benutzername existiert schon",
+    "2002": "Das Passwort stimmt nicht überein",
+    "2003": "Falscher Benutzername oder Passwort"
 }
