@@ -57,7 +57,7 @@ const Register = () =>
                     hidden: false,
                     title: 'Successful',
                     description: 'You are successfully created your account, you can login to your account now!',
-                    onHidden: async() => await push('/auth/login')
+                    onHidden: async() => await push('/login')
                 });
 
         }).catch(error =>
@@ -67,7 +67,7 @@ const Register = () =>
                     hidden: true,
                     title: 'Error',
                     description: 'Error',
-                    onHidden: async() => await push('/auth/login')
+                    onHidden: async() => await push('/register')
                 });
 
             console.log(error.response);

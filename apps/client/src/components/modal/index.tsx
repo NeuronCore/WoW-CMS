@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import useOutside from '@/hooks/use-outside';
 
@@ -11,7 +11,20 @@ const Modal = ({ modal, setModal }: any) =>
     useOutside(modalRef, (() =>
     {
         setModal({ hidden: true, title: '', description: '' });
+        modal.onHidden();
     }));
+
+    useEffect(() =>
+    {
+        (() =>
+        {
+            setTimeout(() =>
+            {
+                modal.onHidden();
+            }, 5000);
+        }
+        )();
+    }, []);
 
     return (
         <div className={styles.modal}>
