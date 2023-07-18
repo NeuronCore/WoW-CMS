@@ -31,11 +31,11 @@ const Register = () =>
 {
     const [user] = useUser();
     const { push } = useRouter();
+    const httpService = React.useMemo(() => (new HttpService()), []);
 
     const [errors, setErrors] = useState([]);
     const [active, setActive] = useState<boolean>(true);
     const [formValues, setFormValues] = useState(defaultForm);
-    const httpService = React.useMemo(() => (new HttpService()), []);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
@@ -46,8 +46,10 @@ const Register = () =>
     {
         event.preventDefault();
 
-        httpService.post('auth/register', formValues).then(response =>
+        httpService.post('/auth/register', formValues).then(async response =>
         {
+            await push('/auth/login');
+
             console.log(response);
 
         }).catch(error =>

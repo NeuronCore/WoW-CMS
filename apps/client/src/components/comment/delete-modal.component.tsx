@@ -1,12 +1,22 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
+import React, { useRef } from 'react';
 
 const Button = dynamic(() => import('@/components/button'));
 
 import styles from '@/styles/components/delete-modal.module.scss';
 
+import useOutside from '@/hooks/use-outside';
+
 const DeleteModal = ({ setDeleting, deleteComment, setDeleteModalState }: any) =>
 {
+    const modalRef = useRef(null);
+
+    useOutside(modalRef, (() =>
+    {
+        setDeleting(false);
+        setDeleteModalState(false);
+    }));
+
     const cancelDelete = () =>
     {
         setDeleting(false);
@@ -21,7 +31,7 @@ const DeleteModal = ({ setDeleting, deleteComment, setDeleteModalState }: any) =
 
     return (
         <div className={styles.deleteConfirmationWrapper}>
-            <div className={styles.deleteContainerBackground}>
+            <div className={styles.deleteContainerBackground} ref={modalRef}>
                 <i data-top_right>
                     <span/>
                     <span/>
