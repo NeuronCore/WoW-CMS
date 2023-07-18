@@ -34,12 +34,12 @@ const Modal = ({ modal, setModal }: any) =>
                 </i>
 
                 <div className={styles.modalContainer}>
-                    <div className={styles.modalContainerTitle}>
+                    <h2 className={styles.modalContainerTitle}>
                         { modal.title }
-                    </div>
-                    <div className={styles.modalContainerMessage}>
+                    </h2>
+                    <p className={styles.modalContainerMessage}>
                         { modal.description }
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>

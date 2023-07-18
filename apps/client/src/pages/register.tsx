@@ -12,11 +12,11 @@ import stylesForm from '@/styles/components/form.module.scss';
 import HeaderImage1 from '@/../public/images/backgrounds/background_2-cataclysm.jpg';
 import HeaderImage2 from '@/../public/images/backgrounds/background_2-wotlk.webp';
 
+const Modal = dynamic(() => import('@/components/modal'));
 const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
 import { useUser } from '@/hooks/use-user';
-import Modal from "@/components/modal";
 
 const defaultForm =
 {
