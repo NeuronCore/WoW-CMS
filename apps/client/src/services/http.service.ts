@@ -11,6 +11,11 @@ export default class HttpService
         this.instance = axios.create();
     }
 
+    public setHeader(key: string, value: string)
+    {
+        axios.defaults.headers.common[key] = value;
+    }
+
     public get<T, R = AxiosResponse<T>>(endpoint: string, config?: AxiosRequestConfig): Promise<R>
     {
         return this.instance.get(`${ this.baseURL }${ endpoint }`, config);

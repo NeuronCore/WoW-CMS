@@ -11,11 +11,14 @@ import styles from '@/components/layouts/navbar/navbar.module.scss';
 
 import navbarItems from '@/data/navbar.data.json';
 
+import { useUser } from '@/hooks/use-user';
+
 import Logo1 from '@/../public/images/logos/wow_cms-cataclysm.png';
 import Logo2 from '@/../public/images/logos/wow_cms-wotlk.png';
 
 const Navbar = () =>
 {
+    const [user] = useUser();
     const router = useRouter();
 
     return (
@@ -48,9 +51,17 @@ const Navbar = () =>
                         ))
                     }
                 </ul>
-                <Button href='/login'>
-                    Login/Register
-                </Button>
+                {
+                    user
+                        ?
+                        <Button href='/account'>
+                            Account
+                        </Button>
+                        :
+                        <Button href='/login'>
+                            Login/Register
+                        </Button>
+                }
             </div>
 
             <div className={styles.navbarContainerMobile}>
@@ -74,7 +85,7 @@ const Navbar = () =>
                     />
                 </span>
 
-                <Link href='/login'>
+                <Link href={user ? '/account' : '/login'}>
                     <BsPerson />
                 </Link>
             </div>

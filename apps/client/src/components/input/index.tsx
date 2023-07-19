@@ -12,13 +12,15 @@ interface Props
     label?: string,
     type?: string,
     placeholder?: string,
-    errors?: string[],
+    error?: any,
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
     required?: boolean
 }
 
-const Input = ({ id, label, type, placeholder, errors, onChange, required, name, value, style }: Props) =>
+const Input = ({ id, label, type, placeholder, error, onChange, required, name, value, style }: Props) =>
 {
+    const errors = error !== undefined ? error : [];
+
     return (
         <label className={stylesForm.label} htmlFor={ id }>
             <span>
@@ -54,9 +56,14 @@ const Input = ({ id, label, type, placeholder, errors, onChange, required, name,
                 name={ name ?? id }
                 value={ value }
             />
-            <p className={stylesForm.messageError} data-active={ !!errors }>
-                { errors ? errors[0] : null }
-            </p>
+            {
+                errors[0]
+                    ?
+                    <p className={stylesForm.messageError}>
+                        { errors[0].code }
+                    </p>
+                    : null
+            }
         </label>
     );
 };
