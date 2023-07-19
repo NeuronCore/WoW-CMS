@@ -1,9 +1,9 @@
-import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter} from 'next/router';
-import React, { ChangeEvent, useState, useEffect, useMemo } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import React, { ChangeEvent, useState, useEffect, useMemo, FormEvent } from 'react';
 
 import HttpService from '@/services/http.service';
 
@@ -59,12 +59,12 @@ const Auth = ({ type }: Props) =>
         setFormValues({ ...formValues, [type]: { ...formValues[type], [event.target.name]: event.target.value } });
     };
 
-    const handleRegister = async(event: any) =>
+    const handleRegister = async(event: FormEvent<HTMLFormElement>) =>
     {
         event.preventDefault();
 
         httpService.post('/auth/register', formValues.register)
-            .then(async(response: any) =>
+            .then(async(response: AxiosResponse<any>) =>
             {
                 if (response.data.error)
                     setErrors(response.data.message);
@@ -96,12 +96,12 @@ const Auth = ({ type }: Props) =>
             });
     };
 
-    const handleLogin = async(event: any) =>
+    const handleLogin = async(event: FormEvent<HTMLFormElement>) =>
     {
         event.preventDefault();
 
         await httpService.post('/auth/login', formValues.login)
-            .then(async(response: any) =>
+            .then(async(response: AxiosResponse<any>) =>
             {
                 if (response.data.error)
                     setErrors(response.data.message);
@@ -114,8 +114,6 @@ const Auth = ({ type }: Props) =>
 
                     await mutate(userInformation);
 
-                    console.log(userInformation);
-
                     setModal(
                         {
                             hidden: false,
@@ -125,8 +123,11 @@ const Auth = ({ type }: Props) =>
                         });
                 }
             })
-            .catch(() =>
+            .catch((error) =>
             {
+                if (error?.response.data.message)
+                    setErrors(error?.response.data.message);
+
                 setModal(
                     {
                         hidden: true,
@@ -269,7 +270,7 @@ const Auth = ({ type }: Props) =>
                                 label='Username'
                                 placeholder='Your Username'
                                 onChange={(event) => handleChange(event, 'login')}
-                                error={errors.filter((error: any) => error.field === 'username')}
+                                error={errors.filter((error: any) => error.field === 'username' || error.field === 'all')}
                             />
 
                             <Input
