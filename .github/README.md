@@ -2,7 +2,7 @@
 <p align="center">
   <a href="https://github.com/NeuronCore/WoW-CMS">
     <img src="https://github.com/NeuronCore/WoW-CMS/blob/main/apps/client/public/images/logos/wow_cms-wotlk.png?raw=true" alt="Logo" height="180">
-    <img src="https://github.com/NeuronCore/WoW-CMS/blob/main/.github/screenshot.png?raw=true" alt="Screenshot">
+    <img src="https://github.com/NeuronCore/WoW-CMS/blob/main/.github/screenshot.png?raw=true" height="fit-content" alt="Screenshot">
   </a>
 
 <h3 align="center">WoW-CMS</h3>
@@ -11,15 +11,14 @@
     <a href="https://github.com/NeuronCore/WoW-CMS/issues">Report Bug</a>
   </p>
 
-[![WoW-CMS](https://raw.githubusercontent.com/NeuronCore/WoW-CMS/main/badge.svg)](https://github.com/NeuronCore/WoW-CMS)
-&nbsp;
+
 [![GitHub stars](https://img.shields.io/github/stars/NeuronCore/WoW-CMS.svg?style=for-the-badge)](https://github.com/NeuronCore/WoW-CMS/stargazers)
-&nbsp;
-[![GitHub issues](https://img.shields.io/github/issues-raw/NeuronCore/WoW-CMS.svg?style=for-the-badge)](https://github.com/NeuronCore/WoW-CMS/issues)
 &nbsp;
 [![GitHub forks](https://img.shields.io/github/forks/NeuronCore/WoW-CMS.svg?style=for-the-badge)](https://github.com/NeuronCore/WoW-CMS/forks)
 &nbsp;
 [![GitHub watchers](https://img.shields.io/github/watchers/NeuronCore/WoW-CMS.svg?style=for-the-badge)](https://github.com/NeuronCore/WoW-CMS/watchers)
+&nbsp;
+[![GitHub issues](https://img.shields.io/github/issues-raw/NeuronCore/WoW-CMS.svg?style=for-the-badge)](https://github.com/NeuronCore/WoW-CMS/issues)
 
 ## Table Of Contents
 
@@ -39,11 +38,11 @@ WoW-CMS is a free, open-source WOW content management system. WOW's server owner
 
 ### Prerequisites
 
-| Requirements                           | Description                                         |
-|----------------------------------------|-----------------------------------------------------|
-| Node.js                | \>= 18.17.0                                         |
-| Pre installed World of Warcraft Server | (with the databases of: Auth, Characters and World) |
-| MySQL / Mariadb Server                 | \>= 5.7 / 10.1                                      |
+| Requirements                           | Description                                                             |
+|----------------------------------------|-------------------------------------------------------------------------|
+| Node.js                | \>= 18.17.0                                                             |
+| Pre installed World of Warcraft Server | (with the databases of: acore_auth, acore_characters, acore_world and web) |
+| MySQL / Mariadb Server                 | \>= 5.7 / 10.1                                                          |
 
 ### Installation
 
