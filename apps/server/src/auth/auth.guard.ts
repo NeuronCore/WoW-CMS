@@ -20,8 +20,6 @@ export class AuthGuard implements CanActivate
 
         let token: string;
 
-        console.log(request.headers.authorization);
-
         if (request.headers.authorization && request.headers.authorization.startsWith('Bearer'))
             token = request.headers.authorization.split(' ')[1];
         else

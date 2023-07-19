@@ -3,6 +3,8 @@ import React, { ChangeEvent } from 'react';
 
 import stylesForm from '@/styles/components/form.module.scss';
 
+import useTranslation from 'next-translate/useTranslation';
+
 interface Props
 {
     style?: string,
@@ -19,6 +21,8 @@ interface Props
 
 const Input = ({ id, label, type, placeholder, error, onChange, required, name, value, style }: Props) =>
 {
+    const { t } = useTranslation();
+
     const errors = error !== undefined ? error : [];
 
     return (
@@ -60,7 +64,7 @@ const Input = ({ id, label, type, placeholder, error, onChange, required, name, 
                 errors[0]
                     ?
                     <p className={stylesForm.messageError}>
-                        { errors[0].code }
+                        { t(`common:${ errors[0].code }`) }
                     </p>
                     : null
             }
