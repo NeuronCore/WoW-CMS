@@ -283,13 +283,11 @@ const Blogs = () =>
                     id='tag'
                     label='Search in Tags'
                     onChange={handleChange}
-                    errors={errors.filter((item: string) => item.startsWith('tag'))}
                 />
                 <Input
                     id='content'
                     label='Search in Contents'
                     onChange={handleChange}
-                    errors={errors.filter((item: string) => item.startsWith('content'))}
                 />
             </div>
 
