@@ -94,6 +94,38 @@ CREATE TABLE IF NOT EXISTS `blog_tag` (
   CONSTRAINT `FK_BLOG_TAG_TAG` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE IF NOT EXISTS `faq` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `title_en` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `title_de` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `title_fa` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description_de` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description_fa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `faq` (`id`, `title_en`, `title_de`, `title_fa`, `description_en`, `description_de`, `description_fa`) VALUES
+	(1, 'Title', 'Titel', 'عنوان', 'Description', 'Beschreibung', 'شرح'),
+	(2, 'Title 2', 'Titel 2', 'عنوان ۲', 'Description', 'Beschreibung', 'شرح'),
+	(3, 'Title 3', 'Titel 3', 'عنوان ۳', 'Description', 'Beschreibung', 'شرح');
+
+CREATE TABLE IF NOT EXISTS `feature` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `title_en` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `title_de` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `title_fa` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description_en` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description_de` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description_fa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `feature` (`id`, `title_en`, `title_de`, `title_fa`, `image`, `description_en`, `description_de`, `description_fa`) VALUES
+    (1, 'Title', 'Titel', 'عنوان', NULL, 'Description', 'Beschreibung', 'شرح'),
+    (2, 'Title 2', 'Titel 2', 'عنوان ۲', NULL, 'Description', 'Beschreibung', 'شرح'),
+    (3, 'Title 3', 'Titel 3', 'عنوان ۳', NULL, 'Description', 'Beschreibung', 'شرح');
 
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
@@ -130,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `coins` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `coins` (`id`, `rial`, `count`) VALUES
-	(1, 10000, NULL);
+	(1, 10000, 1);
 
 CREATE TABLE IF NOT EXISTS `payments` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,

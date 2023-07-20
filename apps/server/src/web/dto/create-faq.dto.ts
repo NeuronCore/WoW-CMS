@@ -7,7 +7,17 @@ export class CreateFaqDto
     @ApiProperty()
     @Length(1, 50, { message: '1003' })
     @Field()
-    public readonly title: string;
+    public readonly titleEN: string;
+
+    @ApiProperty()
+    @Length(1, 50, { message: '1003' })
+    @Field()
+    public readonly titleDE: string;
+
+    @ApiProperty()
+    @Length(1, 50, { message: '1003' })
+    @Field()
+    public readonly titleFA: string;
 
     @ApiProperty()
     @Length(1, 255, { message: '1004' })

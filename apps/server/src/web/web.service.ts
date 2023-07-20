@@ -32,9 +32,10 @@ export class WebService
      */
     public async createFAQ(createFaqDto: CreateFaqDto)
     {
-        const { title, descriptionEN, descriptionDE, descriptionFA } = createFaqDto;
+        const { titleEN, titleDE, titleFA, descriptionEN, descriptionDE, descriptionFA } = createFaqDto;
 
-        await this.webDatabase.execute('INSERT INTO `faq` (`title`, `description_en`, `description_de`, `description_fa`) VALUES (?, ?, ?, ?)', [title, descriptionEN, descriptionDE || null, descriptionFA || null]);
+        await this.webDatabase.execute('INSERT INTO `faq` (`title_en`, `title_de`, `title_fa`, `description_en`, `description_de`, `description_fa`) VALUES (?, ?, ?, ?, ?, ?)',
+            [titleEN, titleDE || null, titleFA || null, descriptionEN, descriptionDE || null, descriptionFA || null]);
 
         return { statusCode: HttpStatus.OK, message: 'The FAQ was created successfully' };
     }
@@ -63,14 +64,14 @@ export class WebService
     {
         try
         {
-            const { title, descriptionEN, descriptionDE, descriptionFA } = updateFaqDto;
+            const { titleEN, titleDE, titleFA, descriptionEN, descriptionDE, descriptionFA } = updateFaqDto;
 
             const [faq] = await this.webDatabase.query('SELECT * FROM `faq` WHERE `id` = ?', [id]);
             if (!faq[0])
                 return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2004' }] };
 
-            await this.webDatabase.execute('UPDATE `faq` SET `title` = ?, `description_en` = ?, `description_de` = ?, `description_fa` = ? WHERE `id` = ?',
-                [title || faq[0].title, descriptionEN || faq[0].description_en, descriptionDE || faq[0].description_de, descriptionFA || faq[0].description_fa, id]);
+            await this.webDatabase.execute('UPDATE `faq` SET `title_en` = ?, `title_de` = ?, `title_fa` = ?, `description_en` = ?, `description_de` = ?, `description_fa` = ? WHERE `id` = ?',
+                [titleEN || faq[0].title_en, titleDE || faq[0].title_de, titleFA || faq[0].title_fa, descriptionEN || faq[0].description_en, descriptionDE || faq[0].description_de, descriptionFA || faq[0].description_fa, id]);
 
             return { statusCode: HttpStatus.OK, message: 'FAQ updated successfully' };
         }
@@ -122,14 +123,15 @@ export class WebService
      */
     public async createFeature(createFeatureDto: CreateFeatureDto, image: Express.Multer.File)
     {
-        const { title, descriptionEN, descriptionDE, descriptionFA } = createFeatureDto;
+        const { titleEN, titleDE, titleFA, descriptionEN, descriptionDE, descriptionFA } = createFeatureDto;
 
         const originalName = path.parse(image.originalname).name;
         const filename = 'feature' + '-' + Date.now() + '-' + originalName + '.jpg';
 
         await sharp(image.buffer).toFile(path.join('uploads/feature', filename));
 
-        await this.webDatabase.execute('INSERT INTO `feature` (`title`, `image`, `description_en`, `description_de`, `description_fa`) VALUES (?, ?, ?, ?, ?)', [title, filename, descriptionEN, descriptionDE || null, descriptionFA || null]);
+        await this.webDatabase.execute('INSERT INTO `feature` (`title_en`, `title_de`, `title_fa`, `image`, `description_en`, `description_de`, `description_fa`) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [titleEN, titleDE || null, titleFA || null, filename, descriptionEN, descriptionDE || null, descriptionFA || null]);
 
         return { statusCode: HttpStatus.OK, message: 'The Feature was created successfully' };
     }
@@ -156,7 +158,7 @@ export class WebService
      */
     public async updateFeature(id: number, createFeatureDto: CreateFeatureDto, image: Express.Multer.File)
     {
-        const { title, descriptionEN, descriptionDE, descriptionFA } = createFeatureDto;
+        const { titleEN, titleDE, titleFA, descriptionEN, descriptionDE, descriptionFA } = createFeatureDto;
 
         const [feature] = await this.webDatabase.query('SELECT * FROM `feature` WHERE `id` = ?', [id]);
         if (!feature[0])
@@ -171,8 +173,8 @@ export class WebService
             await sharp(image.buffer).toFile(path.join('uploads/feature', filename));
         }
 
-        await this.webDatabase.execute('UPDATE `feature` SET `title` = ?, `image` = ?, `description_en` = ?, `description_de` = ?, `description_fa` = ? WHERE `id` = ?',
-            [title || feature[0].title, filename || feature[0].image, descriptionEN || feature[0].description_en, descriptionDE || feature[0].description_de, descriptionFA || feature[0].description_fa]);
+        await this.webDatabase.execute('UPDATE `feature` SET `title_en` = ?, `title_de` = ?, `title_fa` = ?, `image` = ?, `description_en` = ?, `description_de` = ?, `description_fa` = ? WHERE `id` = ?',
+            [titleEN || feature[0].title_en, titleDE || feature[0].title_de, titleFA || feature[0].title_fa, filename || feature[0].image, descriptionEN || feature[0].description_en, descriptionDE || feature[0].description_de, descriptionFA || feature[0].description_fa]);
 
         return { statusCode: HttpStatus.OK, message: 'Feature updated successfully' };
     }

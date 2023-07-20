@@ -5,7 +5,15 @@ export class CreateFeatureDto
 {
     @Length(1, 50, { message: '1003' })
     @Field()
-    public readonly title: string;
+    public readonly titleEN: string;
+
+    @Length(1, 50, { message: '1003' })
+    @Field()
+    public readonly titleDE: string;
+
+    @Length(1, 50, { message: '1003' })
+    @Field()
+    public readonly titleFA: string;
 
     @Length(1, 255, { message: '1004' })
     @Field()
