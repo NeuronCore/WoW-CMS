@@ -134,13 +134,21 @@ const Home = () =>
                     </div>
                     <div className={styles.homeBlogsListSwiper}>
                         <Swiper
-                            slidesPerView={3}
-                            spaceBetween={30}
+                            slidesPerView={1}
                             grabCursor
                             keyboard={{ enabled: true }}
-                            onSlideChange={(swiper) => setBlog(swiper.realIndex)}
+                            onSlideChange={(swiper) =>
+                            {
+                                swiper.slideTo(blogs.length <= swiper.realIndex ? 0 : swiper.realIndex);
+                                setBlog(blogs.length <= swiper.realIndex ? 0 : swiper.realIndex);
+                            }}
                             autoplay={{ delay: 2500, disableOnInteraction: false }}
                             modules={[ Keyboard, Autoplay ]}
+                            breakpoints={{
+                                0: { slidesPerView: 1 },
+                                800: { slidesPerView: 2, spaceBetween: 0 },
+                                1100: { slidesPerView: 3 }
+                            }}
                         >
                             {
                                 blogs.map((item, index: number) =>
