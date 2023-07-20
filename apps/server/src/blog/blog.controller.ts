@@ -78,8 +78,8 @@ export class BlogController
     @Delete('/delete/:id')
     @UseGuards(AuthGuard)
     @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
-    public async delete(@Param('id', ParseIntPipe) id: number)
+    public async remove(@Param('id', ParseIntPipe) id: number)
     {
-        return this.blogService.delete(id);
+        return this.blogService.remove(id);
     }
 }
