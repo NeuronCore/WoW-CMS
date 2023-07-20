@@ -8,5 +8,7 @@
     "2000": "Email address already exists",
     "2001": "This Username already exists",
     "2002": "Password does not match",
-    "2003": "Incorrect username or password"
+    "2003": "Incorrect username or password",
+    "2004": "FAQ with this id not found",
+    "2005": "Feature with this id not found"
 }

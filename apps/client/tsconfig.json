@@ -16,9 +16,6 @@
         "jsx": "preserve",
         "incremental": true,
         "removeComments": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "allowUnreachableCode": true,
         "baseUrl": ".",
         "paths": { "@/*": ["./src/*"] }
     },

@@ -18,9 +18,6 @@
         "strictBindCallApply": false,
         "forceConsistentCasingInFileNames": false,
         "noFallthroughCasesInSwitch": false,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "allowUnreachableCode": true,
         "paths": { "@/*": ["./src/*"] }
     }
 }

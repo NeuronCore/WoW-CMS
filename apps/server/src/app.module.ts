@@ -13,7 +13,7 @@ import { AccountPasswordModule } from './account-password/account-password.modul
 import { PaymentModule } from './payment/payment.module';
 import { BlogModule } from './blog/blog.module';
 import { CharactersModule } from './characters/characters.module';
-import { FaqModule } from './faq/faq.module';
+import { WebModule } from '@/web/web.module';
 
 @Module
 ({
@@ -29,7 +29,7 @@ import { FaqModule } from './faq/faq.module';
         PaymentModule,
         BlogModule,
         CharactersModule,
-        FaqModule
+        WebModule
     ]
 })
 export class AppModule

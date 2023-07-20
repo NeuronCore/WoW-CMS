@@ -36,5 +36,5 @@ lerna-debug.log*
 # Misc
 package-lock.json
 .env
-uploads/*
 .turbo
+uploads/**/*.jpg
