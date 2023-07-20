@@ -500,6 +500,11 @@
             background: var(--color-primary) linear-gradient(0deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
             mask: url("../../../public/images/textures/header.svg") no-repeat center;
 
+            @media only screen and (max-width: 600px)
+            {
+                margin: 2rem 0;
+            }
+
             &[data-reverse]
             {
                 transform: rotate(180deg);
@@ -906,6 +911,16 @@
             font-size: 7rem;
             color: var(--color-primary-light);
             text-align: center;
+
+            @media only screen and (max-width: 750px)
+            {
+                font-size: 5rem;
+            }
+
+            @media only screen and (max-width: 550px)
+            {
+                font-size: 4rem;
+            }
         }
 
         & > ul
@@ -916,6 +931,11 @@
             flex-direction: column;
 
             width: 100%;
+
+            @media only screen and (max-width: 850px)
+            {
+                gap: 5rem;
+            }
 
             & > li
             {
@@ -1023,6 +1043,16 @@
                     }
                 }
 
+                @media only screen and (max-width: 850px)
+                {
+                    flex-direction: column-reverse !important;
+
+                    & > i
+                    {
+                        bottom: 0;
+                    }
+                }
+
                 & > div
                 {
                     display: flex;
@@ -1032,6 +1062,14 @@
                     gap: 2rem;
 
                     max-width: 40%;
+
+                    @media only screen and (max-width: 850px)
+                    {
+                        width: 100%;
+                        max-width: 100%;
+                        padding: 0 1rem;
+                        padding-bottom: 5rem;
+                    }
 
                     & > h4
                     {
@@ -1059,11 +1097,15 @@
 
                     width: 45rem;
                     height: 45rem;
-                    max-width: 45rem;
-                    max-height: 45rem;
-                    min-width: 45rem;
-                    min-height: 45rem;
                     border-radius: 50rem;
+
+                    @media only screen and (max-width: 500px)
+                    {
+                        width: 90%;
+                        height: 90%;
+                        min-height: 40rem;
+                        max-height: 40rem;
+                    }
 
                     & > span
                     {
@@ -1079,6 +1121,24 @@
                         max-height: 30rem;
                         border-radius: 50rem;
                         overflow: hidden;
+
+                        @media only screen and (max-width: 500px)
+                        {
+                            width: 25rem;
+                            height: 25rem;
+                        }
+
+                        @media only screen and (max-width: 400px)
+                        {
+                            width: 22rem;
+                            height: 22rem;
+                        }
+
+                        @media only screen and (max-width: 350px)
+                        {
+                            width: 18rem;
+                            height: 18rem;
+                        }
                     }
 
                     & > svg
