@@ -66,7 +66,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## License
 
-[//]: # (The WoW-CMS source is released under the [GNU AGPL v3]&#40;https://github.com/NeuronCore/WoW-CMS/blob/main/LICENSE&#41;)
+- The WoW-CMS source is released under the [GNU AGPL v3](https://github.com/NeuronCore/WoW-CMS/blob/main/LICENSE)
 
 ## Links
 

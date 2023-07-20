@@ -60,7 +60,7 @@ export class Email
     {
         const template =
         `
-            <h1>Forgot your password?</h1>
+            <h1>${ this.username } Forgot your password?</h1>
             <p>Submit a patch request with your new password and password confirm to: <a href='${ this.url }'>Reset my password</a></p>
             <p>Your password reset token (valid for only 10 minutes)</p>
             <p>If you didn't forget your password, please ignore this email</p>

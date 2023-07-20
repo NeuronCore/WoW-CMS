@@ -13,7 +13,7 @@ export abstract class PaymentGateway
 
 export class ZarinPalGateway implements PaymentGateway
 {
-    constructor(private authDatabase: Pool, private webDatabase: Pool)
+    constructor(private webDatabase: Pool)
     { }
 
     public async request(accountID: number, requestDto: RequestDto, response: Response)
