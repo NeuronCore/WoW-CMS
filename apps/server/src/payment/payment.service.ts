@@ -10,10 +10,7 @@ import { RequestDto } from '@/payment/dto/request.dto';
 @Injectable()
 export class PaymentService
 {
-    constructor(
-        @Inject('AUTH_DATABASE') private authDatabase: Pool,
-        @Inject('WEB_DATABASE') private webDatabase: Pool
-    )
+    constructor(@Inject('WEB_DATABASE') private webDatabase: Pool)
     { }
 
     public async request(accountID: number, requestDto: RequestDto, response: Response)
@@ -21,7 +18,7 @@ export class PaymentService
         switch (Object.values(PaymentMethod).join())
         {
             case requestDto.paymentMethod:
-                await new ZarinPalGateway(this.authDatabase, this.webDatabase).request(accountID, requestDto, response);
+                await new ZarinPalGateway(this.webDatabase).request(accountID, requestDto, response);
                 break;
             default:
                 return response.status(HttpStatus.BAD_GATEWAY).json({ statusCode: HttpStatus.BAD_GATEWAY, message: 'Unsupported payment method!' });
@@ -33,7 +30,7 @@ export class PaymentService
         switch (Object.values(PaymentMethod).join())
         {
             case request.query.gateway:
-                await new ZarinPalGateway(this.authDatabase, this.webDatabase).verify(request, response);
+                await new ZarinPalGateway(this.webDatabase).verify(request, response);
                 break;
             default:
                 return response.status(HttpStatus.BAD_GATEWAY).json({ statusCode: HttpStatus.BAD_GATEWAY, message: 'Unsupported payment method!' });

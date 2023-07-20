@@ -15,10 +15,7 @@ export class BlogService
 {
     private logger: Logger = new Logger(BlogService.name);
 
-    constructor(
-        @Inject('AUTH_DATABASE') private authDatabase: Pool,
-        @Inject('WEB_DATABASE') private webDatabase: Pool
-    )
+    constructor(@Inject('WEB_DATABASE') private webDatabase: Pool)
     { }
 
     public async create(accountID: number, createBlogDto: CreateBlogDto, thumbnail: Express.Multer.File)
