@@ -41,7 +41,7 @@ WoW-CMS is a free, open-source WOW content management system. WOW's server owner
 | Requirements                           | Description                                                             |
 |----------------------------------------|-------------------------------------------------------------------------|
 | Node.js                | \>= 18.17.0                                                             |
-| Pre installed World of Warcraft Server | (with the databases of: acore_auth, acore_characters, acore_world and web) |
+| Pre installed World of Warcraft Server | (with the databases of: auth, characters, world and web) |
 | MySQL / Mariadb Server                 | \>= 5.7 / 10.1                                                          |
 
 ### Installation
@@ -67,6 +67,11 @@ Contributions are what make the open source community such an amazing place to b
 ## License
 
 [//]: # (The WoW-CMS source is released under the [GNU AGPL v3]&#40;https://github.com/NeuronCore/WoW-CMS/blob/main/LICENSE&#41;)
+
+## Links
+
+- **[Instagram](https://instagram.com/neuron.core)**
+- **[Discord](https://discord.gg/6AnVB2aSwb)**
 
 ## Authors and Contributors
 
