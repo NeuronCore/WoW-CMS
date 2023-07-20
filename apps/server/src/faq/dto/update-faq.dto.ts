@@ -14,5 +14,17 @@ export class UpdateFaqDto
     @Length(1, 255, { message: '1004' })
     @Field()
     @IsOptional()
-    public readonly description: string;
+    public readonly descriptionEN: string;
+
+    @ApiProperty()
+    @Length(1, 255, { message: '1004' })
+    @Field()
+    @IsOptional()
+    public readonly descriptionDE: string;
+
+    @ApiProperty()
+    @Length(1, 255, { message: '1004' })
+    @Field()
+    @IsOptional()
+    public readonly descriptionFA: string;
 }
