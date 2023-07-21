@@ -93,6 +93,12 @@ const Home = () =>
                     onSlideChange={(swiper) => setHeaderBlog(swiper.realIndex)}
                     autoplay={{ delay: 2500, disableOnInteraction: false }}
                     modules={[ Keyboard, Autoplay ]}
+                    breakpoints={{
+                        0: { slidesPerView: 1 },
+                        800: { slidesPerView: 2 },
+                        1150: { slidesPerView: 3 },
+                        1500: { slidesPerView: 4 }
+                    }}
                 >
                     {
                         blogs.map((item, index: number) =>
