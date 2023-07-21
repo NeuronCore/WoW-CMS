@@ -1,8 +1,10 @@
 import { Resolver, Args, Mutation, Context, Query } from '@nestjs/graphql';
 import { Request } from 'express';
+import { UseGuards } from '@nestjs/common';
 
 import { AuthType } from '@/auth/auth.type';
 import { AuthService } from '@/auth/auth.service';
+import { AuthGuard } from '@/auth/auth.guard';
 
 import { RegisterDto } from '@/auth/dto/register.dto';
 import { LoginDto } from '@/auth/dto/login.dto';
@@ -26,6 +28,7 @@ export class AuthResolver
     }
 
     @Query(() => AuthType)
+    @UseGuards(AuthGuard)
     public async logout(@Context('req') request: Request)
     {
         return this.authService.logout(request, request.res);

@@ -80,7 +80,7 @@ export class BlogService
         }
     }
 
-    public async delete(id: number)
+    public async remove(id: number)
     {
         try
         {

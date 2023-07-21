@@ -2,6 +2,8 @@
     "1000": "Muss länger als oder gleich 2 und kürzer als oder gleich 30 Zeichen sein",
     "1001": "Muss eine E-Mail sein",
     "1002": "Muss länger als oder gleich 8 und kürzer als oder gleich 30 Zeichen sein",
+    "1003": "Muss länger als oder gleich 1 und kürzer als oder gleich 50 Zeichen sein",
+    "1004": "Muss länger als oder gleich 1 und kürzer als oder gleich 255 Zeichen sein",
 
     "2000": "Diese E-Mail Adresse ist bereits vergeben",
     "2001": "eser Benutzername existiert schon",
