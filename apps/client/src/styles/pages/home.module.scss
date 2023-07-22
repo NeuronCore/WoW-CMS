@@ -1484,6 +1484,8 @@
                 height: 0;
                 overflow: hidden;
                 transition: all .2s;
+                max-width: 90%;
+                word-break: break-all;
             }
 
             &Active
