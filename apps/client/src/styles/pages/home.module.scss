@@ -1142,7 +1142,7 @@
                     flex-direction: column;
                     gap: 2rem;
 
-                    max-width: 40%;
+                    width: 40%;
 
                     @media only screen and (max-width: 850px)
                     {
@@ -1165,6 +1165,8 @@
                         line-height: 2.75rem;
                         font-weight: 500;
                         font-size: 2rem;
+                        max-width: 95%;
+                        word-break: break-all;
                     }
                 }
 

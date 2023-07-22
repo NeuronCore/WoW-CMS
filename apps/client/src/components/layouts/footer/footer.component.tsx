@@ -38,6 +38,7 @@ const Footer = () =>
                             alt='WoW CMS'
                             fill
                             style={{ objectFit: 'contain' }}
+                            sizes={'100'}
                         />
                     </span>
 
@@ -110,6 +111,7 @@ const Footer = () =>
                                 alt='Paypal'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </Link>
                     </li>
@@ -120,6 +122,7 @@ const Footer = () =>
                                 alt='MasterCard'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </Link>
                     </li>
@@ -130,6 +133,7 @@ const Footer = () =>
                                 alt='Paypal'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </Link>
                     </li>
@@ -140,6 +144,7 @@ const Footer = () =>
                                 alt='Paypal'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </Link>
                     </li>
@@ -150,6 +155,7 @@ const Footer = () =>
                                 alt='Paypal'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </Link>
                     </li>
@@ -160,6 +166,7 @@ const Footer = () =>
                                 alt='Paypal'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </Link>
                     </li>
@@ -170,6 +177,7 @@ const Footer = () =>
                                 alt='Paypal'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </Link>
                     </li>

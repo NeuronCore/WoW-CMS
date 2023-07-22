@@ -32,6 +32,7 @@ const BlogsCard = () =>
                         alt='WoW CMS 3'
                         fill
                         style={{ objectFit: 'cover' }}
+                        sizes={'100'}
                     />
                 </span>
 

@@ -37,6 +37,7 @@ const Navbar = () =>
                         alt='WoW CMS'
                         fill
                         style={{ objectFit: 'contain' }}
+                        sizes={'100'}
                     />
                 </span>
 
@@ -82,6 +83,7 @@ const Navbar = () =>
                         alt='WoW CMS'
                         fill
                         style={{ objectFit: 'contain' }}
+                        sizes={'100'}
                     />
                 </span>
 

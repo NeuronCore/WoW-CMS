@@ -32,10 +32,11 @@ const Features = ({ index, item }: Props) =>
             <span>
                 <span>
                     <Image
-                        src={ `${ apiData.path }/account/uploaded-image/feature/${ item.image }` }
-                        alt={ item.title }
+                        src={ `${ apiData.path }account/uploaded-image/feature/${ item.image }` }
+                        alt={ item['title_' + locale] }
                         fill
                         style={{ objectFit: 'cover' }}
+                        sizes={'100'}
                     />
                 </span>
 

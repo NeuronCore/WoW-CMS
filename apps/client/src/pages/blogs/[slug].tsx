@@ -212,6 +212,7 @@ const Blog = () =>
                                 alt='WoW CMS'
                                 fill
                                 style={{ objectFit: 'cover' }}
+                                sizes={'100'}
                             />
                         </span>
                     </span>
@@ -223,6 +224,7 @@ const Blog = () =>
                                     alt='WoW CMS'
                                     fill
                                     style={{ objectFit: 'cover' }}
+                                    sizes={'100'}
                                 />
                             </span>
                             <div>
@@ -387,6 +389,7 @@ const Blog = () =>
                             alt='WoW CMS'
                             fill
                             style={{ objectFit: 'cover' }}
+                            sizes={'100'}
                         />
                     </span>
                     <div>

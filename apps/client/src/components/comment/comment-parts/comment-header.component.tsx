@@ -43,6 +43,7 @@ const CommentHeader =
                     alt='MasterCard'
                     fill
                     style={{ objectFit: 'cover' }}
+                    sizes={'100'}
                 />
             </div>
 

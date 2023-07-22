@@ -37,6 +37,7 @@ const BlogsNew = ({ active, item }: Props) =>
                         alt={ item.alt }
                         fill
                         style={{ objectFit: 'cover' }}
+                        sizes={'100'}
                     />
                 </span>
             </div>
