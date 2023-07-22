@@ -48,7 +48,6 @@ export class AccountController
     }
 
     @Get('uploaded-image/:folder/:image')
-    @UseGuards(AuthGuard)
     public async getAvatar(@Param('folder') folder: string, @Param('image') image: string, @Res() res: Response)
     {
         return res.sendFile(join(__dirname, '..', '..', `uploads/${ folder }/${ image }`));
