@@ -123,9 +123,9 @@ CREATE TABLE IF NOT EXISTS `feature` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `feature` (`id`, `title_en`, `title_de`, `title_fa`, `image`, `description_en`, `description_de`, `description_fa`) VALUES
-    (1, 'Title', 'Titel', 'عنوان', NULL, 'Description', 'Beschreibung', 'شرح'),
-    (2, 'Title 2', 'Titel 2', 'عنوان ۲', NULL, 'Description', 'Beschreibung', 'شرح'),
-    (3, 'Title 3', 'Titel 3', 'عنوان ۳', NULL, 'Description', 'Beschreibung', 'شرح');
+    (1, 'Title', 'Titel', 'عنوان', 'feature.jpg', 'Description', 'Beschreibung', 'شرح'),
+    (2, 'Title 2', 'Titel 2', 'عنوان ۲', 'feature.jpg', 'Description', 'Beschreibung', 'شرح'),
+    (3, 'Title 3', 'Titel 3', 'عنوان ۳', 'feature.jpg', 'Description', 'Beschreibung', 'شرح');
 
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,

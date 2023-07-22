@@ -38,7 +38,6 @@ export class AuthService
         const { firstName, lastName, username, email, password, confirmPassword } = registerDto;
 
         const [emailExists] = await this.authDatabase.query('SELECT `email` FROM `account` WHERE `email` = ?', [email]);
-
         if (emailExists[0]?.email)
             throw new ConflictException([{ field: 'email', code: '2000' }]);
 

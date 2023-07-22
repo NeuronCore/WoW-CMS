@@ -40,11 +40,26 @@ export class WebService
         return { statusCode: HttpStatus.OK, message: 'The FAQ was created successfully' };
     }
 
-    public async findAllFAQ()
+    public async findAllFAQ(locale: string)
     {
-        const [faq] = await this.webDatabase.query('SELECT * FROM `FAQ`');
-
-        return { statusCode: HttpStatus.OK, data: { faq } };
+        switch (locale)
+        {
+            case 'de':
+            {
+                const [faq] = await this.webDatabase.query('SELECT `id`, `title_de`, `description_de` FROM `FAQ`');
+                return { statusCode: HttpStatus.OK, data: { faq } };
+            }
+            case 'fa':
+            {
+                const [faq] = await this.webDatabase.query('SELECT `id`, `title_fa`, `description_fa` FROM `FAQ`');
+                return { statusCode: HttpStatus.OK, data: { faq } };
+            }
+            default:
+            {
+                const [faq] = await this.webDatabase.query('SELECT `id`, `title_en`, `description_en` FROM `FAQ`');
+                return { statusCode: HttpStatus.OK, data: { faq } };
+            }
+        }
     }
 
     /**
@@ -136,11 +151,26 @@ export class WebService
         return { statusCode: HttpStatus.OK, message: 'The Feature was created successfully' };
     }
 
-    public async findAllFeatures()
+    public async findAllFeatures(locale: string)
     {
-        const [features] = await this.webDatabase.query('SELECT * FROM `feature`');
-
-        return { statusCode: HttpStatus.OK, data: { features } };
+        switch (locale)
+        {
+            case 'de':
+            {
+                const [features] = await this.webDatabase.query('SELECT `id`, `title_de`, `image`, `description_de` FROM `feature`');
+                return { statusCode: HttpStatus.OK, data: { features } };
+            }
+            case 'fa':
+            {
+                const [features] = await this.webDatabase.query('SELECT `id`, `title_fa`, `image`, `description_fa` FROM `feature`');
+                return { statusCode: HttpStatus.OK, data: { features } };
+            }
+            default:
+            {
+                const [features] = await this.webDatabase.query('SELECT `id`, `title_en`, `image`, `description_en` FROM `feature`');
+                return { statusCode: HttpStatus.OK, data: { features } };
+            }
+        }
     }
 
     /**

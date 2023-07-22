@@ -26,9 +26,9 @@ export class WebResolver
     }
 
     @Query(() => WebType)
-    public async findAllFAQ()
+    public async findAllFAQ(@Args('locale') locale: string)
     {
-        return this.webService.findAllFAQ();
+        return this.webService.findAllFAQ(locale);
     }
 
     @Mutation(() => WebType)

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFile, Query } from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 
@@ -31,9 +31,9 @@ export class WebController
     }
 
     @Get('find-all/faq')
-    public async findAllFAQ()
+    public async findAllFAQ(@Query('locale') locale: string)
     {
-        return this.webService.findAllFAQ();
+        return this.webService.findAllFAQ(locale);
     }
 
     @Patch('update/faq/id/:id')
@@ -81,9 +81,9 @@ export class WebController
     }
 
     @Get('find-all/feature')
-    public async findAllFeatures()
+    public async findAllFeatures(@Query('locale') locale: string)
     {
-        return this.webService.findAllFeatures();
+        return this.webService.findAllFeatures(locale);
     }
 
     @Patch('update/feature')
