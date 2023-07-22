@@ -22,6 +22,11 @@ const nextConfig =
                 protocol: 'https',
                 hostname: 'wallpaper-mania.com',
                 port: ''
+            },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '4000'
             }
         ]
     },

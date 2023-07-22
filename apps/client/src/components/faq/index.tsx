@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { useRouter } from 'next/router';
 import { HiChevronRight } from 'react-icons/hi';
 
 import styles from '@/styles/pages/home.module.scss';
@@ -7,13 +8,15 @@ import styles from '@/styles/pages/home.module.scss';
 type Props =
     {
         index: number,
-        item: { answer: string, question: string },
+        item: any,
         faqs: number[],
         setFaqs: any
     };
 
 const FAQ = ({ index, item, faqs, setFaqs }: Props) =>
 {
+    const { locale } = useRouter();
+
     return (
         <li className={classnames(styles.homeFaqItem, { [styles.homeFaqItemActive]: faqs.includes(index) })}>
             <i data-top_right>
@@ -45,7 +48,7 @@ const FAQ = ({ index, item, faqs, setFaqs }: Props) =>
                 setFaqs([...newFaqs]);
             }}>
                 <p>
-                    { item.question }
+                    { item['title_' + locale] }
                 </p>
                 <i>
                     <HiChevronRight />
@@ -53,7 +56,7 @@ const FAQ = ({ index, item, faqs, setFaqs }: Props) =>
             </div>
 
             <p>
-                { item.answer }
+                { item['description_' + locale] }
             </p>
         </li>
     );

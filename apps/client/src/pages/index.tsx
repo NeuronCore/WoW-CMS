@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { GetStaticProps } from 'next';
+import React, { useState } from 'react';
 import { Autoplay, Keyboard } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -17,9 +19,7 @@ import Header1Image2 from '@/../public/images/backgrounds/background_1-wotlk.jpe
 import Header3Image1 from '@/../public/images/backgrounds/background_3-cataclysm.png';
 import Header3Image2 from '@/../public/images/backgrounds/background_3-wotlk.png';
 
-import faq from '@/data/faq.data.json';
 import blogs from '@/data/blogs.data.json';
-import features from '@/data/features.data.json';
 
 import styles from '@/styles/pages/home.module.scss';
 
@@ -30,7 +30,7 @@ const Features = dynamic(() => import('@/components/features'));
 const BlogsHot = dynamic(() => import('@/components/blogs-card/blogs-hot.component'));
 const BlogsNew = dynamic(() => import('@/components/blogs-card/blogs-new.component'));
 
-const Home = () =>
+const Home = ({ faq, features }: any) =>
 {
     const [blog, setBlog] = useState<number>(0);
     const [faqs, setFaqs] = useState<number[]>([]);
@@ -187,7 +187,7 @@ const Home = () =>
                 </p>
                 <ul>
                     {
-                        features.map((item, index: number) =>
+                        features.map((item: any, index: number) =>
                             (
                                 <Features index={ index } item={ item } key={ createUniqueKey([item.alt, index, 'features_1']) }/>
                             ))
@@ -213,7 +213,7 @@ const Home = () =>
 
                 <ul>
                     {
-                        faq.map((item, index: number) =>
+                        faq.map((item: any, index: number) =>
                             (
                                 <FAQ setFaqs={ setFaqs } faqs={ faqs } index={ index } item={ item } key={ createUniqueKey([item.question, index, 'faq_1']) }/>
                             ))
@@ -224,6 +224,24 @@ const Home = () =>
             </div>
         </>
     );
+};
+
+export const getStaticProps: GetStaticProps<any> = async({ locale }) =>
+{
+    const responseFaq = await axios.get('/web/find-all/faq?locale=' + locale);
+    const responseFeatures = await axios.get('/web/find-all/feature?locale=' + locale);
+
+    const faq = await responseFaq?.data?.data?.faq;
+    const features = await responseFeatures?.data?.data?.features;
+
+    return {
+        props:
+            {
+                faq,
+                features
+            },
+        revalidate: 1,
+    };
 };
 
 export default Home;
