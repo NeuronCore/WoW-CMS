@@ -66,83 +66,79 @@ const Auth = ({ type }: Props) =>
     {
         event.preventDefault();
 
-        httpService.post('/auth/register', formValues.register)
-            .then(async(response: AxiosResponse<any>) =>
+        httpService.post('/auth/register', formValues.register).then(async(response: AxiosResponse<any>) =>
+        {
+            if (response.data.error)
+                setErrors(response.data.message);
+            else
             {
-                if (response.data.error)
-                    setErrors(response.data.message);
-                else
-                {
-                    setModal(
-                        {
-                            hidden: false,
-                            title: t('auth:register.modal.successful.title'),
-                            description: t('auth:register.modal.successful.description'),
-                            onHidden: async() =>
-                            {
-                                await push('/login');
-                                setActive(false);
-                            }
-                        });
-                }
-            })
-            .catch(error =>
+                setModal
+                ({
+                    hidden: false,
+                    title: t('auth:register.modal.successful.title'),
+                    description: t('auth:register.modal.successful.description'),
+                    onHidden: async() =>
+                    {
+                        await push('/login');
+                        setActive(false);
+                    }
+                });
+            }
+        }).catch(error =>
+        {
+            if (error.response.data.error)
+                setErrors(error.response.data.message);
+            else
             {
-                if (error.response.data.error)
-                    setErrors(error.response.data.message);
-                else
-                {
-                    setModal(
-                        {
-                            hidden: true,
-                            title: t('auth:register.modal.error.title'),
-                            description: t('auth:register.modal.error.description'),
-                            onHidden: async() => await push('/register')
-                        });
-                }
-            });
+                setModal
+                ({
+                    hidden: true,
+                    title: t('auth:register.modal.error.title'),
+                    description: t('auth:register.modal.error.description'),
+                    onHidden: async() => await push('/register')
+                });
+            }
+        });
     };
 
     const handleLogin = async(event: FormEvent<HTMLFormElement>) =>
     {
         event.preventDefault();
 
-        await httpService.post('/auth/login', formValues.login)
-            .then(async(response: AxiosResponse<any>) =>
+        await httpService.post('/auth/login', formValues.login).then(async(response: AxiosResponse<any>) =>
+        {
+            if (response.data.error)
+                setErrors(response.data.message);
+            else
             {
-                if (response.data.error)
-                    setErrors(response.data.message);
-                else
-                {
-                    await httpService.setHeader('authorization', `Bearer ${ response.data.data.accessToken }`);
+                await httpService.setHeader('authorization', `Bearer ${ response.data.data.accessToken }`);
 
-                    const responseToken = await axios.get('/account/current');
-                    const userInformation = await responseToken.data.data.information;
+                const responseToken = await axios.get('/account/current');
+                const userInformation = await responseToken.data.data.information;
 
-                    await mutate(userInformation);
+                await mutate(userInformation);
 
-                    setModal(
-                        {
-                            hidden: false,
-                            title: t('auth:login.modal.successful.title'),
-                            description: t('auth:login.modal.successful.description'),
-                            onHidden: async() => await push('/account')
-                        });
-                }
-            })
-            .catch((error) =>
-            {
-                if (error?.response.data.message)
-                    setErrors(error?.response.data.message);
+                setModal
+                ({
+                    hidden: false,
+                    title: t('auth:login.modal.successful.title'),
+                    description: t('auth:login.modal.successful.description'),
+                    onHidden: async() => await push('/account')
+                });
+            }
+        }).catch((error) =>
+        {
+            if (error?.response.data.message)
+                setErrors(error?.response.data.message);
 
-                setModal(
-                    {
-                        hidden: true,
-                        title: t('auth:login.modal.error.title'),
-                        description: t('auth:login.modal.error.description'),
-                        onHidden: async() => await push('/login')
-                    });
+            setModal
+            ({
+                hidden: true,
+                title: t('auth:login.modal.error.title'),
+                description: t('auth:login.modal.error.description'),
+                onHidden: async() => await push('/login')
             });
+        });
     };
 
     useEffect(() =>

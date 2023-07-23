@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-import { apiData } from '@/data/api.data';
-
-axios.defaults.baseURL = apiData.path;
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_IP_OR_URL;
 axios.defaults.withCredentials = true;
 
 let refresh = false;
@@ -13,7 +11,7 @@ axios.interceptors.response.use(response => response, async error =>
     {
         refresh = true;
 
-        const response = await axios.get('auth/refresh');
+        const response = await axios.get('/auth/refresh');
 
         if (response.status === 200)
         {

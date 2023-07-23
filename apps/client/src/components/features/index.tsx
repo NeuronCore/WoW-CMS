@@ -4,13 +4,12 @@ import { useRouter } from 'next/router';
 
 import FeatureFrame from '@/../public/images/textures/frame_circle.svg';
 
-import { apiData } from '@/data/api.data';
 
 type Props =
-    {
-        index: number,
-        item: any
-    };
+{
+    index: number,
+    item: any
+};
 
 const Features = ({ index, item }: Props) =>
 {
@@ -32,7 +31,7 @@ const Features = ({ index, item }: Props) =>
             <span>
                 <span>
                     <Image
-                        src={ `${ apiData.path }account/uploaded-image/feature/${ item.image }` }
+                        src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/feature/${ item.image }` }
                         alt={ item['title_' + locale] }
                         fill
                         style={{ objectFit: 'cover' }}
