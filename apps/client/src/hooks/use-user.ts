@@ -7,7 +7,7 @@ export const useUser = () =>
 {
     const { data, mutate, isLoading } = useSWR('account/current', fetcher);
 
-    const loading = isLoading || !data;
+    const loading = isLoading;
     const user = data?.data?.information;
 
     return [user, { mutate, loading }];
