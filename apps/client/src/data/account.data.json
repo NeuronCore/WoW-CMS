@@ -1,0 +1,85 @@
+{
+    "aside":
+    [
+        {
+            "title": "Dashboard",
+            "items":
+            [
+                {
+                    "path": "overview",
+                    "title": "Account Overview"
+                },
+                {
+                    "path": "characters",
+                    "title": "My Characters"
+                },
+                {
+                    "path": "details",
+                    "title": "Account Details"
+                },
+                {
+                    "path": "download",
+                    "title": "Download"
+                }
+            ]
+        },
+        {
+            "title": "Security & Settings",
+            "items":
+            [
+                {
+                    "path": "security",
+                    "title": "Account Security"
+                },
+                {
+                    "path": "two-factor",
+                    "title": "Two-Factor Authentication"
+                },
+                {
+                    "path": "discord",
+                    "title": "Discord Connection"
+                }
+            ]
+        },
+        {
+            "title": "Application",
+            "items":
+            [
+                {
+                    "path": "#",
+                    "title": "Team Application"
+                },
+                {
+                    "path": "#",
+                    "title": "Translator Application"
+                }
+            ]
+        },
+        {
+            "title": "Payment & Shop",
+            "items":
+            [
+                {
+                    "path": "#",
+                    "title": "Make a Donation"
+                },
+                {
+                    "path": "#",
+                    "title": "Visit Shop"
+                },
+                {
+                    "path": "#",
+                    "title": "View Cart"
+                },
+                {
+                    "path": "order-history",
+                    "title": "Order History"
+                },
+                {
+                    "path": "wishlist",
+                    "title": "Wishlist"
+                }
+            ]
+        }
+    ]
+}

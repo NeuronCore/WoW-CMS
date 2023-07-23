@@ -19,7 +19,7 @@ interface Props
 
 const Main = ({ children }: Props) =>
 {
-    const router = useRouter();
+    const { pathname } = useRouter();
     const dispatch = useAppDispatch();
 
     useEffect(() =>
@@ -36,7 +36,7 @@ const Main = ({ children }: Props) =>
             </div>
 
             {
-                routesData.noFooterRoutes.includes(router.pathname)
+                routesData.noFooterRoutes.includes(pathname)
                     ? null
                     : <Footer />
             }
