@@ -1,0 +1,20 @@
+{
+    "header":
+    {
+        "title": "WoW CMS",
+        "paragraph": "Sie können den Kopfzeilentext im folgenden Ordner ändern \n apps/client/locales/en,de,fa",
+        "button": "Jetzt spielen!"
+    },
+    "blogs":
+    {
+        "title": "WoW CMS Blogs"
+    },
+    "features":
+    {
+        "title": "WoW CMS Merkmale"
+    },
+    "faq":
+    {
+        "title": "Häufig gestellte Fragen"
+    }
+}
