@@ -10,7 +10,7 @@ export const useUser = () =>
     const { data, mutate, isLoading } = useSWR(apiData.createRoute('account/current'), fetcher);
 
     const loading = isLoading || !data;
-    const user = data?.data;
+    const user = data?.data?.information;
 
     return [user, { mutate, loading }];
 };

@@ -18,7 +18,7 @@ const AddComment = dynamic(() => import('@/components/comment/add-comment.compon
 
 const Blog = () =>
 {
-    const router = useRouter();
+    const { asPath } = useRouter();
 
     const [comments, updateComments] = useState<any[]>([]);
     const [deleteModalState, setDeleteModalState] = useState(false);
@@ -156,7 +156,7 @@ const Blog = () =>
                                         ?
                                         <Fragment key={createUniqueKey([item, index, 'blog_router'])}>
                                             <BsChevronRight />
-                                            <Link href={ '/' + item } data-active={ index === router.asPath.split('/').length - 1 }>
+                                            <Link href={ '/' + item } data-active={ index === asPath.split('/').length - 1 }>
                                                 { capitalizeFirstLetter(item) }
                                             </Link>
                                         </Fragment>

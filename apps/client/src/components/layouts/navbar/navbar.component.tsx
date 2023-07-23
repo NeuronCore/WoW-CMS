@@ -19,10 +19,10 @@ import Logo2 from '@/../public/images/logos/wow_cms-wotlk.png';
 const Navbar = () =>
 {
     const [user] = useUser();
-    const router = useRouter();
+    const { pathname } = useRouter();
 
     return (
-        <nav className={styles.navbar} data-secondery={ router.pathname.includes('blogs/') }>
+        <nav className={styles.navbar} data-secondery={ pathname.includes('blogs/') }>
             <div className={styles.navbarContainer}>
                 <span>
                     <Image
@@ -44,7 +44,7 @@ const Navbar = () =>
                 <ul>
                     {
                         navbarItems.map((item) => (
-                            <li key={ uuidV4() } data-active={ item.href === router.pathname }>
+                            <li key={ uuidV4() } data-active={ item.href === pathname }>
                                 <Link href= { item.href }>
                                     { item.name }
                                 </Link>
