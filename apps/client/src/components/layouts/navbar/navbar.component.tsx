@@ -23,7 +23,7 @@ const Navbar = () =>
     return (
         <nav className={styles.navbar} data-secondery={ pathname.includes('blogs/') }>
             <div className={styles.navbarContainer}>
-                <span>
+                <Link href='/' data-logo>
                     <Image
                         src={ Logo() }
                         alt='WoW CMS'
@@ -31,7 +31,7 @@ const Navbar = () =>
                         style={{ objectFit: 'contain' }}
                         sizes={'100'}
                     />
-                </span>
+                </Link>
 
                 <ul>
                     {
@@ -63,13 +63,15 @@ const Navbar = () =>
                 </button>
 
                 <span>
-                    <Image
-                        src={ Logo() }
-                        alt='WoW CMS'
-                        fill
-                        style={{ objectFit: 'contain' }}
-                        sizes={'100'}
-                    />
+                    <Link href='/'>
+                        <Image
+                            src={ Logo() }
+                            alt='WoW CMS'
+                            fill
+                            style={{ objectFit: 'contain' }}
+                            sizes={'100'}
+                        />
+                    </Link>
                 </span>
 
                 <Link href={user ? '/account' : '/login'}>

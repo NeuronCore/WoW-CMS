@@ -42,20 +42,6 @@
             ]
         },
         {
-            "title": "Application",
-            "items":
-            [
-                {
-                    "path": "#",
-                    "title": "Team Application"
-                },
-                {
-                    "path": "#",
-                    "title": "Translator Application"
-                }
-            ]
-        },
-        {
             "title": "Payment & Shop",
             "items":
             [
