@@ -33,18 +33,18 @@ const Input = ({ id, label, type, placeholder, error, onChange, required, name, 
                     style === 'login'
                         ?
                         <p>
-                            Need an account?
+                            { t('auth:login.link.paragraph') }
                             <Link href='/register'>
-                                Sign up
+                                { t('auth:login.link.button') }
                             </Link>
                         </p>
                         :
                         style === 'register'
                             ?
                             <p>
-                                Already have an account?
+                                { t('auth:register.link.paragraph') }
                                 <Link href='/login'>
-                                    Log in
+                                    { t('auth:register.link.button') }
                                 </Link>
                             </p>
                             : null

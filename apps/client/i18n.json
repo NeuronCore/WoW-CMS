@@ -4,6 +4,8 @@
     "pages":
     {
         "*": ["common"],
-        "/": ["home"]
+        "/": ["home"],
+        "/login": ["auth"],
+        "/register": ["auth"]
     }
 }
