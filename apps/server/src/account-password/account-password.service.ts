@@ -36,7 +36,7 @@ export class AccountPasswordService
 
         try
         {
-            const resetURL = `${ process.env.RESET_PASSWORD_URL }${ resetToken }`;
+            const resetURL = `${ process.env.CLIENT_IP_OR_URL }/${ process.env.RESET_PASSWORD_URL }/${ resetToken }`;
             await new Email(account, resetURL).sendPasswordReset();
             return { statusCode: HttpStatus.OK, message: 'Token sent to email' };
         }

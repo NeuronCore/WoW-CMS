@@ -17,7 +17,7 @@ export class CharactersController
     }
 
     // Characters
-    @Get('realm/:realm/character')
+    @Get('realm/:realm')
     @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     public async getCharacters(@Param('realm') realm: string, @AccountDecorator() accountID: number)

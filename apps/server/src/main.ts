@@ -45,7 +45,7 @@ async function bootstrap(): Promise<void>
 {
     const logger: Logger = new Logger('Bootstrap');
     const app: INestApplication = await NestFactory.create(AppModule);
-    const port: number = +process.env.PORT || 4001;
+    const port: number = +process.env.PORT;
 
     app.useLogger
     (
@@ -61,7 +61,7 @@ async function bootstrap(): Promise<void>
             transports: [transports.console, transports.combinedFile, transports.errorFile],
         }),
     );
-    app.enableCors({ origin: process.env.CORS, credentials: true });
+    app.enableCors({ origin: process.env.CLIENT_IP_OR_URL, credentials: true });
     app.use(cookieParser());
     app.useGlobalPipes
     (

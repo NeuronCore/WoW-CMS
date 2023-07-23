@@ -29,7 +29,7 @@ export class ZarinPalGateway implements PaymentGateway
         {
             merchant_id: process.env.ZARINPAL_MERCHANT_ID,
             amount: (coin[0].rial * coin[0].count) * coins,
-            callback_url: `${ process.env.ZARINPAL_CALLBACK }?gateway=${ PaymentMethod.ZARIN_PAL_GATEWAY }`,
+            callback_url: `${ process.env.SERVER_IP_OR_URL }/${ process.env.ZARINPAL_CALLBACK }?gateway=${ PaymentMethod.ZARIN_PAL_GATEWAY }`,
             description: `To buy ${ coin[0].count * coins } coins`
         };
 
