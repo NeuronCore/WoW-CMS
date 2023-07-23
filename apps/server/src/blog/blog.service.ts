@@ -22,7 +22,7 @@ export class BlogService
     {
         try
         {
-            const { title, metaTitle, slug, summary, content, published } = createBlogDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = createBlogDto;
 
             const originalName = path.parse(thumbnail.originalname).name;
             const filename = accountID + '-' + 'thumbnail' + '-' + Date.now() + '-' + originalName + '.jpg';
@@ -33,8 +33,33 @@ export class BlogService
             if (blog[0]?.slug)
                 return { statusCode: HttpStatus.CONFLICT, message: 'Slug already exists' };
 
-            await this.webDatabase.execute('INSERT INTO `blog` (`account`, `title`, `meta_title`, `slug`, `thumbnail`, `summary`, `content`, `published`, `published_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                [accountID, title, metaTitle, Helper.stringToSlug(slug), filename, summary, content, published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : null]);
+            const sql =
+            `
+                INSERT INTO
+                    blog (account,
+                          title_en, title_de, title_fa,
+                          meta_title_en, meta_title_de, meta_title_fa,
+                          slug, thumbnail,
+                          summary_en, summary_de, summary_fa,
+                          content_en, content_de, content_fa,
+                          published, published_at)
+               VALUES
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `;
+
+            await this.webDatabase.execute
+            (
+                sql,
+                [
+                    accountID,
+                    titleEN, titleDE || null, titleFA || null,
+                    metaTitleEN, metaTitleDE || null, metaTitleFA || null,
+                    Helper.stringToSlug(slug), filename,
+                    summaryEN, summaryDE || null, summaryFA || null,
+                    contentEN, contentDE || null, contentFA || null,
+                    published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : null
+                ]
+            );
 
             return { statusCode: HttpStatus.OK, message: 'The blog was created successfully' };
         }
@@ -51,9 +76,9 @@ export class BlogService
     {
         try
         {
-            const { title, metaTitle, slug, summary, content, published } = updateBlogDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = updateBlogDto;
 
-            const [blog] = await this.webDatabase.query('SELECT `title`, `meta_title`, `slug`, `thumbnail`, `summary`, `content`, `published`, `published_at` FROM `blog` WHERE `id` = ?', [id]);
+            const [blog] = await this.webDatabase.query('SELECT * FROM `blog` WHERE `id` = ?', [id]);
             if (!blog[0])
                 return { statusCode: HttpStatus.NOT_FOUND, message: 'Blog with this id not found' };
 
@@ -69,8 +94,33 @@ export class BlogService
                 await sharp(thumbnail.buffer).toFile(path.join('uploads/thumbnail', filename));
             }
 
-            await this.webDatabase.execute('UPDATE `blog` SET `title` = ?, `meta_title` = ?, `slug` = ?, `thumbnail` = ?, `summary` = ?, `content` = ?, `published` = ?, `published_at` = ? WHERE `id` = ?',
-                [title || blog[0].title, metaTitle || blog[0].meta_title, Helper.stringToSlug(slug) || blog[0].slug, filename || blog[0].thumbnail, summary || blog[0].summary, content || blog[0].content, published || blog[0].published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : blog[0].published_at, id]);
+            const sql =
+            `
+                UPDATE
+                    blog
+                SET
+                      title_en, title_de, title_fa,
+                      meta_title_en, meta_title_de, meta_title_fa,
+                      slug, thumbnail,
+                      summary_en, summary_de, summary_fa,
+                      content_en, content_de, content_fa,
+                      published, published_at
+                WHERE
+                    id = ?
+            `;
+
+            await this.webDatabase.execute
+            (
+                sql,
+                [
+                    titleEN || blog[0].title_en, titleDE || blog[0].title_de, titleFA || blog[0].title_fa,
+                    metaTitleEN || blog[0].meta_title_en, metaTitleDE || blog[0].meta_title_de, metaTitleFA || blog[0].meta_title_fa,
+                    Helper.stringToSlug(slug) || blog[0].slug, filename || blog[0].thumbnail,
+                    summaryEN || blog[0].summary_en, summaryDE || blog[0].summary_de, summaryFA || blog[0].summary_fa,
+                    contentEN || blog[0].content_en, contentDE || blog[0].content_de, contentFA || blog[0].content_fa,
+                    published || blog[0].published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : blog[0].published_at, id
+                ]
+            );
 
             return { statusCode: HttpStatus.OK, message: 'Blog updated successfully' };
         }

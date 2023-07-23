@@ -33,11 +33,19 @@ export class BlogController
             type: 'object',
             properties:
             {
-                title: { type: 'string' },
-                metaTitle: { type: 'string' },
+                titleEN: { type: 'string' },
+                titleDE: { type: 'string' },
+                titleFA: { type: 'string' },
+                metaTitleEN: { type: 'string' },
+                metaTitleDE: { type: 'string' },
+                metaTitleFA: { type: 'string' },
                 slug: { type: 'string' },
-                summary: { type: 'string' },
-                content: { type: 'string' },
+                summaryEN: { type: 'string' },
+                summaryDE: { type: 'string' },
+                summaryFA: { type: 'string' },
+                contentEN: { type: 'string' },
+                contentDE: { type: 'string' },
+                contentFA: { type: 'string' },
                 published: { type: 'enum', enum: ['Confirmed', 'Rejected', 'Waiting'] },
                 thumbnail: { type: 'string', format: 'binary' }
             }
@@ -60,11 +68,19 @@ export class BlogController
             type: 'object',
             properties:
             {
-                title: { type: 'string' },
-                metaTitle: { type: 'string' },
+                titleEN: { type: 'string' },
+                titleDE: { type: 'string' },
+                titleFA: { type: 'string' },
+                metaTitleEN: { type: 'string' },
+                metaTitleDE: { type: 'string' },
+                metaTitleFA: { type: 'string' },
                 slug: { type: 'string' },
-                summary: { type: 'string' },
-                content: { type: 'string' },
+                summaryEN: { type: 'string' },
+                summaryDE: { type: 'string' },
+                summaryFA: { type: 'string' },
+                contentEN: { type: 'string' },
+                contentDE: { type: 'string' },
+                contentFA: { type: 'string' },
                 published: { type: 'enum', enum: ['Confirmed', 'Rejected', 'Waiting'] },
                 thumbnail: { type: 'string', format: 'binary' }
             }

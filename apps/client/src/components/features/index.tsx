@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 
 import FeatureFrame from '@/../public/images/textures/frame_circle.svg';
 
-
 type Props =
 {
     index: number,
