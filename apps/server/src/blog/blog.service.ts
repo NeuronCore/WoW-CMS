@@ -211,4 +211,71 @@ export class BlogService
             }
         }
     }
+
+    public async findAllByNewest(locale: string, page = 1, limit = 20)
+    {
+        switch (locale)
+        {
+            case 'de':
+            {
+                const sql =
+                `
+                    SELECT
+                        id, account, parent_id,
+                        title_de, meta_title_de,
+                        slug, thumbnail,
+                        summary_de, content_de,
+                        published, published_at, created_at, updated_at
+                    FROM
+                        blog
+                    ORDER BY
+                        created_at DESC
+                    LIMIT ${ page - 1 }, ${ limit };
+                `;
+                const [blogs]: any = await this.webDatabase.query(sql);
+
+                return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
+            }
+            case 'fa':
+            {
+                const sql =
+                `
+                    SELECT
+                        id, account, parent_id,
+                        title_fa, meta_title_fa,
+                        slug, thumbnail,
+                        summary_fa, content_fa,
+                        published, published_at, created_at, updated_at
+                    FROM
+                        blog
+                    ORDER BY
+                        created_at DESC
+                    LIMIT ${ page - 1 }, ${ limit };
+                `;
+                const [blogs]: any = await this.webDatabase.query(sql);
+
+                return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
+            }
+            default:
+            {
+                const sql =
+                `
+                    SELECT
+                        id, account, parent_id,
+                        title_en, meta_title_en,
+                        slug, thumbnail,
+                        summary_en, content_en,
+                        published, published_at, created_at, updated_at
+                    FROM
+                        blog
+                    ORDER BY
+                        created_at DESC
+                    LIMIT ${ page - 1 }, ${ limit };
+                `;
+                const [blogs]: any = await this.webDatabase.query(sql);
+
+                return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
+            }
+        }
+    }
 }

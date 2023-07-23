@@ -106,4 +106,10 @@ export class BlogController
     {
         return this.blogService.findByID(id, locale);
     }
+
+    @Get('/find-all-by-newest')
+    public async findAllByNewest(@Query('locale') locale: string, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.blogService.findAllByNewest(locale, page, limit);
+    }
 }
