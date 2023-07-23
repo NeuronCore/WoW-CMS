@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Logo1 from '@/../public/images/logos/wow_cms-cataclysm.png';
 import Logo2 from '@/../public/images/logos/wow_cms-wotlk.png';
 

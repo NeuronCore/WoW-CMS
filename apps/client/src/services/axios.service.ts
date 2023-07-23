@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:4000/';
+import { apiData } from '@/data/api.data';
+
+axios.defaults.baseURL = apiData.path;
 axios.defaults.withCredentials = true;
 
 let refresh = false;
@@ -15,7 +17,7 @@ axios.interceptors.response.use(response => response, async error =>
 
         if (response.status === 200)
         {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${ response.data.data }`;
+            axios.defaults.headers.common['authorization'] = `Bearer ${ response.data.data }`;
             return axios(error.config);
         }
     }
