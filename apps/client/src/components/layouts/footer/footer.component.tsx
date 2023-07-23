@@ -5,6 +5,8 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { BsGithub, BsTwitter } from 'react-icons/bs';
 
+import Logo from '@/components/logo';
+
 import styles from '@/components/layouts/footer/footer.module.scss';
 
 import IdPay from '@/../public/images/logos/id_pay.png';
@@ -14,8 +16,6 @@ import Paypal from '@/../public/images/logos/paypal.png';
 import VisaCard from '@/../public/images/logos/visa_card.png';
 import ZarinPal from '@/../public/images/logos/zarin_pal.png';
 import MasterCard from '@/../public/images/logos/master_card.png';
-import Logo2 from '@/../public/images/logos/wow_cms-wotlk.png';
-import Logo1 from '@/../public/images/logos/wow_cms-cataclysm.png';
 
 import footerItems from '@/data/footer.data.json';
 
@@ -27,14 +27,7 @@ const Footer = () =>
                 <div className={styles.footerContainerItem}>
                     <span className={styles.footerContainerImage}>
                         <Image
-                            src={
-                                process.env.NEXT_PUBLIC_THEME === 'cataclysm'
-                                    ? Logo1
-                                    :
-                                    process.env.NEXT_PUBLIC_THEME === 'wotlk'
-                                        ? Logo2
-                                        : Logo1
-                            }
+                            src={ Logo() }
                             alt='WoW CMS'
                             fill
                             style={{ objectFit: 'contain' }}
