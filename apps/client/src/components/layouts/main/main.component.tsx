@@ -16,6 +16,7 @@ import { setTheme } from '@/redux/features/environment/environment-slice';
 
 import { createUniqueKey } from '@/utils/helper.util';
 
+const Preloader = dynamic(() => import('@/components/preloader'));
 const Navbar = dynamic(() => import('@/components/layouts/navbar/navbar.component'));
 const Footer = dynamic(() => import('@/components/layouts/footer/footer.component'));
 
@@ -56,42 +57,45 @@ const Main = ({ children }: Props) =>
                 {
                     pathname.split('/')[1] === 'account'
                         ?
-                        <section className={stylesAccount.accountContainer}>
-                            <aside className={stylesAccount.accountAside}>
-                                <h1 className={stylesAccount.accountAsideHeader}>Settings</h1>
+                        loading
+                            ? <Preloader />
+                            :
+                            <section className={stylesAccount.accountContainer}>
+                                <aside className={stylesAccount.accountAside}>
+                                    <h1 className={stylesAccount.accountAsideHeader}>Settings</h1>
 
-                                <ul className={stylesAccount.accountAsideList}>
-                                    {
-                                        aside.map((item, index) =>
-                                            (
-                                                <Fragment key={createUniqueKey([item.title, index])}>
-                                                    <li className={stylesAccount.accountAsideListItemTitle}>
-                                                        { item.title }
-                                                    </li>
-                                                    {
-                                                        item.items.map((link, index) =>
-                                                            (
-                                                                <li key={createUniqueKey([item.title, link.title, index])} className={classnames(stylesAccount.accountAsideListItem, { [stylesAccount.accountAsideListItemActive]: pathname.includes(link.path) })}>
-                                                                    <Link href={link.path}>
-                                                                        { link.title }
-                                                                    </Link>
-                                                                </li>
-                                                            ))
-                                                    }
-                                                </Fragment>
-                                            ))
-                                    }
-                                    <li className={classnames(stylesAccount.accountAsideListItem, stylesAccount.accountAsideListItemLogout)}>
-                                        Log Out
-                                    </li>
-                                </ul>
-                            </aside>
-                            {
-                                user
-                                    ? children
-                                    : null
-                            }
-                        </section>
+                                    <ul className={stylesAccount.accountAsideList}>
+                                        {
+                                            aside.map((item, index) =>
+                                                (
+                                                    <Fragment key={createUniqueKey([item.title, index])}>
+                                                        <li className={stylesAccount.accountAsideListItemTitle}>
+                                                            { item.title }
+                                                        </li>
+                                                        {
+                                                            item.items.map((link, index) =>
+                                                                (
+                                                                    <li key={createUniqueKey([item.title, link.title, index])} className={classnames(stylesAccount.accountAsideListItem, { [stylesAccount.accountAsideListItemActive]: pathname.includes(link.path) })}>
+                                                                        <Link href={link.path}>
+                                                                            { link.title }
+                                                                        </Link>
+                                                                    </li>
+                                                                ))
+                                                        }
+                                                    </Fragment>
+                                                ))
+                                        }
+                                        <li className={classnames(stylesAccount.accountAsideListItem, stylesAccount.accountAsideListItemLogout)}>
+                                            Log Out
+                                        </li>
+                                    </ul>
+                                </aside>
+                                {
+                                    user
+                                        ? children
+                                        : null
+                                }
+                            </section>
                         :
                         children
                 }

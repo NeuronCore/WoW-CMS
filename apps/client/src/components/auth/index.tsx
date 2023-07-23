@@ -17,6 +17,7 @@ import HeaderImage2 from '@/../public/images/backgrounds/background_2-wotlk.webp
 const Modal = dynamic(() => import('@/components/modal'));
 const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
+const Preloader = dynamic(() => import('src/components/preloader'));
 
 import { useUser } from '@/hooks/use-user';
 
@@ -45,8 +46,8 @@ interface Props
 
 const Auth = ({ type }: Props) =>
 {
-    const [user, { mutate }] = useUser();
     const { push } = useRouter();
+    const [user, { mutate, loading }] = useUser();
 
     const httpService = useMemo(() => (new HttpService()), []);
 
@@ -153,198 +154,201 @@ const Auth = ({ type }: Props) =>
     }, [user]);
 
     return (
-        <div className={styles.auth}>
-            <span className={styles.authVideo}>
-                <video autoPlay loop>
-                    <source src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } />
-                </video>
-                <span className={styles.authFilter} />
-                <span className={styles.authFilter} />
-                <span className={styles.authFilter2} />
-            </span>
+        loading
+            ? <Preloader />
+            :
+            <div className={styles.auth}>
+                <span className={styles.authVideo}>
+                    <video autoPlay loop>
+                        <source src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } />
+                    </video>
+                    <span className={styles.authFilter} />
+                    <span className={styles.authFilter} />
+                    <span className={styles.authFilter2} />
+                </span>
 
-            <div className={stylesForm.formFrame}>
-                <i data-top_right>
-                    <span/>
-                    <span/>
-                </i>
-                <i data-top_left>
-                    <span/>
-                    <span/>
-                </i>
-                <i data-bottom_left>
-                    <span/>
-                    <span/>
-                </i>
-                <i data-bottom_right>
-                    <span/>
-                    <span/>
-                </i>
+                <div className={stylesForm.formFrame}>
+                    <i data-top_right>
+                        <span/>
+                        <span/>
+                    </i>
+                    <i data-top_left>
+                        <span/>
+                        <span/>
+                    </i>
+                    <i data-bottom_left>
+                        <span/>
+                        <span/>
+                    </i>
+                    <i data-bottom_right>
+                        <span/>
+                        <span/>
+                    </i>
 
-                <div className={stylesForm.form}>
-                    <div data-deactive={type === 'login'} className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
-                        <form onSubmit={handleRegister}>
-                            <h2>
-                                { t('auth:register.title') }
-                            </h2>
+                    <div className={stylesForm.form}>
+                        <div data-deactive={type === 'login'} className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
+                            <form onSubmit={handleRegister}>
+                                <h2>
+                                    { t('auth:register.title') }
+                                </h2>
 
-                            <p>
-                                { t('auth:register.subtitle') }
-                            </p>
+                                <p>
+                                    { t('auth:register.subtitle') }
+                                </p>
 
-                            <Input
-                                required
-                                style='register'
-                                name='firstName'
-                                label={ t('auth:register.firstNameInput.label') }
-                                placeholder={ t('auth:register.firstNameInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'register')}
-                                error={errors.filter((error: any) => error.field === 'firstName')}
-                            />
+                                <Input
+                                    required
+                                    style='register'
+                                    name='firstName'
+                                    label={ t('auth:register.firstNameInput.label') }
+                                    placeholder={ t('auth:register.firstNameInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'register')}
+                                    error={errors.filter((error: any) => error.field === 'firstName')}
+                                />
 
-                            <Input
-                                required
-                                name='lastName'
-                                label={ t('auth:register.lastNameInput.label') }
-                                placeholder={ t('auth:register.lastNameInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'register')}
-                                error={errors.filter((error: any) => error.field === 'lastName')}
-                            />
+                                <Input
+                                    required
+                                    name='lastName'
+                                    label={ t('auth:register.lastNameInput.label') }
+                                    placeholder={ t('auth:register.lastNameInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'register')}
+                                    error={errors.filter((error: any) => error.field === 'lastName')}
+                                />
 
-                            <Input
-                                required
-                                name='username'
-                                label={ t('auth:register.usernameInput.label') }
-                                placeholder={ t('auth:register.usernameInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'register')}
-                                error={errors.filter((error: any) => error.field === 'username')}
-                            />
+                                <Input
+                                    required
+                                    name='username'
+                                    label={ t('auth:register.usernameInput.label') }
+                                    placeholder={ t('auth:register.usernameInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'register')}
+                                    error={errors.filter((error: any) => error.field === 'username')}
+                                />
 
-                            <Input
-                                required
-                                name='email'
-                                label={ t('auth:register.emailInput.label') }
-                                placeholder={ t('auth:register.emailInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'register')}
-                                error={errors.filter((error: any) => error.field === 'email')}
-                            />
+                                <Input
+                                    required
+                                    name='email'
+                                    label={ t('auth:register.emailInput.label') }
+                                    placeholder={ t('auth:register.emailInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'register')}
+                                    error={errors.filter((error: any) => error.field === 'email')}
+                                />
 
-                            <Input
-                                required
-                                type='password'
-                                name='password'
-                                label={ t('auth:register.passwordInput.label') }
-                                placeholder={ t('auth:register.passwordInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'register')}
-                                error={errors.filter((error: any) => error.field === 'password')}
-                            />
+                                <Input
+                                    required
+                                    type='password'
+                                    name='password'
+                                    label={ t('auth:register.passwordInput.label') }
+                                    placeholder={ t('auth:register.passwordInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'register')}
+                                    error={errors.filter((error: any) => error.field === 'password')}
+                                />
 
 
-                            <Input
-                                required
-                                type='password'
-                                name='confirmPassword'
-                                label={ t('auth:register.confirmPasswordInput.label') }
-                                placeholder={ t('auth:register.confirmPasswordInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'register')}
-                                error={errors.filter((error: any) => error.field === 'confirmPassword')}
-                            />
+                                <Input
+                                    required
+                                    type='password'
+                                    name='confirmPassword'
+                                    label={ t('auth:register.confirmPasswordInput.label') }
+                                    placeholder={ t('auth:register.confirmPasswordInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'register')}
+                                    error={errors.filter((error: any) => error.field === 'confirmPassword')}
+                                />
 
-                            <Button>
-                                { t('auth:register.signUp') }
-                            </Button>
-                        </form>
-                    </div>
-
-                    <div data-deactive={type === 'register'} className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
-                        <form onSubmit={handleLogin}>
-                            <h2>
-                                { t('auth:login.title') }
-                            </h2>
-
-                            <p>
-                                { t('auth:login.subtitle') }
-                            </p>
-
-                            <Input
-                                required
-                                style='login'
-                                name='username'
-                                label={ t('auth:login.usernameInput.label') }
-                                placeholder={ t('auth:login.usernameInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'login')}
-                                error={errors.filter((error: any) => error.field === 'username' || error.field === 'all')}
-                            />
-
-                            <Input
-                                required
-                                type='password'
-                                name='password'
-                                label={ t('auth:login.passwordInput.label') }
-                                placeholder={ t('auth:login.passwordInput.placeholder') }
-                                onChange={(event) => handleChange(event, 'login')}
-                                error={errors.filter((error: any) => error.field === 'password')}
-                            />
-
-                            <Link href='/password-forgot'>
-                                { t('auth:login.forgot') }
-                            </Link>
-
-                            <Button>
-                                { t('auth:login.signIn') }
-                            </Button>
-                        </form>
-                    </div>
-
-                    <div className={classnames(stylesForm.formOverlayContainer, { [stylesForm.formOverlayContainerActive]: active })}>
-                        <div className={classnames(stylesForm.formOverlay, { [stylesForm.formOverlayActive]: active })} style={{ backgroundImage: `url(${
-                            process.env.NEXT_PUBLIC_THEME === 'cataclysm'
-                                ? HeaderImage1.src
-                                : process.env.NEXT_PUBLIC_THEME === 'wotlk'
-                                    ? HeaderImage2.src
-                                    : HeaderImage1.src
-                        })` }}>
-                            <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelLeft, { [stylesForm.formOverlayPanelLeftActive]: active })}>
-                                <h3>{ t('auth:login.foreground.title') }</h3>
-
-                                <p>{ t('auth:login.foreground.subtitle') }</p>
-
-                                <Button type='text' onClick={() =>
-                                {
-                                    setActive(false);
-                                    setErrors([]);
-                                    setFormValues(defaultForm);
-                                    window.history.pushState({ urlPath:'/login' },'', '/login');
-                                }}>
-                                    { t('auth:login.foreground.button') }
+                                <Button>
+                                    { t('auth:register.signUp') }
                                 </Button>
-                            </div>
-                            <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelRight, { [stylesForm.formOverlayPanelRightActive]: active })}>
-                                <h3>{ t('auth:register.foreground.title') }</h3>
+                            </form>
+                        </div>
 
-                                <p>{ t('auth:register.foreground.subtitle') }</p>
+                        <div data-deactive={type === 'register'} className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
+                            <form onSubmit={handleLogin}>
+                                <h2>
+                                    { t('auth:login.title') }
+                                </h2>
 
-                                <Button type='text' onClick={() =>
-                                {
-                                    setActive(true);
-                                    setErrors([]);
-                                    setFormValues(defaultForm);
-                                    window.history.pushState({ urlPath:'/register' },'', '/register');
-                                }}>
-                                    { t('auth:register.foreground.button') }
+                                <p>
+                                    { t('auth:login.subtitle') }
+                                </p>
+
+                                <Input
+                                    required
+                                    style='login'
+                                    name='username'
+                                    label={ t('auth:login.usernameInput.label') }
+                                    placeholder={ t('auth:login.usernameInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'login')}
+                                    error={errors.filter((error: any) => error.field === 'username' || error.field === 'all')}
+                                />
+
+                                <Input
+                                    required
+                                    type='password'
+                                    name='password'
+                                    label={ t('auth:login.passwordInput.label') }
+                                    placeholder={ t('auth:login.passwordInput.placeholder') }
+                                    onChange={(event) => handleChange(event, 'login')}
+                                    error={errors.filter((error: any) => error.field === 'password')}
+                                />
+
+                                <Link href='/password-forgot'>
+                                    { t('auth:login.forgot') }
+                                </Link>
+
+                                <Button>
+                                    { t('auth:login.signIn') }
                                 </Button>
+                            </form>
+                        </div>
+
+                        <div className={classnames(stylesForm.formOverlayContainer, { [stylesForm.formOverlayContainerActive]: active })}>
+                            <div className={classnames(stylesForm.formOverlay, { [stylesForm.formOverlayActive]: active })} style={{ backgroundImage: `url(${
+                                process.env.NEXT_PUBLIC_THEME === 'cataclysm'
+                                    ? HeaderImage1.src
+                                    : process.env.NEXT_PUBLIC_THEME === 'wotlk'
+                                        ? HeaderImage2.src
+                                        : HeaderImage1.src
+                            })` }}>
+                                <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelLeft, { [stylesForm.formOverlayPanelLeftActive]: active })}>
+                                    <h3>{ t('auth:login.foreground.title') }</h3>
+
+                                    <p>{ t('auth:login.foreground.subtitle') }</p>
+
+                                    <Button type='text' onClick={() =>
+                                    {
+                                        setActive(false);
+                                        setErrors([]);
+                                        setFormValues(defaultForm);
+                                        window.history.pushState({ urlPath:'/login' },'', '/login');
+                                    }}>
+                                        { t('auth:login.foreground.button') }
+                                    </Button>
+                                </div>
+                                <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelRight, { [stylesForm.formOverlayPanelRightActive]: active })}>
+                                    <h3>{ t('auth:register.foreground.title') }</h3>
+
+                                    <p>{ t('auth:register.foreground.subtitle') }</p>
+
+                                    <Button type='text' onClick={() =>
+                                    {
+                                        setActive(true);
+                                        setErrors([]);
+                                        setFormValues(defaultForm);
+                                        window.history.pushState({ urlPath:'/register' },'', '/register');
+                                    }}>
+                                        { t('auth:register.foreground.button') }
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {
-                modal.hidden
-                    ? null
-                    : <Modal modal={modal} setModal={setModal} />
-            }
-        </div>
+                {
+                    modal.hidden
+                        ? null
+                        : <Modal modal={modal} setModal={setModal} />
+                }
+            </div>
     );
 };
 

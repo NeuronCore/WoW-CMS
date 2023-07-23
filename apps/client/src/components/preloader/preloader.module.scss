@@ -1,0 +1,189 @@
+.preloader
+{
+    display: block;
+
+    position: relative;
+
+    width: 1.5rem;
+    height: .5rem;
+
+    background: var(--grey);
+
+    animation-name: loader;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+
+    &::before,
+    &::after
+    {
+        content: '';
+
+        position: absolute;
+
+        top: 50%;
+
+        width: 100%;
+        height: 100%;
+
+        box-sizing: border-box;
+
+        background: var(--color-primary-light);
+
+        animation-duration: 2s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-fill-mode: forwards;
+    }
+
+    &::before
+    {
+        left: 0;
+
+        translate: -100% -50%;
+
+        border-right-color: transparent;
+
+        animation-name: loader-left;
+    }
+
+    &::after
+    {
+        right: 0;
+
+        translate: 100% -50%;
+
+        border-left-color: transparent;
+
+        animation-name: loader-right;
+    }
+
+    &Text
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+
+        width: 100vw;
+        height: 100vh;
+
+        text-transform: uppercase;
+        font-size: 2rem;
+        letter-spacing: .5rem;
+        font-weight: 800;
+    }
+}
+
+@keyframes loader
+{
+    0%, 10%
+    {
+        scale: 1;
+    }
+    15%
+    {
+        scale: 0.7 1.2;
+    }
+    40%, 60%
+    {
+        scale: 1;
+    }
+    65%
+    {
+        scale: 0.7 1.2;
+    }
+    100%
+    {
+        scale: 1;
+    }
+}
+
+@keyframes loader-left
+{
+    0%
+    {
+        translate: -400% -50%;
+        scale: 1.3 0.6;
+    }
+    10%, 60%
+    {
+        translate: -100% -50%;
+        scale: 1;
+    }
+    65%, 85%
+    {
+        translate: -300% -50%;
+    }
+    87.5%
+    {
+        translate: -310% -50%;
+    }
+    90%
+    {
+        translate: -290% -50%;
+    }
+    92.5%
+    {
+        translate: -310% -50%;
+        scale: 1;
+    }
+    95%
+    {
+        translate: -290% -50%;
+    }
+    100%
+    {
+        translate: -400% -50%;
+    }
+}
+
+@keyframes loader-right
+{
+    0%, 10%
+    {
+        translate: 100% -50%;
+        scale: 1;
+    }
+    15%, 35%
+    {
+        translate: 300% -50%;
+    }
+    15%
+    {
+        scale: 1.3 0.6;
+    }
+    20%
+    {
+        scale: 1;
+    }
+    37.5%
+    {
+        translate: 310% -50%;
+    }
+    40%
+    {
+        translate: 290% -50%;
+    }
+    42.5%
+    {
+        translate: 310% -50%;
+    }
+    45%
+    {
+        translate: 290% -50%;
+        scale: 1;
+    }
+    50%
+    {
+        translate: 400% -50%;
+        scale: 1.3 0.6;
+    }
+    60%, 100%
+    {
+        translate: 100% -50%;
+        scale: 1;
+    }
+}
