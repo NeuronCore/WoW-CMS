@@ -10,7 +10,7 @@ const Overview = () =>
 
     return (
         <div className={styles.accountContent}>
-
+            {user.username}
         </div>
     );
 };

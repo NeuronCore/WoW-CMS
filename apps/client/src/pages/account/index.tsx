@@ -7,7 +7,7 @@ import { useUser } from '@/hooks/use-user';
 
 const Account = () =>
 {
-    const [user] = useUser();
+    const [user, { loading }] = useUser();
     const { push, pathname } = useRouter();
 
     useEffect(() =>
@@ -15,7 +15,7 @@ const Account = () =>
         (
             async() =>
             {
-                if (!user)
+                if (!user && !loading)
                     await push('/login');
                 else if (pathname == '/account')
                     await push('/account/overview');

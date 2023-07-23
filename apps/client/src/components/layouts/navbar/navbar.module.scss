@@ -55,7 +55,7 @@
                 display: flex;
             }
 
-            & > span
+            & > span > a
             {
                 display: flex;
                 align-items: center;
@@ -82,7 +82,7 @@
             }
         }
 
-        & > span
+        & > a[data-logo]
         {
             display: flex;
             align-items: center;

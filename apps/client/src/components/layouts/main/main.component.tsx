@@ -28,7 +28,7 @@ interface Props
 
 const Main = ({ children }: Props) =>
 {
-    const [user] = useUser();
+    const [user, { loading }] = useUser();
     const { push, pathname } = useRouter();
     const dispatch = useAppDispatch();
 
@@ -42,7 +42,7 @@ const Main = ({ children }: Props) =>
         (
             async() =>
             {
-                if (!user && pathname.split('/')[1] === 'account')
+                if (!user && !loading && pathname.split('/')[1] === 'account')
                     await push('/login');
             }
         )();
