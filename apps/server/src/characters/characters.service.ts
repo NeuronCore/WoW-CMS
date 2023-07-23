@@ -14,6 +14,28 @@ export class CharactersService
 
     }
 
+    // Characters
+    public async getCharacters(realm: string, accountID: number)
+    {
+        const charactersDatabase = this.charactersDatabase[realm];
+        if (!charactersDatabase)
+            throw new BadRequestException('A realm with this name doesn\'t exist');
+
+        const sql =
+        `
+            SELECT
+                guid, name, race, class, gender, level, money, online, totaltime, leveltime
+            FROM
+                characters
+            WHERE
+                account = ?
+        `;
+
+        const [characters] = await charactersDatabase.query(sql, [accountID]);
+
+        return { statusCode: HttpStatus.OK, data: { totals: characters.length, characters } };
+    }
+
     // Top Players
     public async getArenaTeamByType(realm: string, type: number, page = 1, limit = 20)
     {

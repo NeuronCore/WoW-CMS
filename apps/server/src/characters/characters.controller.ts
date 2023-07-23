@@ -16,6 +16,15 @@ export class CharactersController
 
     }
 
+    // Characters
+    @Get('realm/:realm/character')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async getCharacters(@Param('realm') realm: string, @AccountDecorator() accountID: number)
+    {
+        return this.charactersService.getCharacters(realm, accountID);
+    }
+
     // Top Players
     @Get('realm/:realm/arena-team/type/:type')
     public async getArenaTeamByType(@Param('realm') realm: string, @Param('type') type: number, @Query('page') page: number, @Query('limit') limit: number)
