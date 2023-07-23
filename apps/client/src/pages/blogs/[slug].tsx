@@ -150,7 +150,7 @@ const Blog = () =>
                             Home
                         </p>
                         {
-                            router.asPath.split('/').map((item, index) =>
+                            asPath.split('/').map((item, index) =>
                                 (
                                     item
                                         ?
