@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch, Delete, Query, Get } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
@@ -15,13 +15,13 @@ import { UpdateBlogDto } from '@/blog/dto/update-blog.dto';
 
 @Controller('blog')
 @ApiTags('Blog')
-@ApiSecurity('JsonWebToken')
 export class BlogController
 {
     constructor(private readonly blogService: BlogService)
     { }
 
     @Post('/create')
+    @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
     @UseInterceptors(FileInterceptor('thumbnail'))
@@ -57,6 +57,7 @@ export class BlogController
     }
 
     @Patch('update/:id')
+    @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
     @UseInterceptors(FileInterceptor('thumbnail'))
@@ -92,10 +93,17 @@ export class BlogController
     }
 
     @Delete('/delete/:id')
+    @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
     public async remove(@Param('id', ParseIntPipe) id: number)
     {
         return this.blogService.remove(id);
+    }
+
+    @Get('/find-by-id/:id')
+    public async findByID(@Param('id', ParseIntPipe) id: number, @Query('locale') locale: string)
+    {
+        return this.blogService.findByID(id, locale);
     }
 }

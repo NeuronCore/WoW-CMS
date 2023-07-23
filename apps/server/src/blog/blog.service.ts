@@ -147,4 +147,68 @@ export class BlogService
             this.logger.error(exception);
         }
     }
+
+    public async findByID(id: number, locale: string)
+    {
+        switch (locale)
+        {
+            case 'de':
+            {
+                const sql =
+                `
+                    SELECT
+                        id, account, parent_id,
+                        title_de, meta_title_de,
+                        slug, thumbnail,
+                        summary_de, content_de,
+                        published, published_at, created_at, updated_at
+                    FROM
+                        blog
+                    WHERE
+                        id = ?
+                `;
+                const [blog] = await this.webDatabase.query(sql, [id]);
+
+                return { statusCode: HttpStatus.OK, data: { blog } };
+            }
+            case 'fa':
+            {
+                const sql =
+                `
+                    SELECT
+                        id, account, parent_id,
+                        title_fa, meta_title_fa,
+                        slug, thumbnail,
+                        summary_fa, content_fa,
+                        published, published_at, created_at, updated_at
+                    FROM
+                        blog
+                    WHERE
+                        id = ?
+                `;
+                const [blog] = await this.webDatabase.query(sql, [id]);
+
+                return { statusCode: HttpStatus.OK, data: { blog } };
+            }
+            default:
+            {
+                const sql =
+                `
+                    SELECT
+                        id, account, parent_id,
+                        title_en, meta_title_en,
+                        slug, thumbnail,
+                        summary_en, content_en,
+                        published, published_at, created_at, updated_at
+                    FROM
+                        blog
+                    WHERE
+                        id = ?
+                `;
+                const [blog] = await this.webDatabase.query(sql, [id]);
+
+                return { statusCode: HttpStatus.OK, data: { blog } };
+            }
+        }
+    }
 }
