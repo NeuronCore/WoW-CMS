@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { useRouter} from 'next/router';
 import axios, { AxiosResponse } from 'axios';
 import React, { ChangeEvent, useState, useEffect, useMemo, FormEvent } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 import HttpService from '@/services/http.service';
 
@@ -54,6 +55,8 @@ const Auth = ({ type }: Props) =>
     const [formValues, setFormValues] = useState(defaultForm);
     const [modal, setModal] = useState<any>({ hidden: true, title: '', description: '', onHidden: null });
 
+    const { t } = useTranslation();
+
     const handleChange = (event: ChangeEvent<HTMLInputElement>, type: 'register' | 'login') =>
     {
         setFormValues({ ...formValues, [type]: { ...formValues[type], [event.target.name]: event.target.value } });
@@ -73,8 +76,8 @@ const Auth = ({ type }: Props) =>
                     setModal(
                         {
                             hidden: false,
-                            title: 'Successful',
-                            description: 'You are successfully created your account, you can login to your account now!',
+                            title: t('auth:register.modal.successful.title'),
+                            description: t('auth:register.modal.successful.description'),
                             onHidden: async() => await push('/login')
                         });
                 }
@@ -88,8 +91,8 @@ const Auth = ({ type }: Props) =>
                     setModal(
                         {
                             hidden: true,
-                            title: 'Error',
-                            description: 'Initial Client Error',
+                            title: t('auth:register.modal.error.title'),
+                            description: t('auth:register.modal.error.description'),
                             onHidden: async() => await push('/register')
                         });
                 }
@@ -117,8 +120,8 @@ const Auth = ({ type }: Props) =>
                     setModal(
                         {
                             hidden: false,
-                            title: 'Successful',
-                            description: 'You are successfully logged to your account!',
+                            title: t('auth:login.modal.successful.title'),
+                            description: t('auth:login.modal.successful.description'),
                             onHidden: async() => await push('/account')
                         });
                 }
@@ -131,8 +134,8 @@ const Auth = ({ type }: Props) =>
                 setModal(
                     {
                         hidden: true,
-                        title: 'Error',
-                        description: 'Initial Client Error',
+                        title: t('auth:login.modal.error.title'),
+                        description: t('auth:login.modal.error.description'),
                         onHidden: async() => await push('/login')
                     });
             });
@@ -182,19 +185,19 @@ const Auth = ({ type }: Props) =>
                     <div data-deactive={type === 'login'} className={classnames(stylesForm.formContainer, stylesForm.formContainerSignUp)}>
                         <form onSubmit={handleRegister}>
                             <h2>
-                                Hello, Friend!
+                                { t('auth:register.title') }
                             </h2>
 
                             <p>
-                                Enter your personal details to sign up
+                                { t('auth:register.subtitle') }
                             </p>
 
                             <Input
                                 required
                                 style='register'
                                 name='firstName'
-                                label='First Name'
-                                placeholder='Your first name'
+                                label={ t('auth:register.firstNameInput.label') }
+                                placeholder={ t('auth:register.firstNameInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'register')}
                                 error={errors.filter((error: any) => error.field === 'firstName')}
                             />
@@ -202,8 +205,8 @@ const Auth = ({ type }: Props) =>
                             <Input
                                 required
                                 name='lastName'
-                                label='Last Name'
-                                placeholder='Your last name'
+                                label={ t('auth:register.lastNameInput.label') }
+                                placeholder={ t('auth:register.lastNameInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'register')}
                                 error={errors.filter((error: any) => error.field === 'lastName')}
                             />
@@ -211,8 +214,8 @@ const Auth = ({ type }: Props) =>
                             <Input
                                 required
                                 name='username'
-                                label='Username'
-                                placeholder='Your username'
+                                label={ t('auth:register.usernameInput.label') }
+                                placeholder={ t('auth:register.usernameInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'register')}
                                 error={errors.filter((error: any) => error.field === 'username')}
                             />
@@ -220,8 +223,8 @@ const Auth = ({ type }: Props) =>
                             <Input
                                 required
                                 name='email'
-                                label='Email Address'
-                                placeholder='Your email address'
+                                label={ t('auth:register.emailInput.label') }
+                                placeholder={ t('auth:register.emailInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'register')}
                                 error={errors.filter((error: any) => error.field === 'email')}
                             />
@@ -230,8 +233,8 @@ const Auth = ({ type }: Props) =>
                                 required
                                 type='password'
                                 name='password'
-                                label='Password'
-                                placeholder='Your password'
+                                label={ t('auth:register.passwordInput.label') }
+                                placeholder={ t('auth:register.passwordInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'register')}
                                 error={errors.filter((error: any) => error.field === 'password')}
                             />
@@ -241,14 +244,14 @@ const Auth = ({ type }: Props) =>
                                 required
                                 type='password'
                                 name='confirmPassword'
-                                label='Confirm Password'
-                                placeholder='Confirm your password'
+                                label={ t('auth:register.confirmPasswordInput.label') }
+                                placeholder={ t('auth:register.confirmPasswordInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'register')}
                                 error={errors.filter((error: any) => error.field === 'confirmPassword')}
                             />
 
                             <Button>
-                                Sign Up
+                                { t('auth:register.signUp') }
                             </Button>
                         </form>
                     </div>
@@ -256,19 +259,19 @@ const Auth = ({ type }: Props) =>
                     <div data-deactive={type === 'register'} className={classnames(stylesForm.formContainer, stylesForm.formContainerSignIn)}>
                         <form onSubmit={handleLogin}>
                             <h2>
-                                Welcome Back!
+                                { t('auth:login.title') }
                             </h2>
 
                             <p>
-                                Enter your personal info to sign in
+                                { t('auth:login.subtitle') }
                             </p>
 
                             <Input
                                 required
                                 style='login'
                                 name='username'
-                                label='Username'
-                                placeholder='Your Username'
+                                label={ t('auth:login.usernameInput.label') }
+                                placeholder={ t('auth:login.usernameInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'login')}
                                 error={errors.filter((error: any) => error.field === 'username' || error.field === 'all')}
                             />
@@ -277,18 +280,18 @@ const Auth = ({ type }: Props) =>
                                 required
                                 type='password'
                                 name='password'
-                                label='Password'
-                                placeholder='Your Password'
+                                label={ t('auth:login.passwordInput.label') }
+                                placeholder={ t('auth:login.passwordInput.placeholder') }
                                 onChange={(event) => handleChange(event, 'login')}
                                 error={errors.filter((error: any) => error.field === 'password')}
                             />
 
                             <Link href='/password-forgot'>
-                                Forgot your password?
+                                { t('auth:login.forgot') }
                             </Link>
 
                             <Button>
-                                Sign In
+                                { t('auth:login.signIn') }
                             </Button>
                         </form>
                     </div>
@@ -302,9 +305,9 @@ const Auth = ({ type }: Props) =>
                                     : HeaderImage1.src
                         })` }}>
                             <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelLeft, { [stylesForm.formOverlayPanelLeftActive]: active })}>
-                                <h3>Welcome Back!</h3>
+                                <h3>{ t('auth:login.foreground.title') }</h3>
 
-                                <p>To keep connected with us please login with your personal info</p>
+                                <p>{ t('auth:login.foreground.subtitle') }</p>
 
                                 <Button type='text' onClick={() =>
                                 {
@@ -313,13 +316,13 @@ const Auth = ({ type }: Props) =>
                                     setFormValues(defaultForm);
                                     window.history.pushState({ urlPath:'/login' },'', '/login');
                                 }}>
-                                    Sign In
+                                    { t('auth:login.foreground.button') }
                                 </Button>
                             </div>
                             <div className={classnames(stylesForm.formOverlayPanel, stylesForm.formOverlayPanelRight, { [stylesForm.formOverlayPanelRightActive]: active })}>
-                                <h3>Hello, Friend!</h3>
+                                <h3>{ t('auth:register.foreground.title') }</h3>
 
-                                <p>Enter your personal details and start journey with us</p>
+                                <p>{ t('auth:register.foreground.subtitle') }</p>
 
                                 <Button type='text' onClick={() =>
                                 {
@@ -328,7 +331,7 @@ const Auth = ({ type }: Props) =>
                                     setFormValues(defaultForm);
                                     window.history.pushState({ urlPath:'/register' },'', '/register');
                                 }}>
-                                    Sign Up
+                                    { t('auth:register.foreground.button') }
                                 </Button>
                             </div>
                         </div>
