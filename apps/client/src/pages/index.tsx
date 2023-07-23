@@ -5,6 +5,7 @@ import { GetStaticProps } from 'next';
 import React, { useState } from 'react';
 import { Autoplay, Keyboard } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import useTranslation from 'next-translate/useTranslation';
 
 import HeroImage1 from '@/../public/images/heros/hero_1-cataclysm.png';
 import HeroImage2 from '@/../public/images/heros/hero_1-wotlk.png';
@@ -36,6 +37,8 @@ const Home = ({ faq, features }: any) =>
     const [faqs, setFaqs] = useState<number[]>([]);
     const [headerBlog, setHeaderBlog] = useState<number>(0);
 
+    const { t } = useTranslation();
+
     return (
         <>
             <div className={styles.homeHeader}>
@@ -61,10 +64,10 @@ const Home = ({ faq, features }: any) =>
 
                     <div className={styles.homeHeaderContent}>
                         <h1>
-                            WOW CMS
+                            { t('home:header.title') }
                         </h1>
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                            { t('home:header.paragraph') }
                         </p>
                         <div>
                             <Link style={{ backgroundImage: `url(${
@@ -75,7 +78,7 @@ const Home = ({ faq, features }: any) =>
                                         : ButtonImage1.src
                             })` }} href='/'>
                                 <>
-                                    Play Now!
+                                    { t('home:header.button') }
                                     <span />
                                 </>
                             </Link>
@@ -124,7 +127,7 @@ const Home = ({ faq, features }: any) =>
                 <span className={styles.homeBlogsHeader} />
 
                 <p>
-                    WoW CMS Blogs
+                    { t('home:blogs.title') }
                 </p>
 
                 <div className={styles.homeBlogsList}>
@@ -183,7 +186,7 @@ const Home = ({ faq, features }: any) =>
                 })` }} />
                 <span className={styles.homeBlogsFilter}/>
                 <p>
-                    WoW CMS Features
+                    { t('home:features.title') }
                 </p>
                 <ul>
                     {
@@ -208,7 +211,7 @@ const Home = ({ faq, features }: any) =>
                 <span className={styles.homeBlogsHeader}/>
 
                 <p>
-                    Frequently Asked Questions
+                    { t('home:faq.title') }
                 </p>
 
                 <ul>
@@ -231,17 +234,13 @@ export const getStaticProps: GetStaticProps<any> = async({ locale }) =>
     const responseFaq = await axios.get('/web/find-all/faq?locale=' + locale);
     const responseFeatures = await axios.get('/web/find-all/feature?locale=' + locale);
 
+    if (!responseFaq.data || !responseFeatures.data)
+        return { notFound: true };
+
     const faq = await responseFaq?.data?.data?.faq;
     const features = await responseFeatures?.data?.data?.features;
 
-    return {
-        props:
-            {
-                faq,
-                features
-            },
-        revalidate: 1,
-    };
+    return { props: { faq, features }, revalidate: 800 };
 };
 
 export default Home;
