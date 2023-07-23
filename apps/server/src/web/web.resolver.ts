@@ -4,6 +4,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@/auth/auth.guard';
 import { Roles } from '@/account/account-role.decorator';
 import { AccountRole } from '@/account/account-role.enum';
+import { Locale } from '@/shared/enums';
 
 import { WebType } from '@/web/web.type';
 import { WebService } from '@/web/web.service';
@@ -26,7 +27,7 @@ export class WebResolver
     }
 
     @Query(() => WebType)
-    public async findAllFAQ(@Args('locale') locale: string)
+    public async findAllFAQ(@Args('locale') locale: Locale)
     {
         return this.webService.findAllFAQ(locale);
     }

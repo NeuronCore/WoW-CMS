@@ -1,8 +1,9 @@
-import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch, Delete, Query, Get } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch, Delete, Query, Get, DefaultValuePipe } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
+import { Locale } from '@/shared/enums';
 
 import { AccountRole } from '@/account/account-role.enum';
 import { Roles } from '@/account/account-role.decorator';
@@ -102,13 +103,13 @@ export class BlogController
     }
 
     @Get('/find-by-id/:id')
-    public async findByID(@Param('id', ParseIntPipe) id: number, @Query('locale') locale: string)
+    public async findByID(@Param('id', ParseIntPipe) id: number, @Query('locale') locale: Locale)
     {
         return this.blogService.findByID(id, locale);
     }
 
     @Get('/find-all-by-newest')
-    public async findAllByNewest(@Query('locale') locale: string, @Query('page') page: number, @Query('limit') limit: number)
+    public async findAllByNewest(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
     {
         return this.blogService.findAllByNewest(locale, page, limit);
     }

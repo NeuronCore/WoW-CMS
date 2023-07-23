@@ -5,6 +5,7 @@ import { Pool } from 'mysql2/promise';
 
 import * as sharp from 'sharp';
 
+import { Locale } from '@/shared/enums';
 import { Helper } from '@/utils/helper.util';
 
 import { CreateBlogDto, PublishedStatus } from './dto/create-blog.dto';
@@ -148,134 +149,50 @@ export class BlogService
         }
     }
 
-    public async findByID(id: number, locale: string)
+    public async findByID(id: number, locale: Locale)
     {
-        switch (locale)
-        {
-            case 'de':
-            {
-                const sql =
-                `
-                    SELECT
-                        id, account, parent_id,
-                        title_de, meta_title_de,
-                        slug, thumbnail,
-                        summary_de, content_de,
-                        published, published_at, created_at, updated_at
-                    FROM
-                        blog
-                    WHERE
-                        id = ?
-                `;
-                const [blog] = await this.webDatabase.query(sql, [id]);
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
 
-                return { statusCode: HttpStatus.OK, data: { blog } };
-            }
-            case 'fa':
-            {
-                const sql =
-                `
-                    SELECT
-                        id, account, parent_id,
-                        title_fa, meta_title_fa,
-                        slug, thumbnail,
-                        summary_fa, content_fa,
-                        published, published_at, created_at, updated_at
-                    FROM
-                        blog
-                    WHERE
-                        id = ?
-                `;
-                const [blog] = await this.webDatabase.query(sql, [id]);
+        const sql =
+        `
+            SELECT
+                id, account, parent_id,
+                title_${ locale }, meta_title_${ locale },
+                slug, thumbnail,
+                summary_${ locale }, content_${ locale },
+                published, published_at, created_at, updated_at
+            FROM
+                blog
+            WHERE
+                id = ?
+        `;
+        const [blog] = await this.webDatabase.query(sql, [id]);
 
-                return { statusCode: HttpStatus.OK, data: { blog } };
-            }
-            default:
-            {
-                const sql =
-                `
-                    SELECT
-                        id, account, parent_id,
-                        title_en, meta_title_en,
-                        slug, thumbnail,
-                        summary_en, content_en,
-                        published, published_at, created_at, updated_at
-                    FROM
-                        blog
-                    WHERE
-                        id = ?
-                `;
-                const [blog] = await this.webDatabase.query(sql, [id]);
-
-                return { statusCode: HttpStatus.OK, data: { blog } };
-            }
-        }
+        return { statusCode: HttpStatus.OK, data: { blog } };
     }
 
-    public async findAllByNewest(locale: string, page = 1, limit = 20)
+    public async findAllByNewest(locale: Locale, page = 1, limit = 20)
     {
-        switch (locale)
-        {
-            case 'de':
-            {
-                const sql =
-                `
-                    SELECT
-                        id, account, parent_id,
-                        title_de, meta_title_de,
-                        slug, thumbnail,
-                        summary_de, content_de,
-                        published, published_at, created_at, updated_at
-                    FROM
-                        blog
-                    ORDER BY
-                        created_at DESC
-                    LIMIT ${ page - 1 }, ${ limit };
-                `;
-                const [blogs]: any = await this.webDatabase.query(sql);
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
 
-                return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
-            }
-            case 'fa':
-            {
-                const sql =
-                `
-                    SELECT
-                        id, account, parent_id,
-                        title_fa, meta_title_fa,
-                        slug, thumbnail,
-                        summary_fa, content_fa,
-                        published, published_at, created_at, updated_at
-                    FROM
-                        blog
-                    ORDER BY
-                        created_at DESC
-                    LIMIT ${ page - 1 }, ${ limit };
-                `;
-                const [blogs]: any = await this.webDatabase.query(sql);
+        const sql =
+        `
+            SELECT
+                id, account, parent_id,
+                title_${ locale }, meta_title_${ locale },
+                slug, thumbnail,
+                summary_${ locale }, content_${ locale },
+                published, published_at, created_at, updated_at
+            FROM
+                blog
+            ORDER BY
+                created_at DESC
+            LIMIT ${ page - 1 }, ${ limit };
+        `;
+        const [blogs]: any = await this.webDatabase.query(sql);
 
-                return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
-            }
-            default:
-            {
-                const sql =
-                `
-                    SELECT
-                        id, account, parent_id,
-                        title_en, meta_title_en,
-                        slug, thumbnail,
-                        summary_en, content_en,
-                        published, published_at, created_at, updated_at
-                    FROM
-                        blog
-                    ORDER BY
-                        created_at DESC
-                    LIMIT ${ page - 1 }, ${ limit };
-                `;
-                const [blogs]: any = await this.webDatabase.query(sql);
-
-                return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
-            }
-        }
+        return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
     }
 }
