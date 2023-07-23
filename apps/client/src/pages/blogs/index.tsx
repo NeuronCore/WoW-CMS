@@ -21,7 +21,6 @@ const defaultForm =
 
 const Blogs = () =>
 {
-    const [errors] = useState([]);
     const [formValues, setFormValues] = useState(defaultForm);
 
     const [category, setCategory] = useState('tutorial');

@@ -78,7 +78,11 @@ const Auth = ({ type }: Props) =>
                             hidden: false,
                             title: t('auth:register.modal.successful.title'),
                             description: t('auth:register.modal.successful.description'),
-                            onHidden: async() => await push('/login')
+                            onHidden: async() =>
+                            {
+                                await push('/login');
+                                setActive(false);
+                            }
                         });
                 }
             })
