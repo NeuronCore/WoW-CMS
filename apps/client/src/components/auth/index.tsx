@@ -147,7 +147,7 @@ const Auth = ({ type }: Props) =>
             async() =>
             {
                 if (user)
-                    await push('/account');
+                    await push('/account/overview');
             }
         )();
     }, [user]);

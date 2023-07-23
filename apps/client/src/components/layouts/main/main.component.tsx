@@ -46,7 +46,7 @@ const Main = ({ children }: Props) =>
                     await push('/login');
             }
         )();
-    }, [user, pathname]);
+    }, [user, pathname, loading]);
 
     return (
         <>
@@ -86,7 +86,11 @@ const Main = ({ children }: Props) =>
                                     </li>
                                 </ul>
                             </aside>
-                            { children }
+                            {
+                                user
+                                    ? children
+                                    : null
+                            }
                         </section>
                         :
                         children
