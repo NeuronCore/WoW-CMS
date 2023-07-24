@@ -168,7 +168,7 @@ export class BlogService
         return { statusCode: HttpStatus.CREATED, message: 'Blog liked' };
     }
 
-    public async findByID(id: number, locale: Locale)
+    public async findBySlug(slug: string, locale: Locale)
     {
         if (!Object.values(Locale)?.includes(locale))
             throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
@@ -176,28 +176,33 @@ export class BlogService
         const sql =
         `
             SELECT
-                id, account, parent_id,
-                title_${ locale }, meta_title_${ locale },
-                slug, thumbnail,
-                summary_${ locale }, content_${ locale },
-                published, published_at, created_at, updated_at
+                (COUNT(likes.account)) AS likes, (COUNT(blog_reads.blog_id)) readz,
+                blog.id, blog.account, blog.parent_id,
+                blog.title_${ locale }, blog.meta_title_${ locale },
+                blog.slug, blog.thumbnail,
+                blog.summary_${ locale }, blog.content_${ locale },
+                blog.published, blog.published_at, blog.created_at, blog.updated_at
             FROM
                 blog
+            INNER JOIN
+                likes ON blog.id = likes.blog_id
+            LEFT JOIN
+                blog_reads ON blog.id = blog_reads.blog_id
             WHERE
-                id = ?
+                blog.slug = ?
         `;
-        const [blog] = await this.webDatabase.query(sql, [id]);
+        const [blog] = await this.webDatabase.query(sql, [slug]);
 
         const privateIP = ip.address('private');
 
-        if (blog[0])
+        if (blog[0].id)
         {
-            const [blogViews] = await this.webDatabase.query('SELECT null FROM `blog_views` WHERE `blog_id` = ? AND `ip` = ?', [id, privateIP]);
-            if (!blogViews[0])
-                await this.webDatabase.execute('INSERT INTO `blog_views` (`blog_id`, `ip`) VALUES (?, ?)', [id, privateIP]);
+            const [blogReads] = await this.webDatabase.query('SELECT null FROM `blog_reads` WHERE `blog_id` = ? AND `ip` = ?', [blog[0].id, privateIP]);
+            if (!blogReads[0])
+                await this.webDatabase.execute('INSERT INTO `blog_reads` (`blog_id`, `ip`) VALUES (?, ?)', [blog[0].id, privateIP]);
         }
 
-        return { statusCode: HttpStatus.OK, data: { blog } };
+        return { statusCode: HttpStatus.OK, data: { blog: blog[0].id ? blog[0] : {} } };
     }
 
     public async findAllByNewest(locale: Locale, page = 1, limit = 20)
@@ -208,13 +213,20 @@ export class BlogService
         const sql =
         `
             SELECT
-                id, account, parent_id,
-                title_${ locale }, meta_title_${ locale },
-                slug, thumbnail,
-                summary_${ locale }, content_${ locale },
-                published, published_at, created_at, updated_at
+                (COUNT(likes.account)) AS likes, (COUNT(blog_reads.blog_id)) readz,
+                blog.id, blog.account, blog.parent_id,
+                blog.title_${ locale }, blog.meta_title_${ locale },
+                blog.slug, blog.thumbnail,
+                blog.summary_${ locale }, blog.content_${ locale },
+                blog.published, blog.published_at, blog.created_at, blog.updated_at
             FROM
                 blog
+            INNER JOIN
+                likes ON blog.id = likes.blog_id
+            LEFT JOIN
+                blog_reads ON blog.id = blog_reads.blog_id
+            GROUP BY
+                blog.id
             ORDER BY
                 created_at DESC
             LIMIT ${ page - 1 }, ${ limit };

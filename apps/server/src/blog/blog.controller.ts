@@ -110,10 +110,10 @@ export class BlogController
         return this.blogService.remove(id);
     }
 
-    @Get('/find-by-id/:id')
-    public async findByID(@Param('id', ParseIntPipe) id: number, @Query('locale') locale: Locale)
+    @Get('/find-by-slug/:slug')
+    public async findBySlug(@Param('slug') slug: string, @Query('locale') locale: Locale)
     {
-        return this.blogService.findByID(id, locale);
+        return this.blogService.findBySlug(slug, locale);
     }
 
     @Get('/find-all-by-newest')
