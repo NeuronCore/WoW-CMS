@@ -1,9 +1,11 @@
 import * as path from 'path';
 
-import { HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
 import { Pool } from 'mysql2/promise';
 
 import * as sharp from 'sharp';
+
+import { Locale } from '@/shared/enums';
 
 import { CreateFaqDto } from './dto/create-faq.dto';
 import { UpdateFaqDto } from './dto/update-faq.dto';
@@ -40,26 +42,21 @@ export class WebService
         return { statusCode: HttpStatus.OK, message: 'The FAQ was created successfully' };
     }
 
-    public async findAllFAQ(locale: string)
+    public async findAllFAQ(locale: Locale)
     {
-        switch (locale)
-        {
-            case 'de':
-            {
-                const [faq] = await this.webDatabase.query('SELECT `id`, `title_de`, `description_de` FROM `FAQ`');
-                return { statusCode: HttpStatus.OK, data: { faq } };
-            }
-            case 'fa':
-            {
-                const [faq] = await this.webDatabase.query('SELECT `id`, `title_fa`, `description_fa` FROM `FAQ`');
-                return { statusCode: HttpStatus.OK, data: { faq } };
-            }
-            default:
-            {
-                const [faq] = await this.webDatabase.query('SELECT `id`, `title_en`, `description_en` FROM `FAQ`');
-                return { statusCode: HttpStatus.OK, data: { faq } };
-            }
-        }
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        const sql =
+        `
+            SELECT
+                id, title_${ locale }, description_${ locale }
+            FROM
+                FAQ
+        `;
+
+        const [faq] = await this.webDatabase.query(sql);
+        return { statusCode: HttpStatus.OK, data: { faq } };
     }
 
     /**
@@ -151,26 +148,21 @@ export class WebService
         return { statusCode: HttpStatus.OK, message: 'The Feature was created successfully' };
     }
 
-    public async findAllFeatures(locale: string)
+    public async findAllFeatures(locale: Locale)
     {
-        switch (locale)
-        {
-            case 'de':
-            {
-                const [features] = await this.webDatabase.query('SELECT `id`, `title_de`, `image`, `description_de` FROM `feature`');
-                return { statusCode: HttpStatus.OK, data: { features } };
-            }
-            case 'fa':
-            {
-                const [features] = await this.webDatabase.query('SELECT `id`, `title_fa`, `image`, `description_fa` FROM `feature`');
-                return { statusCode: HttpStatus.OK, data: { features } };
-            }
-            default:
-            {
-                const [features] = await this.webDatabase.query('SELECT `id`, `title_en`, `image`, `description_en` FROM `feature`');
-                return { statusCode: HttpStatus.OK, data: { features } };
-            }
-        }
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        const sql =
+            `
+            SELECT
+                id, title_${ locale }, image, description_${ locale }
+            FROM
+                feature
+        `;
+
+        const [features] = await this.webDatabase.query(sql);
+        return { statusCode: HttpStatus.OK, data: { features } };
     }
 
     /**

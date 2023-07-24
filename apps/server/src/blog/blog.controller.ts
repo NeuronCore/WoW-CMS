@@ -1,8 +1,9 @@
-import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, UseInterceptors, UploadedFile, ParseIntPipe, Param, Patch, Delete, Query, Get, DefaultValuePipe } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
+import { Locale } from '@/shared/enums';
 
 import { AccountRole } from '@/account/account-role.enum';
 import { Roles } from '@/account/account-role.decorator';
@@ -15,13 +16,13 @@ import { UpdateBlogDto } from '@/blog/dto/update-blog.dto';
 
 @Controller('blog')
 @ApiTags('Blog')
-@ApiSecurity('JsonWebToken')
 export class BlogController
 {
     constructor(private readonly blogService: BlogService)
     { }
 
     @Post('/create')
+    @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
     @UseInterceptors(FileInterceptor('thumbnail'))
@@ -33,11 +34,19 @@ export class BlogController
             type: 'object',
             properties:
             {
-                title: { type: 'string' },
-                metaTitle: { type: 'string' },
+                titleEN: { type: 'string' },
+                titleDE: { type: 'string' },
+                titleFA: { type: 'string' },
+                metaTitleEN: { type: 'string' },
+                metaTitleDE: { type: 'string' },
+                metaTitleFA: { type: 'string' },
                 slug: { type: 'string' },
-                summary: { type: 'string' },
-                content: { type: 'string' },
+                summaryEN: { type: 'string' },
+                summaryDE: { type: 'string' },
+                summaryFA: { type: 'string' },
+                contentEN: { type: 'string' },
+                contentDE: { type: 'string' },
+                contentFA: { type: 'string' },
                 published: { type: 'enum', enum: ['Confirmed', 'Rejected', 'Waiting'] },
                 thumbnail: { type: 'string', format: 'binary' }
             }
@@ -49,6 +58,7 @@ export class BlogController
     }
 
     @Patch('update/:id')
+    @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
     @UseInterceptors(FileInterceptor('thumbnail'))
@@ -60,11 +70,19 @@ export class BlogController
             type: 'object',
             properties:
             {
-                title: { type: 'string' },
-                metaTitle: { type: 'string' },
+                titleEN: { type: 'string' },
+                titleDE: { type: 'string' },
+                titleFA: { type: 'string' },
+                metaTitleEN: { type: 'string' },
+                metaTitleDE: { type: 'string' },
+                metaTitleFA: { type: 'string' },
                 slug: { type: 'string' },
-                summary: { type: 'string' },
-                content: { type: 'string' },
+                summaryEN: { type: 'string' },
+                summaryDE: { type: 'string' },
+                summaryFA: { type: 'string' },
+                contentEN: { type: 'string' },
+                contentDE: { type: 'string' },
+                contentFA: { type: 'string' },
                 published: { type: 'enum', enum: ['Confirmed', 'Rejected', 'Waiting'] },
                 thumbnail: { type: 'string', format: 'binary' }
             }
@@ -75,11 +93,32 @@ export class BlogController
         return this.blogService.update(accountID, id, updateBlogDto, thumbnail);
     }
 
+    @Post('/toggle-like/blog-id/:id')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async toggleLike(@AccountDecorator() accountID: number, @Param('id', ParseIntPipe) blogID: number)
+    {
+        return await this.blogService.toggleLike(accountID, blogID);
+    }
+
     @Delete('/delete/:id')
+    @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
     @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
     public async remove(@Param('id', ParseIntPipe) id: number)
     {
         return this.blogService.remove(id);
+    }
+
+    @Get('/find-by-id/:id')
+    public async findByID(@Param('id', ParseIntPipe) id: number, @Query('locale') locale: Locale)
+    {
+        return this.blogService.findByID(id, locale);
+    }
+
+    @Get('/find-all-by-newest')
+    public async findAllByNewest(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.blogService.findAllByNewest(locale, page, limit);
     }
 }

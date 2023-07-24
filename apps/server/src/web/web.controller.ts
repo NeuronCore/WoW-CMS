@@ -5,6 +5,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '@/auth/auth.guard';
 import { Roles } from '@/account/account-role.decorator';
 import { AccountRole } from '@/account/account-role.enum';
+import { Locale } from '@/shared/enums';
 
 import { WebService } from './web.service';
 
@@ -31,7 +32,7 @@ export class WebController
     }
 
     @Get('find-all/faq')
-    public async findAllFAQ(@Query('locale') locale: string)
+    public async findAllFAQ(@Query('locale') locale: Locale)
     {
         return this.webService.findAllFAQ(locale);
     }
@@ -81,7 +82,7 @@ export class WebController
     }
 
     @Get('find-all/feature')
-    public async findAllFeatures(@Query('locale') locale: string)
+    public async findAllFeatures(@Query('locale') locale: Locale)
     {
         return this.webService.findAllFeatures(locale);
     }

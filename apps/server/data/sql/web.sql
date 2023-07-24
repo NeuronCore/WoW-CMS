@@ -36,12 +36,20 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `account` int unsigned NOT NULL DEFAULT '0',
   `parent_id` int unsigned DEFAULT NULL,
-  `title` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `meta_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
+  `title_en` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `title_de` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `title_fa` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `meta_title_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
+  `meta_title_de` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
+  `meta_title_fa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
   `slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `thumbnail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `summary` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'The summary of the post to mention the key highlights.',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `summary_en` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'The summary of the post to mention the key highlights.',
+  `summary_de` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'The summary of the post to mention the key highlights.',
+  `summary_fa` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'The summary of the post to mention the key highlights.',
+  `content_en` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content_de` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content_fa` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `published` enum('Confirmed','Rejected','Waiting') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'It can be used to identify whether the post is publicly available.',
   `published_at` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -143,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 CREATE TABLE IF NOT EXISTS `character_service` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `coins` int unsigned DEFAULT '0',
-  `discription` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -163,6 +171,17 @@ CREATE TABLE IF NOT EXISTS `coins` (
 
 INSERT INTO `coins` (`id`, `rial`, `count`) VALUES
 	(1, 10000, 1);
+
+CREATE TABLE IF NOT EXISTS `likes` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `account` int unsigned DEFAULT NULL,
+  `blog_id` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_likes_account_information` (`account`) USING BTREE,
+  KEY `fk_likes_blog` (`blog_id`) USING BTREE,
+  CONSTRAINT `FK_LIKES_ACCOUNT_INFORMATION` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
+  CONSTRAINT `FK_LIKES_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `payments` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
