@@ -176,18 +176,15 @@ export class BlogService
         const sql =
         `
             SELECT
-                (COUNT(likes.account)) AS likes, (COUNT(blog_reads.blog_id)) readz,
-                blog.id, blog.account, blog.parent_id,
-                blog.title_${ locale }, blog.meta_title_${ locale },
-                blog.slug, blog.thumbnail,
-                blog.summary_${ locale }, blog.content_${ locale },
-                blog.published, blog.published_at, blog.created_at, blog.updated_at
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                id, account, parent_id,
+                title_${ locale }, meta_title_${ locale },
+                slug, thumbnail,
+                summary_${ locale }, content_${ locale },
+                published, published_at, created_at, updated_at
             FROM
                 blog
-            INNER JOIN
-                likes ON blog.id = likes.blog_id
-            LEFT JOIN
-                blog_reads ON blog.id = blog_reads.blog_id
             WHERE
                 blog.slug = ?
         `;
@@ -195,14 +192,66 @@ export class BlogService
 
         const privateIP = ip.address('private');
 
-        if (blog[0].id)
+        if (blog[0])
         {
             const [blogReads] = await this.webDatabase.query('SELECT null FROM `blog_reads` WHERE `blog_id` = ? AND `ip` = ?', [blog[0].id, privateIP]);
             if (!blogReads[0])
                 await this.webDatabase.execute('INSERT INTO `blog_reads` (`blog_id`, `ip`) VALUES (?, ?)', [blog[0].id, privateIP]);
         }
 
-        return { statusCode: HttpStatus.OK, data: { blog: blog[0].id ? blog[0] : {} } };
+        return { statusCode: HttpStatus.OK, data: { blog: blog[0] } };
+    }
+
+    public async findAllByReads(locale: Locale, page = 1, limit = 20)
+    {
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        const sql =
+        `
+            SELECT
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                id, account, parent_id,
+                title_${ locale }, meta_title_${ locale },
+                slug, thumbnail,
+                summary_${ locale }, content_${ locale },
+                published, published_at, created_at, updated_at
+            FROM
+                blog
+            ORDER BY
+                readz DESC
+            LIMIT ${ page - 1 }, ${ limit };
+        `;
+        const [blogs]: any = await this.webDatabase.query(sql);
+
+        return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
+    }
+
+    public async findAllByLikes(locale: Locale, page = 1, limit = 20)
+    {
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        const sql =
+        `
+            SELECT
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                id, account, parent_id,
+                title_${ locale }, meta_title_${ locale },
+                slug, thumbnail,
+                summary_${ locale }, content_${ locale },
+                published, published_at, created_at, updated_at
+            FROM
+                blog
+            ORDER BY
+                likes DESC
+            LIMIT ${ page - 1 }, ${ limit };
+        `;
+        const [blogs]: any = await this.webDatabase.query(sql);
+
+        return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
     }
 
     public async findAllByNewest(locale: Locale, page = 1, limit = 20)
@@ -213,20 +262,15 @@ export class BlogService
         const sql =
         `
             SELECT
-                (COUNT(likes.account)) AS likes, (COUNT(blog_reads.blog_id)) readz,
-                blog.id, blog.account, blog.parent_id,
-                blog.title_${ locale }, blog.meta_title_${ locale },
-                blog.slug, blog.thumbnail,
-                blog.summary_${ locale }, blog.content_${ locale },
-                blog.published, blog.published_at, blog.created_at, blog.updated_at
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                id, account, parent_id,
+                title_${ locale }, meta_title_${ locale },
+                slug, thumbnail,
+                summary_${ locale }, content_${ locale },
+                published, published_at, created_at, updated_at
             FROM
                 blog
-            INNER JOIN
-                likes ON blog.id = likes.blog_id
-            LEFT JOIN
-                blog_reads ON blog.id = blog_reads.blog_id
-            GROUP BY
-                blog.id
             ORDER BY
                 created_at DESC
             LIMIT ${ page - 1 }, ${ limit };

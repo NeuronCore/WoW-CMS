@@ -116,6 +116,18 @@ export class BlogController
         return this.blogService.findBySlug(slug, locale);
     }
 
+    @Get('/find-all-by-reads')
+    public async findAllByReads(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.blogService.findAllByReads(locale, page, limit);
+    }
+
+    @Get('/find-all-by-likes')
+    public async findAllByLikes(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.blogService.findAllByLikes(locale, page, limit);
+    }
+
     @Get('/find-all-by-newest')
     public async findAllByNewest(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
     {
