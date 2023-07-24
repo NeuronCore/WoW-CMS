@@ -8,5 +8,12 @@
     "2000": "Diese E-Mail Adresse ist bereits vergeben",
     "2001": "eser Benutzername existiert schon",
     "2002": "Das Passwort stimmt nicht überein",
-    "2003": "Falscher Benutzername oder Passwort"
+    "2003": "Falscher Benutzername oder Passwort",
+    "2004": "FAQ with this id not found",
+    "2005": "Feature with this id not found",
+    "2006": "Slug already exists",
+    "2007": "Blog with this id not found",
+    "2008": "Blog unliked",
+    "2009": "Blog liked",
+    "2010": "Comment with this id not found"
 }

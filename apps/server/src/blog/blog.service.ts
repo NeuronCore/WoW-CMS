@@ -20,6 +20,16 @@ export class BlogService
     constructor(@Inject('WEB_DATABASE') private webDatabase: Pool)
     { }
 
+    /**
+     *
+     * @param accountID
+     * @param createBlogDto
+     * @param thumbnail
+     *
+     * @description
+     *      code:
+     *          2006 - Slug already exists
+     */
     public async create(accountID: number, createBlogDto: CreateBlogDto, thumbnail: Express.Multer.File)
     {
         try
@@ -33,7 +43,7 @@ export class BlogService
 
             const [blog] = await this.webDatabase.query('SELECT `slug` FROM `blog` WHERE `slug` = ?', [Helper.stringToSlug(slug)]);
             if (blog[0]?.slug)
-                return { statusCode: HttpStatus.CONFLICT, message: 'Slug already exists' };
+                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             const sql =
             `
@@ -74,6 +84,18 @@ export class BlogService
         }
     }
 
+    /**
+     *
+     * @param accountID
+     * @param id
+     * @param updateBlogDto
+     * @param thumbnail
+     *
+     * @description
+     *      code:
+     *          2006 - Slug already exists
+     *          2007 - Blog with this id not found
+     */
     public async update(accountID: number, id: number, updateBlogDto: UpdateBlogDto, thumbnail: Express.Multer.File)
     {
         try
@@ -82,10 +104,10 @@ export class BlogService
 
             const [blog] = await this.webDatabase.query('SELECT * FROM `blog` WHERE `id` = ?', [id]);
             if (!blog[0])
-                return { statusCode: HttpStatus.NOT_FOUND, message: 'Blog with this id not found' };
+                return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
             if (blog[0].slug === Helper.stringToSlug(slug))
-                return { statusCode: HttpStatus.CONFLICT, message: 'Slug already exists' };
+                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             let filename = null;
             if (thumbnail)
@@ -132,13 +154,21 @@ export class BlogService
         }
     }
 
+    /**
+     *
+     * @param id
+     *
+     * @description
+     *      code:
+     *          2007 - Blog with this id not found
+     */
     public async remove(id: number)
     {
         try
         {
             const [blog] = await this.webDatabase.query('SELECT `id` FROM `blog` WHERE `id` = ?', [id]);
             if (!blog[0])
-                return { statusCode: HttpStatus.NOT_FOUND, message: 'Blog with this id not found' };
+                return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
             await this.webDatabase.execute('DELETE FROM `blog` WHERE `id` = ?', [id]);
 
@@ -150,22 +180,33 @@ export class BlogService
         }
     }
 
+    /**
+     *
+     * @param accountID
+     * @param blogID
+     *
+     * @description
+     *      code:
+     *          2007 - Blog with this id not found
+     *          2008 - Blog unliked
+     *          2009 - Blog liked
+     */
     public async toggleLike(accountID: number, blogID: number)
     {
         const [blog] = await this.webDatabase.query('SELECT `id` FROM `blog` WHERE `id` = ?', [blogID]);
         if (!blog[0])
-            return { statusCode: HttpStatus.NOT_FOUND, message: 'Blog not found' };
+            return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
         const [likes] = await this.webDatabase.query('SELECT * FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blogID]);
         if (likes[0])
         {
             await this.webDatabase.execute('DELETE FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blogID]);
-            return { statusCode: HttpStatus.OK, message: 'Blog unliked' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'all', code: '2008' }] };
         }
 
         await this.webDatabase.execute('INSERT INTO `likes` (`account`, `blog_id`) VALUES (?, ?)', [accountID, blogID]);
 
-        return { statusCode: HttpStatus.CREATED, message: 'Blog liked' };
+        return { statusCode: HttpStatus.CREATED, message: [{ field: 'all', code: '2009' }] };
     }
 
     public async findBySlug(slug: string, locale: Locale)

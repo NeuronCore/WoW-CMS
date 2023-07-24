@@ -10,5 +10,10 @@
     "2002": "Password does not match",
     "2003": "Incorrect username or password",
     "2004": "FAQ with this id not found",
-    "2005": "Feature with this id not found"
+    "2005": "Feature with this id not found",
+    "2006": "Slug already exists",
+    "2007": "Blog with this id not found",
+    "2008": "Blog unliked",
+    "2009": "Blog liked",
+    "2010": "Comment with this id not found"
 }

@@ -10,44 +10,83 @@ export class CommentService
     constructor(@Inject('WEB_DATABASE') private webDatabase: Pool)
     { }
 
+    /**
+     *
+     * @param accountID
+     * @param blogID
+     * @param createCommentDto
+     *
+     * @description
+     *      code:
+     *          2007 - Blog with this id not found
+     */
     public async create(accountID: number, blogID: number, createCommentDto: CreateCommentDto)
     {
         const [blog] = await this.webDatabase.query('SELECT null FROM `blog` WHERE `id` = ?', [blogID]);
         if (!blog[0])
-            return { statusCode: HttpStatus.NOT_FOUND, message: 'Blog not found' };
+            return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
         await this.webDatabase.execute('INSERT INTO `comments` (`account`, `blog_id`, `content`) VALUES (?, ?, ?)', [accountID, blogID, createCommentDto.content]);
 
         return { statusCode: HttpStatus.CREATED, message: 'Comment created' };
     }
 
+    /**
+     *
+     * @param accountID
+     * @param commentID
+     * @param createCommentDto
+     *
+     * @description
+     *      code:
+     *          2010 - Comment with this id not found
+     */
     public async reply(accountID: number, commentID: number, createCommentDto: CreateCommentDto)
     {
         const [comment] = await this.webDatabase.query('SELECT `account`, `blog_id` FROM `comments` WHERE `id` = ?', [commentID]);
         if (!comment[0])
-            return { statusCode: HttpStatus.NOT_FOUND, message: 'Comment not found' };
+            return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2010' }] };
 
         await this.webDatabase.execute('INSERT INTO `comments` (`account`, `blog_id`, `reply_of`, `content`) VALUES (?, ?, ?, ?)', [accountID, comment[0].blog_id, commentID, createCommentDto.content]);
 
         return { statusCode: HttpStatus.CREATED, message: 'Reply created' };
     }
 
+    /**
+     *
+     * @param accountID
+     * @param commentID
+     * @param updateCommentDto
+     *
+     * @description
+     *      code:
+     *          2010 - Comment with this id not found
+     */
     public async update(accountID: number, commentID: number, updateCommentDto: UpdateCommentDto)
     {
         const [comment] = await this.webDatabase.query('SELECT `content` FROM `comments` WHERE `id` = ? AND `account` = ?', [commentID, accountID]);
         if (!comment[0])
-            return { statusCode: HttpStatus.NOT_FOUND, message: 'Comment not found' };
+            return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2010' }] };
 
         await this.webDatabase.execute('UPDATE `comments` SET `content` = ? WHERE `id` = ?', [updateCommentDto.content, commentID]);
 
         return { statusCode: HttpStatus.OK, message: 'Updated' };
     }
 
+    /**
+     *
+     * @param accountID
+     * @param commentID
+     *
+     * @description
+     *      code:
+     *          2010 - Comment with this id not found
+     */
     public async remove(accountID: number, commentID: number)
     {
         const [comment] = await this.webDatabase.query('SELECT `content` FROM `comments` WHERE `id` = ? AND `account` = ?', [commentID, accountID]);
         if (!comment[0])
-            return { statusCode: HttpStatus.NOT_FOUND, message: 'Comment not found' };
+            return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2010' }] };
 
         await this.webDatabase.execute('DELETE FROM `comments` WHERE `id` = ?', [commentID]);
 
