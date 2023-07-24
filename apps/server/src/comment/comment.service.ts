@@ -31,4 +31,26 @@ export class CommentService
 
         return { statusCode: HttpStatus.CREATED, message: 'Reply created' };
     }
+
+    public async update(accountID: number, commentID: number, updateCommentDto: UpdateCommentDto)
+    {
+        const [comment] = await this.webDatabase.query('SELECT `content` FROM `comments` WHERE `id` = ? AND `account` = ?', [commentID, accountID]);
+        if (!comment[0])
+            return { statusCode: HttpStatus.NOT_FOUND, message: 'Comment not found' };
+
+        await this.webDatabase.execute('UPDATE `comments` SET `content` = ? WHERE `id` = ?', [updateCommentDto.content, commentID]);
+
+        return { statusCode: HttpStatus.OK, message: 'Updated' };
+    }
+
+    public async remove(accountID: number, commentID: number)
+    {
+        const [comment] = await this.webDatabase.query('SELECT `content` FROM `comments` WHERE `id` = ? AND `account` = ?', [commentID, accountID]);
+        if (!comment[0])
+            return { statusCode: HttpStatus.NOT_FOUND, message: 'Comment not found' };
+
+        await this.webDatabase.execute('DELETE FROM `comments` WHERE `id` = ?', [commentID]);
+
+        return { statusCode: HttpStatus.OK, message: 'Deleted' };
+    }
 }

@@ -190,8 +190,8 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `FK_COMMENTS_ACCOUNT_INFORMATION` (`account`),
-  KEY `FK_COMMENTS_BLOG` (`blog_id`),
+  KEY `idx_comments_account_information` (`account`),
+  KEY `idx_comments_blog` (`blog_id`),
   CONSTRAINT `FK_COMMENTS_ACCOUNT_INFORMATION` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
   CONSTRAINT `FK_COMMENTS_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

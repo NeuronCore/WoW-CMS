@@ -1,4 +1,4 @@
-import { Body, Controller, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { CommentService } from './comment.service';
@@ -30,5 +30,21 @@ export class CommentController
     public async reply(@AccountDecorator() accountID: number, @Param('commentID', ParseIntPipe) commentID: number, @Body() createCommentDto: CreateCommentDto)
     {
         return this.commentService.reply(accountID, commentID, createCommentDto);
+    }
+
+    @Patch('update/comment-id/:commentID')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async update(@AccountDecorator() accountID: number, @Param('commentID', ParseIntPipe) commentID: number, @Body() updateCommentDto: UpdateCommentDto)
+    {
+        return this.commentService.update(accountID, commentID, updateCommentDto);
+    }
+
+    @Delete('delete/comment-id/:commentID')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async remove(@AccountDecorator() accountID: number, @Param('commentID', ParseIntPipe) commentID: number)
+    {
+        return this.commentService.remove(accountID, commentID);
     }
 }
