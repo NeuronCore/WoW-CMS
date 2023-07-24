@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { AuthGuard } from '@/auth/auth.guard';
-import { Locale } from '@/shared/enums';
+import { BlogFindAll, Locale } from '@/shared/enums';
 
 import { AccountRole } from '@/account/account-role.enum';
 import { Roles } from '@/account/account-role.decorator';
@@ -116,21 +116,9 @@ export class BlogController
         return this.blogService.findBySlug(slug, locale);
     }
 
-    @Get('/find-all-by-reads')
-    public async findAllByReads(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
+    @Get('/find-all-and-order/type/:type')
+    public async findAllAndOrder(@Query('locale') locale: Locale, @Param('type') type: BlogFindAll, @Query('page') page: number, @Query('limit') limit: number)
     {
-        return this.blogService.findAllByReads(locale, page, limit);
-    }
-
-    @Get('/find-all-by-likes')
-    public async findAllByLikes(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
-    {
-        return this.blogService.findAllByLikes(locale, page, limit);
-    }
-
-    @Get('/find-all-by-newest')
-    public async findAllByNewest(@Query('locale') locale: Locale, @Query('page') page: number, @Query('limit') limit: number)
-    {
-        return this.blogService.findAllByNewest(locale, page, limit);
+        return this.blogService.findAllAndOrder(locale, type, page, limit);
     }
 }

@@ -6,7 +6,7 @@ import { Pool } from 'mysql2/promise';
 import * as sharp from 'sharp';
 import * as ip from 'ip';
 
-import { Locale } from '@/shared/enums';
+import { BlogFindAll, Locale } from '@/shared/enums';
 import { Helper } from '@/utils/helper.util';
 
 import { CreateBlogDto, PublishedStatus } from './dto/create-blog.dto';
@@ -202,77 +202,28 @@ export class BlogService
         return { statusCode: HttpStatus.OK, data: { blog: blog[0] } };
     }
 
-    public async findAllByReads(locale: Locale, page = 1, limit = 20)
+    public async findAllAndOrder(locale: Locale, type: BlogFindAll, page = 1, limit = 20)
     {
         if (!Object.values(Locale)?.includes(locale))
             throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        if (!Object.values(BlogFindAll)?.includes(type))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Type' });
 
         const sql =
         `
             SELECT
                 (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
                 (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
-                id, account, parent_id,
+                id,
                 title_${ locale }, meta_title_${ locale },
                 slug, thumbnail,
-                summary_${ locale }, content_${ locale },
-                published, published_at, created_at, updated_at
+                summary_${ locale },
+                published_at
             FROM
                 blog
             ORDER BY
-                readz DESC
-            LIMIT ${ page - 1 }, ${ limit };
-        `;
-        const [blogs]: any = await this.webDatabase.query(sql);
-
-        return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
-    }
-
-    public async findAllByLikes(locale: Locale, page = 1, limit = 20)
-    {
-        if (!Object.values(Locale)?.includes(locale))
-            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
-
-        const sql =
-        `
-            SELECT
-                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
-                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
-                id, account, parent_id,
-                title_${ locale }, meta_title_${ locale },
-                slug, thumbnail,
-                summary_${ locale }, content_${ locale },
-                published, published_at, created_at, updated_at
-            FROM
-                blog
-            ORDER BY
-                likes DESC
-            LIMIT ${ page - 1 }, ${ limit };
-        `;
-        const [blogs]: any = await this.webDatabase.query(sql);
-
-        return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
-    }
-
-    public async findAllByNewest(locale: Locale, page = 1, limit = 20)
-    {
-        if (!Object.values(Locale)?.includes(locale))
-            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
-
-        const sql =
-        `
-            SELECT
-                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
-                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
-                id, account, parent_id,
-                title_${ locale }, meta_title_${ locale },
-                slug, thumbnail,
-                summary_${ locale }, content_${ locale },
-                published, published_at, created_at, updated_at
-            FROM
-                blog
-            ORDER BY
-                created_at DESC
+                ${ type } DESC
             LIMIT ${ page - 1 }, ${ limit };
         `;
         const [blogs]: any = await this.webDatabase.query(sql);
