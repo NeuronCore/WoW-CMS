@@ -181,6 +181,21 @@ CREATE TABLE IF NOT EXISTS `coins` (
 INSERT INTO `coins` (`id`, `rial`, `count`) VALUES
 	(1, 10000, 1);
 
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `account` int unsigned NOT NULL,
+  `blog_id` int unsigned NOT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `reply_of` int unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `FK_COMMENTS_ACCOUNT_INFORMATION` (`account`),
+  KEY `FK_COMMENTS_BLOG` (`blog_id`),
+  CONSTRAINT `FK_COMMENTS_ACCOUNT_INFORMATION` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
+  CONSTRAINT `FK_COMMENTS_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS `likes` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `account` int unsigned DEFAULT NULL,

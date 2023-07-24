@@ -219,7 +219,7 @@ export class BlogService
                 title_${ locale }, meta_title_${ locale },
                 slug, thumbnail,
                 summary_${ locale },
-                published_at
+                published, published_at
             FROM
                 blog
             ORDER BY

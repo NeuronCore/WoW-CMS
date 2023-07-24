@@ -14,6 +14,7 @@ import { PaymentModule } from './payment/payment.module';
 import { BlogModule } from './blog/blog.module';
 import { CharactersModule } from './characters/characters.module';
 import { WebModule } from '@/web/web.module';
+import { CommentModule } from './comment/comment.module';
 
 @Module
 ({
@@ -29,7 +30,8 @@ import { WebModule } from '@/web/web.module';
         PaymentModule,
         BlogModule,
         CharactersModule,
-        WebModule
+        WebModule,
+        CommentModule
     ]
 })
 export class AppModule
