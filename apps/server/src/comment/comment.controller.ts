@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, ParseIntPipe, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
 import { CommentService } from './comment.service';
@@ -46,5 +46,17 @@ export class CommentController
     public async remove(@AccountDecorator() accountID: number, @Param('commentID', ParseIntPipe) commentID: number)
     {
         return this.commentService.remove(accountID, commentID);
+    }
+
+    @Get('find-all/blog-id/:blogID')
+    public async findAll(@Param('blogID', ParseIntPipe) blogID: number, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.commentService.findAll(blogID, page, limit);
+    }
+
+    @Get('find-all-replies/comment-id/:commentID')
+    public async findAllReplies(@Param('commentID', ParseIntPipe) commentID: number, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.commentService.findAllReplies(commentID, page, limit);
     }
 }

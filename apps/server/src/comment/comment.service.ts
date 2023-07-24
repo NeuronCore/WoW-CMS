@@ -53,4 +53,42 @@ export class CommentService
 
         return { statusCode: HttpStatus.OK, message: 'Deleted' };
     }
+
+    public async findAll(blogID: number, page = 1, limit = 10)
+    {
+        const sql =
+        `
+            SELECT
+                *
+            FROM
+                comments
+            WHERE
+                blog_id = ? AND reply_of = 0
+            ORDER BY
+                created_at DESC
+            LIMIT ${ page - 1 }, ${ limit };
+        `;
+        const [comments]: any = await this.webDatabase.query(sql, [blogID]);
+
+        return { statusCode: HttpStatus.OK, data: { totals: comments.length, comments } };
+    }
+
+    public async findAllReplies(commentID: number, page = 1, limit = 10)
+    {
+        const sql =
+        `
+            SELECT
+                *
+            FROM
+                comments
+            WHERE
+                reply_of = ?
+            ORDER BY
+                created_at DESC
+            LIMIT ${ page - 1 }, ${ limit };
+        `;
+        const [replies]: any = await this.webDatabase.query(sql, [commentID]);
+
+        return { statusCode: HttpStatus.OK, data: { totals: replies.length, replies } };
+    }
 }
