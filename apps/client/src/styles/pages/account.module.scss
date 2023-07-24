@@ -181,10 +181,22 @@
             display: flex;
             align-items: flex-start;
             justify-content: flex-start;
-            gap: 2rem;
 
             width: 100%;
             height: fit-content;
+
+            &Grid
+            {
+                &1
+                {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 2rem;
+
+                    width: 100%;
+                    height: fit-content;
+                }
+            }
         }
 
         &Item
@@ -195,7 +207,7 @@
             flex-direction: column;
 
             width: 100%;
-            height: fit-content;
+            height: 100%;
             background: var(--base-primary-light);
 
             & > div
@@ -207,19 +219,103 @@
 
                 width: 100%;
                 height: fit-content;
-                padding: 2rem 3rem;
+                padding: 2rem 6rem;
+                margin: 0 auto auto;
 
-                & > span
+                @media only screen and (max-width: 1500px)
+                {
+                    padding: 2rem 3rem;
+                }
+
+                & > div
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    gap: 2rem;
+
+                    padding: 1rem 0 3rem;
+                    height: fit-content;
+                    width: 100%;
+
+                    & > span
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        height: 12rem;
+                        width: 12rem;
+                        min-height: 12rem;
+                        min-width: 12rem;
+                        border-radius: 50rem;
+                        overflow: hidden;
+                    }
+
+                    & > div[data-profile]
+                    {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+                        flex-direction: column;
+                        gap: 1rem;
+
+                        & > h2
+                        {
+                            font-size: 2rem;
+                        }
+                    }
+                }
+
+                & > div[data-security]
                 {
                     display: flex;
                     align-items: center;
                     justify-content: center;
 
-                    min-height: 25rem;
-                    width: 100%;
+                    padding: 1rem 0 3rem;
+
+                    & svg
+                    {
+                        height: 12rem;
+                        width: 12rem;
+                        min-height: 12rem;
+                        min-width: 12rem;
+
+                        & > path
+                        {
+                            stroke: var(--color-primary);
+
+                            &:first-child
+                            {
+                                stroke: var(--color-base-text);
+                            }
+                        }
+                    }
+
+                    & [data-text]
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+                        gap: .5rem;
+
+                        & *
+                        {
+                            font-weight: 400;
+                            text-align: center;
+                        }
+
+                        & > strong
+                        {
+                            font-weight: 500;
+                            font-size: 2rem;
+                        }
+                    }
                 }
 
-                & > ul
+                & > ul[data-info]
                 {
                     display: flex;
                     align-items: flex-start;
@@ -240,16 +336,76 @@
 
                         & > p
                         {
+                            font-weight: normal;
                             color: var(--color-base-text-bolder);
-                            flex: 0 0 25%;
-                            max-width: 25%;
+                            flex: 0 0 35%;
+                            max-width: 35%;
                         }
 
                         & > span
                         {
                             font-weight: 400;
-                            flex: 0 0 75%;
-                            max-width: 75%;
+                            flex: 0 0 65%;
+                            max-width: 65%;
+                        }
+                    }
+                }
+
+                & > ul[data-security]
+                {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                    gap: 1.5rem;
+
+                    width: 100%;
+
+                    & > li
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+
+                        width: 100%;
+                        font-size: 2rem;
+
+                        & > a
+                        {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            width: 100%;
+                            padding: 1rem 3rem;
+                            background: var(--base-primary-lighter);
+                            font-weight: lighter;
+                            font-size: 1.75rem;
+                            transition: all .1s;
+                            cursor: pointer;
+
+                            &:hover
+                            {
+                                opacity: .75;
+                            }
+
+                            & > p
+                            {
+                                text-align: center;
+                                flex: 0 0 70%;
+                                max-width: 70%;
+                                font-weight: 500;
+                            }
+
+                            & > span
+                            {
+                                text-align: center;
+                                flex: 0 0 30%;
+                                max-width: 30%;
+                                font-size: 1.5rem;
+                                color: var(--color-primary);
+                            }
                         }
                     }
                 }
@@ -262,7 +418,6 @@
                 justify-content: space-between;
 
                 padding: 2rem 3rem;
-                margin: 0 auto auto;
                 width: 100%;
                 height: fit-content;
                 font-size: 2rem;

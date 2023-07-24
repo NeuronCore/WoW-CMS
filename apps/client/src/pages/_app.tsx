@@ -9,6 +9,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-coverflow';
+import 'react-circular-progressbar/dist/styles.css';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import '../styles/globals.scss';
