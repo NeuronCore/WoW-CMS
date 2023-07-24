@@ -91,7 +91,6 @@ CREATE TABLE IF NOT EXISTS `blog_comment` (
   CONSTRAINT `FK_BLOG_COMMENT_BLOG_COMMENT` FOREIGN KEY (`parent_id`) REFERENCES `blog_comment` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 CREATE TABLE IF NOT EXISTS `blog_tag` (
   `blog_id` int unsigned NOT NULL,
   `tag_id` int unsigned NOT NULL,
@@ -100,6 +99,16 @@ CREATE TABLE IF NOT EXISTS `blog_tag` (
   KEY `idx_blog_tag_blog` (`blog_id`) USING BTREE,
   CONSTRAINT `FK_BLOG_TAG_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
   CONSTRAINT `FK_BLOG_TAG_TAG` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE IF NOT EXISTS `blog_views` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `ip` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `blog_id` int unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ip` (`ip`),
+  KEY `idx_blog_views_blog` (`blog_id`) USING BTREE,
+  CONSTRAINT `FK_BLOG_VIEWS_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `faq` (

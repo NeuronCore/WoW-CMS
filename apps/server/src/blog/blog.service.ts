@@ -4,6 +4,7 @@ import { BadRequestException, HttpStatus, Inject, Injectable, Logger } from '@ne
 import { Pool } from 'mysql2/promise';
 
 import * as sharp from 'sharp';
+import * as ip from 'ip';
 
 import { Locale } from '@/shared/enums';
 import { Helper } from '@/utils/helper.util';
@@ -186,6 +187,15 @@ export class BlogService
                 id = ?
         `;
         const [blog] = await this.webDatabase.query(sql, [id]);
+
+        const privateIP = ip.address('private');
+
+        if (blog[0])
+        {
+            const [blogViews] = await this.webDatabase.query('SELECT null FROM `blog_views` WHERE `blog_id` = ? AND `ip` = ?', [id, privateIP]);
+            if (!blogViews[0])
+                await this.webDatabase.execute('INSERT INTO `blog_views` (`blog_id`, `ip`) VALUES (?, ?)', [id, privateIP]);
+        }
 
         return { statusCode: HttpStatus.OK, data: { blog } };
     }
