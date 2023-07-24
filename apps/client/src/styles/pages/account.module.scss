@@ -174,7 +174,16 @@
 
         padding-left: 6rem;
         height: 100%;
+        max-height: calc(90vh - 17rem);
         width: 100%;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar
+        {
+            display: none;
+        }
 
         &List
         {
@@ -227,7 +236,73 @@
                     padding: 2rem 3rem;
                 }
 
-                & > div
+                & > table
+                {
+                    width: 100%;
+                    border-collapse: collapse;
+
+                    & thead th
+                    {
+                        border-bottom: .125rem solid var(--base-primary-dark);
+                        color: var(--color-primary);
+                        font-weight: 700;
+                    }
+
+                    & td,
+                    & tr
+                    {
+                        border-top: .0625rem solid var(--base-primary-lighter);
+                        padding: 2rem 3rem;
+                        font-size: 2rem;
+                        vertical-align: top;
+                    }
+
+                    & td
+                    {
+                        font-weight: 400;
+                    }
+
+                    & tr
+                    {
+                        border-top: none;
+                    }
+
+                    & tr a
+                    {
+                        color:#979899
+                    }
+                    & tr a:hover
+                    {
+                        color:#abacad;
+                    }
+
+                    & *
+                    {
+                        border-collapse: collapse;
+                        padding: 1.5rem 1rem;
+                        text-align: center;
+                    }
+                }
+
+                &[data-redeem]
+                {
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    & > div
+                    {
+                        width: 100%;
+                        max-width: 35rem;
+
+                        & > button
+                        {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                & > div[data-container]
                 {
                     display: flex;
                     align-items: center;
@@ -371,7 +446,8 @@
                         width: 100%;
                         font-size: 2rem;
 
-                        & > a
+                        & > a,
+                        & > [data-link]
                         {
                             display: flex;
                             align-items: center;

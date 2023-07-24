@@ -4,7 +4,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
-import {BsCheckCircle, BsDiscord, BsPen} from 'react-icons/bs';
+import {BsCheckCircle, BsCoin, BsDiscord, BsPen} from 'react-icons/bs';
 
 import styles from '@/styles/pages/account.module.scss';
 
@@ -12,6 +12,7 @@ import { useUser } from '@/hooks/use-user';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
+const Input = dynamic(() => import('@/components/input'));
 const Button = dynamic(() => import('@/components/button'));
 
 const Overview = () =>
@@ -32,7 +33,7 @@ const Overview = () =>
                         </Link>
                     </header>
                     <div>
-                        <div>
+                        <div data-container>
                             <span>
                                 <Image
                                     src={ user.avatar ? user.avatar : Profile }
@@ -120,7 +121,7 @@ const Overview = () =>
                         </Link>
                     </header>
                     <div>
-                        <div data-security>
+                        <div data-container data-security>
                             <CircularProgressbarWithChildren value={66}>
                                 <div data-text>
                                     <strong>
@@ -186,6 +187,96 @@ const Overview = () =>
                                 </Link>
                             </li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.accountContentListGrid1}>
+                <div className={styles.accountContentItem}>
+                    <header>
+                        <h3>
+                            BALANCE
+                        </h3>
+                    </header>
+                    <div>
+                        <ul data-security>
+                            <li>
+                                0 <BsCoin />
+
+                                <Link href='/'>
+                                    <p>
+                                        Donate
+                                    </p>
+                                </Link>
+                            </li>
+                            <li>
+                                0 <BsCoin />
+
+                                <Link href='/'>
+                                    <p>
+                                        Visit Shop
+                                    </p>
+                                </Link>
+                            </li>
+                            <li>
+                                0 <BsCoin />
+
+                                <div data-link>
+                                    <p>
+                                        Currency Information
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className={styles.accountContentItem}>
+                    <header>
+                        <h3>
+                            REDEEM A Code
+                        </h3>
+                    </header>
+                    <div data-redeem>
+                        <Input
+                            required
+                            name='code'
+                            label='Your Code'
+                            placeholder='XXXXX-ZZZZZ-YYYYY-AAAAA'
+                        />
+                        <Button>
+                            Redeem Code
+                        </Button>
+                    </div>
+                </div>
+            </div>
+            <div className={styles.accountContentList}>
+                <div className={styles.accountContentItem}>
+                    <header>
+                        <h3>
+                            RECENT CONNECTIONS
+                        </h3>
+                    </header>
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">IP Address</th>
+                                    <th scope="col" className="table-country">Country</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="row">185.206.224.42</td>
+                                    <td className="table-country">DK</td>
+                                    <td>Jul 23, 2023 11:47 AM</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row">193.42.96.36</td>
+                                    <td className="table-country">DE</td>
+                                    <td>Jul 23, 2023 11:47 AM</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
