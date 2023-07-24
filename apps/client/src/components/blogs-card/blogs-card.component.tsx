@@ -43,10 +43,13 @@ const BlogsCard = () =>
                         </p>
                         <ul>
                             <li>
-                                85 views
+                                85 reads
                             </li>
                             <li>
                                 85 likes
+                            </li>
+                            <li>
+                                85 comments
                             </li>
                         </ul>
                     </div>
