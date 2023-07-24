@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 CREATE TABLE IF NOT EXISTS `character_service` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `coins` int unsigned DEFAULT '0',
-  `discription` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `description` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -171,6 +171,17 @@ CREATE TABLE IF NOT EXISTS `coins` (
 
 INSERT INTO `coins` (`id`, `rial`, `count`) VALUES
 	(1, 10000, 1);
+
+CREATE TABLE IF NOT EXISTS `likes` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `account` int unsigned DEFAULT NULL,
+  `blog_id` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_likes_account_information` (`account`) USING BTREE,
+  KEY `fk_likes_blog` (`blog_id`) USING BTREE,
+  CONSTRAINT `FK_LIKES_ACCOUNT_INFORMATION` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
+  CONSTRAINT `FK_LIKES_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `payments` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,

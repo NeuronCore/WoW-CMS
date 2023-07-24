@@ -93,6 +93,14 @@ export class BlogController
         return this.blogService.update(accountID, id, updateBlogDto, thumbnail);
     }
 
+    @Post('/toggle-like/blog-id/:id')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async toggleLike(@AccountDecorator() accountID: number, @Param('id', ParseIntPipe) blogID: number)
+    {
+        return await this.blogService.toggleLike(accountID, blogID);
+    }
+
     @Delete('/delete/:id')
     @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)

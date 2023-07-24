@@ -149,6 +149,24 @@ export class BlogService
         }
     }
 
+    public async toggleLike(accountID: number, blogID: number)
+    {
+        const [blog] = await this.webDatabase.query('SELECT `id` FROM `blog` WHERE `id` = ?', [blogID]);
+        if (!blog[0])
+            return { statusCode: HttpStatus.NOT_FOUND, message: 'Blog not found' };
+
+        const [likes] = await this.webDatabase.query('SELECT * FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blogID]);
+        if (likes[0])
+        {
+            await this.webDatabase.execute('DELETE FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blogID]);
+            return { statusCode: HttpStatus.OK, message: 'Blog unliked' };
+        }
+
+        await this.webDatabase.execute('INSERT INTO `likes` (`account`, `blog_id`) VALUES (?, ?)', [accountID, blogID]);
+
+        return { statusCode: HttpStatus.CREATED, message: 'Blog liked' };
+    }
+
     public async findByID(id: number, locale: Locale)
     {
         if (!Object.values(Locale)?.includes(locale))
