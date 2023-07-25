@@ -6,16 +6,12 @@ import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
 import styles from '@/styles/pages/account.module.scss';
 
-import { useUser } from '@/hooks/use-user';
-
 import Profile from '@/../public/images/heros/profile.jpg';
 
-import { createUniqueKey } from '@/utils/helper.util';
+import { createUniqueKey, getClass, getFaction } from '@/utils/helper.util';
 
 const Characters = () =>
 {
-    const [user] = useUser();
-
     const [realms, setRealms] = useState<[]>([]);
     const [characters, setCharacters] = useState<[]>([]);
     const [realm, setRealm] = useState<string>('');
@@ -41,6 +37,8 @@ const Characters = () =>
                 if (realm)
                 {
                     const response = await axios.get('/characters/realm/' + realm);
+
+                    console.log(response.data.data.characters);
 
                     setCharacters(response.data.data.characters);
                 }
@@ -101,7 +99,7 @@ const Characters = () =>
                                                     Realm
                                                 </p>
                                                 <span>
-                                        MAMAD
+                                                    { realm }
                                                 </span>
                                             </li>
                                             <li>
@@ -109,7 +107,7 @@ const Characters = () =>
                                                     Race
                                                 </p>
                                                 <span>
-                                        MAMAD
+                                                    { character.race }
                                                 </span>
                                             </li>
                                             <li>
@@ -117,7 +115,7 @@ const Characters = () =>
                                                     Faction
                                                 </p>
                                                 <span>
-                                        MAMAD
+                                                    { getFaction(character.race) }
                                                 </span>
                                             </li>
                                             <li>
@@ -125,7 +123,7 @@ const Characters = () =>
                                                     Class
                                                 </p>
                                                 <span>
-                                        MAMAD
+                                                    { getClass(character.class) }
                                                 </span>
                                             </li>
                                         </ul>
@@ -134,6 +132,9 @@ const Characters = () =>
                             </div>
                         ))
                 }
+                <p>
+                    If you don't see your characters, make sure you're logged into the right account. If you just made your character, it may take up to 10 minutes for them to appear.
+                </p>
             </div>
         </div>
     );

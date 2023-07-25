@@ -69,3 +69,56 @@ export const createUniqueKey = (array: unknown[]) =>
 {
     return array.map(item => item?.toString().split(' ').join('_')).join('_');
 };
+
+export const getFaction = (race: number) =>
+{
+    switch (race)
+    {
+        case 2:
+        case 5:
+        case 6:
+        case 8:
+        case 9:
+        case 10:
+            return 'horde';
+        case 1:
+        case 3:
+        case 4:
+        case 7:
+        case 11:
+            return 'alliance';
+    }
+
+    return '';
+};
+
+export const getClass = (race: number) =>
+{
+    switch (race)
+    {
+        case 0:
+            return 'NONE';
+        case 1:
+            return 'WARRIOR';
+        case 2:
+            return 'PALADIN';
+        case 3:
+            return 'HUNTER';
+        case 5:
+            return 'PRIEST';
+        case 6:
+            return 'DEATH KNIGHT';
+        case 7:
+            return 'SHAMAN';
+        case 8:
+            return 'MAGE';
+        case 9:
+            return 'WARLOCK';
+        case 10:
+            return 'UNK';
+        case 11:
+            return 'DRUID';
+    }
+
+    return '';
+};

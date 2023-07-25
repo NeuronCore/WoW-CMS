@@ -269,6 +269,12 @@
 
                     width: 100%;
                     height: fit-content;
+
+                    & > p
+                    {
+                        font-weight: normal;
+                        font-size: 1.5rem;
+                    }
                 }
             }
         }
