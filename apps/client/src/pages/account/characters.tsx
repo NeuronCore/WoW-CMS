@@ -8,7 +8,7 @@ import styles from '@/styles/pages/account.module.scss';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
-import { createUniqueKey, getClass, getFaction } from '@/utils/helper.util';
+import { createUniqueKey, getClass, getFaction, getRaceName } from '@/utils/helper.util';
 
 const Characters = () =>
 {
@@ -107,7 +107,7 @@ const Characters = () =>
                                                     Race
                                                 </p>
                                                 <span>
-                                                    { character.race }
+                                                    { getRaceName(character.race) }
                                                 </span>
                                             </li>
                                             <li>
