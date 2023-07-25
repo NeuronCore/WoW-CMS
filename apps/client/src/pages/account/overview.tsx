@@ -4,7 +4,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
-import {BsCheckCircle, BsCoin, BsDiscord, BsPen} from 'react-icons/bs';
+import { BsCheckCircle, BsCoin, BsDiscord, BsPen } from 'react-icons/bs';
 
 import styles from '@/styles/pages/account.module.scss';
 

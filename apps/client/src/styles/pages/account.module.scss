@@ -73,7 +73,6 @@
             {
                 position: relative;
 
-                padding: 1.25rem 0;
                 font-size: 2rem;
                 height: fit-content;
                 width: 100%;
@@ -82,6 +81,17 @@
                 color: var(--color-base-text-bold);
                 cursor: pointer;
                 transition: all .2s;
+
+                & a
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    padding: 1.25rem 0;
+                    width: 100%;
+                    height: 100%;
+                }
 
                 &Title
                 {
@@ -185,6 +195,50 @@
             display: none;
         }
 
+        &Header
+        {
+            font-size: 3rem;
+        }
+
+        &Realms
+        {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            &Item
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 1rem 2rem;
+                font-weight: 500;
+                font-size: 1.25rem;
+                cursor: pointer;
+                background: var(--base-primary-dark);
+                transition: all .2s;
+
+                &:hover
+                {
+                    background: var(--base-primary-darker);
+                }
+
+                &Active
+                {
+                    color: var(--base-primary-dark);
+                    background: var(--color-primary-dark);
+
+                    &:hover
+                    {
+                        background: var(--color-primary);
+                    }
+                }
+            }
+        }
+
         &List
         {
             display: flex;
@@ -205,6 +259,17 @@
                     width: 100%;
                     height: fit-content;
                 }
+
+                &2
+                {
+                    display: grid;
+                    grid-template-rows: repeat(auto-fit, auto);
+                    grid-template-columns: repeat(2, 1fr);
+                    grid-gap: 2rem;
+
+                    width: 100%;
+                    height: fit-content;
+                }
             }
         }
 
@@ -218,6 +283,138 @@
             width: 100%;
             height: 100%;
             background: var(--base-primary-light);
+
+            &Character
+            {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 5rem;
+
+                width: 100%;
+                height: 15rem;
+
+                & > ul
+                {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    flex-direction: column;
+
+                    width: 100%;
+                    height: 100%;
+
+                    & > li
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        width: 100%;
+                        height: 100%;
+
+                        & > p
+                        {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+
+                            font-size: 2rem;
+                            color: var(--color-primary);
+                            font-weight: bold;
+                            padding: 1rem 1.5rem;
+                            flex: 0 0 40%;
+                            max-width: 40%;
+                        }
+
+                        & > span
+                        {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+
+                            font-size: 2rem;
+                            font-weight: lighter;
+                            padding: 1rem 1.5rem;
+                            flex: 0 0 60%;
+                            max-width: 60%;
+                        }
+                    }
+                }
+
+                & [data-text]
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    gap: .5rem;
+
+                    position: relative;
+
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 15rem;
+                    overflow: hidden;
+
+                    & > span
+                    {
+                        position: absolute;
+
+                        width: 100%;
+                        height: 100%;
+
+                        &::after
+                        {
+                            content: "";
+
+                            opacity: .6;
+
+                            position: absolute;
+
+                            background: black;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+
+                    & > strong,
+                    & > p
+                    {
+                        position: relative;
+                        z-index: 1;
+                        font-size: 1.25rem;
+                        font-weight: lighter;
+                    }
+
+                    & > strong
+                    {
+                        font-size: 2.5rem;
+                        font-weight: bold;
+                    }
+                }
+
+                & svg
+                {
+                    position: relative;
+                    z-index: 1;
+
+                    height: 12rem;
+                    width: 12rem;
+                    min-height: 12rem;
+                    min-width: 12rem;
+
+                    & > path
+                    {
+                        stroke: var(--color-primary);
+
+                        &:first-child
+                        {
+                            stroke: var(--color-base-text);
+                        }
+                    }
+                }
+            }
 
             & > div
             {
@@ -499,6 +696,11 @@
                 font-size: 2rem;
                 background: var(--base-primary-lighter);
                 color: var(--color-base-text-bold);
+
+                & > h3
+                {
+                    text-transform: uppercase;
+                }
 
                 & > a
                 {
