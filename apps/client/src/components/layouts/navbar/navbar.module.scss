@@ -82,6 +82,104 @@
             }
         }
 
+        & > div
+        {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 1rem;
+
+            & > div
+            {
+                position: relative;
+
+                & > p
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    position: relative;
+                    height: fit-content;
+                    width: fit-content;
+                    border: 0.0625rem solid var(--color-primary);
+                    background: var(--color-primary);
+                    color: var(--base-primary-dark);
+                    transition: all 0.2s;
+                    outline: none;
+                    padding: 1rem 1.5rem;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                    cursor: pointer;
+
+                    &:hover
+                    {
+                        background: var(--color-primary-light);
+                    }
+                }
+
+                & > div
+                {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: center;
+                    flex-direction: column;
+
+                    background: var(--base-primary-darker);
+                    height: fit-content;
+                    width: 100%;
+
+                    position: absolute;
+                    z-index: 90;
+                    top: calc(100% + 1rem);
+                    font-size: 1.25rem;
+
+                    & > a
+                    {
+                        font-size: 1.25rem;
+                        text-align: center;
+                        padding: 1rem 0;
+                        width: 100%;
+                        cursor: pointer;
+                        transition: all .2s;
+                        font-weight: lighter;
+
+                        &:hover
+                        {
+                            background: var(--base-primary);
+                        }
+
+                        &[data-active='true']
+                        {
+                            background: var(--color-primary-darker);
+                        }
+                    }
+                }
+            }
+
+            & > span
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 1rem;
+
+                position: relative;
+                height: fit-content;
+                width: fit-content;
+                border: 0.0625rem solid var(--color-primary);
+                background: var(--color-primary);
+                color: var(--base-primary-dark);
+                transition: all 0.2s;
+                outline: none;
+                padding: 1rem 1.5rem;
+                font-size: 1.5rem;
+                font-weight: 500;
+                cursor: pointer;
+            }
+        }
+
         & > a[data-logo]
         {
             display: flex;
