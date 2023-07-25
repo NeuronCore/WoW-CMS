@@ -233,6 +233,16 @@ CREATE TABLE IF NOT EXISTS `tag` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE IF NOT EXISTS `votes` (
+  `account` int unsigned NOT NULL,
+  `comment_id` int unsigned NOT NULL,
+  `vote` tinyint(1) NOT NULL DEFAULT '0',
+  UNIQUE KEY `account` (`account`),
+  KEY `idx_votes_account_information` (`account`) USING BTREE,
+  KEY `idx_votes_comments` (`comment_id`) USING BTREE,
+  CONSTRAINT `FK_VOTES_ACCOUNT_INFORMATION` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
+  CONSTRAINT `FK_VOTES_COMMENTS` FOREIGN KEY (`comment_id`) REFERENCES `comments` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

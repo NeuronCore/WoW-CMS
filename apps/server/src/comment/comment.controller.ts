@@ -5,6 +5,7 @@ import { CommentService } from './comment.service';
 
 import { AuthGuard } from '@/auth/auth.guard';
 import { AccountDecorator } from '@/account/account.decorator';
+import { VoteType } from '@/shared/enums';
 
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -46,6 +47,14 @@ export class CommentController
     public async remove(@AccountDecorator() accountID: number, @Param('commentID', ParseIntPipe) commentID: number)
     {
         return this.commentService.remove(accountID, commentID);
+    }
+
+    @Post('vote/comment-id/:commentID')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    public async vote(@AccountDecorator() accountID: number, @Param('commentID', ParseIntPipe) commentID: number, @Query('voteType') voteType: VoteType)
+    {
+        return this.commentService.vote(accountID, commentID, voteType);
     }
 
     @Get('find-all/blog-id/:blogID')

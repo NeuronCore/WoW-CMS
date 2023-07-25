@@ -1,5 +1,7 @@
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { Pool } from 'mysql2/promise';
+
+import { VoteType } from '@/shared/enums';
 
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
@@ -84,7 +86,7 @@ export class CommentService
      */
     public async remove(accountID: number, commentID: number)
     {
-        const [comment] = await this.webDatabase.query('SELECT `content` FROM `comments` WHERE `id` = ? AND `account` = ?', [commentID, accountID]);
+        const [comment] = await this.webDatabase.query('SELECT null FROM `comments` WHERE `id` = ? AND `account` = ?', [commentID, accountID]);
         if (!comment[0])
             return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2010' }] };
 
@@ -93,12 +95,44 @@ export class CommentService
         return { statusCode: HttpStatus.OK, message: 'Deleted' };
     }
 
+    /**
+     *
+     * @param accountID
+     * @param commentID
+     * @param voteType
+     *
+     * @description
+     *      code:
+     *          2010 - Comment with this id not found
+     */
+    public async vote(accountID: number, commentID: number, voteType: VoteType)
+    {
+        const [comment] = await this.webDatabase.query('SELECT null FROM `comments` WHERE `id` = ?', [commentID]);
+        if (!comment[0])
+            return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2010' }] };
+
+        if (!Object.values(VoteType)?.includes(voteType))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Vote Type' });
+
+        if (voteType === VoteType.UP)
+        {
+            await this.webDatabase.execute('REPLACE INTO `votes` (`account`, `comment_id`, `vote`) VALUES (?, ?, ?)', [accountID, commentID, 1]);
+            return { statusCode: HttpStatus.OK, message: 'Increased' };
+        }
+        else if (voteType === VoteType.DOWN)
+        {
+            await this.webDatabase.execute('REPLACE INTO `votes` (`account`, `comment_id`, `vote`) VALUES (?, ?, ?)', [accountID, commentID, -1]);
+            return { statusCode: HttpStatus.OK, message: 'Decreased' };
+        }
+    }
+
     public async findAll(blogID: number, page = 1, limit = 10)
     {
         const sql =
         `
             SELECT
-                *
+                *,
+                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes
             FROM
                 comments
             WHERE
@@ -117,7 +151,8 @@ export class CommentService
         const sql =
         `
             SELECT
-                *
+                *,
+                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes
             FROM
                 comments
             WHERE

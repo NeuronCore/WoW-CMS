@@ -11,3 +11,9 @@ export enum BlogFindAll
     LIKES = 'likes',
     CREATED_AT = 'created_at'
 }
+
+export enum VoteType
+{
+    UP = 'up',
+    DOWN = 'down'
+}
