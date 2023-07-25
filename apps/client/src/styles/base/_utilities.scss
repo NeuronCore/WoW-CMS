@@ -42,3 +42,38 @@
 {
     overflow-y: hidden !important;;
 }
+
+.slide-enter,
+.slide-exit
+{
+    transition: all 1s ease-out;
+}
+
+.slide-enter
+{
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+.slide-enter.slide-enter-active
+{
+    opacity: 1;
+    transform: translateY(0%);
+}
+
+.slide-exit
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+.slide-exit-active
+{
+    opacity: 0;
+    transform: translateY(-100%);
+}

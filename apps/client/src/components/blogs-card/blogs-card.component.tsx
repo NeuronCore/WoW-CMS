@@ -59,7 +59,7 @@ const BlogsCard = () =>
                     </p>
 
                     <span>
-                                            Published on August 4, 2022
+                        Published on August 4, 2022
                     </span>
                 </div>
             </Link>
