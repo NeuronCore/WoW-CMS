@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { v4 as uuidV4 } from 'uuid';
-import React, { useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useRouter } from 'next/router';
 import { animated, useSpring } from 'react-spring';
 import { BsPerson, BsList, BsCoin } from 'react-icons/bs';
@@ -17,14 +17,22 @@ import navbarItems from '@/data/navbar.data.json';
 
 import { useUser } from '@/hooks/use-user';
 
+import useOutside from '@/hooks/use-outside';
+
 const Navbar = () =>
 {
     const [user] = useUser();
+    const localeRef = useRef(null);
     const { pathname, asPath, locale, locales } = useRouter();
 
     const [localePopup, setLocalePopup] = useState(false);
 
     const springStyles = useSpring({ opacity: localePopup ? 1 : 0 });
+
+    useOutside(localeRef, (() =>
+    {
+        setLocalePopup(false);
+    }));
 
     return (
         <nav className={styles.navbar} data-secondery={ pathname.includes('blogs/') }>
@@ -61,7 +69,7 @@ const Navbar = () =>
                                 {
                                     localePopup
                                         ?
-                                        <animated.div style={ springStyles }>
+                                        <animated.div style={ springStyles } ref={localeRef}>
                                             {
                                                 locales.map((localeData) =>
                                                     (
