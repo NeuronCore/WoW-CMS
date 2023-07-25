@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { DatabaseService } from './database.service';
@@ -16,5 +16,11 @@ export class DatabaseController
     public async getRealms()
     {
         return this.databaseService.getRealms();
+    }
+
+    @Get('realm-level/realm/:realm')
+    public async getRealmLevel(@Param('realm') realm: string)
+    {
+        return this.databaseService.getRealmLevel(realm);
     }
 }

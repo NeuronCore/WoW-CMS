@@ -1,4 +1,4 @@
-import { HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 
 import { Pool } from 'mysql2/promise';
 
@@ -15,5 +15,16 @@ export class DatabaseService
         const realms = Object.keys(this.charactersDatabase);
 
         return { statusCode: HttpStatus.OK, data: { realms } };
+    }
+
+    public async getRealmLevel(realm: string)
+    {
+        const charactersDatabase = this.charactersDatabase[realm];
+        if (!charactersDatabase)
+            throw new BadRequestException('A realm with this name doesn\'t exist');
+
+        const level = this.charactersDatabase[realm].realmLevel;
+
+        return { statusCode: HttpStatus.OK, data: { level } };
     }
 }

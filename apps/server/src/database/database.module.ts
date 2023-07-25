@@ -27,7 +27,7 @@ import { DatabaseService } from '@/database/database.service';
             provide: 'CHARACTERS_DATABASE',
             useFactory: async(): Promise<{ [p: string]: Pool }> =>
             {
-                const charactersDatabases: { [key: string]: Pool } = { };
+                const charactersDatabases = { };
 
                 for (let i = 0; i < +process.env.CHARACTER_DATABASE_LENGTH + 1; i++)
                 {
@@ -39,6 +39,8 @@ import { DatabaseService } from '@/database/database.service';
                         user: process.env[`CHARACTERS_${ i }_DATABASE_USERNAME`],
                         password: process.env[`CHARACTERS_${ i }_DATABASE_PASSWORD`]
                     });
+
+                    charactersDatabases[process.env[`CHARACTERS_${ i }_DATABASE_REALM_NAME`]].realmLevel = +process.env[`CHARACTERS_${ i }_MAXIMUM_LEVEL`];
                 }
 
                 return charactersDatabases;
