@@ -15,5 +15,13 @@
     "2007": "Blog with this id not found",
     "2008": "Blog unliked",
     "2009": "Blog liked",
-    "2010": "Comment with this id not found"
+    "2010": "Comment with this id not found",
+    "2011": "Account does not exist",
+    "2012": "Current password is incorrect",
+    "2013": "New password does not match",
+    "2014": "Your Password updated successfully",
+    "2015": "Avatar updated successfully",
+    "2016": "You are only allowed to upload images",
+    "2017": "Information updated successfully",
+    "2018": "The Email updated successfully"
 }

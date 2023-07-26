@@ -1,26 +1,22 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty, Length } from 'class-validator';
 
 @InputType()
 export class UpdatePasswordDto
 {
     @ApiProperty()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     @Field()
     public readonly currentPassword: string;
 
     @ApiProperty()
-    @IsNotEmpty()
-    @MinLength(5)
-    @MaxLength(32)
+    @Length(8, 30, { message: '1002' })
     @Field()
     public readonly newPassword: string;
 
     @ApiProperty()
-    @IsNotEmpty()
-    @MinLength(5)
-    @MaxLength(32)
+    @Length(8, 30, { message: '1002' })
     @Field()
     public readonly newPasswordConfirm: string;
 }

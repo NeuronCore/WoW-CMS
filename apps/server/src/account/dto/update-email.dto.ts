@@ -6,12 +6,12 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
 export class UpdateEmailDto
 {
     @ApiProperty()
-    @IsEmail()
+    @IsEmail({}, { message: '1001' })
     @Field()
     public readonly email: string;
 
     @ApiProperty()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     @Field()
     public readonly currentPassword: string;
 }
