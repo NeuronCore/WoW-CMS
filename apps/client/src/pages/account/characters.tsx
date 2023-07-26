@@ -20,6 +20,7 @@ const Characters = () =>
     const [realms, setRealms] = useState<[]>([]);
     const [characters, setCharacters] = useState<[]>([]);
     const [realm, setRealm] = useState<string>('');
+    const [MaxLv, setMaxLv] = useState<number>(80);
 
     useEffect(() =>
     {
@@ -27,7 +28,9 @@ const Characters = () =>
             async() =>
             {
                 const response = await axios.get('/database/realms');
+                const responseLevel = await axios.get('/database/realm-level/realm/' + response.data.data.realms[0]);
 
+                setMaxLv(responseLevel.data.data.level);
                 setRealm(response.data.data.realms[0]);
                 setRealms(response.data.data.realms);
             }
@@ -42,7 +45,9 @@ const Characters = () =>
                 if (realm)
                 {
                     const response = await axios.get('/characters/realm/' + realm);
+                    const responseLevel = await axios.get('/database/realm-level/realm/' + realm);
 
+                    setMaxLv(responseLevel.data.data.level);
                     setCharacters(response.data.data.characters);
                 }
             }
@@ -90,7 +95,7 @@ const Characters = () =>
                                     </header>
                                     <div>
                                         <div className={styles.accountContentItemCharacter} data-faction={getFaction(character.race)}>
-                                            <CircularProgressbarWithChildren value={(character.level/Number(process.env.NEXT_PUBLIC_CHARACTER_MAXIMUM_LEVEL))*100}>
+                                            <CircularProgressbarWithChildren value={(character.level/Number(MaxLv))*100}>
                                                 <div data-text>
                                                     <span>
                                                         <Image
