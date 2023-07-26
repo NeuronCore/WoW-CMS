@@ -1,19 +1,17 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { Length } from 'class-validator';
 
 @InputType()
 export class UpdateResetPasswordDto
 {
     @ApiProperty()
-    @IsNotEmpty()
-    @MinLength(5)
-    @MaxLength(32)
+    @Length(8, 30, { message: '1002' })
     @Field()
     public readonly password: string;
 
     @ApiProperty()
-    @IsString()
+    @Length(8, 30, { message: '1002' })
     @Field()
     public readonly passwordConfirm: string;
 }

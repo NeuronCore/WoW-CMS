@@ -22,11 +22,11 @@ export class AccountPasswordService
     public async forgotPassword(email: string)
     {
         if (!email)
-            throw new BadRequestException('Email is required');
+            throw new BadRequestException([{ field: 'email', code: '1005' }]);
 
         const [account] = await this.authDatabase.query('SELECT `id`, `email` FROM `account` WHERE `email` = ?', [email]);
         if (!account[0])
-            throw new NotFoundException('There is no account with this email address');
+            throw new NotFoundException([{ field: 'email', code: '2019' }]);
 
         const resetToken: string = randomBytes(32).toString('hex');
         const passwordResetExpires: Date = new Date(Date.now() + 10 * 60 * 1000);
@@ -38,7 +38,7 @@ export class AccountPasswordService
         {
             const resetURL = `${ process.env.CLIENT_IP_OR_URL }/${ process.env.RESET_PASSWORD_URL }/${ resetToken }`;
             await new Email(account, resetURL).sendPasswordReset();
-            return { statusCode: HttpStatus.OK, message: 'Token sent to email' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2020' }] };
         }
         catch (exception)
         {
@@ -59,10 +59,10 @@ export class AccountPasswordService
 
         const [accountPassword] = await this.webDatabase.query('SELECT `id`, `password_changed_at`, `password_reset_expires`, `password_reset_token` FROM `account_password` WHERE `password_reset_token` = ? AND `password_reset_expires` > ?', [hashedToken, new Date()]);
         if (!accountPassword[0])
-            throw new BadRequestException('Token is invalid or has expired');
+            throw new BadRequestException([{ field: 'all', code: '2021' }]);
 
         if (passwordConfirm !== password)
-            throw new BadRequestException('Password does not match');
+            throw new BadRequestException([{ field: 'all', code: '2002' }]);
 
         const [account] = await this.authDatabase.query('SELECT `id`, `username`, `salt` FROM `account` WHERE `id` = ?', [accountPassword[0].id]);
 
@@ -71,6 +71,6 @@ export class AccountPasswordService
 
         await this.webDatabase.execute('UPDATE `account_password` SET `password_changed_at` = ?, `password_reset_expires` = NULL, `password_reset_token` = NULL WHERE `id` = ?', [new Date(Date.now() - 1000), account[0].id]);
 
-        return { statusCode: HttpStatus.OK, message: 'Your password has been reset successfully!' };
+        return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2022' }] };
     }
 }

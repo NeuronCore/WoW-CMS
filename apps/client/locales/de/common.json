@@ -23,5 +23,9 @@
     "2015": "Avatar updated successfully",
     "2016": "You are only allowed to upload images",
     "2017": "Information updated successfully",
-    "2018": "The Email updated successfully"
+    "2018": "The Email updated successfully",
+    "2019": "There is no account with this email address",
+    "2020": "Token sent to email",
+    "2021": "Token is invalid or has expired",
+    "2022": "Your password has been reset successfully!"
 }
