@@ -354,6 +354,31 @@
                 margin-top: 2rem;
             }
 
+            & > span
+            {
+                font-weight: 400;
+                font-size: 1.75rem;
+                word-wrap: break-word;
+
+                & > button
+                {
+                    cursor: pointer;
+                    transition: all .2s;
+                    color: var(--color-primary);
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    font-size: 1.75rem;
+                    font-weight: 500;
+                    margin-left: 1rem;
+
+                    &:hover
+                    {
+                        color: var(--color-primary-lighter);
+                    }
+                }
+            }
+
             & > a
             {
                 text-align: center;

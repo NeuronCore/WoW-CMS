@@ -101,6 +101,10 @@ const Details = () =>
                                         error={errors.filter((error: any) => error.field === 'phone')}
                                     />
 
+                                    <Button href='/verify-email'>
+                                        Verify Email
+                                    </Button>
+
                                     <div>
                                         <Button onClick={ updateInfo }>
                                             Save
