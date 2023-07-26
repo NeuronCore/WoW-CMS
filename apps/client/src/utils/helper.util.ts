@@ -145,3 +145,18 @@ export const getRaceName = (raceID: number) =>
 
     return '';
 };
+
+export const getGender = (genderID: number) =>
+{
+    switch (genderID)
+    {
+        case 0:
+            return 'Male';
+        case 1:
+            return 'Female';
+        case 2:
+            return 'None';
+    }
+
+    return '';
+};

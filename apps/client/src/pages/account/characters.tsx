@@ -10,7 +10,7 @@ import styles from '@/styles/pages/account.module.scss';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
-import { createUniqueKey, getClass, getFaction } from '@/utils/helper.util';
+import { createUniqueKey, getClass, getFaction, getRaceName, getGender } from '@/utils/helper.util';
 
 const Button = dynamic(() => import('@/components/button'));
 const Tooltip = dynamic(() => import('@/components/tooltips'));
@@ -79,7 +79,7 @@ const Characters = () =>
 
                 <div className={styles.accountContentListGrid2}>
                     {
-                        characters.map((character: any, index) =>
+                        characters?.map((character: any, index) =>
                             (
                                 <div key={createUniqueKey([character.name, character.totaltime, index])} className={styles.accountContentItem}>
                                     <header>
@@ -107,7 +107,7 @@ const Characters = () =>
                                                         LV. { character.level }
                                                     </strong>
                                                     <p>
-                                                        HUMAN
+                                                        { getFaction(character.race) }
                                                     </p>
                                                 </div>
                                             </CircularProgressbarWithChildren>
@@ -117,15 +117,15 @@ const Characters = () =>
                                                         Race
                                                     </p>
                                                     <span>
-                                                        { character.race }
+                                                        { getRaceName(character.race) }
                                                     </span>
                                                 </li>
                                                 <li>
                                                     <p>
-                                                        Faction
+                                                        Gender
                                                     </p>
                                                     <span>
-                                                        { getFaction(character.race) }
+                                                        { getGender(character.gender) }
                                                     </span>
                                                 </li>
                                                 <li>
