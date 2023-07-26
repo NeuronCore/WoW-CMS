@@ -28,5 +28,9 @@
     "2019": "There is no account with this email address",
     "2020": "Token sent to email",
     "2021": "Token is invalid or has expired",
-    "2022": "Your password has been reset successfully!"
+    "2022": "Your password has been reset successfully!",
+    "2023": "Account created successfully",
+    "2024": "You are logged in successfully",
+    "2025": "You are already logged out",
+    "2026": "Invalid Token. Please log in again!"
 }

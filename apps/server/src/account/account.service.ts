@@ -111,6 +111,6 @@ export class AccountService
 
         await this.webDatabase.execute('UPDATE `account` SET `email` = ?, `reg_mail` = ? WHERE `id` = ?', [email, email, accountID]);
 
-        return { statusCode: HttpStatus.OK, message: [{ field: 'currentPassword', code: '2018' }] };
+        return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2018' }] };
     }
 }
