@@ -1,11 +1,10 @@
+import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { BsPen } from 'react-icons/bs';
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 
 import styles from '@/styles/pages/account.module.scss';
-
-import { useUser } from '@/hooks/use-user';
 
 import account from '@/data/account.data.json';
 
@@ -15,8 +14,6 @@ const Select = dynamic(() => import('@/components/select'));
 
 const Security = () =>
 {
-    const [user] = useUser();
-
     const [errors, setErrors] = useState<any[]>([]);
     const [editMode, setEditMode] = useState<any>({ question: false, email: false });
     const [formValues, setFormValues] = useState({
@@ -228,6 +225,32 @@ const Security = () =>
                                     </ul>
                                 </div>
                         }
+                    </div>
+                </div>
+                <div className={styles.accountContentList}>
+                    <div className={styles.accountContentItem}>
+                        <header>
+                            <h3>
+                                Two-Factor Authentication
+                            </h3>
+
+                            <Link href='/account/two-factor'>
+                                <BsPen />
+                                Update
+                            </Link>
+                        </header>
+                        <div>
+                            <ul data-security>
+                                <li>
+                                    <p>
+                                        Status
+                                    </p>
+                                    <span>
+                                        Inactive
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div className={styles.accountContentList}>
