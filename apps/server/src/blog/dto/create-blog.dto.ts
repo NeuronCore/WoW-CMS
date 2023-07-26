@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEnum, IsNotEmpty, Length } from 'class-validator';
 
 export enum PublishedStatus
 {
@@ -9,85 +9,49 @@ export enum PublishedStatus
 
 export class CreateBlogDto
 {
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(75)
+    @Length(1, 75, { message: '1006' })
     public readonly titleEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(75)
+    @Length(1, 75, { message: '1006' })
     public readonly titleDE: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(75)
+    @Length(1, 75, { message: '1006' })
     public readonly titleFA: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     public readonly metaTitleEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     public readonly metaTitleDE: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     public readonly metaTitleFA: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     public readonly slugEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     public readonly slugDE: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     public readonly slugFA: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(255)
+    @Length(1, 75, { message: '1004' })
     public readonly summaryEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(255)
+    @Length(1, 75, { message: '1004' })
     public readonly summaryDE: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(255)
+    @Length(1, 75, { message: '1004' })
     public readonly summaryFA: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     public readonly contentEN: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     public readonly contentDE: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     public readonly contentFA: string;
 
     @IsEnum(PublishedStatus)

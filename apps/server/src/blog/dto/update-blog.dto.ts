@@ -1,91 +1,68 @@
-import { IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, Length } from 'class-validator';
 import { PublishedStatus } from '@/blog/dto/create-blog.dto';
 
 export class UpdateBlogDto
 {
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(75)
+    @Length(1, 75, { message: '1006' })
     @IsOptional()
     public readonly titleEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(75)
+    @Length(1, 75, { message: '1006' })
     @IsOptional()
     public readonly titleDE: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(75)
+    @Length(1, 75, { message: '1006' })
     @IsOptional()
     public readonly titleFA: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     @IsOptional()
     public readonly metaTitleEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     @IsOptional()
     public readonly metaTitleDE: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     @IsOptional()
     public readonly metaTitleFA: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(100)
+    @Length(1, 75, { message: '1007' })
     @IsOptional()
-    public readonly slug: string;
+    public readonly slugEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(255)
+    @Length(1, 75, { message: '1007' })
+    @IsOptional()
+    public readonly slugDE: string;
+
+    @Length(1, 75, { message: '1007' })
+    @IsOptional()
+    public readonly slugFA: string;
+
+    @Length(1, 75, { message: '1004' })
     @IsOptional()
     public readonly summaryEN: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(255)
+    @Length(1, 75, { message: '1004' })
     @IsOptional()
     public readonly summaryDE: string;
 
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(2)
-    @MaxLength(255)
+    @Length(1, 75, { message: '1004' })
     @IsOptional()
     public readonly summaryFA: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     @IsOptional()
     public readonly contentEN: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     @IsOptional()
     public readonly contentDE: string;
 
-    @IsNotEmpty()
+    @IsNotEmpty({ message: '1005' })
     @IsOptional()
     public readonly contentFA: string;
 
     @IsEnum(PublishedStatus)
-    @IsOptional()
     public readonly published: PublishedStatus;
 }

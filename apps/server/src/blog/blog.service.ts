@@ -28,21 +28,34 @@ export class BlogService
      *
      * @description
      *      code:
+     *          1004 - Must be longer than or equal to 1 and shorter than or equal to 255 characters
+     *          1005 - Should not be empty
+     *          1006 - Must be longer than or equal to 1 and shorter than or equal to 75 characters
+     *          1007 - Must be longer than or equal to 1 and shorter than or equal to 100 characters
      *          2006 - Slug already exists
+     *          2027 - The blog was created successfully
      */
     public async create(accountID: number, createBlogDto: CreateBlogDto, thumbnail: Express.Multer.File)
     {
         try
         {
-            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = createBlogDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = createBlogDto;
 
             const originalName = path.parse(thumbnail.originalname).name;
             const filename = accountID + '-' + 'thumbnail' + '-' + Date.now() + '-' + originalName + '.jpg';
 
             await sharp(thumbnail.buffer).toFile(path.join('uploads/thumbnail', filename));
 
-            const [blog] = await this.webDatabase.query('SELECT `slug` FROM `blog` WHERE `slug` = ?', [Helper.stringToSlug(slug)]);
-            if (blog[0]?.slug)
+            const [blogEN] = await this.webDatabase.query('SELECT `slug_en` FROM `blog` WHERE `slug_en` = ?', [Helper.stringToSlug(slugEN)]);
+            if (blogEN[0]?.slug.slug_en)
+                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
+
+            const [blogDE] = await this.webDatabase.query('SELECT `slug_de` FROM `blog` WHERE `slug_de` = ?', [Helper.stringToSlug(slugDE)]);
+            if (blogDE[0]?.slug.slug_de)
+                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
+
+            const [blogFA] = await this.webDatabase.query('SELECT `slug_fa` FROM `blog` WHERE `slug_fa` = ?', [Helper.stringToSlug(slugFA)]);
+            if (blogFA[0]?.slug.slug_fa)
                 return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             const sql =
@@ -51,12 +64,13 @@ export class BlogService
                     blog (account,
                           title_en, title_de, title_fa,
                           meta_title_en, meta_title_de, meta_title_fa,
-                          slug, thumbnail,
+                          slug_en, slug_de, slug_fa,
+                          thumbnail,
                           summary_en, summary_de, summary_fa,
                           content_en, content_de, content_fa,
                           published, published_at)
                VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)
             `;
 
             await this.webDatabase.execute
@@ -66,21 +80,22 @@ export class BlogService
                     accountID,
                     titleEN, titleDE, titleFA,
                     metaTitleEN, metaTitleDE, metaTitleFA,
-                    Helper.stringToSlug(slug), filename,
+                    Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA),
+                    filename,
                     summaryEN, summaryDE, summaryFA,
                     contentEN, contentDE, contentFA,
                     published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : null
                 ]
             );
 
-            return { statusCode: HttpStatus.OK, message: 'The blog was created successfully' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2027' }] };
         }
         catch (exception)
         {
             this.logger.error(exception);
 
             if (exception)
-                throw new BadRequestException('You are only allowed to upload images.');
+                throw new BadRequestException([{ field: 'all', code: '2016' }]);
         }
     }
 
@@ -93,20 +108,31 @@ export class BlogService
      *
      * @description
      *      code:
+     *          1004 - Must be longer than or equal to 1 and shorter than or equal to 255 characters
+     *          1005 - Should not be empty
+     *          1006 - Must be longer than or equal to 1 and shorter than or equal to 75 characters
+     *          1007 - Must be longer than or equal to 1 and shorter than or equal to 100 characters
      *          2006 - Slug already exists
      *          2007 - Blog with this id not found
+     *          2028 - Blog with this id not found
      */
     public async update(accountID: number, id: number, updateBlogDto: UpdateBlogDto, thumbnail: Express.Multer.File)
     {
         try
         {
-            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = updateBlogDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = updateBlogDto;
 
             const [blog] = await this.webDatabase.query('SELECT * FROM `blog` WHERE `id` = ?', [id]);
             if (!blog[0])
                 return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
-            if (blog[0].slug === Helper.stringToSlug(slug))
+            if (blog[0].slug_en === Helper.stringToSlug(slugEN))
+                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
+
+            if (blog[0].slug_de === Helper.stringToSlug(slugDE))
+                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
+
+            if (blog[0].slug_fa === Helper.stringToSlug(slugFA))
                 return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             let filename = null;
@@ -139,14 +165,15 @@ export class BlogService
                 [
                     titleEN || blog[0].title_en, titleDE || blog[0].title_de, titleFA || blog[0].title_fa,
                     metaTitleEN || blog[0].meta_title_en, metaTitleDE || blog[0].meta_title_de, metaTitleFA || blog[0].meta_title_fa,
-                    Helper.stringToSlug(slug) || blog[0].slug, filename || blog[0].thumbnail,
+                    Helper.stringToSlug(slugEN) || blog[0].slug_en, Helper.stringToSlug(slugDE) || blog[0].slug_de, Helper.stringToSlug(slugFA) || blog[0].slug_fa,
+                    filename || blog[0].thumbnail,
                     summaryEN || blog[0].summary_en, summaryDE || blog[0].summary_de, summaryFA || blog[0].summary_fa,
                     contentEN || blog[0].content_en, contentDE || blog[0].content_de, contentFA || blog[0].content_fa,
                     published || blog[0].published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : blog[0].published_at, id
                 ]
             );
 
-            return { statusCode: HttpStatus.OK, message: 'Blog updated successfully' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2028' }] };
         }
         catch (exception)
         {
@@ -161,6 +188,7 @@ export class BlogService
      * @description
      *      code:
      *          2007 - Blog with this id not found
+     *          2029 - The blog has been successfully deleted
      */
     public async remove(id: number)
     {
@@ -172,7 +200,7 @@ export class BlogService
 
             await this.webDatabase.execute('DELETE FROM `blog` WHERE `id` = ?', [id]);
 
-            return { statusCode: HttpStatus.OK, message: 'The blog has been successfully deleted' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2029' }] };
         }
         catch (exception)
         {
@@ -222,7 +250,8 @@ export class BlogService
                 (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
                 id, account, parent_id,
                 title_${ locale }, meta_title_${ locale },
-                slug, thumbnail,
+                slug_${ locale },
+                thumbnail,
                 summary_${ locale }, content_${ locale },
                 published, published_at, created_at, updated_at
             FROM
@@ -260,7 +289,8 @@ export class BlogService
                 (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
                 id,
                 title_${ locale }, meta_title_${ locale },
-                slug, thumbnail,
+                slug_${ locale },
+                thumbnail,
                 summary_${ locale },
                 published, published_at
             FROM

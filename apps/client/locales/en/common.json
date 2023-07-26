@@ -5,6 +5,8 @@
     "1003": "Must be longer than or equal to 1 and shorter than or equal to 50 characters",
     "1004": "Must be longer than or equal to 1 and shorter than or equal to 255 characters",
     "1005": "Should not be empty",
+    "1006": "Must be longer than or equal to 1 and shorter than or equal to 75 characters",
+    "1007": "Must be longer than or equal to 1 and shorter than or equal to 100 characters",
 
     "2000": "Email address already exists",
     "2001": "This Username already exists",
@@ -32,5 +34,8 @@
     "2023": "Account created successfully",
     "2024": "You are logged in successfully",
     "2025": "You are already logged out",
-    "2026": "Invalid Token. Please log in again!"
+    "2026": "Invalid Token. Please log in again!",
+    "2027": "The blog was created successfully",
+    "2028": "Blog updated successfully",
+    "2029": "The blog has been successfully deleted"
 }
