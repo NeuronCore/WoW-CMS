@@ -64,11 +64,11 @@ export class BlogService
                 sql,
                 [
                     accountID,
-                    titleEN, titleDE || null, titleFA || null,
-                    metaTitleEN, metaTitleDE || null, metaTitleFA || null,
+                    titleEN, titleDE, titleFA,
+                    metaTitleEN, metaTitleDE, metaTitleFA,
                     Helper.stringToSlug(slug), filename,
-                    summaryEN, summaryDE || null, summaryFA || null,
-                    contentEN, contentDE || null, contentFA || null,
+                    summaryEN, summaryDE, summaryFA,
+                    contentEN, contentDE, contentFA,
                     published, published === PublishedStatus.CONFIRMED ? new Date(Date.now()) : null
                 ]
             );

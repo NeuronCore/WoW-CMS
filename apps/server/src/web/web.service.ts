@@ -37,7 +37,7 @@ export class WebService
         const { titleEN, titleDE, titleFA, descriptionEN, descriptionDE, descriptionFA } = createFaqDto;
 
         await this.webDatabase.execute('INSERT INTO `faq` (`title_en`, `title_de`, `title_fa`, `description_en`, `description_de`, `description_fa`) VALUES (?, ?, ?, ?, ?, ?)',
-            [titleEN, titleDE || null, titleFA || null, descriptionEN, descriptionDE || null, descriptionFA || null]);
+            [titleEN, titleDE, titleFA, descriptionEN, descriptionDE, descriptionFA]);
 
         return { statusCode: HttpStatus.OK, message: 'The FAQ was created successfully' };
     }
@@ -143,7 +143,7 @@ export class WebService
         await sharp(image.buffer).toFile(path.join('uploads/feature', filename));
 
         await this.webDatabase.execute('INSERT INTO `feature` (`title_en`, `title_de`, `title_fa`, `image`, `description_en`, `description_de`, `description_fa`) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            [titleEN, titleDE || null, titleFA || null, filename, descriptionEN, descriptionDE || null, descriptionFA || null]);
+            [titleEN, titleDE, titleFA, filename, descriptionEN, descriptionDE, descriptionFA]);
 
         return { statusCode: HttpStatus.OK, message: 'The Feature was created successfully' };
     }

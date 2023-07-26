@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, Length } from 'class-validator';
+import { Length } from 'class-validator';
 import { Field } from '@nestjs/graphql';
 
 export class CreateFaqDto
@@ -27,12 +27,10 @@ export class CreateFaqDto
     @ApiProperty()
     @Length(1, 255, { message: '1004' })
     @Field()
-    @IsOptional()
     public readonly descriptionDE: string;
 
     @ApiProperty()
     @Length(1, 255, { message: '1004' })
     @Field()
-    @IsOptional()
     public readonly descriptionFA: string;
 }

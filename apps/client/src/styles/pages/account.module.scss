@@ -339,7 +339,6 @@
                             align-items: center;
                             justify-content: flex-start;
 
-                            text-transform: uppercase;
                             font-size: 2rem;
                             font-weight: lighter;
                             padding: 1rem 1.5rem;
@@ -469,7 +468,7 @@
                     }
                 }
 
-                &[data-faction='horde']
+                &[data-faction='Horde']
                 {
                     & path
                     {

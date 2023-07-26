@@ -84,7 +84,7 @@ const Characters = () =>
                                 <div key={createUniqueKey([character.name, character.totaltime, index])} className={styles.accountContentItem}>
                                     <header>
                                         <h3>
-                                            <Tooltip content={character.online === 1 ? 'Onlien' : 'Offline'}>
+                                            <Tooltip content={character.online === 1 ? 'Online' : 'Offline'}>
                                                 <i data-online={character.online === 1}/>
                                             </Tooltip>
                                             { character.name }

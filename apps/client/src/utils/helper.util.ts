@@ -70,9 +70,9 @@ export const createUniqueKey = (array: unknown[]) =>
     return array.map(item => item?.toString().split(' ').join('_')).join('_');
 };
 
-export const getFaction = (race: number) =>
+export const getFaction = (raceID: number) =>
 {
-    switch (race)
+    switch (raceID)
     {
         case 2:
         case 5:
@@ -80,44 +80,67 @@ export const getFaction = (race: number) =>
         case 8:
         case 9:
         case 10:
-            return 'horde';
+            return 'Horde';
         case 1:
         case 3:
         case 4:
         case 7:
         case 11:
-            return 'alliance';
+            return 'Alliance';
     }
 
     return '';
 };
 
-export const getClass = (race: number) =>
+export const getClass = (classID: number) =>
 {
-    switch (race)
+    switch (classID)
     {
-        case 0:
-            return 'NONE';
         case 1:
-            return 'WARRIOR';
+            return 'Warrior';
         case 2:
-            return 'PALADIN';
+            return 'Paladin';
         case 3:
-            return 'HUNTER';
+            return 'Hunter';
         case 5:
-            return 'PRIEST';
+            return 'Priest';
         case 6:
-            return 'DEATH KNIGHT';
+            return 'DeathKnight';
         case 7:
-            return 'SHAMAN';
+            return 'Shaman';
         case 8:
-            return 'MAGE';
+            return 'Mage';
         case 9:
-            return 'WARLOCK';
-        case 10:
-            return 'UNK';
+            return 'Warlock';
         case 11:
-            return 'DRUID';
+            return 'Druid';
+    }
+
+    return '';
+};
+
+export const getRaceName = (raceID: number) =>
+{
+    switch (raceID)
+    {
+        case 1:
+            return 'Human';
+        case 2:
+            return 'Orc';
+        case 3:
+            return 'Dwarf';
+        case 4:
+            return 'Night Elf';
+        case 6:
+            return 'Tauren';
+        case 7:
+            return 'Gnome';
+        case 8:
+            return 'Troll';
+        case 10:
+            return 'Blood Elf';
+        case 11:
+            return 'Draenei';
     }
 
     return '';

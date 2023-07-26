@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `account_password` (
 CREATE TABLE IF NOT EXISTS `blog` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `account` int unsigned NOT NULL DEFAULT '0',
-  `parent_id` int unsigned DEFAULT NULL,
   `title_en` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `title_de` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `title_fa` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -57,11 +56,8 @@ CREATE TABLE IF NOT EXISTS `blog` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   KEY `idx_blog_account` (`account`) USING BTREE,
-  KEY `idx_blog_parent` (`parent_id`) USING BTREE,
   CONSTRAINT `FK_BLOG_ACCOUNT` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
-  CONSTRAINT `FK_BLOG_PARENT` FOREIGN KEY (`parent_id`) REFERENCES `blog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 CREATE TABLE IF NOT EXISTS `blog_category` (
   `blog_id` int unsigned NOT NULL,
@@ -71,24 +67,6 @@ CREATE TABLE IF NOT EXISTS `blog_category` (
   KEY `idx_blog_category_blog` (`blog_id`) USING BTREE,
   CONSTRAINT `FK_BLOG_CATEGORY_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
   CONSTRAINT `FK_BLOG_CATEGORY_CATEGORY` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-CREATE TABLE IF NOT EXISTS `blog_comment` (
-  `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `blog_id` int unsigned NOT NULL DEFAULT '0',
-  `parent_id` int unsigned DEFAULT '0',
-  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `published` tinyint unsigned NOT NULL DEFAULT (0),
-  `published_at` datetime DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `idx_blog_comment_parent` (`parent_id`) USING BTREE,
-  KEY `idx_blog_comment_blog` (`blog_id`) USING BTREE,
-  CONSTRAINT `FK_BLOG_COMMENT_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`),
-  CONSTRAINT `FK_BLOG_COMMENT_BLOG_COMMENT` FOREIGN KEY (`parent_id`) REFERENCES `blog_comment` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `blog_tag` (
