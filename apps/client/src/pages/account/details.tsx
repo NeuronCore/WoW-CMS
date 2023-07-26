@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { BsPen } from 'react-icons/bs';
+import useTranslation from 'next-translate/useTranslation';
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import styles from '@/styles/pages/account.module.scss';
@@ -13,6 +14,8 @@ const Input = dynamic(() => import('@/components/input'));
 const Details = () =>
 {
     const [user] = useUser();
+
+    const { t } = useTranslation();
 
     const [errors, setErrors] = useState<any[]>([]);
     const [formValues, setFormValues] = useState({
@@ -55,18 +58,18 @@ const Details = () =>
         >
             <div className={styles.accountContent}>
                 <h3 className={styles.accountContentHeader}>
-                    ACCOUNT DETAILS
+                    { t('account:details.title') }
                 </h3>
                 <div className={styles.accountContentListGrid1}>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                Personal Information
+                                { t('account:details.subtitleInfo') }
                             </h3>
 
                             <button onClick={() => setEditMode({ ...editMode, info: !editMode.info })}>
                                 <BsPen />
-                                Update
+                                { t('account:details.update') }
                             </button>
                         </header>
                         {
@@ -76,8 +79,8 @@ const Details = () =>
                                     <Input
                                         required
                                         name='firstName'
-                                        label='First Name'
-                                        placeholder='First Name'
+                                        label={ t('account:details.firstNameInput.label') }
+                                        placeholder={ t('account:details.firstNameInput.placeholder') }
                                         defaultValue={ user.first_name }
                                         onChange={(event) => handleChange(event, 'info')}
                                         error={errors.filter((error: any) => error.field === 'firstName')}
@@ -85,8 +88,8 @@ const Details = () =>
                                     <Input
                                         required
                                         name='lastName'
-                                        label='Last Name'
-                                        placeholder='Last Name'
+                                        label={ t('account:details.lastNameInput.label') }
+                                        placeholder={ t('account:details.lastNameInput.placeholder') }
                                         defaultValue={ user.last_name }
                                         onChange={(event) => handleChange(event, 'info')}
                                         error={errors.filter((error: any) => error.field === 'lastName')}
@@ -94,20 +97,20 @@ const Details = () =>
                                     <Input
                                         required
                                         name='phone'
-                                        label='Phone'
-                                        placeholder='Phone'
+                                        label={ t('account:details.phoneInput.label') }
+                                        placeholder={ t('account:details.phoneInput.placeholder') }
                                         defaultValue={ user.phone }
                                         onChange={(event) => handleChange(event, 'info')}
                                         error={errors.filter((error: any) => error.field === 'phone')}
                                     />
 
                                     <Button href='/verify-email'>
-                                        Verify Email
+                                        { t('account:details.verifyEmail') }
                                     </Button>
 
                                     <div>
                                         <Button onClick={ updateInfo }>
-                                            Save
+                                            { t('account:details.save') }
                                         </Button>
                                         <Button type='text' onClick={() =>
                                         {
@@ -123,7 +126,7 @@ const Details = () =>
                                                 email: formValues.email
                                             });
                                         }}>
-                                            Cancel
+                                            { t('account:details.cancel') }
                                         </Button>
                                     </div>
                                 </form>
@@ -132,7 +135,7 @@ const Details = () =>
                                     <ul data-info>
                                         <li>
                                             <p>
-                                                Username:
+                                                { t('account:details.usernameInput.label') }:
                                             </p>
                                             <span>
                                                 { user.username }
@@ -140,7 +143,7 @@ const Details = () =>
                                         </li>
                                         <li>
                                             <p>
-                                                First Name:
+                                                { t('account:details.firstNameInput.label') }:
                                             </p>
                                             <span>
                                                 { user.first_name }
@@ -148,7 +151,7 @@ const Details = () =>
                                         </li>
                                         <li>
                                             <p>
-                                                Last Name:
+                                                { t('account:details.lastNameInput.label') }:
                                             </p>
                                             <span>
                                                 { user.last_name }
@@ -156,7 +159,7 @@ const Details = () =>
                                         </li>
                                         <li>
                                             <p>
-                                                Member Since:
+                                                { t('account:details.memberSince') }:
                                             </p>
                                             <span>
                                                 { user.joindate }
@@ -164,7 +167,7 @@ const Details = () =>
                                         </li>
                                         <li>
                                             <p>
-                                                Last IP:
+                                                { t('account:details.lastIP') }::
                                             </p>
                                             <span>
                                                 { user.last_ip }
@@ -175,7 +178,7 @@ const Details = () =>
                                                 ?
                                                 <li>
                                                     <p>
-                                                        Phone:
+                                                        { t('account:details.phoneInput.label') }:
                                                     </p>
                                                     <span>
                                                         { user.phone }
@@ -190,12 +193,12 @@ const Details = () =>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                Email Address
+                                { t('account:details.emailInput.label') }
                             </h3>
 
                             <button onClick={() => setEditMode({ ...editMode, email: !editMode.email })}>
                                 <BsPen />
-                                Update
+                                { t('account:details.update') }
                             </button>
                         </header>
                         {
@@ -205,8 +208,8 @@ const Details = () =>
                                     <Input
                                         required
                                         name='email'
-                                        label='Email'
-                                        placeholder='Email'
+                                        label={ t('account:details.emailInput.label') }
+                                        placeholder={ t('account:details.emailInput.placeholder') }
                                         defaultValue={ user.email }
                                         onChange={(event) => handleChange(event, 'email')}
                                         error={errors.filter((error: any) => error.field === 'email')}
@@ -215,15 +218,15 @@ const Details = () =>
                                         required
                                         name='password'
                                         type='password'
-                                        label='Password'
-                                        placeholder='Password'
+                                        label={ t('account:details.passwordInput.label') }
+                                        placeholder={ t('account:details.passwordInput.placeholder') }
                                         onChange={(event) => handleChange(event, 'email')}
                                         error={errors.filter((error: any) => error.field === 'password')}
                                     />
 
                                     <div>
                                         <Button onClick={ updateInfo }>
-                                            Save
+                                            { t('account:details.save') }:
                                         </Button>
                                         <Button type='text' onClick={() =>
                                         {
@@ -238,7 +241,7 @@ const Details = () =>
                                                     }
                                             });
                                         }}>
-                                            Cancel
+                                            { t('account:details.cancel') }:
                                         </Button>
                                     </div>
                                 </form>
@@ -247,7 +250,7 @@ const Details = () =>
                                     <ul data-info>
                                         <li>
                                             <p>
-                                                Email:
+                                                { t('account:details.email') }:
                                             </p>
                                             <span>
                                                 { user.email }

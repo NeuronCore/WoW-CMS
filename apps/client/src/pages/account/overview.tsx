@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
+import useTranslation from 'next-translate/useTranslation';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
 import { BsCheckCircle, BsChevronRight, BsCoin, BsDiscord } from 'react-icons/bs';
@@ -20,6 +21,8 @@ const Overview = () =>
 {
     const [user] = useUser();
 
+    const { t } = useTranslation();
+
     return (
         <motion.div
             initial={{ y: -200, opacity: 0 }}
@@ -33,7 +36,7 @@ const Overview = () =>
         >
             <div className={styles.accountContent}>
                 <h3 className={styles.accountContentHeader}>
-                    ACCOUNT OVERVIEW
+                    { t('account:overview.title') }
                 </h3>
 
                 <div className={styles.accountContentListGrid1}>
