@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
+import { AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 
 import '../services/axios.service';
 
@@ -18,7 +19,7 @@ import { store } from '@/redux/app/store';
 
 const Main = dynamic(() => import('../components/layouts/main/main.component'));
 
-const MyApp = ({ Component, pageProps }: AppProps) =>
+const MyApp = ({ Component, pageProps, router }: AppProps) =>
 {
     const [mounted, setMounted] = useState(false);
 
@@ -31,9 +32,11 @@ const MyApp = ({ Component, pageProps }: AppProps) =>
         mounted
         &&
         <Provider store={ store }>
-            <Main>
-                <Component { ...pageProps }/>
-            </Main>
+            <AnimatePresence mode='wait' initial={ false }>
+                <Main>
+                    <Component { ...pageProps } key={ router.asPath }/>
+                </Main>
+            </AnimatePresence>
         </Provider>
     );
 };

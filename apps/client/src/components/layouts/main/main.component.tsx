@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { Fragment, ReactNode, useEffect } from 'react';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import stylesAccount from '@/styles/pages/account.module.scss';
 import styles from '@/components/layouts/main/main.module.scss';
@@ -93,13 +92,7 @@ const Main = ({ children }: Props) =>
                                 </aside>
                                 {
                                     user
-                                        ?
-                                        <TransitionGroup>
-                                            <CSSTransition key={pathname} classNames='slide' timeout={1000}>
-                                                { children }
-                                            </CSSTransition>
-                                        </TransitionGroup>
-
+                                        ? children
                                         : null
                                 }
                             </section>
