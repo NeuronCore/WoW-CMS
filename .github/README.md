@@ -80,3 +80,5 @@ This project exists thanks to:
 - **[Im-Parsa](https://github.com/im-parsa)**
 - **[IntelligentQuantum](https://github.com/IntelligentQuantum)**
 - **The [WoW-CMS developers and contributors](https://github.com/NeuronCore/WoW-CMS/graphs/contributors)**
+
+[![Contributors](https://contrib.rocks/image?repo=NeuronCore/WoW-CMS)](https://github.com/NeuronCore/WoW-CMS/graphs/contributors)
