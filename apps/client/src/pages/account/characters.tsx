@@ -43,8 +43,6 @@ const Characters = () =>
                 {
                     const response = await axios.get('/characters/realm/' + realm);
 
-                    console.log(response.data.data.characters);
-
                     setCharacters(response.data.data.characters);
                 }
             }

@@ -32,6 +32,10 @@ const Overview = () =>
             }}
         >
             <div className={styles.accountContent}>
+                <h3 className={styles.accountContentHeader}>
+                    ACCOUNT OVERVIEW
+                </h3>
+
                 <div className={styles.accountContentListGrid1}>
                     <div className={styles.accountContentItem}>
                         <header>

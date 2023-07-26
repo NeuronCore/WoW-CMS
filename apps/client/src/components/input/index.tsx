@@ -16,10 +16,11 @@ interface Props
     placeholder?: string,
     error?: any,
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
-    required?: boolean
+    required?: boolean,
+    defaultValue?: any
 }
 
-const Input = ({ id, label, type, placeholder, error, onChange, required, name, value, style }: Props) =>
+const Input = ({ id, label, type, placeholder, error, onChange, required, name, value, style, defaultValue }: Props) =>
 {
     const { t } = useTranslation();
 
@@ -59,6 +60,7 @@ const Input = ({ id, label, type, placeholder, error, onChange, required, name, 
                 id={ id ?? name }
                 name={ name ?? id }
                 value={ value }
+                defaultValue={ defaultValue }
             />
             {
                 errors[0]

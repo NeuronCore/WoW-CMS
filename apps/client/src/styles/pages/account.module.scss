@@ -486,7 +486,7 @@
 
                 width: 100%;
                 height: fit-content;
-                padding: 2rem 6rem;
+                padding: 4rem 6rem;
                 margin: 0 auto auto;
 
                 @media only screen and (max-width: 1500px)
@@ -745,6 +745,43 @@
                 }
             }
 
+            & > form
+            {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 3rem;
+
+                width: 100%;
+                height: 100%;
+                padding: 4rem 6rem;
+                margin: 0 auto auto;
+
+                @media only screen and (max-width: 1500px)
+                {
+                    padding: 2rem 3rem;
+                }
+
+                & div,
+                & button,
+                & label
+                {
+                    width: 100%;
+                    max-width: 100%;
+                }
+
+                & > div
+                {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 1rem;
+
+                    margin: auto auto 0;
+                }
+            }
+
             & > header
             {
                 display: flex;
@@ -785,13 +822,18 @@
                     }
                 }
 
-                & > a
+                & > a,
+                & > button
                 {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     gap: 1rem;
 
+                    cursor: pointer;
+                    background: transparent;
+                    outline: none;
+                    border: none;
                     font-weight: lighter;
                     font-size: 1.5rem;
                     color: var(--color-base-text-light);
