@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
-import { BsCheckCircle, BsCoin, BsDiscord, BsPen } from 'react-icons/bs';
+import { BsCheckCircle, BsChevronRight, BsCoin, BsDiscord } from 'react-icons/bs';
 
 import styles from '@/styles/pages/account.module.scss';
 
@@ -44,7 +44,7 @@ const Overview = () =>
                             </h3>
 
                             <Link href='/account/details'>
-                                <BsPen /> Edit
+                                Edit <BsChevronRight />
                             </Link>
                         </header>
                         <div>
@@ -132,7 +132,7 @@ const Overview = () =>
                             </h3>
 
                             <Link href='/account/security'>
-                                <BsPen /> Edit
+                                Edit <BsChevronRight />
                             </Link>
                         </header>
                         <div>

@@ -124,7 +124,7 @@ const Auth = ({ type }: Props) =>
                     hidden: false,
                     title: t('auth:login.modal.successful.title'),
                     description: t('auth:login.modal.successful.description'),
-                    onHidden: async() => await push('/account')
+                    onHidden: async() => await push('/account/overview')
                 });
             }
         }).catch((error) =>

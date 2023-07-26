@@ -217,7 +217,6 @@ const Details = () =>
                                         type='password'
                                         label='Password'
                                         placeholder='Password'
-                                        defaultValue={ user.last_name }
                                         onChange={(event) => handleChange(event, 'email')}
                                         error={errors.filter((error: any) => error.field === 'password')}
                                     />

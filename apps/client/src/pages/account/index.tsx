@@ -1,9 +1,10 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
-import styles from '@/styles/pages/account.module.scss';
-
 import { useUser } from '@/hooks/use-user';
+
+const Preloader = dynamic(() => import('@/components/preloader'));
 
 const Account = () =>
 {
@@ -23,11 +24,7 @@ const Account = () =>
         )();
     }, [user]);
 
-    return (
-        <div className={styles.accountContent}>
-
-        </div>
-    );
+    return (<Preloader />);
 };
 
 export default Account;

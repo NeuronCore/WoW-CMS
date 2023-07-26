@@ -92,7 +92,7 @@ const Navbar = () =>
                                     <BsCoin />
                                     { user.coins ?? 0 }
                                 </span>
-                                <Button href='/account'>
+                                <Button href='/account/overview'>
                                     Account
                                 </Button>
                             </>
@@ -121,7 +121,7 @@ const Navbar = () =>
                     </Link>
                 </span>
 
-                <Link href={user ? '/account' : '/login'}>
+                <Link href={user ? '/account/overview' : '/login'}>
                     <BsPerson />
                 </Link>
             </div>

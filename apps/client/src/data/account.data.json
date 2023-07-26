@@ -67,5 +67,12 @@
                 }
             ]
         }
-    ]
+    ],
+    "securityQuestions":
+        [
+            "What city were you born in?",
+            "What was the make and model of your first car?",
+            "What was the first concert you attended?",
+            "What was the name of your first pet?"
+        ]
 }
