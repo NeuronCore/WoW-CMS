@@ -19,6 +19,16 @@ export class AccountPasswordService
     )
     { }
 
+    /**
+     *
+     * @param email
+     *
+     * @description
+     *      code:
+     *          1005 - Should not be empty
+     *          2019 - There is no account with this email address
+     *          2020 - Token sent to email
+     */
     public async forgotPassword(email: string)
     {
         if (!email)
@@ -51,6 +61,18 @@ export class AccountPasswordService
         }
     }
 
+    /**
+     *
+     * @param updateResetPasswordDto
+     * @param token
+     *
+     * @description
+     *      code:
+     *          1002 - Must be longer than or equal to 8 and shorter than or equal to 30 characters
+     *          2002 - Password does not match
+     *          2021 - Token is invalid or has expired
+     *          2022 - Your password has been reset successfully!
+     */
     public async resetPassword(updateResetPasswordDto: UpdateResetPasswordDto, token: string): Promise<object>
     {
         const { password, passwordConfirm } = updateResetPasswordDto;
