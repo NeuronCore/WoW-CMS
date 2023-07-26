@@ -830,6 +830,70 @@
                     padding: 2rem 3rem;
                 }
 
+                & [data-qr]
+                {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    gap: 1rem;
+
+                    width: 100%;
+                    height: 100%;
+
+                    min-height: 30rem;
+
+                    & > p
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        width: 100%;
+                        font-size: 1.5rem;
+                        font-weight: 500;
+                    }
+
+                    & > span
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: .5rem;
+
+                        color: var(--color-base-text-lighter);
+                        font-size: 1.5rem;
+                        font-weight: 400;
+                        word-wrap: break-word;
+                        white-space: nowrap;
+                    }
+
+                    & > div
+                    {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: flex-start;
+
+                        width: 100%;
+                        height: 100%;
+
+                        max-width: 30rem;
+                        max-height: 30rem;
+                    }
+
+                    & a
+                    {
+                        width: fit-content;
+                        color: var(--color-primary);
+                        transition: all .2s;
+
+                        &:hover
+                        {
+                            color: var(--color-primary-light);
+                        }
+                    }
+                }
+
                 & div,
                 & button,
                 & label,

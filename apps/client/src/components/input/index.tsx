@@ -17,10 +17,11 @@ interface Props
     error?: any,
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
     required?: boolean,
-    defaultValue?: any
+    defaultValue?: any,
+    disabled?: boolean
 }
 
-const Input = ({ id, label, type, placeholder, error, onChange, required, name, value, style, defaultValue }: Props) =>
+const Input = ({ id, label, type, placeholder, error, onChange, required, name, value, style, defaultValue, disabled }: Props) =>
 {
     const { t } = useTranslation();
 
@@ -52,9 +53,10 @@ const Input = ({ id, label, type, placeholder, error, onChange, required, name, 
                 }
             </span>
             <input
+                disabled={ disabled }
                 required={ required }
-                onChange={onChange}
-                className={stylesForm.input}
+                onChange={ onChange }
+                className={ stylesForm.input }
                 placeholder={ placeholder }
                 type={ type ?? 'text' }
                 id={ id ?? name }
