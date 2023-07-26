@@ -32,6 +32,7 @@ export class AuthService
      *          2000 - Email address already exists
      *          2001 - This Username already exists
      *          2002 - Password does not match
+     *          2023 - Account created successfully
      */
     public async register(registerDto: RegisterDto)
     {
@@ -71,6 +72,7 @@ export class AuthService
      *          1000 - Must be longer than or equal to 2 and shorter than or equal to 30 characters
      *          1002 - Must be longer than or equal to 8 and shorter than or equal to 30 characters
      *          2003 - Incorrect username or password
+     *          2024 - You are logged in successfully
      */
     public async login(loginDto: LoginDto, response: Response)
     {
@@ -85,6 +87,15 @@ export class AuthService
         return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2024' }], data: { accessToken } };
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     *
+     * @description
+     *      code:
+     *          2025 - You are already logged out
+     */
     public async logout(request: Request, response: Response)
     {
         const refreshToken: string = request.cookies.refreshToken;
@@ -104,6 +115,14 @@ export class AuthService
         return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2025' }] };
     }
 
+    /**
+     *
+     * @param request
+     *
+     * @description
+     *      code:
+     *          2026 - Invalid Token. Please log in again!
+     */
     public async refresh(request: Request)
     {
         const refreshToken: string = request.cookies.refreshToken;
