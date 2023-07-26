@@ -43,11 +43,11 @@ const Overview = () =>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                Your Information
+                                { t('account:overview.subtitleInfo') }
                             </h3>
 
                             <Link href='/account/details'>
-                                Edit <BsChevronRight />
+                                { t('account:overview.edit') } <BsChevronRight />
                             </Link>
                         </header>
                         <div>
@@ -66,14 +66,14 @@ const Overview = () =>
                                         { user.username }
                                     </h2>
                                     <Button>
-                                        Update Avatar
+                                        { t('account:overview.updateAvatar') }
                                     </Button>
                                 </div>
                             </div>
                             <ul data-info>
                                 <li>
                                     <p>
-                                        First Name:
+                                        { t('account:details.firstNameInput.label') }:
                                     </p>
                                     <span>
                                         { user.first_name }
@@ -81,7 +81,7 @@ const Overview = () =>
                                 </li>
                                 <li>
                                     <p>
-                                        Last Name:
+                                        { t('account:details.lastNameInput.label') }:
                                     </p>
                                     <span>
                                         { user.last_name }
@@ -89,7 +89,7 @@ const Overview = () =>
                                 </li>
                                 <li>
                                     <p>
-                                        Email:
+                                        { t('account:details.email') }:
                                     </p>
                                     <span>
                                         { user.email }
@@ -97,18 +97,18 @@ const Overview = () =>
                                 </li>
                                 <li>
                                     <p>
-                                        Discord:
+                                        { t('account:overview.discord') }:
                                     </p>
                                     {
                                         user.discord
                                             ?
                                             <span>
-                                            hello_im_parsa
+                                                hello_im_parsa#0000
                                             </span>
                                             :
                                             <Button>
                                                 <BsDiscord />
-                                                Add Discord Account
+                                                { t('account:overview.addDiscord') }
                                             </Button>
                                     }
                                 </li>
@@ -117,7 +117,7 @@ const Overview = () =>
                                         ?
                                         <li>
                                             <p>
-                                                Phone:
+                                                { t('account:overview.phoneInput.label') }:
                                             </p>
                                             <span>
                                                 { user.phone }
@@ -131,11 +131,11 @@ const Overview = () =>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                ACCOUNT SECURITY
+                                { t('account:overview.subtitleSecurity') }:
                             </h3>
 
                             <Link href='/account/security'>
-                                Edit <BsChevronRight />
+                                { t('account:overview.edit') } <BsChevronRight />
                             </Link>
                         </header>
                         <div>
@@ -146,7 +146,7 @@ const Overview = () =>
                                             66%
                                         </strong>
                                         <p>
-                                            COMPLETE
+                                            { t('account:overview.complete') }
                                         </p>
                                     </div>
                                 </CircularProgressbarWithChildren>
@@ -157,7 +157,7 @@ const Overview = () =>
 
                                     <Link href='/'>
                                         <p>
-                                            Verify Email
+                                            { t('account:overview.verifyEmail') }
                                         </p>
 
                                         <span>
@@ -170,7 +170,7 @@ const Overview = () =>
 
                                     <Link href='/'>
                                         <p>
-                                            Enable 2FA
+                                            { t('account:overview.enable2FA') }
                                         </p>
 
                                         <span>
@@ -183,7 +183,7 @@ const Overview = () =>
 
                                     <Link href='/'>
                                         <p>
-                                            Add Security Question
+                                            { t('account:overview.addSQ') }
                                         </p>
 
                                         <span>
@@ -196,7 +196,7 @@ const Overview = () =>
 
                                     <Link href='/'>
                                         <p>
-                                            Link Discord
+                                            { t('account:overview.linkDiscord') }
                                         </p>
 
                                         <span>
@@ -212,7 +212,7 @@ const Overview = () =>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                BALANCE
+                                { t('account:overview.balance') }
                             </h3>
                         </header>
                         <div>
@@ -222,7 +222,7 @@ const Overview = () =>
 
                                     <Link href='/'>
                                         <p>
-                                            Donate
+                                            { t('account:overview.donate') }
                                         </p>
                                     </Link>
                                 </li>
@@ -231,7 +231,7 @@ const Overview = () =>
 
                                     <Link href='/'>
                                         <p>
-                                            Visit Shop
+                                            { t('account:overview.visitShop') }
                                         </p>
                                     </Link>
                                 </li>
@@ -240,7 +240,7 @@ const Overview = () =>
 
                                     <div data-link>
                                         <p>
-                                            Currency Information
+                                            { t('account:overview.currencyInfo') }
                                         </p>
                                     </div>
                                 </li>
@@ -250,7 +250,7 @@ const Overview = () =>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                REDEEM A Code
+                                { t('account:overview.redeemACode') }
                             </h3>
                         </header>
                         <div data-redeem>
@@ -261,7 +261,7 @@ const Overview = () =>
                                 placeholder='XXXXX-ZZZZZ-YYYYY-AAAAA'
                             />
                             <Button>
-                                Redeem Code
+                                { t('account:overview.redeemCode') }
                             </Button>
                         </div>
                     </div>
@@ -270,27 +270,33 @@ const Overview = () =>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                RECENT CONNECTIONS
+                                { t('account:overview.recentConnection') }
                             </h3>
                         </header>
                         <div>
                             <table>
                                 <thead>
                                     <tr>
-                                        <th scope="col">IP Address</th>
-                                        <th scope="col" className="table-country">Country</th>
-                                        <th scope="col">Date</th>
+                                        <th>
+                                            { t('account:overview.ip') }
+                                        </th>
+                                        <th>
+                                            { t('account:overview.country') }
+                                        </th>
+                                        <th>
+                                            { t('account:overview.date') }
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td scope="row">185.206.224.42</td>
-                                        <td className="table-country">DK</td>
+                                        <td>185.206.224.42</td>
+                                        <td>DK</td>
                                         <td>Jul 23, 2023 11:47 AM</td>
                                     </tr>
                                     <tr>
-                                        <td scope="row">193.42.96.36</td>
-                                        <td className="table-country">DE</td>
+                                        <td>193.42.96.36</td>
+                                        <td>DE</td>
                                         <td>Jul 23, 2023 11:47 AM</td>
                                     </tr>
                                 </tbody>

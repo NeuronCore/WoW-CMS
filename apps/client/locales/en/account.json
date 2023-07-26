@@ -3,60 +3,32 @@
     {
         "title": "ACCOUNT OVERVIEW",
         "subtitleInfo": "Your Information",
-        "subtitleEmail": "Email Address",
-        "firstNameInput":
-        {
-            "label": "First Name",
-            "placeholder": "Your first name"
-        },
-        "lastNameInput":
-        {
-            "label": "Last Name",
-            "placeholder": "Your last name"
-        },
-        "usernameInput":
-        {
-            "label": "username",
-            "placeholder": "Your Username"
-        },
-        "emailInput":
-        {
-            "label": "Email Address",
-            "placeholder": "Your email address"
-        },
-        "phoneInput":
-        {
-            "label": "Phone",
-            "placeholder": "Your phone number"
-        },
-        "passwordInput":
-        {
-            "label": "Password",
-            "placeholder": "Your Password"
-        },
-        "newPasswordInput":
-        {
-            "label": "New Password",
-            "placeholder": "New Password"
-        },
-        "confirmNewPasswordInput":
-        {
-            "label": "Confirm New Password",
-            "placeholder": "Confirm your new password"
-        },
-        "confirmPasswordInput":
-        {
-            "label": "Confirm Password",
-            "placeholder": "Confirm your password"
-        },
+        "subtitleSecurity": "Account Security",
         "memberSince": "Member Since",
+        "updateAvatar": "Update Avatar",
         "lastIP": "Last IP",
         "email": "Email",
         "update": "Update",
         "edit": "Edit",
         "cancel": "Cancel",
         "save": "Save",
-        "verifyEmail": "Verify Email"
+        "discord": "Discord",
+        "addDiscord": "Add Discord Account",
+        "linkDiscord": "Link Discord",
+        "donate": "Donate",
+        "visitShop": "Visit Shop",
+        "currencyInfo": "Currency Information",
+        "recentConnection": "RECENT CONNECTIONS",
+        "ip": "IP Address",
+        "country": "Country",
+        "date": "Date",
+        "complete": "COMPLETE",
+        "redeemACode": "Redeem A Code",
+        "redeemCode": "Redeem Code",
+        "verifyEmail": "Verify Email",
+        "enable2FA": "Enable 2FA",
+        "addSQ": "Add Security Question",
+        "balance": "Balance"
 
     },
     "details":

@@ -1,4 +1,36 @@
 {
+    "overview":
+    {
+        "title": "ACCOUNT OVERVIEW",
+        "subtitleInfo": "Your Information",
+        "subtitleSecurity": "Account Security",
+        "memberSince": "Member Since",
+        "updateAvatar": "Update Avatar",
+        "lastIP": "Last IP",
+        "email": "Email",
+        "update": "Update",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "discord": "Discord",
+        "addDiscord": "Add Discord Account",
+        "linkDiscord": "Link Discord",
+        "donate": "Donate",
+        "visitShop": "Visit Shop",
+        "currencyInfo": "Currency Information",
+        "recentConnection": "RECENT CONNECTIONS",
+        "ip": "IP Address",
+        "country": "Country",
+        "date": "Date",
+        "complete": "COMPLETE",
+        "redeemACode": "Redeem A Code",
+        "redeemCode": "Redeem Code",
+        "verifyEmail": "Verify Email",
+        "enable2FA": "Enable 2FA",
+        "addSQ": "Add Security Question",
+        "balance": "Balance"
+
+    },
     "details":
     {
         "title": "ACCOUNT DETAILS",
@@ -49,6 +81,9 @@
             "label": "Confirm Password",
             "placeholder": "Confirm your password"
         },
+        "memberSince": "Member Since",
+        "lastIP": "Last IP",
+        "email": "Email",
         "update": "Update",
         "setup": "Setup",
         "cancel": "Cancel",
