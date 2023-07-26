@@ -60,42 +60,62 @@ const Main = ({ children }: Props) =>
                         loading
                             ? <Preloader />
                             :
-                            <section className={stylesAccount.accountContainer}>
-                                <aside className={stylesAccount.accountAside}>
-                                    <h1 className={stylesAccount.accountAsideHeader}>Settings</h1>
+                            <>
+                                <span className={stylesAccount.accountVideo}>
+                                    <video autoPlay loop>
+                                        <source src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } />
+                                    </video>
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter} />
+                                    <span className={stylesAccount.accountFilter2} />
+                                </span>
 
-                                    <ul className={stylesAccount.accountAsideList}>
-                                        {
-                                            asideData.map((item, index) =>
-                                                (
-                                                    <Fragment key={createUniqueKey([item.title, index])}>
-                                                        <li className={stylesAccount.accountAsideListItemTitle}>
-                                                            { item.title }
-                                                        </li>
-                                                        {
-                                                            item.items.map((link, index) =>
-                                                                (
-                                                                    <li key={createUniqueKey([item.title, link.title, index])} className={classnames(stylesAccount.accountAsideListItem, { [stylesAccount.accountAsideListItemActive]: pathname.includes(link.path) })}>
-                                                                        <Link href={link.path}>
-                                                                            { link.title }
-                                                                        </Link>
-                                                                    </li>
-                                                                ))
-                                                        }
-                                                    </Fragment>
-                                                ))
-                                        }
-                                        <li className={classnames(stylesAccount.accountAsideListItem, stylesAccount.accountAsideListItemLogout)}>
-                                            Log Out
-                                        </li>
-                                    </ul>
-                                </aside>
-                                {
-                                    user
-                                        ? children
-                                        : null
-                                }
-                            </section>
+                                <section className={stylesAccount.accountContainer}>
+                                    <aside className={stylesAccount.accountAside}>
+                                        <h1 className={stylesAccount.accountAsideHeader}>Settings</h1>
+
+                                        <ul className={stylesAccount.accountAsideList}>
+                                            {
+                                                asideData.map((item, index) =>
+                                                    (
+                                                        <Fragment key={createUniqueKey([item.title, index])}>
+                                                            <li className={stylesAccount.accountAsideListItemTitle}>
+                                                                { item.title }
+                                                            </li>
+                                                            {
+                                                                item.items.map((link, index) =>
+                                                                    (
+                                                                        <li key={createUniqueKey([item.title, link.title, index])} className={classnames(stylesAccount.accountAsideListItem, { [stylesAccount.accountAsideListItemActive]: pathname.includes(link.path) })}>
+                                                                            <Link href={link.path}>
+                                                                                { link.title }
+                                                                            </Link>
+                                                                        </li>
+                                                                    ))
+                                                            }
+                                                        </Fragment>
+                                                    ))
+                                            }
+                                            <li className={classnames(stylesAccount.accountAsideListItem, stylesAccount.accountAsideListItemLogout)}>
+                                                Log Out
+                                            </li>
+                                        </ul>
+                                    </aside>
+                                    {
+                                        user
+                                            ? children
+                                            : null
+                                    }
+                                </section>
+                            </>
                         :
                         children
                 }
