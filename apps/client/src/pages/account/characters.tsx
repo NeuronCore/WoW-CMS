@@ -67,7 +67,7 @@ const Characters = () =>
         >
             <div className={styles.accountContent}>
                 <h3 className={styles.accountContentHeader}>
-                    ACCOUNT SECURITY
+                    MY CHARACTERS
                 </h3>
                 <ul className={styles.accountContentRealms}>
                     {
@@ -82,9 +82,9 @@ const Characters = () =>
 
                 <div className={styles.accountContentListGrid2}>
                     {
-                        characters?.map((character: any, index) =>
+                        characters?.map((character: any) =>
                             (
-                                <div key={createUniqueKey([character.name, character.totaltime, index])} className={styles.accountContentItem}>
+                                <div key={ character.guid } className={styles.accountContentItem}>
                                     <header>
                                         <h3>
                                             <Tooltip content={character.online === 1 ? 'Online' : 'Offline'}>

@@ -188,13 +188,7 @@ const Home = ({ faq, features }: any) =>
                 <p>
                     { t('home:features.title') }
                 </p>
-                <ul>
-                    {
-                        features.map((item: any, index: number) =>
-                            (
-                                <Features index={ index } item={ item } key={ createUniqueKey([item.alt, index, 'features_1']) }/>
-                            ))
-                    }
+                <ul>{ features.map((item: any, index: number) => (<Features index={ index } item={ item } key={ item.id }/>)) }
                 </ul>
             </div>
 
@@ -214,14 +208,7 @@ const Home = ({ faq, features }: any) =>
                     { t('home:faq.title') }
                 </p>
 
-                <ul>
-                    {
-                        faq.map((item: any, index: number) =>
-                            (
-                                <FAQ setFaqs={ setFaqs } faqs={ faqs } index={ index } item={ item } key={ createUniqueKey([item.question, index, 'faq_1']) }/>
-                            ))
-                    }
-                </ul>
+                <ul>{ faq.map((item: any, index: number) => (<FAQ setFaqs={ setFaqs } faqs={ faqs } index={ index } item={ item } key={ item.id }/>)) } </ul>
 
                 <span className={styles.homeBlogsHeader} data-reverse/>
             </div>

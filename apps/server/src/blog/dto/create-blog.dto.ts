@@ -49,7 +49,19 @@ export class CreateBlogDto
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(100)
-    public readonly slug: string;
+    public readonly slugEN: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(2)
+    @MaxLength(100)
+    public readonly slugDE: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @MinLength(2)
+    @MaxLength(100)
+    public readonly slugFA: string;
 
     @IsString()
     @IsNotEmpty()

@@ -6,13 +6,13 @@ import { IsOptional, IsPhoneNumber, Length } from 'class-validator';
 export class UpdateInformationDto
 {
     @ApiProperty()
-    @Length(1, 30, { message: '1000' })
+    @Length(1, 50, { message: '1003' })
     @IsOptional()
     @Field()
     public readonly firstName: string;
 
     @ApiProperty()
-    @Length(1, 30, { message: '1000' })
+    @Length(1, 50, { message: '1003' })
     @IsOptional()
     @Field()
     public readonly lastName: string;

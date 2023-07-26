@@ -34,6 +34,21 @@ export class AccountService
         return { statusCode: HttpStatus.OK, data: { information } };
     }
 
+    /**
+     *
+     * @param accountID
+     * @param updatePasswordDto
+     * @param response
+     *
+     * @description
+     *      code:
+     *          1002 - Must be longer than or equal to 8 and shorter than or equal to 30 characters
+     *          1005 - Should not be empty
+     *          2011 - Account does not exist
+     *          2012 - Current password is incorrect
+     *          2013 - New password does not match
+     *          2014 - Your Password updated successfully
+     */
     public async updatePassword(accountID: number, updatePasswordDto: UpdatePasswordDto, response: Response)
     {
         const { currentPassword, newPassword, newPasswordConfirm } = updatePasswordDto;
@@ -58,6 +73,16 @@ export class AccountService
         return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2014' }], data: { accessToken } };
     }
 
+    /**
+     *
+     * @param accountID
+     * @param avatar
+     *
+     * @description
+     *      code:
+     *          2015 - Avatar updated successfully
+     *          2016 - You are only allowed to upload images
+     */
     public async updateAvatar(accountID: number, avatar: Express.Multer.File)
     {
         try
@@ -77,6 +102,16 @@ export class AccountService
         }
     }
 
+    /**
+     *
+     * @param accountID
+     * @param updateInformationDto
+     *
+     * @description
+     *      code:
+     *          1003 - Must be longer than or equal to 1 and shorter than or equal to 50 characters
+     *          2017 - Information updated successfully
+     */
     public async updateInformation(accountID: number, updateInformationDto: UpdateInformationDto)
     {
         try
@@ -98,6 +133,19 @@ export class AccountService
         }
     }
 
+    /**
+     *
+     * @param accountID
+     * @param updateEmailDto
+     *
+     * @description
+     *      code:
+     *          1001 - Must be an email
+     *          1005 - Should not be empty
+     *          2000 - Email address already exists
+     *          2012 - Current password is incorrect
+     *          2018 - The Email updated successfully
+     */
     public async updateEmail(accountID: number, updateEmailDto: UpdateEmailDto)
     {
         const { email, currentPassword } = updateEmailDto;
