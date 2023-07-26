@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import { BadRequestException, HttpStatus, Inject, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, HttpStatus, Inject, Injectable, InternalServerErrorException, Logger, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { Pool } from 'mysql2/promise';
 
@@ -11,6 +11,7 @@ import { SRP6 } from '@/utils/SRP6.util';
 
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateInformationDto } from '@/account/dto/update-information.dto';
+import { UpdateEmailDto } from '@/account/dto/update-email.dto';
 
 @Injectable()
 export class AccountService
@@ -82,7 +83,7 @@ export class AccountService
         {
             const { firstName, lastName, phone } = updateInformationDto;
 
-            const [accountInformation] = await this.webDatabase.query('SELECT `first_name`, `last_name`, `phone` FROM `account_information` WHERE id = ?', [accountID]);
+            const [accountInformation] = await this.webDatabase.query('SELECT `first_name`, `last_name`, `phone` FROM `account_information` WHERE `id` = ?', [accountID]);
 
             await this.webDatabase.execute('UPDATE `account_information` SET `first_name` = ?, `last_name` = ?, `phone` = ? WHERE `id` = ?', [firstName || accountInformation[0].first_name, lastName || accountInformation[0].last_name, phone || accountInformation[0].phone, accountID]);
 
@@ -95,5 +96,21 @@ export class AccountService
             if (exception)
                 throw new InternalServerErrorException('There was an error sending the update information. Try again later!');
         }
+    }
+
+    public async updateEmail(accountID: number, updateEmailDto: UpdateEmailDto)
+    {
+        const { email, currentPassword } = updateEmailDto;
+
+        const [account] = await this.authDatabase.query('SELECT `email`, `reg_mail`, `salt`, `verifier` FROM `account` WHERE `id` = ?', [accountID]);
+        if (account[0]?.email)
+            throw new ConflictException([{ field: 'email', code: '2000' }]);
+
+        if (!SRP6.verifySRP6(account[0]?.username, currentPassword, account[0]?.salt, account[0]?.verifier))
+            throw new UnauthorizedException('Current password is incorrect');
+
+        await this.webDatabase.execute('UPDATE `account` SET `email` = ?, `reg_mail` = ? WHERE `id` = ?', [email, email, accountID]);
+
+        return { statusCode: HttpStatus.OK, message: 'The Email updated successfully' };
     }
 }

@@ -12,6 +12,7 @@ import { AccountService } from './account.service';
 
 import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateInformationDto } from '@/account/dto/update-information.dto';
+import { UpdateEmailDto } from '@/account/dto/update-email.dto';
 
 @Controller('account')
 @ApiTags('Account')
@@ -58,5 +59,12 @@ export class AccountController
     public async updateInformation(@AccountDecorator() accountID: number, @Body() updateInformationDto: UpdateInformationDto)
     {
         return this.accountService.updateInformation(accountID, updateInformationDto);
+    }
+
+    @Patch('update-email')
+    @UseGuards(AuthGuard)
+    public async updateEmail(@AccountDecorator() accountID: number, @Body() updateEmailDto: UpdateEmailDto)
+    {
+        return this.accountService.updateEmail(accountID, updateEmailDto);
     }
 }
