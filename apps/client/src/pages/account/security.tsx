@@ -46,6 +46,13 @@ const Security = () =>
         console.log(formValues.question);
     };
 
+    const updatePassword = async(event: FormEvent<HTMLFormElement>) =>
+    {
+        event.preventDefault();
+
+        console.log(formValues.password);
+    };
+
     return (
         <motion.div
             initial={{ y: -200, opacity: 0 }}
@@ -134,6 +141,88 @@ const Security = () =>
                                             </p>
                                             <span>
                                                 Disable
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                        }
+                    </div>
+                </div>
+                <div className={styles.accountContentList}>
+                    <div className={styles.accountContentItem}>
+                        <header>
+                            <h3>
+                                Password
+                            </h3>
+
+                            <button onClick={() => setEditMode({ ...editMode, password: !editMode.password })}>
+                                <BsPen />
+                                Update
+                            </button>
+                        </header>
+                        {
+                            editMode.password
+                                ?
+                                <form>
+                                    <Input
+                                        required
+                                        name='oldPassword'
+                                        type='password'
+                                        label='Old Password'
+                                        placeholder='Old Password'
+                                        onChange={(event) => handleChange(event, 'password')}
+                                        error={errors.filter((error: any) => error.field === 'oldPassword')}
+                                    />
+                                    <Input
+                                        required
+                                        name='newPassword'
+                                        type='password'
+                                        label='New Password'
+                                        placeholder='New Password'
+                                        onChange={(event) => handleChange(event, 'password')}
+                                        error={errors.filter((error: any) => error.field === 'newPassword')}
+                                    />
+                                    <Input
+                                        required
+                                        name='confirmNewPassword'
+                                        type='password'
+                                        label='Confirm New Password'
+                                        placeholder='Confirm New Password'
+                                        onChange={(event) => handleChange(event, 'password')}
+                                        error={errors.filter((error: any) => error.field === 'confirmNewPassword')}
+                                    />
+
+                                    <div>
+                                        <Button onClick={ updatePassword }>
+                                            Save
+                                        </Button>
+                                        <Button type='text' onClick={() =>
+                                        {
+                                            setEditMode({ ...editMode, question: false });
+
+                                            setFormValues({
+                                                question: formValues.question,
+                                                password:
+                                                    {
+                                                        oldPassword: null,
+                                                        newPassword: null,
+                                                        confirmNewPassword: null
+                                                    }
+                                            });
+                                        }}>
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                </form>
+                                :
+                                <div>
+                                    <ul data-security>
+                                        <li>
+                                            <p>
+                                                Last Updated
+                                            </p>
+                                            <span>
+                                                Jul 23, 2023 8:17 AM
                                             </span>
                                         </li>
                                     </ul>

@@ -796,6 +796,18 @@
                                 color: var(--color-primary);
                             }
                         }
+
+                        & > p
+                        {
+                            width: 25%;
+                            color: var(--color-primary);
+                        }
+
+                        & > span
+                        {
+                            width: 100%;
+                            font-weight: normal;
+                        }
                     }
                 }
             }
