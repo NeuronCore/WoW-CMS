@@ -56,7 +56,7 @@ export class AuthService
 
         await this.webDatabase.execute('INSERT INTO `account_information` (`id`, `first_name`, `last_name`) VALUES (?, ?, ?)', [accountID[0].id, firstName, lastName]);
 
-        return { statusCode: HttpStatus.OK, message: 'Account created successfully' };
+        return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2023' }] };
     }
 
     /**
@@ -82,7 +82,7 @@ export class AuthService
 
         const accessToken = await Helper.generateAndSetToken(account, response, this.webDatabase);
 
-        return { statusCode: HttpStatus.OK, message: 'You\'re logged in successfully', data: { accessToken } };
+        return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2024' }], data: { accessToken } };
     }
 
     public async logout(request: Request, response: Response)
@@ -95,13 +95,13 @@ export class AuthService
         if (!account[0])
         {
             response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', secure: true });
-            return { statusCode: HttpStatus.OK, message: 'You are already logged out' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2025' }] };
         }
 
         await this.webDatabase.execute('UPDATE `account_information` SET `refresh_token` = NULL WHERE `id` = ?', [account[0].id]);
 
         response.clearCookie('refreshToken', { httpOnly: true, sameSite: 'none', secure: true });
-        return { statusCode: HttpStatus.OK, message: 'You are already logged out' };
+        return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2025' }] };
     }
 
     public async refresh(request: Request)
@@ -112,11 +112,11 @@ export class AuthService
 
         const [account] = await this.webDatabase.query('SELECT `id`, `refresh_token` FROM `account_information` WHERE `refresh_token` = ?', [refreshToken]);
         if (!account[0])
-            throw new UnauthorizedException('Invalid Token. Please log in again!');
+            throw new UnauthorizedException([{ field: 'all', code: '2026' }]);
 
         const verifyRefreshToken: any = verify(refreshToken, process.env.JWT_REFRESH_KEY);
         if (!verifyRefreshToken || account[0]?.id !== verifyRefreshToken.id)
-            throw new UnauthorizedException('Invalid Token. Please log in again!');
+            throw new UnauthorizedException([{ field: 'all', code: '2026' }]);
 
         const accessToken: string = sign({ id: account[0].id }, process.env.JWT_ACCESS_KEY, { expiresIn: process.env.JWT_ACCESS_EXPIRES_IN });
         return { statusCode: HttpStatus.OK, data: accessToken };

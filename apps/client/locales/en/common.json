@@ -4,6 +4,7 @@
     "1002": "Must be longer than or equal to 8 and shorter than or equal to 30 characters",
     "1003": "Must be longer than or equal to 1 and shorter than or equal to 50 characters",
     "1004": "Must be longer than or equal to 1 and shorter than or equal to 255 characters",
+    "1005": "Should not be empty",
 
     "2000": "Email address already exists",
     "2001": "This Username already exists",
@@ -15,5 +16,21 @@
     "2007": "Blog with this id not found",
     "2008": "Blog unliked",
     "2009": "Blog liked",
-    "2010": "Comment with this id not found"
+    "2010": "Comment with this id not found",
+    "2011": "Account does not exist",
+    "2012": "Current password is incorrect",
+    "2013": "New password does not match",
+    "2014": "Your Password updated successfully",
+    "2015": "Avatar updated successfully",
+    "2016": "You are only allowed to upload images",
+    "2017": "Information updated successfully",
+    "2018": "The Email updated successfully",
+    "2019": "There is no account with this email address",
+    "2020": "Token sent to email",
+    "2021": "Token is invalid or has expired",
+    "2022": "Your password has been reset successfully!",
+    "2023": "Account created successfully",
+    "2024": "You are logged in successfully",
+    "2025": "You are already logged out",
+    "2026": "Invalid Token. Please log in again!"
 }

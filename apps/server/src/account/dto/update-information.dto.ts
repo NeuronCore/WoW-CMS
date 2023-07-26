@@ -1,22 +1,18 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsPhoneNumber, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsOptional, IsPhoneNumber, Length } from 'class-validator';
 
 @InputType()
 export class UpdateInformationDto
 {
     @ApiProperty()
-    @IsString()
-    @MinLength(2)
-    @MaxLength(20)
+    @Length(1, 30, { message: '1000' })
     @IsOptional()
     @Field()
     public readonly firstName: string;
 
     @ApiProperty()
-    @IsString()
-    @MinLength(2)
-    @MaxLength(20)
+    @Length(1, 30, { message: '1000' })
     @IsOptional()
     @Field()
     public readonly lastName: string;

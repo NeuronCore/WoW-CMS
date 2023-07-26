@@ -40,13 +40,13 @@ export class AccountService
 
         const [account] = await this.authDatabase.query('SELECT `id`, `username`, `salt`, `verifier` FROM `account` WHERE `id` = ?', [accountID]);
         if (!account[0])
-            throw new BadRequestException('Account does not exist');
+            throw new BadRequestException([{ field: 'all', code: '2011' }]);
 
         if (!SRP6.verifySRP6(account[0]?.username, currentPassword, account[0]?.salt, account[0]?.verifier))
-            throw new UnauthorizedException('Current password is incorrect');
+            throw new UnauthorizedException([{ field: 'currentPassword', code: '2012' }]);
 
         if (newPassword !== newPasswordConfirm)
-            throw new BadRequestException('New password does not match');
+            throw new BadRequestException([{ field: 'newPasswordConfirm', code: '2013' }]);
 
         const verifier = SRP6.calculateSRP6Verifier(account[0].username, newPassword, account[0].salt);
         await this.authDatabase.execute('UPDATE `account` SET `verifier` = ? WHERE `id` = ?', [verifier, accountID]);
@@ -55,7 +55,7 @@ export class AccountService
 
         const accessToken = await Helper.generateAndSetToken(account, response, this.webDatabase);
 
-        return { statusCode: HttpStatus.OK, message: 'Your Password updated successfully', data: { accessToken } };
+        return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2014' }], data: { accessToken } };
     }
 
     public async updateAvatar(accountID: number, avatar: Express.Multer.File)
@@ -69,11 +69,11 @@ export class AccountService
 
             await this.webDatabase.execute('UPDATE `account_information` SET `avatar` = ? WHERE `id` = ?', [filename, accountID]);
 
-            return { statusCode: HttpStatus.OK, message: 'Avatar updated successfully' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2015' }] };
         }
         catch (exception)
         {
-            throw new BadRequestException('You are only allowed to upload images');
+            throw new BadRequestException([{ field: 'all', code: '2016' }]);
         }
     }
 
@@ -87,7 +87,7 @@ export class AccountService
 
             await this.webDatabase.execute('UPDATE `account_information` SET `first_name` = ?, `last_name` = ?, `phone` = ? WHERE `id` = ?', [firstName || accountInformation[0].first_name, lastName || accountInformation[0].last_name, phone || accountInformation[0].phone, accountID]);
 
-            return { statusCode: HttpStatus.OK, message: 'Information updated successfully' };
+            return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2017' }] };
         }
         catch (exception)
         {
@@ -107,10 +107,10 @@ export class AccountService
             throw new ConflictException([{ field: 'email', code: '2000' }]);
 
         if (!SRP6.verifySRP6(account[0]?.username, currentPassword, account[0]?.salt, account[0]?.verifier))
-            throw new UnauthorizedException('Current password is incorrect');
+            throw new UnauthorizedException([{ field: 'currentPassword', code: '2012' }]);
 
         await this.webDatabase.execute('UPDATE `account` SET `email` = ?, `reg_mail` = ? WHERE `id` = ?', [email, email, accountID]);
 
-        return { statusCode: HttpStatus.OK, message: 'The Email updated successfully' };
+        return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2018' }] };
     }
 }
