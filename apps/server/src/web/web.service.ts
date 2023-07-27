@@ -52,7 +52,7 @@ export class WebService
             SELECT
                 id, title_${ locale }, description_${ locale }
             FROM
-                FAQ
+                faq
         `;
 
         const [faq] = await this.webDatabase.query(sql);
