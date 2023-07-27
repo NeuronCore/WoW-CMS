@@ -1,11 +1,11 @@
 import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { GetStaticProps } from 'next';
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Autoplay, Keyboard } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 
 import HeroImage1 from '@/../public/images/heros/hero_1-cataclysm.png';
 import HeroImage2 from '@/../public/images/heros/hero_1-wotlk.png';
@@ -31,13 +31,30 @@ const Features = dynamic(() => import('@/components/features'));
 const BlogsHot = dynamic(() => import('@/components/blogs-card/blogs-hot.component'));
 const BlogsNew = dynamic(() => import('@/components/blogs-card/blogs-new.component'));
 
-const Home = ({ faq, features }: any) =>
+const Home = () =>
 {
     const [blog, setBlog] = useState<number>(0);
     const [faqs, setFaqs] = useState<number[]>([]);
+    const [faq, setFaq] = useState<number[]>([]);
+    const [features, setFeatures] = useState<number[]>([]);
     const [headerBlog, setHeaderBlog] = useState<number>(0);
 
     const { t } = useTranslation();
+    const { locale } = useRouter();
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                const getFaqs = await axios.get('/web/find-all/faq?locale=' + locale);
+                const getFeatures = await axios.get('/web/find-all/feature?locale=' + locale);
+
+                setFaqs(getFaqs.data.data.faq);
+                setFeatures(getFeatures.data.data.features);
+            }
+        )();
+    }, []);
 
     return (
         <>
@@ -208,26 +225,12 @@ const Home = ({ faq, features }: any) =>
                     { t('home:faq.title') }
                 </p>
 
-                <ul>{ faq.map((item: any, index: number) => (<FAQ setFaqs={ setFaqs } faqs={ faqs } index={ index } item={ item } key={ item.id }/>)) } </ul>
+                <ul>{ faqs.map((item: any, index: number) => (<FAQ setFaqs={ setFaq } faqs={ faq } index={ index } item={ item } key={ item.id }/>)) } </ul>
 
                 <span className={styles.homeBlogsHeader} data-reverse/>
             </div>
         </>
     );
-};
-
-export const getStaticProps: GetStaticProps<any> = async({ locale }) =>
-{
-    const responseFaq = await axios.get('/web/find-all/faq?locale=' + locale);
-    const responseFeatures = await axios.get('/web/find-all/feature?locale=' + locale);
-
-    if (!responseFaq.data || !responseFeatures.data)
-        return { notFound: true };
-
-    const faq = await responseFaq?.data?.data?.faq;
-    const features = await responseFeatures?.data?.data?.features;
-
-    return { props: { faq, features }, revalidate: 800 };
 };
 
 export default Home;

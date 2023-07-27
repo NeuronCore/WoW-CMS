@@ -20,7 +20,7 @@ const Preloader = dynamic(() => import('@/components/preloader'));
 const Navbar = dynamic(() => import('@/components/layouts/navbar/navbar.component'));
 const Footer = dynamic(() => import('@/components/layouts/footer/footer.component'));
 
-import { aside as asideData } from '@/data/account.data.json';
+import { asideData } from '@/data/account.data.json';
 
 interface Props
 {
