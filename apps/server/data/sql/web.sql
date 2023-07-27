@@ -56,9 +56,11 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `slug` (`slug`),
+  UNIQUE KEY `slug_en` (`slug_en`),
+  UNIQUE KEY `slug_de` (`slug_de`),
+  UNIQUE KEY `slug_fa` (`slug_fa`),
   KEY `idx_blog_account` (`account`) USING BTREE,
-  CONSTRAINT `FK_BLOG_ACCOUNT` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
+  CONSTRAINT `FK_BLOG_ACCOUNT` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `blog_category` (
@@ -144,7 +146,7 @@ CREATE TABLE IF NOT EXISTS `character_service` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `character_service` (`id`, `coins`, `discription`) VALUES
+INSERT INTO `character_service` (`id`, `coins`, `description`) VALUES
 	(1, 50, 'Character rename'),
 	(2, 60, 'Character customize'),
 	(3, 100, 'Character change faction'),
