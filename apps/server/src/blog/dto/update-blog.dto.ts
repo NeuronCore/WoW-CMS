@@ -64,5 +64,6 @@ export class UpdateBlogDto
     public readonly contentFA: string;
 
     @IsEnum(PublishedStatus)
+    @IsOptional()
     public readonly published: PublishedStatus;
 }

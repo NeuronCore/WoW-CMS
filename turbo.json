@@ -3,28 +3,17 @@
     "pipeline":
     {
         "dev": { "cache": false },
+        "start": { },
         "build":
         {
             "dependsOn": ["^build"],
             "outputs": ["dist/**", ".next/**"]
         },
-        "test": {},
-        "lint":
-        {
-            "outputs": []
-        },
-        "lint:fix":
-        {
-            "outputs": []
-        },
-        "lint:scss":
-        {
-            "outputs": []
-        },
-        "lint:scss:fix":
-        {
-            "outputs": []
-        },
+        "test": { },
+        "lint": { },
+        "lint:fix": { },
+        "lint:scss": { },
+        "lint:scss:fix": { },
         "deploy":
         {
             "dependsOn": ["build", "test", "lint"]
