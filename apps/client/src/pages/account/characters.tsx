@@ -10,7 +10,8 @@ import styles from '@/styles/pages/account.module.scss';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
-import { createUniqueKey, getClass, getFaction, getRaceName, getGender } from '@/utils/helper.util';
+import { createUniqueKey } from '@/utils/helper.util';
+import { getClassName, getFaction, getGender, getRaceName } from '@/functions/shared-defines.function';
 
 const Button = dynamic(() => import('@/components/button'));
 const Tooltip = dynamic(() => import('@/components/tooltips'));
@@ -136,7 +137,7 @@ const Characters = () =>
                                                         Class
                                                     </p>
                                                     <span>
-                                                        { getClass(character.class) }
+                                                        { getClassName(character.class) }
                                                     </span>
                                                 </li>
                                             </ul>

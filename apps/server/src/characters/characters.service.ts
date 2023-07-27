@@ -3,6 +3,9 @@ import { Pool } from 'mysql2/promise';
 
 import { Soap } from '@/utils/soap.util';
 
+// DO NOT REMOVE THIS IMPORT
+import { Races } from '@/enums/shared-defines.enum';
+
 @Injectable()
 export class CharactersService
 {

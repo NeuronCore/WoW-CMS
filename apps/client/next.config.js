@@ -30,6 +30,7 @@ const nextConfig =
             }
         ]
     },
+    transpilePackages: ['../common'],
     reactStrictMode: true,
     swcMinify: true
 };

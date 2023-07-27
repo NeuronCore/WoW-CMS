@@ -17,7 +17,7 @@
         "incremental": true,
         "removeComments": true,
         "baseUrl": ".",
-        "paths": { "@/*": ["./src/*"] }
+        "paths": { "@/*": ["./src/*", "../common/src/*"] }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "custom.d.ts"],
     "exclude": ["node_modules"]

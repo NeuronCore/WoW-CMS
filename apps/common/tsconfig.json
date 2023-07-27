@@ -1,0 +1,22 @@
+{
+    "compilerOptions":
+    {
+        "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "allowUnreachableCode": false,
+        "target": "es5",
+        "module": "ES2015",
+        "allowJs": true,
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "lib",
+        "rootDir": "src",
+        "composite": true,
+        "esModuleInterop": true,
+        "inlineSourceMap": true,
+        "inlineSources": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src"]
+}
