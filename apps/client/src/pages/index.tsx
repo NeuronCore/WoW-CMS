@@ -222,7 +222,7 @@ export const getStaticProps: GetStaticProps<any> = async({ locale }) =>
     const responseFeatures = await axios.get('/web/find-all/feature?locale=' + locale);
 
     if (!responseFaq?.data || !responseFeatures?.data)
-        return { notFound: true };
+        return { props: { faq: [], features: [] }, revalidate: 800 };
 
     const faq = await responseFaq?.data?.data?.faq;
     const features = await responseFeatures?.data?.data?.features;
