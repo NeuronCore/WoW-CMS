@@ -88,9 +88,7 @@ const Characters = () =>
                                 <div key={ character.guid } className={styles.accountContentItem}>
                                     <header>
                                         <h3>
-                                            <Tooltip content={character.online === 1 ? 'Online' : 'Offline'}>
-                                                <i data-online={character.online === 1}/>
-                                            </Tooltip>
+                                            <i data-online={character.online === 1}/>
                                             { character.name }
                                         </h3>
                                     </header>
