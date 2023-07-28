@@ -51,7 +51,7 @@ export class AccountController
     @Get('uploaded-image/:folder/:image')
     public async getAvatar(@Param('folder') folder: string, @Param('image') image: string, @Res() res: Response)
     {
-        return res.sendFile(join(__dirname, '..', '..', `uploads/${ folder }/${ image }`));
+        return res.sendFile(join(__dirname, '..', '..', '..', '..', `uploads/${ folder }/${ image }`));
     }
 
     @Patch('update-information')
