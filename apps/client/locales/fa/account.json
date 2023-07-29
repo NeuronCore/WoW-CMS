@@ -1,94 +1,89 @@
 {
     "overview":
     {
-        "title": "ACCOUNT OVERVIEW",
-        "subtitleInfo": "Your Information",
-        "subtitleSecurity": "Account Security",
-        "memberSince": "Member Since",
-        "updateAvatar": "Update Avatar",
-        "lastIP": "Last IP",
-        "email": "Email",
-        "update": "Update",
-        "edit": "Edit",
-        "cancel": "Cancel",
-        "save": "Save",
-        "discord": "Discord",
-        "addDiscord": "Add Discord Account",
-        "linkDiscord": "Link Discord",
-        "donate": "Donate",
-        "visitShop": "Visit Shop",
-        "currencyInfo": "Currency Information",
-        "recentConnection": "RECENT CONNECTIONS",
-        "ip": "IP Address",
-        "country": "Country",
-        "date": "Date",
-        "complete": "COMPLETE",
-        "redeemACode": "Redeem A Code",
-        "redeemCode": "Redeem Code",
-        "verifyEmail": "Verify Email",
-        "enable2FA": "Enable 2FA",
-        "addSQ": "Add Security Question",
-        "balance": "Balance"
-
+        "title": "نمای کلی حساب",
+        "subtitleInfo": "اطلاعات شما",
+        "subtitleSecurity": "امنیت حساب",
+        "updateAvatar": "بروزرسانی آواتار",
+        "edit": "ویرایش",
+        "discord": "دیسکورد",
+        "addDiscord": "اتصال اکانت دیسکورد",
+        "linkDiscord": "پیوند دیسکورد",
+        "donate": "اهدا کنید",
+        "visitShop": "از فروشگاه دیدن کنید",
+        "currencyInfo": "اطلاعات ارز",
+        "recentConnection": "اتصالات اخیر",
+        "ip": "آدرس آی‌پی",
+        "country": "کشور",
+        "date": "تاریخ",
+        "complete": "کامل",
+        "redeemACode": "بازخرید کد",
+        "redeemCode": "بازخرید",
+        "enable2FA": "فعال کردن دومرحله‌ای",
+        "addSQ": "اضافه کردن سوال امنیتی",
+        "balance": "موجودی",
+        "memberSince": "عضو از",
+        "lastIP": "آخرین آیپی",
+        "email": "ایمیل",
+        "update": "به‌روزرسانی",
+        "setup": "برپایی",
+        "cancel": "لغو",
+        "save": "ذخیره",
+        "verifyEmail": "تأیید ایمیل"
     },
     "details":
     {
-        "title": "ACCOUNT DETAILS",
-        "subtitleInfo": "Personal Information",
-        "subtitleEmail": "Email Address",
-        "firstNameInput":
-        {
-            "label": "First Name",
-            "placeholder": "Your first name"
-        },
-        "lastNameInput":
-        {
-            "label": "Last Name",
-            "placeholder": "Your last name"
-        },
-        "usernameInput":
-        {
-            "label": "username",
-            "placeholder": "Your Username"
-        },
-        "emailInput":
-        {
-            "label": "Email Address",
-            "placeholder": "Your email address"
-        },
-        "phoneInput":
-        {
-            "label": "Phone",
-            "placeholder": "Your phone number"
-        },
-        "passwordInput":
-        {
-            "label": "Password",
-            "placeholder": "Your Password"
-        },
+        "title": "جزئیات حساب",
+        "subtitleInfo": "اطلاعات شخصی",
+        "subtitleEmail": "آدرس ایمیل",
         "newPasswordInput":
         {
-            "label": "New Password",
-            "placeholder": "New Password"
+            "label": "رمز عبور جدید",
+            "placeholder": "رمز عبور جدید شما"
         },
         "confirmNewPasswordInput":
         {
-            "label": "Confirm New Password",
-            "placeholder": "Confirm your new password"
+            "label": "تأیید رمز عبور جدید",
+            "placeholder": "تأیید رمز عبور جدید شما"
+        },
+        "firstNameInput":
+        {
+            "label": "نام",
+            "placeholder": "نام شما"
+        },
+        "lastNameInput":
+        {
+            "label": "نام خانوادگی",
+            "placeholder": "نام خانوادگی شما"
+        },
+        "usernameInput":
+        {
+            "label": "نام کاربری",
+            "placeholder": "نام کاربری شما"
+        },
+        "emailInput":
+        {
+            "label": "آدرس ایمیل",
+            "placeholder": "آدرس ایمیل شما"
+        },
+        "passwordInput":
+        {
+            "label": "رمز عبور",
+            "placeholder": "رمز عبور شما"
         },
         "confirmPasswordInput":
         {
-            "label": "Confirm Password",
-            "placeholder": "Confirm your password"
+            "label": "تایید رمز عبور",
+            "placeholder": "رمز عبور خود را تایید کنید"
         },
-        "memberSince": "Member Since",
-        "lastIP": "Last IP",
-        "email": "Email",
-        "update": "Update",
-        "setup": "Setup",
-        "cancel": "Cancel",
-        "save": "Save",
-        "verifyEmail": "Verify Email"
+        "memberSince": "عضو از",
+        "lastIP": "آخرین آیپی",
+        "email": "ایمیل",
+        "update": "به‌روزرسانی",
+        "setup": "برپایی",
+        "cancel": "لغو",
+        "save": "ذخیره",
+        "verifyEmail": "تأیید ایمیل"
 
     },
     "discord":
