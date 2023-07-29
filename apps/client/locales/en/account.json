@@ -90,5 +90,16 @@
         "save": "Save",
         "verifyEmail": "Verify Email"
 
+    },
+    "discord":
+    {
+        "title": "Discord Connection",
+        "subtitleVerification": "Discord Verification",
+        "paragraph0": "If you recently used a [Travel Guide] and do not see a discord to join, try refreshing in 5 minutes!",
+        "paragraph1": "In order to link your WoW-CMS account to your Discord account and unlock additional functionality, please use the button below and proceed to authorize the linkage on the following Discord page.",
+        "unlinkAccount": "Unlink Account",
+        "discord": "Discord",
+        "linkDiscord": "Link Discord",
+        "join": "Join"
     }
 }

@@ -89,6 +89,16 @@
         "cancel": "Cancel",
         "save": "Save",
         "verifyEmail": "Verify Email"
-
+    },
+    "discord":
+    {
+        "title": "Discord-Verbindung",
+        "subtitleVerification": "Discord-Verifizierung",
+        "paragraph0": "Wenn Sie kürzlich einen [Reiseführer] verwendet haben und keinen Discord sehen, dem Sie beitreten können, versuchen Sie, ihn in 5 Minuten zu aktualisieren!",
+        "paragraph1": "Um Ihr WoW-CMS-Konto mit Ihrem Discord-Konto zu verknüpfen und zusätzliche Funktionen freizuschalten, verwenden Sie bitte die Schaltfläche unten und autorisieren Sie die Verknüpfung auf der folgenden Discord-Seite.",
+        "unlinkAccount": "Verknüpfung des Kontos aufheben",
+        "discord": "Discord",
+        "linkDiscord": "Link Discord",
+        "join": "Verbinden"
     }
 }

@@ -33,13 +33,13 @@ const Discord = () =>
         >
             <div className={styles.accountContent}>
                 <h3 className={styles.accountContentHeader}>
-                   Discord Connection
+                    { t('account:discord.title') }
                 </h3>
                 <div className={styles.accountContentListGrid1}>
                     <div className={styles.accountContentItem}>
                         <header>
                             <h3>
-                                Discord Verification
+                                { t('account:discord.subtitleVerification') }
                             </h3>
                         </header>
                         {
@@ -48,7 +48,7 @@ const Discord = () =>
                                 <div data-discord='connection'>
                                     <div>
                                         <p>
-                                            Discord
+                                            { t('account:discord.discord') }
                                         </p>
                                         <div>
                                             <span>
@@ -81,24 +81,24 @@ const Discord = () =>
                                             </p>
 
                                             <Button href='/'>
-                                                Join
+                                                { t('account:discord.join') }
                                             </Button>
                                         </div>
                                     </div>
                                     <p>
-                                        If you recently used a [Travel Guide] and do not see a discord to join, try refreshing in 5 minutes!
+                                        { t('account:discord.paragraph0') }
                                     </p>
                                     <Button>
-                                        Unlink Account
+                                        { t('account:discord.unlinkAccount') }
                                     </Button>
                                 </div>
                                 :
                                 <div data-discord='link'>
                                     <p>
-                                        In order to link your WoW-CMS account to your Discord account and unlock additional functionality, please use the button below and proceed to authorize the linkage on the following Discord page.
+                                        { t('account:discord.paragraph1') }
                                     </p>
                                     <Button>
-                                        Link Discord
+                                        { t('account:discord.linkDiscord') }
                                     </Button>
                                 </div>
                         }
