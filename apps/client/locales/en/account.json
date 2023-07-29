@@ -48,7 +48,7 @@
         },
         "usernameInput":
         {
-            "label": "username",
+            "label": "Username",
             "placeholder": "Your Username"
         },
         "emailInput":

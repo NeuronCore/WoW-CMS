@@ -1,94 +1,94 @@
 {
     "overview":
     {
-        "title": "ACCOUNT OVERVIEW",
-        "subtitleInfo": "Your Information",
-        "subtitleSecurity": "Account Security",
-        "memberSince": "Member Since",
-        "updateAvatar": "Update Avatar",
-        "lastIP": "Last IP",
+        "title": "KONTOÜBERSICHT",
+        "subtitleInfo": "Ihre Informationen",
+        "subtitleSecurity": "Konto Sicherheit",
+        "memberSince": "Mitglied seit",
+        "updateAvatar": "Avatar aktualisieren",
+        "lastIP": "Letzte IP",
         "email": "Email",
-        "update": "Update",
-        "edit": "Edit",
-        "cancel": "Cancel",
-        "save": "Save",
+        "update": "Aktualisieren",
+        "edit": "Bearbeiten",
+        "cancel": "Stornieren",
+        "save": "Speichern",
         "discord": "Discord",
-        "addDiscord": "Add Discord Account",
+        "addDiscord": "Discord-Konto hinzufügen",
         "linkDiscord": "Link Discord",
-        "donate": "Donate",
-        "visitShop": "Visit Shop",
-        "currencyInfo": "Currency Information",
-        "recentConnection": "RECENT CONNECTIONS",
-        "ip": "IP Address",
-        "country": "Country",
-        "date": "Date",
-        "complete": "COMPLETE",
-        "redeemACode": "Redeem A Code",
-        "redeemCode": "Redeem Code",
-        "verifyEmail": "Verify Email",
-        "enable2FA": "Enable 2FA",
-        "addSQ": "Add Security Question",
-        "balance": "Balance"
+        "donate": "Spenden",
+        "visitShop": "Besuchen Sie den Shop",
+        "currencyInfo": "Währungsinformationen",
+        "recentConnection": "LETZTE VERBINDUNGEN",
+        "ip": "IP Adresse",
+        "country": "Land",
+        "date": "Datum",
+        "complete": "Vollständig",
+        "redeemACode": "Einen Code einlösen",
+        "redeemCode": "Code einlösen",
+        "verifyEmail": "EMail bestätigen",
+        "enable2FA": "Aktivieren 2FA",
+        "addSQ": "Sicherheitsfrage hinzufügen",
+        "balance": "Gleichgewicht"
 
     },
     "details":
     {
-        "title": "ACCOUNT DETAILS",
-        "subtitleInfo": "Personal Information",
-        "subtitleEmail": "Email Address",
+        "title": "ACCOUNT KONTODETAILS",
+        "subtitleInfo": "Persönliche Angaben",
+        "subtitleEmail": "EMail-Addresse",
         "firstNameInput":
         {
-            "label": "First Name",
-            "placeholder": "Your first name"
+            "label": "Vorname",
+            "placeholder": "Ihr Vorname"
         },
         "lastNameInput":
         {
-            "label": "Last Name",
-            "placeholder": "Your last name"
+            "label": "Familienname",
+            "placeholder": "Ihr Familienname"
         },
         "usernameInput":
         {
-            "label": "username",
-            "placeholder": "Your Username"
+            "label": "Nutzername",
+            "placeholder": "Ihr Nutzername"
         },
         "emailInput":
         {
             "label": "Email Address",
-            "placeholder": "Your email address"
+            "placeholder": "Ihr EMail Addresse"
         },
         "phoneInput":
         {
-            "label": "Phone",
-            "placeholder": "Your phone number"
+            "label": "Telefon",
+            "placeholder": "Ihr Telefonnummer"
         },
         "passwordInput":
         {
-            "label": "Password",
-            "placeholder": "Your Password"
+            "label": "Passwort",
+            "placeholder": "Ihr Passwort"
         },
         "newPasswordInput":
         {
-            "label": "New Password",
-            "placeholder": "New Password"
+            "label": "Neues Passwort",
+            "placeholder": "Neues Passwort"
         },
         "confirmNewPasswordInput":
         {
-            "label": "Confirm New Password",
-            "placeholder": "Confirm your new password"
+            "label": "Bestätige neues Passwort",
+            "placeholder": "Bestätigen Sie Ihr neues Passwort"
         },
         "confirmPasswordInput":
         {
-            "label": "Confirm Password",
-            "placeholder": "Confirm your password"
+            "label": "Bestätige das Passwort",
+            "placeholder": "Bestätigen Sie Ihr Passwort"
         },
-        "memberSince": "Member Since",
-        "lastIP": "Last IP",
+        "memberSince": "Mitglied seit",
+        "lastIP": "Letzte IP",
         "email": "Email",
-        "update": "Update",
-        "setup": "Setup",
-        "cancel": "Cancel",
-        "save": "Save",
-        "verifyEmail": "Verify Email"
+        "update": "Aktualisieren",
+        "setup": "Aufstellen",
+        "cancel": "Stornieren",
+        "save": "Speichern",
+        "verifyEmail": "EMail Bestätigen"
     },
     "discord":
     {
