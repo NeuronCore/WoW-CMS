@@ -208,6 +208,7 @@
                 {
                     margin-top: 3rem;
                     color: var(--red);
+                    padding: 1.25rem 0;
 
                     &:hover
                     {
@@ -344,6 +345,108 @@
             width: 100%;
             height: 100%;
             background: var(--base-primary-light);
+
+            & > [data-discord='link']
+            {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 3rem;
+
+                width: 100%;
+                height: fit-content;
+
+                & > p
+                {
+                    font-weight: normal;
+                    font-size: 1.75rem;
+                }
+
+                & > div
+                {
+                    width: 100%;
+
+                    & > button
+                    {
+                        width: 100%;
+                    }
+                }
+            }
+
+            & > [data-discord='connection']
+            {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                flex-direction: column;
+                gap: 3rem;
+
+                width: 100%;
+                height: fit-content;
+
+                & > p
+                {
+                    font-weight: normal;
+                    font-size: 1.75rem;
+                }
+
+                & > div
+                {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    width: 100%;
+
+                    & > p
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        width: 100%;
+                        font-size: 1.5rem;
+                        font-weight: 500;
+                    }
+
+                    & > button
+                    {
+                        width: 100%;
+                    }
+
+                    & > div
+                    {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        gap: 1rem;
+
+                        font-size: 1.75rem;
+                        width: 100%;
+                        padding: 1rem 1.5rem;
+                        border: none;
+                        outline: none;
+                        color: var(--color-base-text-bold);
+                        background: var(--base-primary-lighter);
+
+                        & > span
+                        {
+                            width: 4rem;
+                            height: 4rem;
+                            overflow: hidden;
+                            border-radius: 10rem;
+                        }
+
+                        & > a
+                        {
+                            margin: auto;
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
 
             &Character
             {
