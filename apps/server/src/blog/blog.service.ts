@@ -17,7 +17,10 @@ export class BlogService
 {
     private logger: Logger = new Logger(BlogService.name);
 
-    constructor(@Inject('WEB_DATABASE') private webDatabase: Pool)
+    constructor(
+        @Inject('AUTH_DATABASE') private authDatabase: Pool,
+        @Inject('WEB_DATABASE') private webDatabase: Pool
+    )
     { }
 
     /**
@@ -248,7 +251,8 @@ export class BlogService
                 (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
                 (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
                 (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
-                id, account, parent_id,
+                (SELECT avatar FROM account_information WHERE account_information.id = blog.account) AS avatar,
+                id,
                 title_${ locale }, meta_title_${ locale },
                 slug_${ locale },
                 thumbnail,
@@ -257,9 +261,11 @@ export class BlogService
             FROM
                 blog
             WHERE
-                blog.slug = ?
+                blog.slug_${ locale } = ?
         `;
         const [blog] = await this.webDatabase.query(sql, [slug]);
+
+        const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [blog[0].account]);
 
         const privateIP = ip.address('private');
 
@@ -270,7 +276,7 @@ export class BlogService
                 await this.webDatabase.execute('INSERT INTO `blog_reads` (`blog_id`, `ip`) VALUES (?, ?)', [blog[0].id, privateIP]);
         }
 
-        return { statusCode: HttpStatus.OK, data: { blog: blog[0] } };
+        return { statusCode: HttpStatus.OK, data: { blog: { ...blog[0], ...account[0] } } };
     }
 
     public async findAllAndOrder(locale: Locale, type: BlogFindAll, page = 1, limit = 20)
