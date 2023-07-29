@@ -1,7 +1,7 @@
 {
     "overview":
     {
-        "title": "ACCOUNT OVERVIEW",
+        "title": "Account Overview",
         "subtitleInfo": "Your Information",
         "subtitleSecurity": "Account Security",
         "memberSince": "Member Since",
@@ -33,7 +33,7 @@
     },
     "details":
     {
-        "title": "ACCOUNT DETAILS",
+        "title": "Account Details",
         "subtitleInfo": "Personal Information",
         "subtitleEmail": "Email Address",
         "firstNameInput":
@@ -54,12 +54,12 @@
         "emailInput":
         {
             "label": "Email Address",
-            "placeholder": "Your email address"
+            "placeholder": "Your Email Address"
         },
         "phoneInput":
         {
             "label": "Phone",
-            "placeholder": "Your phone number"
+            "placeholder": "Your Phone Number"
         },
         "passwordInput":
         {
@@ -74,12 +74,12 @@
         "confirmNewPasswordInput":
         {
             "label": "Confirm New Password",
-            "placeholder": "Confirm your new password"
+            "placeholder": "Confirm Your New Password"
         },
         "confirmPasswordInput":
         {
             "label": "Confirm Password",
-            "placeholder": "Confirm your password"
+            "placeholder": "Confirm Your Password"
         },
         "memberSince": "Member Since",
         "lastIP": "Last IP",

@@ -1,7 +1,7 @@
 {
     "overview":
     {
-        "title": "KONTOÜBERSICHT",
+        "title": "Kontoübersicht",
         "subtitleInfo": "Ihre Informationen",
         "subtitleSecurity": "Konto Sicherheit",
         "memberSince": "Mitglied seit",
@@ -25,7 +25,7 @@
         "complete": "Vollständig",
         "redeemACode": "Einen Code einlösen",
         "redeemCode": "Code einlösen",
-        "verifyEmail": "EMail bestätigen",
+        "verifyEmail": "Email bestätigen",
         "enable2FA": "Aktivieren 2FA",
         "addSQ": "Sicherheitsfrage hinzufügen",
         "balance": "Gleichgewicht"
@@ -33,9 +33,9 @@
     },
     "details":
     {
-        "title": "ACCOUNT KONTODETAILS",
+        "title": "Account Kontodetails",
         "subtitleInfo": "Persönliche Angaben",
-        "subtitleEmail": "EMail-Addresse",
+        "subtitleEmail": "Email Addresse",
         "firstNameInput":
         {
             "label": "Vorname",
@@ -54,7 +54,7 @@
         "emailInput":
         {
             "label": "Email Address",
-            "placeholder": "Ihr EMail Addresse"
+            "placeholder": "Ihr Email Addresse"
         },
         "phoneInput":
         {
@@ -88,7 +88,7 @@
         "setup": "Aufstellen",
         "cancel": "Stornieren",
         "save": "Speichern",
-        "verifyEmail": "EMail Bestätigen"
+        "verifyEmail": "Email Bestätigen"
     },
     "discord":
     {
