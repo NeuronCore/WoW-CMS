@@ -257,7 +257,7 @@ const Overview = () =>
                             <Input
                                 required
                                 name='code'
-                                label='Your Code'
+                                label={ t('account:overview.yourCode') }
                                 placeholder='XXXXX-ZZZZZ-YYYYY-AAAAA'
                             />
                             <Button>

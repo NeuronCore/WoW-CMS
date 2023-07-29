@@ -28,7 +28,8 @@
         "verifyEmail": "Email bestätigen",
         "enable2FA": "Aktivieren 2FA",
         "addSQ": "Sicherheitsfrage hinzufügen",
-        "balance": "Gleichgewicht"
+        "balance": "Gleichgewicht",
+        "yourCode": "Dein Code"
 
     },
     "details":

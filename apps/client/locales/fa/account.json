@@ -9,8 +9,8 @@
         "discord": "دیسکورد",
         "addDiscord": "اتصال اکانت دیسکورد",
         "linkDiscord": "پیوند دیسکورد",
-        "donate": "اهدا کنید",
-        "visitShop": "از فروشگاه دیدن کنید",
+        "donate": "حمایت",
+        "visitShop": "فروشگاه",
         "currencyInfo": "اطلاعات ارز",
         "recentConnection": "اتصالات اخیر",
         "ip": "آدرس آی‌پی",
@@ -29,7 +29,8 @@
         "setup": "برپایی",
         "cancel": "لغو",
         "save": "ذخیره",
-        "verifyEmail": "تأیید ایمیل"
+        "verifyEmail": "تأیید ایمیل",
+        "yourCode": "کد شما"
     },
     "details":
     {

@@ -28,7 +28,8 @@
         "verifyEmail": "Verify Email",
         "enable2FA": "Enable 2FA",
         "addSQ": "Add Security Question",
-        "balance": "Balance"
+        "balance": "Balance",
+        "yourCode": "Your Code"
 
     },
     "details":
