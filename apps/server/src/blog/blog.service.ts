@@ -252,7 +252,7 @@ export class BlogService
                 (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
                 (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
                 (SELECT avatar FROM account_information WHERE account_information.id = blog.account) AS avatar,
-                id,
+                id, account,
                 title_${ locale }, meta_title_${ locale },
                 slug_${ locale },
                 thumbnail,
@@ -276,7 +276,7 @@ export class BlogService
                 await this.webDatabase.execute('INSERT INTO `blog_reads` (`blog_id`, `ip`) VALUES (?, ?)', [blog[0].id, privateIP]);
         }
 
-        return { statusCode: HttpStatus.OK, data: { blog: { ...blog[0], ...account[0] } } };
+        return { statusCode: HttpStatus.OK, data: { blog: { ...blog[0], author: account[0] } } };
     }
 
     public async findAllAndOrder(locale: Locale, type: BlogFindAll, page = 1, limit = 20)
