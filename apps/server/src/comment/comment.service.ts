@@ -9,7 +9,10 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 @Injectable()
 export class CommentService
 {
-    constructor(@Inject('WEB_DATABASE') private webDatabase: Pool)
+    constructor(
+        @Inject('AUTH_DATABASE') private authDatabase: Pool,
+        @Inject('WEB_DATABASE') private webDatabase: Pool
+    )
     { }
 
     /**
@@ -132,7 +135,8 @@ export class CommentService
         `
             SELECT
                 *,
-                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes
+                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes,
+                (SELECT avatar FROM account_information WHERE account_information.id = comments.account) AS avatar
             FROM
                 comments
             WHERE
@@ -143,6 +147,12 @@ export class CommentService
         `;
         const [comments]: any = await this.webDatabase.query(sql, [blogID]);
 
+        for (const comment of comments)
+        {
+            const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [comment.account]);
+            comment.author = account[0].username;
+        }
+
         return { statusCode: HttpStatus.OK, data: { totals: comments.length, comments } };
     }
 
@@ -152,7 +162,8 @@ export class CommentService
         `
             SELECT
                 *,
-                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes
+                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes,
+                (SELECT avatar FROM account_information WHERE account_information.id = comments.account) AS avatar
             FROM
                 comments
             WHERE
@@ -162,6 +173,12 @@ export class CommentService
             LIMIT ${ page - 1 }, ${ limit };
         `;
         const [replies]: any = await this.webDatabase.query(sql, [commentID]);
+
+        for (const reply of replies)
+        {
+            const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [reply.account]);
+            reply.author = account[0].username;
+        }
 
         return { statusCode: HttpStatus.OK, data: { totals: replies.length, replies } };
     }
