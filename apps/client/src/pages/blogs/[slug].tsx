@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import ReactHtmlParser from 'html-react-parser';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import { BsArrow90DegDown, BsArrow90DegUp, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsPrinter } from 'react-icons/bs';
@@ -12,6 +13,8 @@ import styles from '@/styles/pages/blog.module.scss';
 import data from '@/data/comments.data.json';
 
 import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
+
+import Profile from '@/../public/images/heros/profile.jpg';
 
 const Tooltip = dynamic(() => import('@/components/tooltips'));
 const Preloader = dynamic(() => import('@/components/preloader'));
@@ -32,12 +35,19 @@ const Blog = () =>
         (
             async() =>
             {
-                const getBlog = await axios.get(`/blog/find-by-slug/${ query.slug }?locale=${ locale }`);
+                try
+                {
+                    const getBlog = await axios.get(`/blog/find-by-slug/${ query.slug }?locale=${ locale }`);
 
-                setBlog(getBlog.data.data);
+                    setBlog(getBlog.data.data.blog);
+                }
+                catch (error)
+                {
+                    setBlog(null);
+                }
             }
         )();
-    }, []);
+    }, [locale]);
 
     useEffect(() =>
     {
@@ -160,7 +170,7 @@ const Blog = () =>
     return (
         blog === 'loading'
             ? <Preloader />
-            : blog.published
+            : blog?.published
                 ?
                 <>
                     <nav data-blog='true' className={styles.blogNavbarHeaderNav}>
@@ -228,8 +238,8 @@ const Blog = () =>
 
                                 <span>
                                     <Image
-                                        src={ blog.thumbnail }
-                                        alt='WoW CMS'
+                                        src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
+                                        alt={ blog[`meta_title_${ locale }`] }
                                         fill
                                         style={{ objectFit: 'cover' }}
                                         sizes={'100'}
@@ -240,8 +250,8 @@ const Blog = () =>
                                 <div>
                                     <span>
                                         <Image
-                                            src={ blog.account.avatar }
-                                            alt={ blog.account.username }
+                                            src={ blog.author.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ blog.author.avatar }` : Profile }
+                                            alt={ blog.author.username }
                                             fill
                                             style={{ objectFit: 'cover' }}
                                             sizes={'100'}
@@ -250,7 +260,7 @@ const Blog = () =>
                                     <div>
                                         By
                                         <h2>
-                                            { blog.account.username }
+                                            { blog.author.username }
                                         </h2>
                                     </div>
                                 </div>
@@ -310,26 +320,31 @@ const Blog = () =>
                     </header>
 
                     <section className={styles.blogMain}>
-                        { blog[`content_${ locale }`] }
+                        { ReactHtmlParser(blog[`content_${ locale }`] || '') }
                     </section>
 
                     <section className={styles.blogMainFooter}>
-                        <ul>
-                            {
-                                blog.tags.map((tag: string) =>
-                                    (
-                                        <li>
-                                            <Link href='/blogs?tag=tag'>
-                                                #{ tag }
-                                            </Link>
-                                        </li>
-                                    ))
-                            }
-                        </ul>
+                        {
+                            blog.tags
+                                ?
+                                <ul>
+                                    {
+                                        blog.tags.map((tag: string) =>
+                                            (
+                                                <li>
+                                                    <Link href='/blogs?tag=tag'>
+                                                        #{ tag }
+                                                    </Link>
+                                                </li>
+                                            ))
+                                    }
+                                </ul>
+                                : null
+                        }
                         <div>
-                            <Link href={`/blogs?category=${ blog.category }`}>
+                            <Link href={`/blogs?category=${ blog.category || 'None' }`}>
                                 <span>
-                                    { blog.category }
+                                    { blog.category || 'None' }
                                 </span>
                             </Link>
                             <div>
@@ -370,28 +385,28 @@ const Blog = () =>
                             <span/>
                         </i>
 
-                        {/*<div>*/}
-                        {/*    <span>*/}
-                        {/*        <Image*/}
-                        {/*            src={ blog.account.avatar }*/}
-                        {/*            alt={ blog.account.username }*/}
-                        {/*            fill*/}
-                        {/*            style={{ objectFit: 'cover' }}*/}
-                        {/*            sizes={'100'}*/}
-                        {/*        />*/}
-                        {/*    </span>*/}
-                        {/*    <div>*/}
-                        {/*        <span>*/}
-                        {/*            <h3>*/}
-                        {/*                { blog.account.username }*/}
-                        {/*            </h3>*/}
-                        {/*             - Author*/}
-                        {/*        </span>*/}
-                        {/*        <p>*/}
-                        {/*            { blog.account.biography }*/}
-                        {/*        </p>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+                        <div>
+                            <span>
+                                <Image
+                                    src={ blog.author.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ blog.author.avatar }` : Profile }
+                                    alt={ blog.author.username }
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                    sizes={'100'}
+                                />
+                            </span>
+                            <div>
+                                <span>
+                                    <h3>
+                                        { blog.author.username }
+                                    </h3>
+                                     - Author
+                                </span>
+                                <p>
+                                    { blog[`summary_${ locale }`] }
+                                </p>
+                            </div>
+                        </div>
                     </section>
 
                     <header className={styles.blogsHeader}>

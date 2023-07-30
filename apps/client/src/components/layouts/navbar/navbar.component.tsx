@@ -64,7 +64,7 @@ const Navbar = () =>
                             ?
                             <div onClick={() => setLocalePopup(!localePopup)}>
                                 <p>
-                                    EN
+                                    { locale.toUpperCase() }
                                 </p>
                                 {
                                     localePopup
