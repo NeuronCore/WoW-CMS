@@ -81,6 +81,11 @@ const Blog = () =>
             : document.body.classList.remove('overflow--hidden');
     }, [comments, deleteModalState]);
 
+    const likeHandler = () =>
+    {
+        console.log('like handler');
+    };
+
     const updateScore = (score: string, id: string, type: string, method: string) =>
     {
         const updatedComments = [...comments];
@@ -268,8 +273,8 @@ const Blog = () =>
                                 <div>
                                     <span>
                                         <Image
-                                            src={ blog.author.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ blog.author.avatar }` : Profile }
-                                            alt={ blog.author.username }
+                                            src={ blog.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ blog.avatar }` : Profile }
+                                            alt={ blog.username }
                                             fill
                                             style={{ objectFit: 'cover' }}
                                             sizes={'100'}
@@ -278,7 +283,7 @@ const Blog = () =>
                                     <div>
                                         By
                                         <h2>
-                                            { blog.author.username }
+                                            { blog.username }
                                         </h2>
                                     </div>
                                 </div>
@@ -367,17 +372,12 @@ const Blog = () =>
                             </Link>
                             <div>
                                 <Tooltip content='Liked The Blog'>
-                                    <span>
+                                    <span onClick={likeHandler}>
                                         <BsHeart />
                                     </span>
                                 </Tooltip>
-                                <Tooltip content='Save The Blog'>
-                                    <span>
-                                        <BsBookmark />
-                                    </span>
-                                </Tooltip>
                                 <Tooltip content='Print The Blog'>
-                                    <span>
+                                    <span onClick={() => window.print()}>
                                         <BsPrinter />
                                     </span>
                                 </Tooltip>
@@ -406,8 +406,8 @@ const Blog = () =>
                         <div>
                             <span>
                                 <Image
-                                    src={ blog.author.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ blog.author.avatar }` : Profile }
-                                    alt={ blog.author.username }
+                                    src={ blog.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ blog.avatar }` : Profile }
+                                    alt={ blog.username }
                                     fill
                                     style={{ objectFit: 'cover' }}
                                     sizes={'100'}
@@ -416,7 +416,7 @@ const Blog = () =>
                             <div>
                                 <span>
                                     <h3>
-                                        { blog.author.username }
+                                        { blog.username }
                                     </h3>
                                      - Author
                                 </span>
@@ -456,7 +456,7 @@ const Blog = () =>
                                                 <Comment
                                                     user={user}
                                                     blogId={blog.id}
-                                                    key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.author.username])}
+                                                    key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.username])}
                                                     commentData={comment}
                                                     updateScore={updateScore}
                                                     updateReplies={updateReplies}

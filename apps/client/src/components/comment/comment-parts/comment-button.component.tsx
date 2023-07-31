@@ -47,7 +47,7 @@ const CommentButton = ({
                             : null
                     }
                     {
-                        user.username === commentData.author.username
+                        user.username === commentData.username
                             ?
                             <button onClick={showEditComment}>
                                 <BsPen /> Edit
@@ -55,7 +55,7 @@ const CommentButton = ({
                             : null
                     }
                     {
-                        user.username === commentData.author.username || user.role === 'admin'
+                        user.username === commentData.username || user.role === 'admin'
                             ?
                             <button className={styles.commentButtonDelete} data-delete onClick={showDeleteModal}>
                                 <BsTrash /> Delete

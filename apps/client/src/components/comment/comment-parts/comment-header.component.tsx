@@ -40,8 +40,8 @@ const CommentHeader =
         <div className={styles.commentBodyHeader}>
             <div className={classnames(styles.commentBodyHeaderProfile)}>
                 <Image
-                    src={ commentData.author.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ commentData.author.avatar }` : Profile }
-                    alt={ commentData.author.username }
+                    src={ commentData.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ commentData.avatar }` : Profile }
+                    alt={ commentData.username }
                     fill
                     style={{ objectFit: 'cover' }}
                     sizes={'100'}
@@ -49,11 +49,11 @@ const CommentHeader =
             </div>
 
             <div className={styles.commentBodyHeaderUsername}>
-                { commentData.author.username }
+                { commentData.username }
             </div>
 
             {
-                commentData.author.username === user?.username
+                commentData.username === user?.username
                     ?
                     <div className={styles.commentBodyHeaderYouTag}>
                         you

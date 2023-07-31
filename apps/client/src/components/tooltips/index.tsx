@@ -10,10 +10,11 @@ type Props =
         interactive?: boolean,
         placement?: 'top' | 'bottom' | 'left' | 'right',
         render?: ReactElement, light?: boolean,
-        children: ReactElement
+        children: ReactElement,
+        disabled?: boolean
     };
 
-const TooltipPrimary = ({ content, interactive, placement, render, light, children }: Props) =>
+const TooltipPrimary = ({ content, interactive, placement, render, light, children, disabled }: Props) =>
 {
     const stylesConfig =
         {
@@ -58,6 +59,7 @@ const TooltipPrimary = ({ content, interactive, placement, render, light, childr
             onMount={ onMount }
             onHide={ onHide }
             placement={ placement ?? 'top' }
+            disabled={ disabled }
             render={() =>
                 (
                     render
