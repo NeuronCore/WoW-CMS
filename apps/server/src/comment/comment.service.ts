@@ -135,7 +135,8 @@ export class CommentService
         `
             SELECT
                 *,
-                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes
+                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes,
+                (SELECT avatar FROM account_information WHERE account_information.id = comments.account) AS avatar
             FROM
                 comments
             WHERE
@@ -149,9 +150,8 @@ export class CommentService
         for (const comment of comments)
         {
             const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [comment.account]);
-            const [accountInformation] = await this.webDatabase.query('SELECT `avatar` FROM `account_information` WHERE `id` = ?', [comment.account]);
 
-            comment.author = { ...account[0], ...accountInformation[0] };
+            comment.author = { ...account[0] };
         }
 
         return { statusCode: HttpStatus.OK, data: { totals: comments.length, comments } };
