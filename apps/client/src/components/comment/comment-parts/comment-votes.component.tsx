@@ -4,40 +4,44 @@ import { BsDash, BsPlus } from 'react-icons/bs';
 
 import styles from '@/styles/components/comment.module.scss';
 
-const CommentVotes = ({ updateScore, commentData, type }: any) =>
+import { useUser } from '@/hooks/use-user';
+
+const CommentVotes = ({ updateVote, commentData, type }: any) =>
 {
-    const [score, setScore] = useState(commentData.score);
-    const [voted, setVoted] = useState(commentData.voted ?? false);
+    const [user] = useUser();
+
+    const [votes, setVotes] = useState(commentData.votes || 0);
+    const [voted, setVoted] = useState(commentData.voted);
 
     const upVote = () =>
     {
-        if (commentData.currentUser) return;
-        if (voted === false)
+        if (!user) return;
+
+        if (voted !== 'up')
         {
-            const n = score + 1;
+            const n = votes + 1;
 
-            setScore(n);
+            setVotes(n);
 
-            updateScore(n, commentData.id, type, 'upvote');
+            updateVote(n, commentData.id, type, 'up');
 
-            setVoted(true);
+            setVoted('up');
         }
     };
 
     const downVote = () =>
     {
-        if (commentData.currentUser)
-            return;
+        if (!user) return;
 
-        if (voted === true)
+        if (voted !== 'down')
         {
-            const n = score - 1;
+            const n = votes - 1;
 
-            setScore(n);
+            setVotes(n);
 
-            updateScore(n, commentData.id, type, 'downvote');
+            updateVote(n, commentData.id, type, 'down');
 
-            setVoted(false);
+            setVoted('down');
         }
     };
 
@@ -48,7 +52,7 @@ const CommentVotes = ({ updateScore, commentData, type }: any) =>
             </button>
 
             <div className={styles.commentVotesCounter}>
-                { commentData.votes ? commentData.votes.length : 0 }
+                { commentData.votes || 0 }
             </div>
 
             <button className={styles.commentVotesMinus} onClick={downVote}>

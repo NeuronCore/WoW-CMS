@@ -14,7 +14,7 @@ import styles from '@/styles/components/comment.module.scss';
 
 const Comment = ({
     commentData,
-    updateScore,
+    updateVote,
     updateReplies,
     editComment,
     commentDelete,
@@ -30,12 +30,14 @@ const Comment = ({
 
     const addReply = (newReply: any) =>
     {
-        // eslint-disable-next-line no-unsafe-optional-chaining
-        const replies = [...commentData?.replies, newReply];
+        if (commentData?.replies)
+        {
+            const replies = [...commentData.replies, newReply];
 
-        updateReplies(replies, commentData.id);
+            updateReplies(replies, commentData.id);
 
-        setReplying(false);
+            setReplying(false);
+        }
     };
 
     const updateComment = () =>
@@ -59,7 +61,7 @@ const Comment = ({
         <div className={classnames(styles.commentContainer, { [styles.commentReplyContainerGap]: false })} data-reply={false}>
             <div className={styles.comment}>
                 <CommentVotes
-                    updateScore={updateScore}
+                    updateVote={updateVote}
                     commentData={commentData}
                     type="comment"
                 />
@@ -97,7 +99,7 @@ const Comment = ({
                     }
                 </div>
                 <CommentFooter
-                    updateScore={updateScore}
+                    updateVote={updateVote}
                     commentData={commentData}
                     setReplying={setReplying}
                     setDeleting={setDeleting}
@@ -112,22 +114,25 @@ const Comment = ({
                 <AddComment
                     user={user}
                     blogId={blogId}
+                    commentId={commentData.id}
                     addComments={addReply}
                     replyingTo={commentData.username}
                 />
             }
-            {/*{*/}
-            {/*    commentData?.replies &&*/}
-            {/*    <ReplyContainer*/}
-            {/*        key={commentData?.replies.id}*/}
-            {/*        commentData={commentData?.replies}*/}
-            {/*        updateScore={updateScore}*/}
-            {/*        addReply={addReply}*/}
-            {/*        editComment={editComment}*/}
-            {/*        deleteComment={deleteComment}*/}
-            {/*        setDeleteModalState={setDeleteModalState}*/}
-            {/*    />*/}
-            {/*}*/}
+            {
+                commentData?.replies
+                    ?
+                    <ReplyContainer
+                        key={commentData?.replies.id}
+                        commentData={commentData?.replies}
+                        updateVote={updateVote}
+                        addReply={addReply}
+                        editComment={editComment}
+                        deleteComment={deleteComment}
+                        setDeleteModalState={setDeleteModalState}
+                    />
+                    : null
+            }
 
             {
                 deleting &&

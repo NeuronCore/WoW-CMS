@@ -7,7 +7,7 @@ import styles from '@/styles/components/comment.module.scss';
 
 const ReplyContainer = ({
     commentData,
-    updateScore,
+    updateVote,
     addReply,
     editComment,
     deleteComment,
@@ -22,7 +22,7 @@ const ReplyContainer = ({
                         <Reply
                             key={comment.id}
                             commentData={comment}
-                            updateScore={updateScore}
+                            updateVote={updateVote}
                             addNewReply={addReply}
                             editComment={editComment}
                             deleteComment={deleteComment}

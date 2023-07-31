@@ -7,7 +7,7 @@ const CommentVotes = dynamic(() => import('@/components/comment/comment-parts/co
 import styles from '@/styles/components/comment.module.scss';
 
 const CommentFooter = ({
-    updateScore,
+    updateVote,
     commentData,
     setReplying,
     setDeleting,
@@ -19,7 +19,7 @@ const CommentFooter = ({
     return (
         <div className={styles.commentFooter}>
             <CommentVotes
-                updateScore={updateScore}
+                updateVote={updateVote}
                 commentData={commentData}
                 type={type}
             />

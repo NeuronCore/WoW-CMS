@@ -12,12 +12,13 @@ import HttpService from '@/services/http.service';
 interface Props
 {
     user: any,
-    blogId: number,
+    blogId?: number,
     addComments: any,
-    replyingTo?: string
+    replyingTo?: string,
+    commentId?: number
 }
 
-const AddComment = ({ addComments, replyingTo, blogId, user }: Props) =>
+const AddComment = ({ addComments, replyingTo, blogId, commentId, user }: Props) =>
 {
     const httpService = useMemo(() => (new HttpService()), []);
 
@@ -36,7 +37,7 @@ const AddComment = ({ addComments, replyingTo, blogId, user }: Props) =>
 
         addComments(newComment);
 
-        httpService.post(`/comment/create/blog-id/${ blogId }`, newComment).then(async(response: AxiosResponse<any>) =>
+        httpService.post(`/comment/${ replyingTo ? 'reply' : 'create' }/${ replyingTo ? 'comment' : 'blog' }-id/${ replyingTo ? commentId : blogId }`, newComment).then(async(response: AxiosResponse<any>) =>
         {
             if (response.data.error)
                 setErrors(response.data.message);
@@ -50,7 +51,7 @@ const AddComment = ({ addComments, replyingTo, blogId, user }: Props) =>
     };
 
     return (
-        <form className={styles.blogMainCommentsForm} onSubmit={addComment} data-deactive={!user}>
+        <form className={styles.blogMainCommentsForm} data-reply={replyingTo} onSubmit={addComment} data-deactive={!user}>
             <textarea
                 required
                 disabled={!user}

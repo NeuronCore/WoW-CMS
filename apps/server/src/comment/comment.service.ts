@@ -152,7 +152,7 @@ export class CommentService
         {
             const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [comment.account]);
 
-            comment.author = { ...account[0] };
+            comment.username = account[0].username;
         }
 
         return { statusCode: HttpStatus.OK, data: { totals: comments.length, comments } };

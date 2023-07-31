@@ -30,7 +30,7 @@ const CommentButton = ({
 
     const showEditComment = () =>
     {
-        setEditing(true);
+        setEditing((editing: boolean) => !editing);
     };
 
     return (

@@ -11,10 +11,12 @@ const CommentHeader = dynamic(() => import('@/components/comment/comment-parts/c
 
 import styles from '@/styles/components/comment.module.scss';
 
+import { useUser } from '@/hooks/use-user';
+
 interface Props
 {
     commentData: any,
-    updateScore?: any,
+    updateVote?: any,
     addNewReply?: any,
     editComment?: any,
     deleteComment?: any,
@@ -23,13 +25,15 @@ interface Props
 
 const Reply = ({
     commentData,
-    updateScore,
+    updateVote,
     addNewReply,
     editComment,
     deleteComment,
     setDeleteModalState,
 }: Props) =>
 {
+    const [user] = useUser();
+
     const [content, setContent] = useState(commentData.content);
     const [replying, setReplying] = useState(false);
     const [editing, setEditing] = useState(false);
@@ -91,7 +95,7 @@ const Reply = ({
         <div className={classnames(styles.commentContainer, commentData?.replies[0] !== undefined ? styles.commentReplyContainerGap : '')}>
             <div className={styles.comment}>
                 <CommentVotes
-                    updateScore={updateScore}
+                    updateVote={updateVote}
                     commentData={commentData}
                     type="reply"
                 />
@@ -114,7 +118,7 @@ const Reply = ({
                 </div>
 
                 <CommentFooter
-                    updateScore={updateScore}
+                    updateVote={updateVote}
                     commentData={commentData}
                     setReplying={setReplying}
                     setDeleting={setDeleting}
@@ -127,8 +131,8 @@ const Reply = ({
             {
                 replying &&
                 <AddComment
-                    blogId={1}
-                    user={null}
+                    user={user}
+                    commentId={commentData.id}
                     addComments={addReply}
                     replyingTo={commentData.username}
                 />
