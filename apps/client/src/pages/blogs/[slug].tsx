@@ -28,6 +28,7 @@ const Blog = () =>
 
     const [deleteModalState, setDeleteModalState] = useState(false);
     const [blog, setBlog] = useState<any | 'loading'>('loading');
+    const [isLiked, setIsLiked] = useState<any | 'loading'>('loading');
     const [comments, setComments] = useState<any | 'loading'>('loading');
     const [page, setPage] = useState<number>(1);
 
@@ -41,6 +42,7 @@ const Blog = () =>
                     const getBlog = await axios.get(`/blog/find-by-slug/${ query.slug }?locale=${ locale }${ user?.id ? `&accountID=${ user.id }` : '' }`);
 
                     setBlog(getBlog.data.data.blog);
+                    setIsLiked(getBlog.data.data.blog.isLiked);
                 }
                 catch (error)
                 {
@@ -79,13 +81,19 @@ const Blog = () =>
             : document.body.classList.remove('overflow--hidden');
     }, [comments, deleteModalState]);
 
-    const likeHandler = () =>
+    const likeHandler = async() =>
     {
-        console.log(blog);
-        console.log('like handler');
+        if (!user) return;
+
+        if (isLiked)
+            setIsLiked(false);
+        else
+            setIsLiked(true);
+
+        await axios.post(`/blog/toggle-like/blog-id/${ blog.id }`);
     };
 
-    const updateVote = (votes: number, id: string, type: string, method: string) =>
+    const updateVote = async(votes: number, id: string, type: string, method: string) =>
     {
         const updatedComments = [...comments];
 
@@ -116,6 +124,8 @@ const Blog = () =>
         }
 
         setComments(updatedComments);
+
+        await axios.post(`/comment/vote/comment-id/${ id }?voteType=${ method }`);
     };
 
     const addComments = (newComment: string) =>
@@ -370,10 +380,10 @@ const Blog = () =>
                                 </span>
                             </Link>
                             <div>
-                                <Tooltip content={ `${ blog.isLiked ? 'Unliked' : 'Liked' } The Blog` }>
+                                <Tooltip content={ `${ isLiked ? 'Unliked' : 'Liked' } The Blog` }>
                                     <span onClick={likeHandler}>
                                         {
-                                            blog.isLiked
+                                            isLiked
                                                 ? <BsHeartFill />
                                                 : <BsHeart />
                                         }

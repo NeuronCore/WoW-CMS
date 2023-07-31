@@ -185,7 +185,7 @@ export class CommentService
             for (const reply of commentReplies)
             {
                 const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [reply.account]);
-                reply.author = account[0].username;
+                reply.username = account[0].username;
             }
 
             comment.replies = commentReplies;

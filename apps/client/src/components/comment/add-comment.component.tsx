@@ -22,8 +22,7 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId, user }: Props)
 {
     const httpService = useMemo(() => (new HttpService()), []);
 
-    const replyingToUser = replyingTo ? `@${ replyingTo }, ` : '';
-    const [comment, setComment] = useState(replyingToUser);
+    const [comment, setComment] = useState('');
     const [errors, setErrors] = useState<any[]>([]);
 
     const addComment = (event: FormEvent<HTMLFormElement>) =>
@@ -33,7 +32,7 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId, user }: Props)
         if (comment === '' || comment === ' ') return;
         if (comment.length < 8 || comment.length > 250) return;
 
-        const newComment = { content: replyingToUser + comment.replace(replyingToUser, ''), author: { username: user.username, avatar: user.avatar } };
+        const newComment = { content: comment, author: { username: user.username, avatar: user.avatar } };
 
         addComments(newComment);
 

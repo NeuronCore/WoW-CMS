@@ -50,16 +50,10 @@ const Reply = ({
 
     const commentContent = () =>
     {
-        const text: any = commentData.content.trim().split(' ');
-        const firstWord = text.shift().split(',');
-
         return (
             !editing ?
                 <div className={styles.commentBodyContent}>
-                    <span className={styles.commentBodyContentReplyingTo}>
-                        { firstWord }
-                    </span>
-                    { text.join(' ') }
+                    { commentData.content }
                 </div>
                 :
                 <textarea
@@ -92,7 +86,7 @@ const Reply = ({
     };
 
     return (
-        <div className={classnames(styles.commentContainer, commentData?.replies[0] !== undefined ? styles.commentReplyContainerGap : '')}>
+        <div className={classnames(styles.commentContainer, commentData.replies ? (commentData.replies[0] !== undefined ? styles.commentReplyContainerGap : '') : null)}>
             <div className={styles.comment}>
                 <CommentVotes
                     updateVote={updateVote}
@@ -138,10 +132,14 @@ const Reply = ({
                 />
             }
             {
-                commentData?.replies.map((reply: { id: string }) =>
-                    (
-                        <Reply key={reply.id} commentData={reply} addNewReply={addReply} />
-                    ))}
+                commentData.replies
+                    ?
+                    commentData?.replies.map((reply: { id: string }) =>
+                        (
+                            <Reply key={reply.id} commentData={reply} addNewReply={addReply} />
+                        ))
+                    : null
+            }
 
             {
                 deleting &&

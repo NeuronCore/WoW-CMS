@@ -11,35 +11,35 @@ const CommentVotes = ({ updateVote, commentData, type }: any) =>
     const [user] = useUser();
 
     const [votes, setVotes] = useState(commentData.votes || 0);
-    const [voted, setVoted] = useState(commentData.voted);
+    const [voted, setVoted] = useState(commentData.isVoted);
 
-    const upVote = () =>
+    const upVote = async() =>
     {
         if (!user) return;
 
         if (voted !== 'up')
         {
-            const n = votes + 1;
+            const n = Number(votes) + 1;
 
             setVotes(n);
 
-            updateVote(n, commentData.id, type, 'up');
+            await updateVote(n, commentData.id, type, 'up');
 
             setVoted('up');
         }
     };
 
-    const downVote = () =>
+    const downVote = async() =>
     {
         if (!user) return;
 
         if (voted !== 'down')
         {
-            const n = votes - 1;
+            const n = Number(votes) - 1;
 
             setVotes(n);
 
-            updateVote(n, commentData.id, type, 'down');
+            await updateVote(n, commentData.id, type, 'down');
 
             setVoted('down');
         }

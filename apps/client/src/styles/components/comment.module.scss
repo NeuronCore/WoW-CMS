@@ -199,8 +199,7 @@
             transition: 0.2s;
             cursor: pointer;
 
-            &:hover,
-            &:focus
+            &:hover
             {
                 opacity: 0.5;
             }
@@ -223,14 +222,14 @@
         margin-left: 1.5rem;
         gap: 1.5rem;
 
+        &[data-reply='true'] > div
+        {
+            margin-top: 1rem;
+        }
+
         &Gap > div[data-reply]
         {
-            margin-top: 1.5rem;
-
-            @media (width >= 47em)
-            {
-                margin-top: 2rem;
-            }
+            margin-top: 2rem;
         }
 
         &CommentContainer
