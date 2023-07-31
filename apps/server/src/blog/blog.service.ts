@@ -49,16 +49,8 @@ export class BlogService
 
             await sharp(thumbnail.buffer).toFile(path.join('uploads/thumbnail', filename));
 
-            const [blogEN] = await this.webDatabase.query('SELECT `slug_en` FROM `blog` WHERE `slug_en` = ?', [Helper.stringToSlug(slugEN)]);
-            if (blogEN[0]?.slug.slug_en)
-                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
-
-            const [blogDE] = await this.webDatabase.query('SELECT `slug_de` FROM `blog` WHERE `slug_de` = ?', [Helper.stringToSlug(slugDE)]);
-            if (blogDE[0]?.slug.slug_de)
-                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
-
-            const [blogFA] = await this.webDatabase.query('SELECT `slug_fa` FROM `blog` WHERE `slug_fa` = ?', [Helper.stringToSlug(slugFA)]);
-            if (blogFA[0]?.slug.slug_fa)
+            const [blog] = await this.webDatabase.query('SELECT `slug_en`, `slug_de`, `slug_fa` FROM `blog` WHERE `slug_en` = ? OR `slug_de` = ? OR `slug_fa` = ?', [Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA)]);
+            if (blog[0]?.slug_en || blog[0]?.slug_de || blog[0]?.slug_fa)
                 return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             const sql =
@@ -129,13 +121,7 @@ export class BlogService
             if (!blog[0])
                 return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
-            if (blog[0].slug_en === Helper.stringToSlug(slugEN))
-                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
-
-            if (blog[0].slug_de === Helper.stringToSlug(slugDE))
-                return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
-
-            if (blog[0].slug_fa === Helper.stringToSlug(slugFA))
+            if (blog[0].slug_en === Helper.stringToSlug(slugEN) || blog[0].slug_de === Helper.stringToSlug(slugDE) || blog[0].slug_fa === Helper.stringToSlug(slugFA))
                 return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             let filename = null;
