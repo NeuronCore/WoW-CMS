@@ -36,9 +36,6 @@ export class CharactersService
 
         const [characters] = await charactersDatabase.query(sql, [accountID]);
 
-        if (!characters[0])
-            throw new BadRequestException('There are no characters with this account');
-
         return { statusCode: HttpStatus.OK, data: { totals: characters.length, characters } };
     }
 

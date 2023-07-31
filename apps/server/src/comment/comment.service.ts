@@ -151,6 +151,20 @@ export class CommentService
         for (const comment of comments)
         {
             const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [comment.account]);
+            const [isVoted] = await this.webDatabase.query('SELECT `vote` FROM `votes` WHERE `account` = ? AND `comment_id` = ?', [comment.account, comment.id]);
+
+            switch (isVoted[0]?.vote)
+            {
+                case 1:
+                    comment.isVoted = VoteType.UP;
+                    break;
+                case -1:
+                    comment.isVoted = VoteType.DOWN;
+                    break;
+                default:
+                    comment.isVoted = null;
+                    break;
+            }
 
             comment.username = account[0].username;
         }
