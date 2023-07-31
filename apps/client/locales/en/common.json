@@ -49,6 +49,10 @@
     "2038": "The Category was created successfully",
     "2039": "Category updated successfully",
     "2040": "Category with this id not found",
-    "2041": "Category with this id not found",
-    "2042": "The Category has been successfully deleted"
+    "2041": "The Category has been successfully deleted",
+    "2042": "The Tag was created successfully",
+    "2043": "Tag with this id not found",
+    "2044": "Tag updated successfully",
+    "2045": "Tag with this id not found",
+    "2046": "The Tag has been successfully deleted"
 }

@@ -212,7 +212,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS `tags` (
+CREATE TABLE IF NOT EXISTS `tag` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title_en` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `title_de` varchar(75) COLLATE utf8mb4_general_ci NOT NULL,

@@ -15,6 +15,8 @@ import { CreateFeatureDto } from './dto/create-feature.dto';
 import { UpdateFeatureDto } from './dto/update-feature.dto';
 import { CreateCategoryDto } from '@/web/dto/create-category.dto';
 import { UpdateCategoryDto } from '@/web/dto/update-category.dto';
+import { CreateTagDto } from '@/web/dto/create-tag.dto';
+import { UpdateTagDto } from '@/web/dto/update-tag.dto';
 
 @Controller('web')
 @ApiTags('Web')
@@ -155,5 +157,38 @@ export class WebController
     public async removeCategory(@Param('id') id: number)
     {
         return this.webService.removeCategory(id);
+    }
+
+    @Post('create/tag')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
+    public async createTag(@Body() createTagDto: CreateTagDto)
+    {
+        return this.webService.createTag(createTagDto);
+    }
+
+    @Get('find-all/tags')
+    public async findAllTags(@Query('locale') locale: Locale)
+    {
+        return this.webService.findAllTags(locale);
+    }
+
+    @Patch('update/tag/id/:id')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
+    public async updateTag(@Param('id') id: number, @Body() updateTagDto: UpdateTagDto)
+    {
+        return this.webService.updateTag(id, updateTagDto);
+    }
+
+    @Delete('remove/tag/id/:id')
+    @ApiSecurity('JsonWebToken')
+    @UseGuards(AuthGuard)
+    @Roles(AccountRole.ADMIN, AccountRole.MANAGER)
+    public async removeTag(@Param('id') id: number)
+    {
+        return this.webService.removeTag(id);
     }
 }
