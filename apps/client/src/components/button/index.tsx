@@ -9,15 +9,16 @@ interface Props
     content?: string,
     type?: string,
     onClick?: (event?: any) => Promise<void> | void,
-    href?: string
+    href?: string,
+    disabled?: boolean
 }
 
-const Button = ({ children, content, type, onClick, href }: Props) =>
+const Button = ({ children, content, type, onClick, href, disabled }: Props) =>
 {
     return (
         href
             ?
-            <Link href={ href } className={styles.buttonFrame} onClick={ onClick } data-type={ type }>
+            <Link href={ href } className={styles.buttonFrame} onClick={ onClick } data-type={ type } data-disabled={ disabled }>
                 <button className={styles.button}>
                     {
                         children ?? content
@@ -25,7 +26,7 @@ const Button = ({ children, content, type, onClick, href }: Props) =>
                 </button>
             </Link>
             :
-            <div className={styles.buttonFrame} onClick={ onClick } data-type={ type }>
+            <div className={styles.buttonFrame} onClick={ onClick } data-type={ type } data-disabled={ disabled }>
                 <button className={styles.button}>
                     {
                         children ?? content

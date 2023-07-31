@@ -1,9 +1,10 @@
 import React from 'react';
-import classnames from 'classnames';
 
 import { BsPen, BsReply, BsTrash } from 'react-icons/bs';
 
 import styles from '@/styles/components/comment.module.scss';
+
+import { useUser } from '@/hooks/use-user';
 
 const CommentButton = ({
     commentData,
@@ -11,9 +12,11 @@ const CommentButton = ({
     setReplying,
     setDeleting,
     setDeleteModalState,
-    setEditing,
+    setEditing
 }: any) =>
 {
+    const [user] = useUser();
+
     const showAddComment = () =>
     {
         setReplying(!replying);
@@ -31,27 +34,37 @@ const CommentButton = ({
     };
 
     return (
-        <div className={styles.commentButton}>
-            <button
-                className={classnames(styles.commentBodyContentReplyingTo, !commentData.currentUser ? '' : 'display--none')}
-                onClick={showAddComment}
-            >
-                <BsReply /> Reply
-            </button>
-            <button
-                className={classnames(styles.commentButtonDelete, commentData.currentUser ? '' : 'display--none')}
-                data-delete
-                onClick={showDeleteModal}
-            >
-                <BsTrash /> Delete
-            </button>
-            <button
-                className={classnames(commentData.currentUser ? '' : 'display--none')}
-                onClick={showEditComment}
-            >
-                <BsPen /> Edit
-            </button>
-        </div>
+        user
+            ?
+            <>
+                <div className={styles.commentButton}>
+                    {
+                        user
+                            ?
+                            <button className={styles.commentBodyContentReplyingTo} onClick={showAddComment}>
+                                <BsReply /> Reply
+                            </button>
+                            : null
+                    }
+                    {
+                        user.username === commentData.author.username
+                            ?
+                            <button onClick={showEditComment}>
+                                <BsPen /> Edit
+                            </button>
+                            : null
+                    }
+                    {
+                        user.username === commentData.author.username || user.role === 'admin'
+                            ?
+                            <button className={styles.commentButtonDelete} data-delete onClick={showDeleteModal}>
+                                <BsTrash /> Delete
+                            </button>
+                            : null
+                    }
+                </div>
+            </>
+            : null
     );
 };
 

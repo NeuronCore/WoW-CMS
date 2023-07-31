@@ -19,6 +19,8 @@ const Comment = ({
     editComment,
     commentDelete,
     setDeleteModalState,
+    blogId,
+    user
 }: any) =>
 {
     const [content, setContent] = useState(commentData.content);
@@ -28,7 +30,8 @@ const Comment = ({
 
     const addReply = (newReply: any) =>
     {
-        const replies = [...commentData.replies, newReply];
+        // eslint-disable-next-line no-unsafe-optional-chaining
+        const replies = [...commentData?.replies, newReply];
 
         updateReplies(replies, commentData.id);
 
@@ -53,7 +56,7 @@ const Comment = ({
     };
 
     return (
-        <div className={classnames(styles.commentContainer, { [styles.commentReplyContainerGap]: commentData.replies[0] !== undefined })} data-reply={commentData.replies[0] === undefined}>
+        <div className={classnames(styles.commentContainer, { [styles.commentReplyContainerGap]: false })} data-reply={false}>
             <div className={styles.comment}>
                 <CommentVotes
                     updateScore={updateScore}
@@ -62,6 +65,7 @@ const Comment = ({
                 />
                 <div className={styles.commentBody}>
                     <CommentHeader
+                        user={user}
                         commentData={commentData}
                         replying={replying}
                         setReplying={setReplying}
@@ -73,7 +77,7 @@ const Comment = ({
                         !editing
                             ?
                             <div className={styles.commentBodyContent}>
-                                {commentData.content}
+                                { commentData.content }
                             </div>
                             :
                             <textarea
@@ -106,22 +110,24 @@ const Comment = ({
             {
                 replying &&
                 <AddComment
+                    user={user}
+                    blogId={blogId}
                     addComments={addReply}
                     replyingTo={commentData.username}
                 />
             }
-            {
-                commentData?.replies[0] &&
-                <ReplyContainer
-                    key={commentData.replies.id}
-                    commentData={commentData.replies}
-                    updateScore={updateScore}
-                    addReply={addReply}
-                    editComment={editComment}
-                    deleteComment={deleteComment}
-                    setDeleteModalState={setDeleteModalState}
-                />
-            }
+            {/*{*/}
+            {/*    commentData?.replies &&*/}
+            {/*    <ReplyContainer*/}
+            {/*        key={commentData?.replies.id}*/}
+            {/*        commentData={commentData?.replies}*/}
+            {/*        updateScore={updateScore}*/}
+            {/*        addReply={addReply}*/}
+            {/*        editComment={editComment}*/}
+            {/*        deleteComment={deleteComment}*/}
+            {/*        setDeleteModalState={setDeleteModalState}*/}
+            {/*    />*/}
+            {/*}*/}
 
             {
                 deleting &&

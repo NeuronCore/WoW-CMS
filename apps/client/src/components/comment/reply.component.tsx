@@ -88,7 +88,7 @@ const Reply = ({
     };
 
     return (
-        <div className={classnames(styles.commentContainer, commentData.replies[0] !== undefined ? styles.commentReplyContainerGap : '')}>
+        <div className={classnames(styles.commentContainer, commentData?.replies[0] !== undefined ? styles.commentReplyContainerGap : '')}>
             <div className={styles.comment}>
                 <CommentVotes
                     updateScore={updateScore}
@@ -127,12 +127,14 @@ const Reply = ({
             {
                 replying &&
                 <AddComment
+                    blogId={1}
+                    user={null}
                     addComments={addReply}
                     replyingTo={commentData.username}
                 />
             }
             {
-                commentData.replies.map((reply: { id: string }) =>
+                commentData?.replies.map((reply: { id: string }) =>
                     (
                         <Reply key={reply.id} commentData={reply} addNewReply={addReply} />
                     ))}

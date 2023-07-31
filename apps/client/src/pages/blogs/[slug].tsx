@@ -10,7 +10,7 @@ import { BsArrow90DegDown, BsArrow90DegUp, BsBookmark, BsCalendar, BsChat, BsChe
 
 import styles from '@/styles/pages/blog.module.scss';
 
-import data from '@/data/comments.data.json';
+import { useUser } from '@/hooks/use-user';
 
 import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
 
@@ -23,12 +23,13 @@ const AddComment = dynamic(() => import('@/components/comment/add-comment.compon
 
 const Blog = () =>
 {
+    const [user] = useUser();
     const { locale, asPath, query } = useRouter();
 
-    const [comments, updateComments] = useState<any[]>([]);
     const [deleteModalState, setDeleteModalState] = useState(false);
-
     const [blog, setBlog] = useState<any | 'loading'>('loading');
+    const [comments, setComments] = useState<any | 'loading'>('loading');
+    const [page, setPage] = useState<number>(1);
 
     useEffect(() =>
     {
@@ -38,6 +39,8 @@ const Blog = () =>
                 try
                 {
                     const getBlog = await axios.get(`/blog/find-by-slug/${ query.slug }?locale=${ locale }`);
+
+                    console.log(getBlog.data.data.blog);
 
                     setBlog(getBlog.data.data.blog);
                 }
@@ -51,8 +54,25 @@ const Blog = () =>
 
     useEffect(() =>
     {
-        updateComments(data.comments);
-    }, []);
+        (
+            async() =>
+            {
+                try
+                {
+                    if (blog?.id)
+                    {
+                        const getComments = await axios.get(`/comment/find-all/blog-id/${ blog.id }?page=${ page }&limit=20`);
+
+                        setComments(getComments.data.data.comments);
+                    }
+                }
+                catch (error)
+                {
+                    setComments(null);
+                }
+            }
+        )();
+    }, [blog?.id]);
 
     useEffect(() =>
     {
@@ -90,13 +110,16 @@ const Blog = () =>
                 });
             });
         }
-        updateComments(updatedComments);
+
+        setComments(updatedComments);
     };
 
     const addComments = (newComment: string) =>
     {
-        const updatedComments = [...comments, newComment];
-        updateComments(updatedComments);
+        if (comments)
+            setComments([...comments, newComment]);
+        else
+            setComments([newComment]);
     };
 
     const updateReplies = (replies: [], id: string | number) =>
@@ -105,11 +128,10 @@ const Blog = () =>
         updatedComments.forEach((data) =>
         {
             if (data.id === id)
-
                 data.replies = [...replies];
-
         });
-        updateComments(updatedComments);
+
+        setComments(updatedComments);
     };
 
     const editComment = (content: string, id: string, type: string) =>
@@ -121,9 +143,7 @@ const Blog = () =>
             updatedComments.forEach((data) =>
             {
                 if (data.id === id)
-
                     data.content = content;
-
             });
         }
         else if (type === 'reply')
@@ -133,14 +153,12 @@ const Blog = () =>
                 comment.replies.forEach((data: { id: string, content: string }) =>
                 {
                     if (data.id === id)
-
                         data.content = content;
-
                 });
             });
         }
 
-        updateComments(updatedComments);
+        setComments(updatedComments);
     };
 
     const commentDelete = (id: string | number, type: string, parentComment: unknown) =>
@@ -154,7 +172,7 @@ const Blog = () =>
 
         else if (type === 'reply')
         {
-            comments.forEach((comment) =>
+            comments.forEach((comment: any) =>
             {
                 if (comment.id === parentComment)
                 {
@@ -164,13 +182,13 @@ const Blog = () =>
             });
         }
 
-        updateComments(updatedComments);
+        setComments(updatedComments);
     };
 
     return (
         blog === 'loading'
             ? <Preloader />
-            : blog?.published
+            : blog?.published === 'Confirmed'
                 ?
                 <>
                     <nav data-blog='true' className={styles.blogNavbarHeaderNav}>
@@ -428,20 +446,27 @@ const Blog = () =>
                     <section className={styles.blogMainComments}>
                         <div className={styles.blogMainCommentsList}>
                             {
-                                comments.map((comment) =>
-                                    (
-                                        <Comment
-                                            key={comment.id}
-                                            commentData={comment}
-                                            updateScore={updateScore}
-                                            updateReplies={updateReplies}
-                                            editComment={editComment}
-                                            commentDelete={commentDelete}
-                                            setDeleteModalState={setDeleteModalState}
-                                        />
-                                    ))
+                                comments === 'loading'
+                                    ? <Preloader component/>
+                                    : comments === null
+                                        ? null
+                                        :
+                                        comments.map((comment: any, index: number) =>
+                                            (
+                                                <Comment
+                                                    user={user}
+                                                    blogId={blog.id}
+                                                    key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.author.username])}
+                                                    commentData={comment}
+                                                    updateScore={updateScore}
+                                                    updateReplies={updateReplies}
+                                                    editComment={editComment}
+                                                    commentDelete={commentDelete}
+                                                    setDeleteModalState={setDeleteModalState}
+                                                />
+                                            ))
                             }
-                            <AddComment addComments={addComments} />
+                            <AddComment user={ user } addComments={ addComments } blogId={ blog.id } />
                         </div>
                     </section>
                 </>

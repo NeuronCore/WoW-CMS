@@ -48,7 +48,7 @@ const CommentVotes = ({ updateScore, commentData, type }: any) =>
             </button>
 
             <div className={styles.commentVotesCounter}>
-                {commentData.score}
+                { commentData.votes ? commentData.votes.length : 0 }
             </div>
 
             <button className={styles.commentVotesMinus} onClick={downVote}>

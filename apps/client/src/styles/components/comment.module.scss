@@ -66,11 +66,12 @@
 
             &Profile
             {
-                width: 30px;
-                height: 30px;
+                width: 3rem;
+                height: 3rem;
                 background-size: cover;
-                border-radius: 50%;
-                margin-right: 10px;
+                margin-right: 1rem;
+                border-radius: 10rem;
+                overflow: hidden;
             }
 
             &Username

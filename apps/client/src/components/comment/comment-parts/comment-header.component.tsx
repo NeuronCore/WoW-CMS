@@ -7,7 +7,7 @@ const CommentButton = dynamic(() => import('@/components/comment/comment-parts/c
 
 import styles from '@/styles/components/comment.module.scss';
 
-import MasterCard from '@/../public/images/logos/master_card.png';
+import Profile from '@/../public/images/heros/profile.jpg';
 
 const CommentHeader =
 ({
@@ -17,12 +17,13 @@ const CommentHeader =
     setDeleting,
     setDeleteModalState,
     setEditing,
+    user
 }: any) =>
 {
     const [time, setTime] = useState<string | number>('');
 
     const today = new Date();
-    const createdAt = new Date(commentData.createdAt);
+    const createdAt = new Date(commentData.created_at);
 
     useEffect(() =>
     {
@@ -39,8 +40,8 @@ const CommentHeader =
         <div className={styles.commentBodyHeader}>
             <div className={classnames(styles.commentBodyHeaderProfile)}>
                 <Image
-                    src={MasterCard.src}
-                    alt='MasterCard'
+                    src={ commentData.author.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ commentData.author.avatar }` : Profile }
+                    alt={ commentData.author.username }
                     fill
                     style={{ objectFit: 'cover' }}
                     sizes={'100'}
@@ -48,11 +49,11 @@ const CommentHeader =
             </div>
 
             <div className={styles.commentBodyHeaderUsername}>
-                { commentData.username }
+                { commentData.author.username }
             </div>
 
             {
-                commentData.currentUser
+                commentData.author.username === user?.username
                     ?
                     <div className={styles.commentBodyHeaderYouTag}>
                         you

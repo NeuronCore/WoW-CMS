@@ -266,6 +266,7 @@ export class BlogService
         const [blog] = await this.webDatabase.query(sql, [slug]);
 
         const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [blog[0].account]);
+        const [accountInformation] = await this.webDatabase.query('SELECT `avatar` FROM `account_information` WHERE `id` = ?', [blog[0].account]);
 
         const privateIP = ip.address('private');
 
@@ -276,7 +277,7 @@ export class BlogService
                 await this.webDatabase.execute('INSERT INTO `blog_reads` (`blog_id`, `ip`) VALUES (?, ?)', [blog[0].id, privateIP]);
         }
 
-        return { statusCode: HttpStatus.OK, data: { blog: { ...blog[0], author: account[0] } } };
+        return { statusCode: HttpStatus.OK, data: { blog: { ...blog[0], author: { ...account[0], ...accountInformation[0] }}}};
     }
 
     public async findAllAndOrder(locale: Locale, type: BlogFindAll, page = 1, limit = 20)
