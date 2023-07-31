@@ -245,44 +245,48 @@ export class BlogService
         if (!Object.values(Locale)?.includes(locale))
             throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
 
-        const sql =
-        `
-            SELECT
-                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
-                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
-                (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
-                (SELECT avatar FROM account_information WHERE account_information.id = blog.account) AS avatar,
-                id, account,
-                title_${ locale }, meta_title_${ locale },
-                slug_${ locale },
-                thumbnail,
-                summary_${ locale }, content_${ locale },
-                published, published_at, created_at, updated_at
-            FROM
-                blog
-            WHERE
-                blog.slug_${ locale } = ?
-        `;
-        const [blog] = await this.webDatabase.query(sql, [slug]);
-
-        const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [blog[0].account]);
-
-        if (accountID)
+        try
         {
-            const [isLiked] = await this.webDatabase.query('SELECT null FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blog[0].id]);
-            blog[0].isLiked = !!isLiked[0];
-        }
+            const sql =
+            `
+                SELECT
+                    (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                    (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                    (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
+                    (SELECT avatar FROM account_information WHERE account_information.id = blog.account) AS avatar,
+                    id, account,
+                    title_${ locale }, meta_title_${ locale },
+                    slug_${ locale },
+                    thumbnail,
+                    summary_${ locale }, content_${ locale },
+                    published, published_at, created_at, updated_at
+                FROM
+                    blog
+                WHERE
+                    blog.slug_${ locale } = ?
+            `;
+            const [blog] = await this.webDatabase.query(sql, [slug]);
 
-        const privateIP = ip.address('private');
+            const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [blog[0].account]);
 
-        if (blog[0])
-        {
+            if (accountID)
+            {
+                const [isLiked] = await this.webDatabase.query('SELECT null FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blog[0].id]);
+                blog[0].isLiked = !!isLiked[0];
+            }
+
+            const privateIP = ip.address('private');
+
             const [blogReads] = await this.webDatabase.query('SELECT null FROM `blog_reads` WHERE `blog_id` = ? AND `ip` = ?', [blog[0].id, privateIP]);
             if (!blogReads[0])
                 await this.webDatabase.execute('INSERT INTO `blog_reads` (`blog_id`, `ip`) VALUES (?, ?)', [blog[0].id, privateIP]);
-        }
 
-        return { statusCode: HttpStatus.OK, data: { blog: { ...blog[0], ...account[0] }}};
+            return { statusCode: HttpStatus.OK, data: { blog: { ...blog[0], ...account[0] }}};
+        }
+        catch (exception)
+        {
+            return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2030' }] };
+        }
     }
 
     public async findAllAndOrder(locale: Locale, type: BlogFindAll, page = 1, limit = 20)

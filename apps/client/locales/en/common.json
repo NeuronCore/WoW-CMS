@@ -37,5 +37,6 @@
     "2026": "Invalid Token. Please log in again!",
     "2027": "The blog was created successfully",
     "2028": "Blog updated successfully",
-    "2029": "The blog has been successfully deleted"
+    "2029": "The blog has been successfully deleted",
+    "2030": "Slug not found"
 }
