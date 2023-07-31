@@ -38,5 +38,21 @@
     "2027": "The blog was created successfully",
     "2028": "Blog updated successfully",
     "2029": "The blog has been successfully deleted",
-    "2030": "Slug not found"
+    "2030": "Slug not found",
+    "2031": "The FAQ was created successfully",
+    "2032": "FAQ updated successfully",
+    "2033": "The FAQ has been successfully deleted",
+    "2034": "The Feature was created successfully",
+    "2035": "Feature with this id not found",
+    "2036": "Feature updated successfully",
+    "2037": "The Feature has been successfully deleted",
+    "2038": "The Category was created successfully",
+    "2039": "Category updated successfully",
+    "2040": "Category with this id not found",
+    "2041": "The Category has been successfully deleted",
+    "2042": "The Tag was created successfully",
+    "2043": "Tag with this id not found",
+    "2044": "Tag updated successfully",
+    "2045": "Tag with this id not found",
+    "2046": "The Tag has been successfully deleted"
 }

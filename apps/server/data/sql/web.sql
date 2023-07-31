@@ -128,26 +128,23 @@ INSERT INTO `feature` (`id`, `title_en`, `title_de`, `title_fa`, `image`, `descr
 
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `parent_id` int unsigned DEFAULT NULL,
   `title_en` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `title_de` varchar(75) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title_fa` varchar(75) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_de` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `title_fa` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `meta_title_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
-  `meta_title_de` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_title_fa` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_title_de` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_title_fa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `slug_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_de` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug_fa` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug_de` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `slug_fa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `content_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The column used to store the category data.',
-  `content_de` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content_fa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content_de` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `content_fa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug_en` (`slug_en`),
   UNIQUE KEY `slug_de` (`slug_de`),
-  UNIQUE KEY `slug_fa` (`slug_fa`),
-  KEY `idx_category_parent` (`parent_id`) USING BTREE,
-  CONSTRAINT `FK_CATEGORY_PARENT` FOREIGN KEY (`parent_id`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `slug_fa` (`slug_fa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `character_service` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
@@ -215,25 +212,25 @@ CREATE TABLE IF NOT EXISTS `payments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE IF NOT EXISTS `tags` (
+CREATE TABLE IF NOT EXISTS `tag` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title_en` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `title_de` varchar(75) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title_fa` varchar(75) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_de` varchar(75) COLLATE utf8mb4_general_ci NOT NULL,
+  `title_fa` varchar(75) COLLATE utf8mb4_general_ci NOT NULL,
   `meta_title_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `meta_title_de` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_title_fa` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_title_de` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `meta_title_fa` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `slug_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_de` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug_fa` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug_de` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `slug_fa` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `content_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `content_de` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content_fa` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content_de` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `content_fa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug_en` (`slug_en`),
   UNIQUE KEY `slug_de` (`slug_de`),
   UNIQUE KEY `slug_fa` (`slug_fa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `votes` (
   `account` int unsigned NOT NULL,
