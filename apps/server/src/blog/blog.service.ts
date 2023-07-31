@@ -270,7 +270,7 @@ export class BlogService
         if (accountID)
         {
             const [isLiked] = await this.webDatabase.query('SELECT null FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blog[0].id]);
-            blog[0].isLiked = !!isLiked;
+            blog[0].isLiked = !!isLiked[0];
         }
 
         const privateIP = ip.address('private');
