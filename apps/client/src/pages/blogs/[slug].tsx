@@ -2,9 +2,10 @@ import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'html-react-parser';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {Fragment, useEffect, useMemo, useState} from 'react';
 
 import { BsArrow90DegDown, BsArrow90DegUp, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsHeartFill, BsPrinter } from 'react-icons/bs';
 
@@ -16,6 +17,8 @@ import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
+import HttpService from '@/services/http.service';
+
 const Tooltip = dynamic(() => import('@/components/tooltips'));
 const Preloader = dynamic(() => import('@/components/preloader'));
 const Comment = dynamic(() => import('@/components/comment/comment.component'));
@@ -25,12 +28,14 @@ const Blog = () =>
 {
     const [user] = useUser();
     const { locale, asPath, query } = useRouter();
+    const httpService = useMemo(() => (new HttpService()), []);
 
     const [deleteModalState, setDeleteModalState] = useState(false);
     const [blog, setBlog] = useState<any | 'loading'>('loading');
     const [isLiked, setIsLiked] = useState<any | 'loading'>('loading');
     const [comments, setComments] = useState<any | 'loading'>('loading');
     const [page, setPage] = useState<number>(1);
+    const [errors, setErrors] = useState<any[]>([]);
 
     useEffect(() =>
     {
@@ -131,7 +136,7 @@ const Blog = () =>
     const addComments = (newComment: string) =>
     {
         if (comments)
-            setComments([...comments, newComment]);
+            setComments([newComment, ...comments]);
         else
             setComments([newComment]);
     };
@@ -148,7 +153,7 @@ const Blog = () =>
         setComments(updatedComments);
     };
 
-    const editComment = (content: string, id: string, type: string) =>
+    const editComment = async(content: string, id: string, type: string) =>
     {
         const updatedComments = [...comments];
 
@@ -173,6 +178,8 @@ const Blog = () =>
         }
 
         setComments(updatedComments);
+
+        await axios.patch(`/comment/update/comment-id/${ id }`, { content });
     };
 
     const commentDelete = (id: string | number, type: string, parentComment: unknown) =>
@@ -467,7 +474,6 @@ const Blog = () =>
                                         comments.map((comment: any, index: number) =>
                                             (
                                                 <Comment
-                                                    user={user}
                                                     blogId={blog.id}
                                                     key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.username])}
                                                     commentData={comment}
@@ -479,7 +485,7 @@ const Blog = () =>
                                                 />
                                             ))
                             }
-                            <AddComment user={ user } addComments={ addComments } blogId={ blog.id } />
+                            <AddComment addComments={ addComments } blogId={ blog.id } />
                         </div>
                     </section>
                 </>

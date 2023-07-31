@@ -9,17 +9,20 @@ import styles from '@/styles/pages/blog.module.scss';
 
 import HttpService from '@/services/http.service';
 
+import { useUser } from '@/hooks/use-user';
+
 interface Props
 {
-    user: any,
     blogId?: number,
     addComments: any,
     replyingTo?: string,
     commentId?: number
 }
 
-const AddComment = ({ addComments, replyingTo, blogId, commentId, user }: Props) =>
+const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
 {
+    const [user] = useUser();
+
     const httpService = useMemo(() => (new HttpService()), []);
 
     const [comment, setComment] = useState('');
@@ -32,9 +35,11 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId, user }: Props)
         if (comment === '' || comment === ' ') return;
         if (comment.length < 8 || comment.length > 250) return;
 
-        const newComment = { content: comment, author: { username: user.username, avatar: user.avatar } };
+        const newComment = { content: comment, username: user.username, avatar: user.avatar, created_at: new Date() };
 
         addComments(newComment);
+
+        setComment('');
 
         httpService.post(`/comment/${ replyingTo ? 'reply' : 'create' }/${ replyingTo ? 'comment' : 'blog' }-id/${ replyingTo ? commentId : blogId }`, newComment).then(async(response: AxiosResponse<any>) =>
         {
@@ -45,8 +50,6 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId, user }: Props)
             if (error.response.data.error)
                 setErrors(error.response.data.message);
         });
-
-        setComment('');
     };
 
     return (

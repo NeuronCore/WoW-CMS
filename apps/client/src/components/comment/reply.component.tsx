@@ -11,8 +11,6 @@ const CommentHeader = dynamic(() => import('@/components/comment/comment-parts/c
 
 import styles from '@/styles/components/comment.module.scss';
 
-import { useUser } from '@/hooks/use-user';
-
 interface Props
 {
     commentData: any,
@@ -32,8 +30,6 @@ const Reply = ({
     setDeleteModalState,
 }: Props) =>
 {
-    const [user] = useUser();
-
     const [content, setContent] = useState(commentData.content);
     const [replying, setReplying] = useState(false);
     const [editing, setEditing] = useState(false);
@@ -125,7 +121,6 @@ const Reply = ({
             {
                 replying &&
                 <AddComment
-                    user={user}
                     commentId={commentData.id}
                     addComments={addReply}
                     replyingTo={commentData.username}

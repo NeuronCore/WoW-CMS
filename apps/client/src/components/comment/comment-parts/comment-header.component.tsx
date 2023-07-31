@@ -9,6 +9,8 @@ import styles from '@/styles/components/comment.module.scss';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
+import { useUser } from '@/hooks/use-user';
+
 const CommentHeader =
 ({
     commentData,
@@ -17,9 +19,10 @@ const CommentHeader =
     setDeleting,
     setDeleteModalState,
     setEditing,
-    user
 }: any) =>
 {
+    const [user] = useUser();
+
     const [time, setTime] = useState<string | number>('');
 
     const today = new Date();

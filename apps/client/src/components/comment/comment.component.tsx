@@ -19,8 +19,7 @@ const Comment = ({
     editComment,
     commentDelete,
     setDeleteModalState,
-    blogId,
-    user
+    blogId
 }: any) =>
 {
     const [content, setContent] = useState(commentData.content);
@@ -67,7 +66,6 @@ const Comment = ({
                 />
                 <div className={styles.commentBody}>
                     <CommentHeader
-                        user={user}
                         commentData={commentData}
                         replying={replying}
                         setReplying={setReplying}
@@ -112,7 +110,6 @@ const Comment = ({
             {
                 replying &&
                 <AddComment
-                    user={user}
                     blogId={blogId}
                     commentId={commentData.id}
                     addComments={addReply}
