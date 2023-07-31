@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import ReactHtmlParser from 'html-react-parser';
 import React, { Fragment, useEffect, useState } from 'react';
 
-import { BsArrow90DegDown, BsArrow90DegUp, BsBookmark, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsPrinter } from 'react-icons/bs';
+import { BsArrow90DegDown, BsArrow90DegUp, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsHeartFill, BsPrinter } from 'react-icons/bs';
 
 import styles from '@/styles/pages/blog.module.scss';
 
@@ -38,9 +38,7 @@ const Blog = () =>
             {
                 try
                 {
-                    const getBlog = await axios.get(`/blog/find-by-slug/${ query.slug }?locale=${ locale }`);
-
-                    console.log(getBlog.data.data.blog);
+                    const getBlog = await axios.get(`/blog/find-by-slug/${ query.slug }?locale=${ locale }${ user?.id ? `&accountID=${ user.id }` : '' }`);
 
                     setBlog(getBlog.data.data.blog);
                 }
@@ -83,21 +81,22 @@ const Blog = () =>
 
     const likeHandler = () =>
     {
+        console.log(blog);
         console.log('like handler');
     };
 
-    const updateScore = (score: string, id: string, type: string, method: string) =>
+    const updateVote = (votes: number, id: string, type: string, method: string) =>
     {
         const updatedComments = [...comments];
 
         if (type === 'comment')
         {
-            updatedComments.forEach((data: { id: string | number, score: string, voted: boolean }) =>
+            updatedComments.forEach((data: { id: string | number, votes: number, voted: boolean }) =>
             {
                 if (data.id === id)
                 {
-                    data.score = score;
-                    data.voted = method === 'upvote';
+                    data.votes = votes;
+                    data.voted = method === 'up';
                 }
             });
         }
@@ -105,12 +104,12 @@ const Blog = () =>
         {
             updatedComments.forEach((comment: { replies: [] }) =>
             {
-                comment.replies.forEach((data: { id: string | number, score: string, voted: boolean }) =>
+                comment.replies.forEach((data: { id: string | number, votes: number, voted: boolean }) =>
                 {
                     if (data.id === id)
                     {
-                        data.score = score;
-                        data.voted = method === 'upvote';
+                        data.votes = votes;
+                        data.voted = method === 'up';
                     }
                 });
             });
@@ -371,9 +370,13 @@ const Blog = () =>
                                 </span>
                             </Link>
                             <div>
-                                <Tooltip content='Liked The Blog'>
+                                <Tooltip content={ `${ blog.isLiked ? 'Unliked' : 'Liked' } The Blog` }>
                                     <span onClick={likeHandler}>
-                                        <BsHeart />
+                                        {
+                                            blog.isLiked
+                                                ? <BsHeartFill />
+                                                : <BsHeart />
+                                        }
                                     </span>
                                 </Tooltip>
                                 <Tooltip content='Print The Blog'>
@@ -458,7 +461,7 @@ const Blog = () =>
                                                     blogId={blog.id}
                                                     key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.username])}
                                                     commentData={comment}
-                                                    updateScore={updateScore}
+                                                    updateVote={updateVote}
                                                     updateReplies={updateReplies}
                                                     editComment={editComment}
                                                     commentDelete={commentDelete}

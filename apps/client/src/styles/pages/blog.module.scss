@@ -505,6 +505,16 @@
                     background: linear-gradient(90deg, rgb(2 0 36 / 0%) 0%, var(--color-base-text-bolder) 50%, rgb(2 0 36 / 0%) 100%);
                 }
 
+                &[data-reply]
+                {
+                    margin-top: -2rem;
+
+                    &::before
+                    {
+                        display: none;
+                    }
+                }
+
                 & h3
                 {
                     display: flex;
