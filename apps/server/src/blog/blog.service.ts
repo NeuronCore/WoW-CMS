@@ -240,7 +240,7 @@ export class BlogService
         return { statusCode: HttpStatus.CREATED, message: [{ field: 'all', code: '2009' }] };
     }
 
-    public async findBySlug(slug: string, locale: Locale)
+    public async findBySlug(slug: string, accountID: number, locale: Locale)
     {
         if (!Object.values(Locale)?.includes(locale))
             throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
@@ -266,6 +266,12 @@ export class BlogService
         const [blog] = await this.webDatabase.query(sql, [slug]);
 
         const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [blog[0].account]);
+
+        if (accountID)
+        {
+            const [isLiked] = await this.webDatabase.query('SELECT null FROM `likes` WHERE `account` = ? AND `blog_id` = ?', [accountID, blog[0].id]);
+            blog[0].isLiked = !!isLiked;
+        }
 
         const privateIP = ip.address('private');
 

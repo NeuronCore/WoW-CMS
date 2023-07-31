@@ -115,9 +115,9 @@ export class BlogController
     }
 
     @Get('/find-by-slug/:slug')
-    public async findBySlug(@Param('slug') slug: string, @Query('locale') locale: Locale)
+    public async findBySlug(@Param('slug') slug: string, @Query('accountID') accountID: number, @Query('locale') locale: Locale)
     {
-        return this.blogService.findBySlug(slug, locale);
+        return this.blogService.findBySlug(slug, accountID, locale);
     }
 
     @Get('/find-all-and-order/type/:type')
