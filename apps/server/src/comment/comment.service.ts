@@ -151,8 +151,9 @@ export class CommentService
         for (const comment of comments)
         {
             const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [comment.account]);
-            const [isVoted] = await this.webDatabase.query('SELECT `vote` FROM `votes` WHERE `account` = ? AND `comment_id` = ?', [comment.account, comment.id]);
+            comment.username = account[0].username;
 
+            const [isVoted] = await this.webDatabase.query('SELECT `vote` FROM `votes` WHERE `account` = ? AND `comment_id` = ?', [comment.account, comment.id]);
             switch (isVoted[0]?.vote)
             {
                 case 1:
@@ -166,36 +167,30 @@ export class CommentService
                     break;
             }
 
-            comment.username = account[0].username;
+            const sql =
+            `
+                SELECT
+                    *,
+                    (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes,
+                    (SELECT avatar FROM account_information WHERE account_information.id = comments.account) AS avatar
+                FROM
+                    comments
+                WHERE
+                    reply_of = ?
+                ORDER BY
+                    created_at DESC
+            `;
+            const [commentReplies]: any = await this.webDatabase.query(sql, [comment.id]);
+
+            for (const reply of commentReplies)
+            {
+                const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [reply.account]);
+                reply.author = account[0].username;
+            }
+
+            comment.replies = commentReplies;
         }
 
         return { statusCode: HttpStatus.OK, data: { totals: comments.length, comments } };
-    }
-
-    public async findAllReplies(commentID: number, page = 1, limit = 10)
-    {
-        const sql =
-        `
-            SELECT
-                *,
-                (SELECT SUM(votes.vote) FROM votes WHERE votes.comment_id = comments.id) AS votes,
-                (SELECT avatar FROM account_information WHERE account_information.id = comments.account) AS avatar
-            FROM
-                comments
-            WHERE
-                reply_of = ?
-            ORDER BY
-                created_at DESC
-            LIMIT ${ page - 1 }, ${ limit };
-        `;
-        const [replies]: any = await this.webDatabase.query(sql, [commentID]);
-
-        for (const reply of replies)
-        {
-            const [account] = await this.authDatabase.query('SELECT `username` FROM `account` WHERE `id` = ?', [reply.account]);
-            reply.author = account[0].username;
-        }
-
-        return { statusCode: HttpStatus.OK, data: { totals: replies.length, replies } };
     }
 }

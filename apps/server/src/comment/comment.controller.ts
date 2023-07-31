@@ -62,10 +62,4 @@ export class CommentController
     {
         return this.commentService.findAll(blogID, page, limit);
     }
-
-    @Get('find-all-replies/comment-id/:commentID')
-    public async findAllReplies(@Param('commentID', ParseIntPipe) commentID: number, @Query('page') page: number, @Query('limit') limit: number)
-    {
-        return this.commentService.findAllReplies(commentID, page, limit);
-    }
 }
