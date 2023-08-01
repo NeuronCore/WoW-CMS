@@ -12,7 +12,7 @@ import styles from '@/styles/pages/blog.module.scss';
 
 import { useUser } from '@/hooks/use-user';
 
-import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
+import {capitalizeFirstLetter, createUniqueKey, timeString} from '@/utils/helper.util';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
@@ -303,7 +303,12 @@ const Blog = () =>
                                 </div>
                                 <div>
                                     <p>
-                                        Published on { blog.published_at } · Updated on { blog.updated_at }
+                                        Published on { timeString(blog.published_at) }
+                                        {
+                                            timeString(blog.updated_at) !== timeString(blog.published_at)
+                                                ? <> · Updated on { timeString(blog.updated_at) }</>
+                                                : null
+                                        }
                                         <BsCalendar />
                                     </p>
                                 </div>

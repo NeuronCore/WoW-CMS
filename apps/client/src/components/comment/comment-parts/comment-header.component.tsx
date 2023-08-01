@@ -11,6 +11,8 @@ import Profile from '@/../public/images/heros/profile.jpg';
 
 import { useUser } from '@/hooks/use-user';
 
+import { timeSince } from '@/utils/helper.util';
+
 const CommentHeader =
 ({
     commentData,
@@ -25,14 +27,15 @@ const CommentHeader =
 
     const [time, setTime] = useState<string | number>('');
 
-    const today = new Date();
     const createdAt = new Date(commentData.created_at);
+    let differenceInTime = timeSince(createdAt);
 
     useEffect(() =>
     {
         const timeout = setTimeout(() =>
         {
-            const differenceInTime = today.getTime() - createdAt.getTime();
+            differenceInTime = timeSince(createdAt);
+
             setTime(differenceInTime);
         }, 1000);
 
