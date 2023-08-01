@@ -2,10 +2,9 @@ import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { AxiosResponse } from 'axios';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'html-react-parser';
-import React, {Fragment, useEffect, useMemo, useState} from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import { BsArrow90DegDown, BsArrow90DegUp, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsHeartFill, BsPrinter } from 'react-icons/bs';
 
@@ -17,8 +16,6 @@ import { capitalizeFirstLetter, createUniqueKey } from '@/utils/helper.util';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
-import HttpService from '@/services/http.service';
-
 const Tooltip = dynamic(() => import('@/components/tooltips'));
 const Preloader = dynamic(() => import('@/components/preloader'));
 const Comment = dynamic(() => import('@/components/comment/comment.component'));
@@ -28,14 +25,12 @@ const Blog = () =>
 {
     const [user] = useUser();
     const { locale, asPath, query } = useRouter();
-    const httpService = useMemo(() => (new HttpService()), []);
 
     const [deleteModalState, setDeleteModalState] = useState(false);
     const [blog, setBlog] = useState<any | 'loading'>('loading');
     const [isLiked, setIsLiked] = useState<any | 'loading'>('loading');
     const [comments, setComments] = useState<any | 'loading'>('loading');
     const [page, setPage] = useState<number>(1);
-    const [errors, setErrors] = useState<any[]>([]);
 
     useEffect(() =>
     {
@@ -144,6 +139,7 @@ const Blog = () =>
     const updateReplies = (replies: [], id: string | number) =>
     {
         const updatedComments = [...comments];
+
         updatedComments.forEach((data) =>
         {
             if (data.id === id)
@@ -182,7 +178,7 @@ const Blog = () =>
         await axios.patch(`/comment/update/comment-id/${ id }`, { content });
     };
 
-    const commentDelete = (id: string | number, type: string, parentComment: unknown) =>
+    const commentDelete = async(id: string | number, type: string, parentComment: unknown) =>
     {
         let updatedComments = [...comments];
         let updatedReplies = [];
@@ -204,6 +200,8 @@ const Blog = () =>
         }
 
         setComments(updatedComments);
+
+        await axios.delete(`/comment/delete/comment-id/${ id }`);
     };
 
     return (
@@ -462,6 +460,12 @@ const Blog = () =>
 
                         </div>
                     </section>
+
+                    <header className={styles.blogsHeader}>
+                        <h3>
+                            Comments about this blog post
+                        </h3>
+                    </header>
 
                     <section className={styles.blogMainComments}>
                         <div className={styles.blogMainCommentsList}>

@@ -1,13 +1,11 @@
+import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { AxiosResponse } from 'axios';
-import React, { FormEvent, useMemo, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 const Button = dynamic(() => import('@/components/button'));
 
 import styles from '@/styles/pages/blog.module.scss';
-
-import HttpService from '@/services/http.service';
 
 import { useUser } from '@/hooks/use-user';
 
@@ -23,12 +21,9 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
 {
     const [user] = useUser();
 
-    const httpService = useMemo(() => (new HttpService()), []);
-
     const [comment, setComment] = useState('');
-    const [errors, setErrors] = useState<any[]>([]);
 
-    const addComment = (event: FormEvent<HTMLFormElement>) =>
+    const addComment = async(event: FormEvent<HTMLFormElement>) =>
     {
         event.preventDefault();
 
@@ -41,15 +36,7 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
 
         setComment('');
 
-        httpService.post(`/comment/${ replyingTo ? 'reply' : 'create' }/${ replyingTo ? 'comment' : 'blog' }-id/${ replyingTo ? commentId : blogId }`, newComment).then(async(response: AxiosResponse<any>) =>
-        {
-            if (response.data.error)
-                setErrors(response.data.message);
-        }).catch(error =>
-        {
-            if (error.response.data.error)
-                setErrors(error.response.data.message);
-        });
+        await axios.post(`/comment/${ replyingTo ? 'reply' : 'create' }/${ replyingTo ? 'comment' : 'blog' }-id/${ replyingTo ? commentId : blogId }`, { content: comment });
     };
 
     return (

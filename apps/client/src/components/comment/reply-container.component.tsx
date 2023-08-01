@@ -5,6 +5,8 @@ const Reply = dynamic(() => import('@/components/comment/reply.component'));
 
 import styles from '@/styles/components/comment.module.scss';
 
+import { createUniqueKey } from '@/utils/helper.util';
+
 const ReplyContainer = ({
     commentData,
     updateVote,
@@ -17,10 +19,10 @@ const ReplyContainer = ({
     return (
         <div className={styles.commentReplyContainer} data-reply>
             {
-                commentData.map((comment: { id: string | number }) =>
+                commentData.map((comment: { id: string | number }, index: number) =>
                     (
                         <Reply
-                            key={comment.id}
+                            key={createUniqueKey([comment.id, index, 'comment', 'reply', 'container'])}
                             commentData={comment}
                             updateVote={updateVote}
                             addNewReply={addReply}
