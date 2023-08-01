@@ -1,0 +1,30 @@
+.error
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    width: 100vw;
+    height: 100vh;
+
+    text-transform: uppercase;
+    font-size: 2rem;
+    letter-spacing: .5rem;
+    font-weight: 800;
+
+    & > span
+    {
+        font-family: warcraft, sans-serif;
+        font-size: 20rem;
+        background: linear-gradient(90deg, var(--color-primary-light) 0%, var(--color-primary-dark) 50%);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    & > a
+    {
+        margin-top: 5rem;
+    }
+}

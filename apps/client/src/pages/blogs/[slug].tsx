@@ -16,7 +16,7 @@ import { capitalizeFirstLetter, createUniqueKey, timeString } from '@/utils/help
 
 import Profile from '@/../public/images/heros/profile.jpg';
 
-const Tooltip = dynamic(() => import('@/components/tooltips'));
+const Error = dynamic(() => import('@/components/error'));
 const Preloader = dynamic(() => import('@/components/preloader'));
 const Comment = dynamic(() => import('@/components/comment/comment.component'));
 const AddComment = dynamic(() => import('@/components/comment/add-comment.component'));
@@ -390,20 +390,16 @@ const Blog = () =>
                                 </span>
                             </Link>
                             <div>
-                                <Tooltip content={ `${ isLiked ? 'Unliked' : 'Liked' } The Blog` }>
-                                    <span onClick={likeHandler}>
-                                        {
-                                            isLiked
-                                                ? <BsHeartFill />
-                                                : <BsHeart />
-                                        }
-                                    </span>
-                                </Tooltip>
-                                <Tooltip content='Print The Blog'>
-                                    <span onClick={() => window.print()}>
-                                        <BsPrinter />
-                                    </span>
-                                </Tooltip>
+                                <span onClick={likeHandler}>
+                                    {
+                                        isLiked
+                                            ? <BsHeartFill />
+                                            : <BsHeart />
+                                    }
+                                </span>
+                                <span onClick={() => window.print()}>
+                                    <BsPrinter />
+                                </span>
                             </div>
                         </div>
                     </section>
@@ -498,7 +494,7 @@ const Blog = () =>
                         </div>
                     </section>
                 </>
-                : null
+                : <Error title='404' message='The blog you wanted could not be found' href='/blogs' link='Back to blogs'/>
     );
 };
 

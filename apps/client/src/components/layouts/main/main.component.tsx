@@ -20,7 +20,7 @@ const Preloader = dynamic(() => import('@/components/preloader'));
 const Navbar = dynamic(() => import('@/components/layouts/navbar/navbar.component'));
 const Footer = dynamic(() => import('@/components/layouts/footer/footer.component'));
 
-import { asideData } from '@/data/account.data.json';
+import aside from '@/data/account.data.json';
 
 interface Props
 {
@@ -85,7 +85,7 @@ const Main = ({ children }: Props) =>
 
                                         <ul className={stylesAccount.accountAsideList}>
                                             {
-                                                asideData.map((item, index) =>
+                                                aside.data.map((item, index) =>
                                                     (
                                                         <Fragment key={createUniqueKey([item.title, index])}>
                                                             <li className={stylesAccount.accountAsideListItemTitle}>

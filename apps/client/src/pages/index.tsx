@@ -25,9 +25,10 @@ import blogs from '@/data/blogs.data.json';
 import styles from '@/styles/pages/home.module.scss';
 
 import { createUniqueKey } from '@/utils/helper.util';
-import Preloader from '@/components/preloader';
 
 const FAQ = dynamic(() => import('@/components/faq'));
+const Preloader = dynamic(() => import('@/components/preloader'));
+const Button = dynamic(() => import('@/components/button'));
 const Features = dynamic(() => import('@/components/features'));
 const BlogsHot = dynamic(() => import('@/components/blogs-card/blogs-hot.component'));
 const BlogsNew = dynamic(() => import('@/components/blogs-card/blogs-new.component'));
@@ -37,9 +38,10 @@ const Home = () =>
     const { t } = useTranslation();
     const { locale } = useRouter();
 
-    const [blog, setBlog] = useState<number>(0);
     const [faq, setFaq] = useState<any[] | 'loading'>('loading');
     const [features, setFeatures] = useState<any[] | 'loading'>('loading');
+    const [newestBlogs, setNewestBlogs] = useState<any[] | 'loading'>('loading');
+    const [activeBlog, setActiveBlog] = useState<number>(0);
     const [faqs, setFaqs] = useState<number[]>([]);
     const [headerBlog, setHeaderBlog] = useState<number>(0);
 
@@ -48,14 +50,63 @@ const Home = () =>
         (
             async() =>
             {
-                const getFaqs = await axios.get('/web/find-all/faq?locale=' + locale);
-                const getFeatures = await axios.get('/web/find-all/feature?locale=' + locale);
+                try
+                {
+                    const getFaqs = await axios.get('/web/find-all/faq?locale=' + locale);
 
-                setFaq(getFaqs.data.data.faq);
-                setFeatures(getFeatures.data.data.features);
+                    setFaq(getFaqs.data.data.faq);
+                }
+                catch (error)
+                {
+                    console.log(error);
+
+                    setFaq([]);
+                }
             }
         )();
-    }, []);
+    }, [locale]);
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                try
+                {
+                    const getFeatures = await axios.get('/web/find-all/feature?locale=' + locale);
+
+                    setFeatures(getFeatures.data.data.features);
+                }
+                catch (error)
+                {
+                    console.log(error);
+
+                    setFeatures([]);
+                }
+            }
+        )();
+    }, [locale]);
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                try
+                {
+                    const getNewestBlogs = await axios.get(`/blog/find-all-and-order/type/created_at?locale=${ locale }&page=1&limit=10`);
+
+                    setNewestBlogs(getNewestBlogs.data.data.blogs);
+                }
+                catch (error)
+                {
+                    console.log(error);
+
+                    setFeatures([]);
+                }
+            }
+        )();
+    }, [locale]);
 
     return (
         <>
@@ -150,44 +201,57 @@ const Home = () =>
 
                 <div className={styles.homeBlogsList}>
                     <div className={styles.homeBlogsListContent}>
-                        <div>
-                            <h3>
-                                { blogs[blog]?.name }
-                            </h3>
-                            <p>
-                                { blogs[blog]?.description }
-                            </p>
-                        </div>
+                        {
+                            newestBlogs === 'loading'
+                                ? <Preloader component/>
+                                :
+                                <div>
+                                    <h3>
+                                        { newestBlogs[activeBlog][`title_${ locale }`] }
+                                    </h3>
+                                    <p>
+                                        { newestBlogs[activeBlog][`summary_${ locale }`] }
+                                    </p>
+                                    <Button href={ `/blogs/${ newestBlogs[activeBlog][`slug_${ locale }`] }` }>
+                                        Read
+                                    </Button>
+                                </div>
+                        }
                     </div>
                     <div className={styles.homeBlogsListSwiper}>
-                        <Swiper
-                            slidesPerView={1}
-                            grabCursor
-                            keyboard={{ enabled: true }}
-                            onSlideChange={(swiper) =>
-                            {
-                                swiper.slideTo(blogs.length <= swiper.realIndex ? 0 : swiper.realIndex);
-                                setBlog(blogs.length <= swiper.realIndex ? 0 : swiper.realIndex);
-                            }}
-                            autoplay={{ delay: 2500, disableOnInteraction: false }}
-                            modules={[ Keyboard, Autoplay ]}
-                            breakpoints={{
-                                0: { slidesPerView: 1 },
-                                800: { slidesPerView: 2, spaceBetween: 0 },
-                                1100: { slidesPerView: 3 }
-                            }}
-                        >
-                            {
-                                blogs.map((item, index: number) =>
-                                    (
-                                        <SwiperSlide key={ createUniqueKey([item.alt, index, 'blogs_2']) } virtualIndex={ index }>
-                                            <BlogsNew item={ item } active={ index === blog }/>
-                                        </SwiperSlide>
-                                    ))
-                            }
-                            <SwiperSlide />
-                            <SwiperSlide />
-                        </Swiper>
+                        {
+                            newestBlogs === 'loading'
+                                ? <Preloader component/>
+                                :
+                                <Swiper
+                                    slidesPerView={1}
+                                    grabCursor
+                                    keyboard={{ enabled: true }}
+                                    onSlideChange={(swiper) =>
+                                    {
+                                        swiper.slideTo(newestBlogs.length <= swiper.realIndex ? 0 : swiper.realIndex);
+                                        setActiveBlog(newestBlogs.length <= swiper.realIndex ? 0 : swiper.realIndex);
+                                    }}
+                                    autoplay={{ delay: 2500, disableOnInteraction: false }}
+                                    modules={[ Keyboard, Autoplay ]}
+                                    breakpoints={{
+                                        0: { slidesPerView: 1 },
+                                        800: { slidesPerView: 2, spaceBetween: 0 },
+                                        1100: { slidesPerView: 3 }
+                                    }}
+                                >
+                                    {
+                                        newestBlogs.map((blog, index: number) =>
+                                            (
+                                                <SwiperSlide key={ createUniqueKey([blog.alt, index, 'blogs_2']) } virtualIndex={ index }>
+                                                    <BlogsNew blog={ blog } active={ index === activeBlog }/>
+                                                </SwiperSlide>
+                                            ))
+                                    }
+                                    <SwiperSlide />
+                                    <SwiperSlide />
+                                </Swiper>
+                        }
                     </div>
                 </div>
 

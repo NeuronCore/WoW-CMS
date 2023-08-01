@@ -42,9 +42,9 @@ const Blogs = () =>
             {
                 try
                 {
-                    const getHottestBlogs = await axios.get(`/blog/find-all-and-order/type/${ sort.by }?locale=${ locale }&page=1&limit=5`);
+                    const getBlogs = await axios.get(`/blog/find-all-and-order/type/${ sort.by }?locale=${ locale }&page=1&limit=5`);
 
-                    setBlogs(getHottestBlogs.data.data.blogs);
+                    setBlogs(getBlogs.data.data.blogs);
                 }
                 catch (error)
                 {
@@ -116,7 +116,7 @@ const Blogs = () =>
                             :
                             hottestBlogs.map((blog: any, index: number) =>
                                 (
-                                    <Link href='/' key={createUniqueKey([blog.id, index, 'blog', 'hottest'])}>
+                                    <Link href={ `/blogs/${ blog[`slug_${ locale }`] }` } key={createUniqueKey([blog.id, index, 'blog', 'hottest'])}>
                                         <div>
                                             <i data-top_right>
                                                 <span/>

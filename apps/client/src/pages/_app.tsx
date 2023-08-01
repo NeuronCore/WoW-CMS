@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import '../services/axios.service';
 
@@ -21,16 +21,7 @@ const Main = dynamic(() => import('../components/layouts/main/main.component'));
 
 const MyApp = ({ Component, pageProps, router }: AppProps) =>
 {
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() =>
-    {
-        setMounted(true);
-    }, []);
-
     return (
-        mounted
-        &&
         <Provider store={ store }>
             <AnimatePresence mode='wait' initial={ false }>
                 <Main>

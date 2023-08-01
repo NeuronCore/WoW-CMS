@@ -14,7 +14,6 @@ import { createUniqueKey } from '@/utils/helper.util';
 import { getClassName, getFaction, getGender, getRaceName } from '@/functions/shared-defines.function';
 
 const Button = dynamic(() => import('@/components/button'));
-const Tooltip = dynamic(() => import('@/components/tooltips'));
 
 const Characters = () =>
 {

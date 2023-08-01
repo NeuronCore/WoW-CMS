@@ -1,4 +1,4 @@
-export const middleOfArray = (array: []) =>
+export const middleOfArray = (array: any[]) =>
 {
     return Math.round((array.length - 1) / 2);
 };

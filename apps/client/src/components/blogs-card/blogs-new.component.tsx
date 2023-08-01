@@ -1,17 +1,20 @@
 import React from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
+import { useRouter } from 'next/router';
 
 import styles from '@/styles/pages/home.module.scss';
 
 interface Props
 {
     active: boolean,
-    item: { src: string, alt: string }
+    blog: any
 }
 
-const BlogsNew = ({ active, item }: Props) =>
+const BlogsNew = ({ active, blog }: Props) =>
 {
+    const { locale } = useRouter();
+
     return (
         <div className={classnames(styles.homeBlogsListSwiperItem, { [styles.homeBlogsListSwiperItemActive]: active })}>
             <div>
@@ -33,8 +36,8 @@ const BlogsNew = ({ active, item }: Props) =>
                 </i>
                 <span>
                     <Image
-                        src={ item.src }
-                        alt={ item.alt }
+                        src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
+                        alt={ blog[`meta_title_${ locale }`] }
                         fill
                         style={{ objectFit: 'cover' }}
                         sizes={'100'}
