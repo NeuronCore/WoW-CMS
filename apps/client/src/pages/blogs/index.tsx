@@ -1,16 +1,19 @@
+import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
-import React, { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 
 import styles from '@/styles/pages/blog.module.scss';
 
-import blogs from '@/data/blogs.data.json';
+import { createUniqueKey, timeCalendar } from '@/utils/helper.util';
 
-import { createUniqueKey } from '@/utils/helper.util';
+import useOutside from '@/hooks/use-outside';
 
 const Input = dynamic(() => import('@/components/input'));
+const Preloader = dynamic(() => import('@/components/preloader'));
 const BlogsCard = dynamic(() => import('@/components/blogs-card/blogs-card.component'));
 
 const defaultForm =
@@ -21,11 +24,59 @@ const defaultForm =
 
 const Blogs = () =>
 {
-    const [formValues, setFormValues] = useState(defaultForm);
+    const sortRef = useRef(null);
 
+    const { locale, query } = useRouter();
+
+    const [formValues, setFormValues] = useState(defaultForm);
     const [category, setCategory] = useState('tutorial');
     const [filter, setFilter] = useState({ hidden: true });
-    const [sort, setSort] = useState({ hidden: true, by: 'newest' });
+    const [sort, setSort] = useState({ hidden: true, by: 'created_at' });
+    const [hottestBlogs, setHottestBlogs] = useState<any | 'loading'>('loading');
+    const [blogs, setBlogs] = useState<any | 'loading'>('loading');
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                try
+                {
+                    const getHottestBlogs = await axios.get(`/blog/find-all-and-order/type/${ sort.by }?locale=${ locale }&page=1&limit=5`);
+
+                    setBlogs(getHottestBlogs.data.data.blogs);
+                }
+                catch (error)
+                {
+                    setBlogs([]);
+                }
+            }
+        )();
+    }, [locale]);
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                try
+                {
+                    const getHottestBlogs = await axios.get(`/blog/find-all-and-order/type/likes?locale=${ locale }&page=1&limit=5`);
+
+                    setHottestBlogs(getHottestBlogs.data.data.blogs);
+                }
+                catch (error)
+                {
+                    setHottestBlogs([]);
+                }
+            }
+        )();
+    }, [locale]);
+
+    useOutside(sortRef, (() =>
+    {
+        setSort({ ...sort, hidden: true });
+    }));
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
     {
@@ -59,208 +110,76 @@ const Blogs = () =>
                 </ul>
 
                 <div className='container'>
-                    <Link href='/'>
-                        <div>
-                            <i data-top_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-top_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <span>
-                                <Image
-                                    src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'
-                                    alt='WoW CMS'
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    sizes={'100'}
-                                />
-                                <div>
-                                    <span>
-                                        6/27/2023
-                                    </span>
-                                    <p>
-                                        WoW CMS 1
-                                    </p>
-                                </div>
-                            </span>
-                        </div>
-                    </Link>
-                    <Link href='/'>
-                        <div>
-                            <i data-top_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-top_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <span>
-                                <Image
-                                    src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'
-                                    alt='WoW CMS'
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    sizes={'100'}
-                                />
-                                <div>
-                                    <span>
-                                        6/27/2023
-                                    </span>
-                                    <p>
-                                        WoW CMS 1
-                                    </p>
-                                </div>
-                            </span>
-                        </div>
-                    </Link>
-                    <Link href='/'>
-                        <div>
-                            <i data-top_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-top_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <span>
-                                <Image
-                                    src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'
-                                    alt='WoW CMS'
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    sizes={'100'}
-                                />
-                                <div>
-                                    <span>
-                                        6/27/2023
-                                    </span>
-                                    <p>
-                                        WoW CMS 1
-                                    </p>
-                                </div>
-                            </span>
-                        </div>
-                    </Link>
-                    <Link href='/'>
-                        <div>
-                            <i data-top_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-top_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <span>
-                                <Image
-                                    src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'
-                                    alt='WoW CMS'
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    sizes={'100'}
-                                />
-                                <div>
-                                    <span>
-                                        6/27/2023
-                                    </span>
-                                    <p>
-                                        WoW CMS 1
-                                    </p>
-                                </div>
-                            </span>
-                        </div>
-                    </Link>
-                    <Link href='/'>
-                        <div>
-                            <i data-top_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-top_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_left>
-                                <span/>
-                                <span/>
-                            </i>
-                            <i data-bottom_right>
-                                <span/>
-                                <span/>
-                            </i>
-                            <span>
-                                <Image
-                                    src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'
-                                    alt='WoW CMS'
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                    sizes={'100'}
-                                />
-                                <div>
-                                    <span>
-                                        6/27/2023
-                                    </span>
-                                    <p>
-                                        WoW CMS 1
-                                    </p>
-                                </div>
-                            </span>
-                        </div>
-                    </Link>
+                    {
+                        hottestBlogs === 'loading'
+                            ? <Preloader component/>
+                            :
+                            hottestBlogs.map((blog: any, index: number) =>
+                                (
+                                    <Link href='/' key={createUniqueKey([blog.id, index, 'blog', 'hottest'])}>
+                                        <div>
+                                            <i data-top_right>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <i data-top_left>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <i data-bottom_left>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <i data-bottom_right>
+                                                <span/>
+                                                <span/>
+                                            </i>
+                                            <span>
+                                                <Image
+                                                    src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
+                                                    alt={ blog[`meta_title_${ locale }`] }
+                                                    fill
+                                                    style={{ objectFit: 'cover' }}
+                                                    sizes={'100'}
+                                                />
+                                                <div>
+                                                    <span>
+                                                        { timeCalendar(blog.published_at).join('/') }
+                                                    </span>
+                                                    <p>
+                                                        { blog[`meta_title_${ locale }`] }
+                                                    </p>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </Link>
+                                ))
+                    }
                 </div>
             </header>
 
             <ul className={styles.blogsListNavbar}>
-                <li className={styles.blogsListNavbarSort}>
+                <li className={styles.blogsListNavbarSort} ref={sortRef}>
                     <div className={classnames(styles.blogsListNavbarSortBy, { [styles.blogsListNavbarSortByActive]: !sort.hidden })} onClick={() => setSort({ ...sort, hidden: !sort.hidden })}>
-                        { sort.by }
+                        {
+                            sort.by === 'created_at'
+                                ? 'Newest'
+                                : sort.by === 'readz'
+                                    ? 'Most read'
+                                    : sort.by === 'likes'
+                                        ? 'Most liked'
+                                        : null
+                        }
                     </div>
 
                     <ul className={classnames(styles.blogsListNavbarSortList, { [styles.blogsListNavbarSortListActive]: !sort.hidden })}>
-                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'viewed' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'viewed' })}>
-                            Most viewed
+                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'readz' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'readz' })}>
+                            Most read
                         </li>
-                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'liked' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'liked' })}>
+                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'likes' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'likes' })}>
                             Most liked
                         </li>
-                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'newest' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'newest' })}>
+                        <li onClick={() => setSort({ ...sort, hidden: true, by: 'created_at' })} className={classnames(styles.blogsListNavbarSortListItem, { [styles.blogsListNavbarSortListItemActive]: sort.by === 'created_at' })}>
                             Newest
                         </li>
                     </ul>
@@ -297,10 +216,13 @@ const Blogs = () =>
 
             <ul className={styles.blogsList}>
                 {
-                    blogs.map((item, index: number) =>
-                        (
-                            <BlogsCard key={ createUniqueKey([item.alt, index, 'blogs_page_1'])}/>
-                        ))
+                    hottestBlogs === 'loading'
+                        ? <Preloader component/>
+                        :
+                        blogs.map((blog: any, index: number) =>
+                            (
+                                <BlogsCard blog={ blog } key={ createUniqueKey([blog.id, index, 'blogs_page_1'])}/>
+                            ))
                 }
             </ul>
         </>

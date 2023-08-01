@@ -1,4 +1,4 @@
-export const middleOfArray = (array: unknown[]) =>
+export const middleOfArray = (array: []) =>
 {
     return Math.round((array.length - 1) / 2);
 };
@@ -70,10 +70,9 @@ export const createUniqueKey = (array: unknown[]) =>
     return array.map(item => item?.toString().split(' ').join('_')).join('_');
 };
 
-export const timeSince = (date: any) =>
+export const timeSince = (date: Date) =>
 {
-    const nowDate: any = new Date();
-    const seconds = Math.floor((nowDate - date) / 1000);
+    const seconds = Math.floor((Number(new Date()) - Number(date)) / 1000);
 
     let interval = seconds / 31536000;
 
@@ -103,7 +102,7 @@ export const timeSince = (date: any) =>
     return Math.floor(seconds) + ' seconds';
 };
 
-export const timeString = (date: any) =>
+export const timeString = (date: Date) =>
 {
     const myDate = new Date(date);
 
@@ -115,3 +114,15 @@ export const timeString = (date: any) =>
 
     return `${ month } ${ getDate }, ${ year }`;
 };
+
+export const timeCalendar = (date: Date) =>
+{
+    const myDate = new Date(date);
+
+    const getDate = myDate.getDate();
+    const month = myDate.getMonth();
+    const year = myDate.getFullYear();
+
+    return [getDate, month, year];
+};
+

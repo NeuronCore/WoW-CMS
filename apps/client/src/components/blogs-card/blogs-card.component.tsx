@@ -1,11 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import styles from '@/styles/pages/blog.module.scss';
 
-const BlogsCard = () =>
+const BlogsCard = ({ blog }: any) =>
 {
+    const { locale } = useRouter();
+
     return (
         <li className={styles.blogsItemContainer}>
             <i data-top_right>
@@ -25,11 +28,11 @@ const BlogsCard = () =>
                 <span/>
             </i>
 
-            <Link className={styles.blogsItem} href='/blogs/test'>
+            <Link className={styles.blogsItem} href={ `/blogs/${ blog[`slug_${ locale }`] }` }>
                 <span className={styles.blogsItemImage}>
                     <Image
-                        src='https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700780850.jpg'
-                        alt='WoW CMS 3'
+                        src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
+                        alt={ blog[`meta_title_${ locale }`] }
                         fill
                         style={{ objectFit: 'cover' }}
                         sizes={'100'}
@@ -39,23 +42,23 @@ const BlogsCard = () =>
                 <div className={styles.blogsItemContent}>
                     <div>
                         <p>
-                            WoW CMS 3
+                            { blog[`title_${ locale }`] }
                         </p>
                         <ul>
                             <li>
-                                85 reads
+                                { blog.readz } reads
                             </li>
                             <li>
-                                85 likes
+                                { blog.likes } likes
                             </li>
                             <li>
-                                85 comments
+                                { blog.comments } comments
                             </li>
                         </ul>
                     </div>
 
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it
+                        { blog[`summary_${ locale }`] }
                     </p>
 
                     <span>

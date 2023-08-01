@@ -62,14 +62,14 @@ const Navbar = () =>
                     {
                         locale && locales
                             ?
-                            <div onClick={() => setLocalePopup(!localePopup)}>
+                            <div onClick={() => setLocalePopup(!localePopup)} ref={localeRef}>
                                 <p>
                                     { locale.toUpperCase() }
                                 </p>
                                 {
                                     localePopup
                                         ?
-                                        <animated.div style={ springStyles } ref={localeRef}>
+                                        <animated.div style={ springStyles }>
                                             {
                                                 locales.map((localeData) =>
                                                     (

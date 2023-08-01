@@ -12,7 +12,7 @@ import styles from '@/styles/pages/blog.module.scss';
 
 import { useUser } from '@/hooks/use-user';
 
-import {capitalizeFirstLetter, createUniqueKey, timeString} from '@/utils/helper.util';
+import { capitalizeFirstLetter, createUniqueKey, timeString } from '@/utils/helper.util';
 
 import Profile from '@/../public/images/heros/profile.jpg';
 

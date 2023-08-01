@@ -1970,6 +1970,7 @@
                 padding: 1rem;
                 border: .2rem solid var(--base-primary-darker);
                 transition: all .2s;
+                width: 100%;
 
                 & > i
                 {
@@ -2176,14 +2177,15 @@
                     color: var(--color-base-text-bold);
                     font-size: 1.75rem;
                     line-height: 2rem;
+                    margin-bottom: 2rem;
                 }
 
                 & > span
                 {
                     font-size: 1.25rem;
                     font-weight: 400;
-                    margin-top: 2rem;
                     color: var(--color-base-text-lighter);
+                    margin: auto auto 0 0;
                 }
             }
         }
