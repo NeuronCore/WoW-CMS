@@ -24,7 +24,7 @@ import blogs from '@/data/blogs.data.json';
 
 import styles from '@/styles/pages/home.module.scss';
 
-import { createUniqueKey, middleOfArray } from '@/utils/helper.util';
+import { createUniqueKey } from '@/utils/helper.util';
 import Preloader from '@/components/preloader';
 
 const FAQ = dynamic(() => import('@/components/faq'));
@@ -108,7 +108,7 @@ const Home = () =>
                     slidesPerView={4}
                     centeredSlides
                     grabCursor
-                    initialSlide={middleOfArray(blogs)}
+                    initialSlide={+blogs}
                     keyboard={{ enabled: true }}
                     className={styles.homeHeaderSwiper}
                     onSlideChange={(swiper) => setHeaderBlog(swiper.realIndex)}
