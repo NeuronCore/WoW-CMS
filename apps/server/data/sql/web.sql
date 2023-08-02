@@ -88,7 +88,6 @@ CREATE TABLE IF NOT EXISTS `blog_reads` (
   `ip` varchar(15) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `blog_id` int unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `ip` (`ip`),
   KEY `idx_blog_reads_blog` (`blog_id`) USING BTREE,
   CONSTRAINT `FK_BLOG_READS_BLOG` FOREIGN KEY (`blog_id`) REFERENCES `blog` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
