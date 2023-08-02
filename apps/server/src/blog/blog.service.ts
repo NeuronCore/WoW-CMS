@@ -302,7 +302,8 @@ export class BlogService
             LIMIT ${ page - 1 }, ${ limit };
         `;
         const [blogs]: any = await this.webDatabase.query(sql);
+        const [blogCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `blog`');
 
-        return { statusCode: HttpStatus.OK, data: { totals: blogs.length, blogs } };
+        return { statusCode: HttpStatus.OK, data: { ...blogCount[0], blogs } };
     }
 }
