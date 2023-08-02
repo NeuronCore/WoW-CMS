@@ -147,6 +147,7 @@ export class CommentService
             LIMIT ${ page - 1 }, ${ limit };
         `;
         const [comments]: any = await this.webDatabase.query(sql, [blogID]);
+        const [commentsCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `comments`');
 
         for (const comment of comments)
         {
@@ -191,6 +192,6 @@ export class CommentService
             comment.replies = commentReplies;
         }
 
-        return { statusCode: HttpStatus.OK, data: { totals: comments.length, comments } };
+        return { statusCode: HttpStatus.OK, data: { ...commentsCount[0], hasMore: Number(page) < Math.ceil(commentsCount[0].totals / Number(limit)), comments } };
     }
 }

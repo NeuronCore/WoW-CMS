@@ -45,10 +45,22 @@ const Blogs = () =>
             {
                 try
                 {
-                    const getBlogs = await axios.get(`/blog/find-all-and-order/type/${ sort.by }?locale=${ locale }&page=${ page }&limit=10`);
+                    const getBlogs = await axios.get(`/blog/find-all-and-order/type/${ sort.by }?locale=${ locale }&page=${ page }&limit=${ Number(query.limit) > 0 ? Number(query.limit) : 10 }`);
 
                     if (blogs !== 'loading')
-                        setBlogs([...blogs, ...getBlogs.data.data.blogs]);
+                    {
+                        const newBlogs = [...blogs];
+
+                        for (const newBlog of getBlogs.data.data.blogs)
+                        {
+                            const xBlog = newBlogs.find(xBlog => xBlog.id === newBlog.id);
+
+                            if (!xBlog)
+                                newBlogs.push(newBlog);
+                        }
+
+                        setBlogs(newBlogs);
+                    }
                     else
                         setBlogs(getBlogs.data.data.blogs);
 
