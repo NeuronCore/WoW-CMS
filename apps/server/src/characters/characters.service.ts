@@ -40,7 +40,7 @@ export class CharactersService
     }
 
     // Top Players
-    public async getArenaTeamByType(realm: string, type: number, page: number, limit: number)
+    public async getArenaTeamByType(realm: string, type: number, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
         if (!charactersDatabase)
@@ -61,7 +61,7 @@ export class CharactersService
                 arena_team.type = ?
             ORDER BY
                 arena_team.rating DESC
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' };
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [arenaTeamType] = await charactersDatabase.query(sql, [type]);
@@ -69,7 +69,7 @@ export class CharactersService
         return { statusCode: HttpStatus.OK, data: { totals: arenaTeamType.length, arenaTeamType } };
     }
 
-    public async getArenaTeamById(realm: string, id: number, page: number, limit: number)
+    public async getArenaTeamById(realm: string, id: number, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
         if (!charactersDatabase)
@@ -88,7 +88,7 @@ export class CharactersService
                 characters ON arena_team.captainGuid = characters.guid
             WHERE
                 arena_team.arenaTeamId = ?
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' };
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [arenaTeamId] = await charactersDatabase.query(sql, [id]);
@@ -96,7 +96,7 @@ export class CharactersService
         return { statusCode: HttpStatus.OK, data: { totals: arenaTeamId.length, arenaTeamId } };
     }
 
-    public async getArenaTeamMember(realm: string, id: number, page: number, limit: number)
+    public async getArenaTeamMember(realm: string, id: number, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
         if (!charactersDatabase)
@@ -121,7 +121,7 @@ export class CharactersService
                 character_arena_stats ON (arena_team_member.guid = character_arena_stats.guid AND arena_team.type = (CASE character_arena_stats.slot WHEN 0 THEN 2 WHEN 1 THEN 3 WHEN 2 THEN 5 END))
             WHERE
                 arena_team.arenaTeamId = ?
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' };
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [arenaTeamMember] = await charactersDatabase.query(sql, [id]);
@@ -129,7 +129,7 @@ export class CharactersService
         return { statusCode: HttpStatus.OK, data: { totals: arenaTeamMember.length, arenaTeamMember } };
     }
 
-    public async getTopKillers(realm: string, page: number, limit: number)
+    public async getTopKillers(realm: string, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
         if (!charactersDatabase)
@@ -143,7 +143,7 @@ export class CharactersService
                 characters
             ORDER BY
                 totalKills DESC
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' };
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [topKillers] = await charactersDatabase.query(sql);
@@ -151,7 +151,7 @@ export class CharactersService
         return { statusCode: HttpStatus.OK, data: { totals: topKillers.length, topKillers } };
     }
 
-    public async getTopAchievements(realm: string, page: number, limit: number)
+    public async getTopAchievements(realm: string, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
         if (!charactersDatabase)
@@ -173,7 +173,7 @@ export class CharactersService
                 character_achievement.guid
             ORDER BY
                 achievements DESC
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' };
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [topAchievements] = await charactersDatabase.query(sql);
@@ -181,7 +181,7 @@ export class CharactersService
         return { statusCode: HttpStatus.OK, data: { totals: topAchievements.length, topAchievements } };
     }
 
-    public async getTopPlayedTime(realm: string, page: number, limit: number)
+    public async getTopPlayedTime(realm: string, page = 1, limit = 20)
     {
         const charactersDatabase = this.charactersDatabase[realm];
         if (!charactersDatabase)
@@ -197,7 +197,7 @@ export class CharactersService
                 name != ''
             ORDER BY
                 totaltime DESC
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' };
+            LIMIT ${ page - 1 }, ${ limit };
         `;
 
         const [topPlayedTime] = await charactersDatabase.query(sql);

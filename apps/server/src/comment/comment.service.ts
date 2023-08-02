@@ -130,7 +130,7 @@ export class CommentService
         }
     }
 
-    public async findAll(blogID: number, page: number, limit: number)
+    public async findAll(blogID: number, page = 1, limit = 10)
     {
         const sql =
         `
@@ -144,7 +144,7 @@ export class CommentService
                 blog_id = ? AND reply_of = 0
             ORDER BY
                 created_at DESC
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' };
+            LIMIT ${ page - 1 }, ${ limit };
         `;
         const [comments]: any = await this.webDatabase.query(sql, [blogID]);
 

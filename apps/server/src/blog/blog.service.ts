@@ -275,7 +275,7 @@ export class BlogService
         }
     }
 
-    public async findAllAndOrder(locale: Locale, type: BlogFindAll, page: number, limit: number)
+    public async findAllAndOrder(locale: Locale, type: BlogFindAll, page = 1, limit = 20)
     {
         if (!Object.values(Locale)?.includes(locale))
             throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
@@ -299,7 +299,7 @@ export class BlogService
                 blog
             ORDER BY
                 ${ type } DESC
-            ${ page && limit ? `LIMIT ${ page - 1 }, ${ limit }` : '' }
+            LIMIT ${ page - 1 }, ${ limit };
         `;
         const [blogs]: any = await this.webDatabase.query(sql);
 
