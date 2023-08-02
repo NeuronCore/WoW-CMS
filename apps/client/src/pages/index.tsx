@@ -102,7 +102,7 @@ const Home = () =>
                 {
                     console.log(error);
 
-                    setFeatures([]);
+                    setNewestBlogs([]);
                 }
             }
         )();
@@ -205,17 +205,20 @@ const Home = () =>
                             newestBlogs === 'loading'
                                 ? <Preloader component/>
                                 :
-                                <div>
-                                    <h3>
-                                        { newestBlogs[activeBlog][`title_${ locale }`] }
-                                    </h3>
-                                    <p>
-                                        { newestBlogs[activeBlog][`summary_${ locale }`] }
-                                    </p>
-                                    <Button href={ `/blogs/${ newestBlogs[activeBlog][`slug_${ locale }`] }` }>
-                                        Read
-                                    </Button>
-                                </div>
+                                newestBlogs[activeBlog]
+                                    ?
+                                    <div>
+                                        <h3>
+                                            { newestBlogs[activeBlog][`title_${ locale }`] }
+                                        </h3>
+                                        <p>
+                                            { newestBlogs[activeBlog][`summary_${ locale }`] }
+                                        </p>
+                                        <Button href={ `/blogs/${ newestBlogs[activeBlog][`slug_${ locale }`] }` }>
+                                            Read
+                                        </Button>
+                                    </div>
+                                    : null
                         }
                     </div>
                     <div className={styles.homeBlogsListSwiper}>
