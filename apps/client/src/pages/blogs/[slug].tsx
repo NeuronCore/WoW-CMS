@@ -4,6 +4,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'html-react-parser';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { Fragment, useEffect, useState } from 'react';
 
 import { BsArrow90DegDown, BsArrow90DegUp, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsHeartFill, BsPrinter } from 'react-icons/bs';
@@ -31,6 +32,7 @@ const Blog = () =>
     const [isLiked, setIsLiked] = useState<any | 'loading'>('loading');
     const [comments, setComments] = useState<any | 'loading'>('loading');
     const [page, setPage] = useState<number>(1);
+    const [hasMore, setHasMore] = useState<boolean>(true);
 
     useEffect(() =>
     {
@@ -63,12 +65,29 @@ const Blog = () =>
                     {
                         const getComments = await axios.get(`/comment/find-all/blog-id/${ blog.id }?page=${ page }&limit=20`);
 
-                        setComments(getComments.data.data.comments);
+                        if (comments !== 'loading')
+                        {
+                            const newComments = [...comments];
+
+                            for (const newComment of getComments.data.data.comments)
+                            {
+                                const xComment = newComments.find(xComment => xComment.id === newComment.id);
+
+                                if (!xComment)
+                                    newComments.push(newComment);
+                            }
+
+                            setComments(newComments);
+                        }
+                        else
+                            setComments(getComments.data.data.comments);
+
+                        setHasMore(getComments.data.data.hasMore);
                     }
                 }
                 catch (error)
                 {
-                    setComments(null);
+                    setComments([]);
                 }
             }
         )();
@@ -476,19 +495,28 @@ const Blog = () =>
                                     : comments === null
                                         ? null
                                         :
-                                        comments.map((comment: any, index: number) =>
-                                            (
-                                                <Comment
-                                                    blogId={blog.id}
-                                                    key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.username])}
-                                                    commentData={comment}
-                                                    updateVote={updateVote}
-                                                    updateReplies={updateReplies}
-                                                    editComment={editComment}
-                                                    commentDelete={commentDelete}
-                                                    setDeleteModalState={setDeleteModalState}
-                                                />
-                                            ))
+                                        <InfiniteScroll
+                                            dataLength={ comments.length }
+                                            next={() => setPage(page + 1)}
+                                            hasMore={ hasMore }
+                                            loader={ <Preloader component/> }
+                                        >
+                                            {
+                                                comments.map((comment: any, index: number) =>
+                                                    (
+                                                        <Comment
+                                                            blogId={blog.id}
+                                                            key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.username])}
+                                                            commentData={comment}
+                                                            updateVote={updateVote}
+                                                            updateReplies={updateReplies}
+                                                            editComment={editComment}
+                                                            commentDelete={commentDelete}
+                                                            setDeleteModalState={setDeleteModalState}
+                                                        />
+                                                    ))
+                                            }
+                                        </InfiniteScroll>
                             }
                             <AddComment addComments={ addComments } blogId={ blog.id } />
                         </div>
