@@ -29,8 +29,8 @@ const Blog = () =>
 
     const [deleteModalState, setDeleteModalState] = useState(false);
     const [blog, setBlog] = useState<any | 'loading'>('loading');
-    const [isLiked, setIsLiked] = useState<any | 'loading'>('loading');
-    const [comments, setComments] = useState<any | 'loading'>('loading');
+    const [isLiked, setIsLiked] = useState<boolean | 'loading'>('loading');
+    const [comments, setComments] = useState<any[] | 'loading'>('loading');
     const [page, setPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
 
@@ -114,24 +114,13 @@ const Blog = () =>
 
     const updateVote = async(votes: number, id: string, type: string, method: string) =>
     {
-        const updatedComments = [...comments];
+        if (comments !== 'loading')
+        {
+            const updatedComments = [...comments];
 
-        if (type === 'comment')
-        {
-            updatedComments.forEach((data: { id: string | number, votes: number, voted: boolean }) =>
+            if (type === 'comment')
             {
-                if (data.id === id)
-                {
-                    data.votes = votes;
-                    data.voted = method === 'up';
-                }
-            });
-        }
-        else if (type === 'reply')
-        {
-            updatedComments.forEach((comment: { replies: [] }) =>
-            {
-                comment.replies.forEach((data: { id: string | number, votes: number, voted: boolean }) =>
+                updatedComments.forEach((data: { id: string | number, votes: number, voted: boolean }) =>
                 {
                     if (data.id === id)
                     {
@@ -139,17 +128,31 @@ const Blog = () =>
                         data.voted = method === 'up';
                     }
                 });
-            });
+            }
+            else if (type === 'reply')
+            {
+                updatedComments.forEach((comment: { replies: [] }) =>
+                {
+                    comment.replies.forEach((data: { id: string | number, votes: number, voted: boolean }) =>
+                    {
+                        if (data.id === id)
+                        {
+                            data.votes = votes;
+                            data.voted = method === 'up';
+                        }
+                    });
+                });
+            }
+
+            setComments(updatedComments);
+
+            await axios.post(`/comment/vote/comment-id/${ id }?voteType=${ method }`);
         }
-
-        setComments(updatedComments);
-
-        await axios.post(`/comment/vote/comment-id/${ id }?voteType=${ method }`);
     };
 
     const addComments = (newComment: string) =>
     {
-        if (comments)
+        if (comments !== 'loading')
             setComments([newComment, ...comments]);
         else
             setComments([newComment]);
@@ -157,70 +160,79 @@ const Blog = () =>
 
     const updateReplies = (replies: [], id: string | number) =>
     {
-        const updatedComments = [...comments];
-
-        updatedComments.forEach((data) =>
+        if (comments !== 'loading')
         {
-            if (data.id === id)
-                data.replies = [...replies];
-        });
+            const updatedComments = [...comments];
 
-        setComments(updatedComments);
+            updatedComments.forEach((data) =>
+            {
+                if (data.id === id)
+                    data.replies = [...replies];
+            });
+
+            setComments(updatedComments);
+        }
     };
 
     const editComment = async(content: string, id: string, type: string) =>
     {
-        const updatedComments = [...comments];
+        if (comments !== 'loading')
+        {
+            const updatedComments = [...comments];
 
-        if (type === 'comment')
-        {
-            updatedComments.forEach((data) =>
+            if (type === 'comment')
             {
-                if (data.id === id)
-                    data.content = content;
-            });
-        }
-        else if (type === 'reply')
-        {
-            updatedComments.forEach((comment) =>
-            {
-                comment.replies.forEach((data: { id: string, content: string }) =>
+                updatedComments.forEach((data) =>
                 {
                     if (data.id === id)
                         data.content = content;
                 });
-            });
+            }
+            else if (type === 'reply')
+            {
+                updatedComments.forEach((comment) =>
+                {
+                    comment.replies.forEach((data: { id: string, content: string }) =>
+                    {
+                        if (data.id === id)
+                            data.content = content;
+                    });
+                });
+            }
+
+            setComments(updatedComments);
+
+            await axios.patch(`/comment/update/comment-id/${ id }`, {content});
         }
-
-        setComments(updatedComments);
-
-        await axios.patch(`/comment/update/comment-id/${ id }`, { content });
     };
 
     const commentDelete = async(id: string | number, type: string, parentComment: unknown) =>
     {
-        let updatedComments = [...comments];
-        let updatedReplies = [];
-
-        if (type === 'comment')
-
-            updatedComments = updatedComments.filter((data: { id: string }) => data.id !== id);
-
-        else if (type === 'reply')
+        if (comments !== 'loading')
         {
-            comments.forEach((comment: any) =>
+            let updatedComments = [...comments];
+            let updatedReplies = [];
+
+            if (type === 'comment')
+
+                updatedComments = updatedComments.filter((data: { id: string }) => data.id !== id);
+
+            else if (type === 'reply')
             {
-                if (comment.id === parentComment)
+                comments.forEach((comment: any) =>
                 {
-                    updatedReplies = comment.replies.filter((data: { id: string | number }) => data.id !== id);
-                    comment.replies = updatedReplies;
-                }
-            });
+                    if (comment.id === parentComment)
+                    {
+                        updatedReplies = comment.replies.filter((data: { id: string | number }) => data.id !== id);
+                        comment.replies = updatedReplies;
+                    }
+                });
+            }
+
+            setComments(updatedComments);
+
+            await axios.delete(`/comment/delete/comment-id/${ id }`);
         }
-
-        setComments(updatedComments);
-
-        await axios.delete(`/comment/delete/comment-id/${ id }`);
     };
 
     return (

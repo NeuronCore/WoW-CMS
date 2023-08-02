@@ -33,8 +33,8 @@ const Blogs = () =>
     const [category, setCategory] = useState('tutorial');
     const [filter, setFilter] = useState({ hidden: true });
     const [sort, setSort] = useState({ hidden: true, by: 'created_at' });
-    const [hottestBlogs, setHottestBlogs] = useState<any | 'loading'>('loading');
-    const [blogs, setBlogs] = useState<any | 'loading'>('loading');
+    const [hottestBlogs, setHottestBlogs] = useState<any[] | 'loading'>('loading');
+    const [blogs, setBlogs] = useState<any[] | 'loading'>('loading');
     const [page, setPage] = useState<number>(1);
     const [hasMore, setHasMore] = useState<boolean>(true);
 
@@ -72,7 +72,7 @@ const Blogs = () =>
                 }
             }
         )();
-    }, [page]);
+    }, [page, sort.by]);
 
     useEffect(() =>
     {
