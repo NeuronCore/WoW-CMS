@@ -1736,12 +1736,39 @@
             gap: 2rem;
 
             width: 100%;
-            max-width: 90rem;
+            max-width: 94rem;
             margin: 4rem auto;
 
             @media only screen and (max-width: 950px)
             {
                 padding: 0 1rem;
+            }
+
+            & > div
+            {
+                width: 100%;
+
+                & > div
+                {
+                    display: flex;
+                    align-items: flex-start;
+                    justify-content: flex-start;
+                    flex-direction: column;
+                    gap: 2rem;
+
+                    padding: 1rem 2rem;
+                    width: 100%;
+
+                    & > div
+                    {
+                        width: 100%;
+                    }
+
+                    & > p
+                    {
+                        margin-top: 5rem !important;
+                    }
+                }
             }
 
             &Filters

@@ -304,6 +304,6 @@ export class BlogService
         const [blogs]: any = await this.webDatabase.query(sql);
         const [blogCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `blog`');
 
-        return { statusCode: HttpStatus.OK, data: { ...blogCount[0], blogs } };
+        return { statusCode: HttpStatus.OK, data: { ...blogCount[0], hasMore: Number(page) < Math.ceil(blogCount[0].totals / Number(limit)), blogs } };
     }
 }

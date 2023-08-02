@@ -10,7 +10,7 @@ const BlogsCard = ({ blog }: any) =>
     const { locale } = useRouter();
 
     return (
-        <li className={styles.blogsItemContainer}>
+        <div className={styles.blogsItemContainer}>
             <i data-top_right>
                 <span/>
                 <span/>
@@ -66,7 +66,7 @@ const BlogsCard = ({ blog }: any) =>
                     </span>
                 </div>
             </Link>
-        </li>
+        </div>
     );
 };
 

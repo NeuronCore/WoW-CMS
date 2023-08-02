@@ -222,9 +222,14 @@
         margin-left: 1.5rem;
         gap: 1.5rem;
 
-        &[data-reply='true'] > div
+        &[data-reply='true']
         {
-            margin-top: 1rem;
+            gap: 0;
+
+            & > div
+            {
+                margin-top: 1rem;
+            }
         }
 
         &Gap > div[data-reply]

@@ -4,7 +4,8 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 import styles from '@/styles/pages/blog.module.scss';
 
@@ -34,6 +35,8 @@ const Blogs = () =>
     const [sort, setSort] = useState({ hidden: true, by: 'created_at' });
     const [hottestBlogs, setHottestBlogs] = useState<any | 'loading'>('loading');
     const [blogs, setBlogs] = useState<any | 'loading'>('loading');
+    const [page, setPage] = useState<number>(1);
+    const [hasMore, setHasMore] = useState<boolean>(true);
 
     useEffect(() =>
     {
@@ -42,9 +45,14 @@ const Blogs = () =>
             {
                 try
                 {
-                    const getBlogs = await axios.get(`/blog/find-all-and-order/type/${ sort.by }?locale=${ locale }&page=1&limit=5`);
+                    const getBlogs = await axios.get(`/blog/find-all-and-order/type/${ sort.by }?locale=${ locale }&page=${ page }&limit=10`);
 
-                    setBlogs(getBlogs.data.data.blogs);
+                    if (blogs !== 'loading')
+                        setBlogs([...blogs, ...getBlogs.data.data.blogs]);
+                    else
+                        setBlogs(getBlogs.data.data.blogs);
+
+                    setHasMore(getBlogs.data.data.hasMore);
                 }
                 catch (error)
                 {
@@ -52,7 +60,7 @@ const Blogs = () =>
                 }
             }
         )();
-    }, [locale]);
+    }, [page]);
 
     useEffect(() =>
     {
@@ -214,17 +222,26 @@ const Blogs = () =>
                 />
             </div>
 
-            <ul className={styles.blogsList}>
+            <div className={styles.blogsList}>
                 {
-                    hottestBlogs === 'loading'
+                    blogs === 'loading'
                         ? <Preloader component/>
                         :
-                        blogs.map((blog: any, index: number) =>
-                            (
-                                <BlogsCard blog={ blog } key={ createUniqueKey([blog.id, index, 'blogs_page_1'])}/>
-                            ))
+                        <InfiniteScroll
+                            dataLength={ blogs.length }
+                            next={() => setPage(page + 1)}
+                            hasMore={ hasMore }
+                            loader={ <Preloader component/> }
+                        >
+                            {
+                                blogs.map((blog: any, index: number) =>
+                                    (
+                                        <BlogsCard blog={ blog } key={ createUniqueKey([blog.id, index, 'blogs_page_1'])}/>
+                                    ))
+                            }
+                        </InfiniteScroll>
                 }
-            </ul>
+            </div>
         </>
     );
 };
