@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { BsPen } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import styles from '@/styles/pages/account.module.scss';
 

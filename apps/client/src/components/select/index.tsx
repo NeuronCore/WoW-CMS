@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import styles from '@/styles/components/select.module.scss';
 

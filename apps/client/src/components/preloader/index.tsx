@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from '@/components/preloader/preloader.module.scss';
 
 interface Props

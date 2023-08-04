@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
 
 const CommentButton = dynamic(() => import('@/components/comment/comment-parts/comment-button.component'));

@@ -19,7 +19,6 @@
         "prepare": "husky install"
     },
     "devDependencies": {
-        "@types/lodash": "^4.14.195",
         "husky": "^8.0.3",
         "turbo": "^1.10.7"
     },

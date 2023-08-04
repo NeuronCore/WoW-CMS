@@ -1,4 +1,3 @@
-import React from 'react';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import { HiChevronRight } from 'react-icons/hi';

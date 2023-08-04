@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { BsPen, BsReply, BsTrash } from 'react-icons/bs';
 
 import styles from '@/styles/components/comment.module.scss';

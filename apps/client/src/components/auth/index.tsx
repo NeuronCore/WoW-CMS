@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { useRouter} from 'next/router';
 import axios, { AxiosResponse } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
-import React, { ChangeEvent, useState, useEffect, useMemo, FormEvent } from 'react';
+import { ChangeEvent, useState, useEffect, useMemo, FormEvent } from 'react';
 
 import HttpService from '@/services/http.service';
 

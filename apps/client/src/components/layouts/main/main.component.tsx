@@ -2,7 +2,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
-import React, { Fragment, ReactNode, useEffect } from 'react';
+import { Fragment, ReactNode, useEffect } from 'react';
 
 import stylesAccount from '@/styles/pages/account.module.scss';
 import styles from '@/components/layouts/main/main.module.scss';

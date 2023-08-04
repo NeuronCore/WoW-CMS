@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
 
 import styles from '@/components/error/error.module.scss';

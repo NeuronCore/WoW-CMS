@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 
 import stylesForm from '@/styles/components/form.module.scss';
 

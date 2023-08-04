@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 import styles from '@/styles/pages/blog.module.scss';
 

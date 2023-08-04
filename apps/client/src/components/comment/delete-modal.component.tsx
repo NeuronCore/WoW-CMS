@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 
 const Button = dynamic(() => import('@/components/button'));
 

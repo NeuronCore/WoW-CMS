@@ -1,4 +1,3 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
 
 const Reply = dynamic(() => import('@/components/comment/reply.component'));

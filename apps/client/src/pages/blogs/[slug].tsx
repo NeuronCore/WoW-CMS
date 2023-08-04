@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactHtmlParser from 'html-react-parser';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import React, { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { BsArrow90DegDown, BsArrow90DegUp, BsCalendar, BsChat, BsChevronRight, BsEye, BsHeart, BsHeartFill, BsPrinter } from 'react-icons/bs';
 

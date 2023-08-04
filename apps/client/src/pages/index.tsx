@@ -3,7 +3,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { Autoplay, Keyboard } from 'swiper';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import useTranslation from 'next-translate/useTranslation';
 

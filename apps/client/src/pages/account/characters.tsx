@@ -3,7 +3,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { motion } from 'framer-motion';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
 import styles from '@/styles/pages/account.module.scss';

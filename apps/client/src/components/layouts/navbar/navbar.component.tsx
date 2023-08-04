@@ -3,7 +3,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { v4 as uuidV4 } from 'uuid';
 import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { animated, useSpring } from 'react-spring';
 import { BsPerson, BsList, BsCoin } from 'react-icons/bs';
 

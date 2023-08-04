@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
-import React from 'react';
 
 import '../services/axios.service';
 

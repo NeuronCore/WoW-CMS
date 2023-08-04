@@ -1,4 +1,3 @@
-import React from 'react';
 import Image from 'next/image';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const CommentButton = dynamic(() => import('@/components/comment/comment-parts/comment-button.component'));
 

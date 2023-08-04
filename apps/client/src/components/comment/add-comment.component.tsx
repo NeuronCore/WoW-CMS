@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import React, { FormEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 const Button = dynamic(() => import('@/components/button'));
 
