@@ -7,6 +7,7 @@ import { ValidationError } from 'class-validator';
 import * as winston from 'winston';
 import * as winstonDailyRotateFile from 'winston-daily-rotate-file';
 import * as cookieParser from 'cookie-parser';
+import helmet from 'helmet';
 
 import { AppModule } from './app.module';
 
@@ -47,6 +48,20 @@ async function bootstrap(): Promise<void>
     const app: INestApplication = await NestFactory.create(AppModule);
     const port: number = +process.env.PORT;
 
+    app.use(helmet
+    ({
+        crossOriginEmbedderPolicy: false,
+        contentSecurityPolicy:
+        {
+            directives:
+            {
+                imgSrc: ['\'self\'', 'data:', 'apollo-server-landing-page.cdn.apollographql.com'],
+                scriptSrc: ['\'self\'', 'https: \'unsafe-inline\''],
+                manifestSrc: ['\'self\'', 'apollo-server-landing-page.cdn.apollographql.com'],
+                frameSrc: ['\'self\'', 'sandbox.embed.apollographql.com'],
+            },
+        },
+    }));
     app.useLogger
     (
         WinstonModule.createLogger

@@ -41,6 +41,7 @@
         "cookie-parser": "^1.4.6",
         "graphql": "^16.7.1",
         "graphql-type-json": "^0.3.2",
+        "helmet": "^7.0.0",
         "html-to-text": "^9.0.5",
         "ip": "^1.1.8",
         "js-sha1": "^0.6.0",
