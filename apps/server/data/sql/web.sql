@@ -235,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `votes` (
   `account` int unsigned NOT NULL,
   `comment_id` int unsigned NOT NULL,
   `vote` tinyint(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `account` (`account`),
+  UNIQUE KEY `comment_id` (`comment_id`),
   KEY `idx_votes_account_information` (`account`) USING BTREE,
   KEY `idx_votes_comments` (`comment_id`) USING BTREE,
   CONSTRAINT `FK_VOTES_ACCOUNT_INFORMATION` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`),
