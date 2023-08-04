@@ -711,6 +711,8 @@
                         font-family: warcraft, sans-serif;
                         font-weight: lighter;
                         color: var(--color-primary-lighter);
+                        max-width: 100%;
+                        word-break: break-all;
                     }
 
                     & > p
@@ -718,6 +720,8 @@
                         font-size: 2rem;
                         font-weight: lighter;
                         line-height: 3rem;
+                        max-width: 100%;
+                        word-break: break-all;
                     }
                 }
             }
