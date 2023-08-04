@@ -15,6 +15,11 @@
         height: 95vh;
         width: 100%;
         max-width: 150rem;
+
+        @media only screen and (max-width: 1200px)
+        {
+            grid-template-columns: [aside-start] 23rem [aside-end content-start] 1fr [content-end];
+        }
     }
 
     &Video
@@ -102,6 +107,11 @@
             font-size: 3.5rem;
             font-weight: bolder;
             color: var(--color-base-text-bolder);
+
+            @media only screen and (max-width: 1200px)
+            {
+                font-size: 3rem;
+            }
         }
 
         &List
@@ -136,6 +146,11 @@
                 cursor: pointer;
                 transition: all .2s;
 
+                @media only screen and (max-width: 1200px)
+                {
+                    font-size: 1.75rem;
+                }
+
                 & a
                 {
                     display: flex;
@@ -156,6 +171,12 @@
                     border-right: .2rem solid transparent;
                     color: var(--color-base-text-lighter);
                     margin: 5rem 0 1rem;
+
+                    @media only screen and (max-width: 1200px)
+                    {
+                        margin: 3.5rem 0 1rem;
+                        font-size: 1.25rem;
+                    }
 
                     &:first-child
                     {
@@ -250,6 +271,11 @@
             display: none;
         }
 
+        @media only screen and (max-width: 1200px)
+        {
+            padding-left: 1rem;
+        }
+
         &Header
         {
             font-size: 3rem;
@@ -314,6 +340,12 @@
 
                     width: 100%;
                     height: fit-content;
+
+                    @media only screen and (max-width: 1200px)
+                    {
+                        grid-template-rows: repeat(2, 1fr);
+                        grid-template-columns: repeat(1, 1fr);
+                    }
                 }
 
                 &2
