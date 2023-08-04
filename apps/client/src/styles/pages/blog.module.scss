@@ -81,6 +81,7 @@
         gap: 1.5rem;
 
         max-width: 90rem;
+        word-break: break-all;
         font-size: 2rem;
         margin: auto;
         font-weight: 500;
@@ -419,6 +420,12 @@
                         {
                             color: var(--color-primary);
                         }
+                    }
+
+                    & > p
+                    {
+                        max-width: 100%;
+                        word-break: break-all;
                     }
                 }
             }
@@ -977,6 +984,8 @@
                         font-size: 5rem;
                         color: var(--color-primary);
                         font-family: warcraft, sans-serif;
+                        max-width: 100%;
+                        word-break: break-all;
                     }
 
                     & > span
@@ -1154,7 +1163,6 @@
                                 display: flex;
                                 align-items: center;
                                 gap: 1rem;
-
                                 font-size: 1.5rem;
 
                                 & > span
@@ -1539,6 +1547,8 @@
                                             font-size: 1.75rem;
                                             margin-bottom: 2rem;
                                             margin-left: 2rem;
+                                            max-width: 90%;
+                                            word-break: break-all;
                                         }
 
                                         & > span
@@ -2206,6 +2216,8 @@
                         font-size: 4.5rem;
                         font-weight: 400;
                         color: var(--color-primary);
+                        max-width: 100%;
+                        word-break: break-all;
                     }
 
                     & > ul
@@ -2232,6 +2244,8 @@
                     font-size: 1.75rem;
                     line-height: 2rem;
                     margin-bottom: 2rem;
+                    max-width: 100%;
+                    word-break: break-all;
                 }
 
                 & > span
