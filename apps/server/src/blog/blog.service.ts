@@ -323,8 +323,8 @@ export class BlogService
             LIKE '%${ content }%'
             LIMIT ${ page - 1 }, ${ limit }
         `;
-        const [blog] = await this.webDatabase.query(sql);
+        const [contents] = await this.webDatabase.query(sql);
         
-        return { statusCode: HttpStatus.OK, data: { content: { blog }}};
+        return { statusCode: HttpStatus.OK, data: { contents }};
     }
 }
