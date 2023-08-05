@@ -95,6 +95,7 @@ export class CommentService
 
         await this.webDatabase.execute('DELETE FROM `comments` WHERE `id` = ?', [commentID]);
         await this.webDatabase.execute('DELETE FROM `comments` WHERE `reply_of` = ?', [commentID]);
+        await this.webDatabase.execute('DELETE FROM `votes` WHERE `comment_id` = ?', [commentID]);
 
         return { statusCode: HttpStatus.OK, message: 'Deleted' };
     }

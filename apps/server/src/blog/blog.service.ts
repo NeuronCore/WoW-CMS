@@ -188,6 +188,11 @@ export class BlogService
                 return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
             await this.webDatabase.execute('DELETE FROM `blog` WHERE `id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `blog_category` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `blog_reads` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `blog_tag` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `comments` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `likes` WHERE `blog_id` = ?', [id]);
 
             return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2029' }] };
         }
