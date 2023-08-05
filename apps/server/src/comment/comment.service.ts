@@ -93,9 +93,9 @@ export class CommentService
         if (!comment[0])
             return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2010' }] };
 
+        await this.webDatabase.execute('DELETE FROM `votes` WHERE `comment_id` = ?', [commentID]);
         await this.webDatabase.execute('DELETE FROM `comments` WHERE `id` = ?', [commentID]);
         await this.webDatabase.execute('DELETE FROM `comments` WHERE `reply_of` = ?', [commentID]);
-        await this.webDatabase.execute('DELETE FROM `votes` WHERE `comment_id` = ?', [commentID]);
 
         return { statusCode: HttpStatus.OK, message: 'Deleted' };
     }
