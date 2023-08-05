@@ -306,4 +306,25 @@ export class BlogService
 
         return { statusCode: HttpStatus.OK, data: { ...blogsCount[0], hasMore: Number(page) < Math.ceil(blogsCount[0].totals / Number(limit)), blogs } };
     }
+
+    public async findContent(locale: Locale, content: string, page = 1, limit = 20)
+    {
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        const sql = 
+        `
+            SELECT
+                content_${ locale } 
+            FROM
+                blog
+            WHERE 
+                content_${ locale }
+            LIKE '%${ content }%'
+            LIMIT ${ page - 1 }, ${ limit }
+        `;
+        const [blog] = await this.webDatabase.query(sql);
+        
+        return { statusCode: HttpStatus.OK, data: { content: { blog }}};
+    }
 }
