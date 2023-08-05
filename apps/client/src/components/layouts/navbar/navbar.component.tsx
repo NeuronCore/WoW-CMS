@@ -2,9 +2,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { v4 as uuidV4 } from 'uuid';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
-import { animated, useSpring } from 'react-spring';
 import { BsPerson, BsList, BsCoin } from 'react-icons/bs';
 
 import Logo from '@/components/logo';
@@ -26,8 +26,6 @@ const Navbar = () =>
     const { pathname, asPath, locale, locales } = useRouter();
 
     const [localePopup, setLocalePopup] = useState(false);
-
-    const springStyles = useSpring({ opacity: localePopup ? 1 : 0 });
 
     useOutside(localeRef, (() =>
     {
@@ -66,21 +64,16 @@ const Navbar = () =>
                                 <p>
                                     { locale.toUpperCase() }
                                 </p>
-                                {
-                                    localePopup
-                                        ?
-                                        <animated.div style={ springStyles }>
-                                            {
-                                                locales.map((localeData) =>
-                                                    (
-                                                        <Link key={localeData} href={asPath} locale={localeData} data-active={locale.toLocaleUpperCase() === localeData.toLocaleUpperCase()}>
-                                                            { localeData.toUpperCase() }
-                                                        </Link>
-                                                    ))
-                                            }
-                                        </animated.div>
-                                        : null
-                                }
+                                <motion.div animate={{ opacity: localePopup ? 1 : 0, display: localePopup ? 'flex' : 'none' }}>
+                                    {
+                                        locales.map((localeData) =>
+                                            (
+                                                <Link key={localeData} href={asPath} locale={localeData} data-active={locale.toLocaleUpperCase() === localeData.toLocaleUpperCase()}>
+                                                    { localeData.toUpperCase() }
+                                                </Link>
+                                            ))
+                                    }
+                                </motion.div>
                             </div>
                             : null
                     }
