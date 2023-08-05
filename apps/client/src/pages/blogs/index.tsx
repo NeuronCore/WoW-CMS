@@ -129,53 +129,55 @@ const Blogs = () =>
                     </li>
                 </ul>
 
-                <div className='container'>
-                    {
-                        hottestBlogs === 'loading'
-                            ? <Preloader component/>
-                            :
-                            hottestBlogs.map((blog: any, index: number) =>
-                                (
-                                    <Link href={ `/blogs/${ blog[`slug_${ locale }`] }` } key={createUniqueKey([blog.id, index, 'blog', 'hottest'])}>
-                                        <div>
-                                            <i data-top_right>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <i data-top_left>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <i data-bottom_left>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <i data-bottom_right>
-                                                <span/>
-                                                <span/>
-                                            </i>
-                                            <span>
-                                                <Image
-                                                    src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
-                                                    alt={ blog[`meta_title_${ locale }`] }
-                                                    fill
-                                                    style={{ objectFit: 'cover' }}
-                                                    sizes={'100'}
-                                                />
-                                                <div>
-                                                    <span>
-                                                        { timeCalendar(blog.published_at).join('/') }
-                                                    </span>
-                                                    <p>
-                                                        { blog[`meta_title_${ locale }`] }
-                                                    </p>
-                                                </div>
-                                            </span>
-                                        </div>
-                                    </Link>
-                                ))
-                    }
-                </div>
+                {
+                    hottestBlogs === 'loading'
+                        ? <Preloader component/>
+                        :
+                        <div className='container'>
+                            {
+                                hottestBlogs.map((blog: any, index: number) =>
+                                    (
+                                        <Link href={ `/blogs/${ blog[`slug_${ locale }`] }` } key={createUniqueKey([blog.id, index, 'blog', 'hottest'])}>
+                                            <div>
+                                                <i data-top_right>
+                                                    <span/>
+                                                    <span/>
+                                                </i>
+                                                <i data-top_left>
+                                                    <span/>
+                                                    <span/>
+                                                </i>
+                                                <i data-bottom_left>
+                                                    <span/>
+                                                    <span/>
+                                                </i>
+                                                <i data-bottom_right>
+                                                    <span/>
+                                                    <span/>
+                                                </i>
+                                                <span>
+                                                    <Image
+                                                        src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
+                                                        alt={ blog[`meta_title_${ locale }`] }
+                                                        fill
+                                                        style={{ objectFit: 'cover' }}
+                                                        sizes={'100'}
+                                                    />
+                                                    <div>
+                                                        <span>
+                                                            { timeCalendar(blog.published_at).join('/') }
+                                                        </span>
+                                                        <p>
+                                                            { blog[`meta_title_${ locale }`] }
+                                                        </p>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                        </Link>
+                                    ))
+                            }
+                        </div>
+                }
             </header>
 
             <ul className={styles.blogsListNavbar}>

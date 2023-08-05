@@ -58,13 +58,18 @@
             align-items: center;
             justify-content: center;
 
-            width: 70vw;
-            height: 17.5rem;
+            width: 100vw;
+            height: 20rem;
             overflow: visible;
 
             @media only screen and (max-width: 1000px)
             {
                 margin: 5rem 0;
+            }
+
+            @media only screen and (max-width: 800px)
+            {
+                width: 90vw;
             }
         }
 
@@ -74,13 +79,11 @@
             align-items: center;
             justify-content: center;
 
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%,-50%);
+            position: relative;
+            transform: scale(.8);
 
-            height: 80%;
-            width: 80%;
+            height: 100%;
+            width: 100%;
 
             margin: auto;
 
@@ -237,60 +240,157 @@
                 {
                     display: flex;
                     align-items: center;
-                    justify-content: center;
+                    justify-content: space-between;
 
                     width: 100%;
                     height: 100%;
-                    background: var(--base-primary);
 
-                    position: relative;
-
-                    & > div
+                    & > span[data-background]
                     {
-                        display: flex;
-                        align-items: flex-start;
-                        justify-content: flex-end;
-                        flex-direction: column;
-                        gap: 1rem;
-
                         position: absolute;
-                        bottom: 0;
 
                         width: 100%;
                         height: 100%;
+                    }
 
-                        & > p
+                    & > span
+                    {
+                        margin-right: 2rem;
+                        width: 20rem;
+                        height: 20rem;
+
+                        @media only screen and (max-width: 1150px)
                         {
-                            position: relative;
-                            z-index: 1;
-
-                            font-size: 1.75rem;
-                            margin-bottom: 2rem;
-                            margin-left: 2rem;
+                            width: 15rem;
+                            height: 15rem;
                         }
+                    }
 
-                        & > span
+                    & > div
+                    {
+                        width: 100%;
+                        height: 100%;
+
+                        & [data-stats]
                         {
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                            flex-direction: column;
+                            gap: 1rem;
+
                             position: relative;
-                            z-index: 1;
-
-                            font-size: 1.25rem;
-                            margin-left: 2rem;
-                            font-weight: 400;
-                            color: var(--color-base-text-light);
-                        }
-
-                        &::after
-                        {
-                            content: '';
-
-                            position: absolute;
-                            bottom: 0;
 
                             height: 100%;
-                            width: 100%;
+                            padding: 0 2rem;
 
-                            background: linear-gradient(0deg, var(--base-primary) 0%, rgb(253 45 45 / 0%) 100%);
+                            @media only screen and (max-width: 1250px)
+                            {
+                                gap: .5rem;
+                            }
+
+                            & > h5
+                            {
+                                font-size: 4rem;
+                                font-weight: bolder;
+                                margin: auto;
+                                margin-left: 0;
+
+                                @media only screen and (max-width: 800px)
+                                {
+                                    font-size: 3rem;
+                                }
+                            }
+
+                            & > span
+                            {
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-start;
+                                gap: .75rem;
+
+                                font-size: 1.5rem;
+                                font-weight: normal;
+                                padding-top: 2rem;
+
+                                @media only screen and (max-width: 800px)
+                                {
+                                    gap: .5rem;
+                                    font-size: 1rem;
+                                }
+
+                                & > i
+                                {
+                                    width: .75rem;
+                                    height: .75rem;
+                                    background: var(--gray);
+                                    border-radius: 10rem;
+
+                                    &[data-online='true']
+                                    {
+                                        background: var(--green-light);
+                                    }
+                                }
+                            }
+
+                            & > b
+                            {
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-start;
+                                gap: .75rem;
+
+                                font-size: 1.5rem;
+                                font-weight: lighter;
+                                margin-bottom: 1rem;
+
+                                @media only screen and (max-width: 800px)
+                                {
+                                    gap: .5rem;
+                                    font-size: 1.25rem;
+                                }
+
+                                & > span
+                                {
+                                    font-size: 2.25rem;
+                                    font-weight: bold;
+
+                                    @media only screen and (max-width: 800px)
+                                    {
+                                        font-size: 2rem;
+                                    }
+                                }
+                            }
+
+                            & > p
+                            {
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-start;
+                                gap: .75rem;
+
+                                font-size: 1.75rem;
+
+                                & > i
+                                {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    font-size: 1.5rem;
+                                    font-style: normal;
+                                    font-weight: bold;
+                                    width: 4rem;
+                                    height: 4rem;
+                                    background: var(--white-shadow);
+                                    border-radius: 10rem;
+
+                                    &[data-online='true']
+                                    {
+                                        background: var(--green-light);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -298,8 +398,7 @@
 
             &Active
             {
-                height: 100%;
-                width: 100%;
+                transform: scale(1);
             }
         }
 

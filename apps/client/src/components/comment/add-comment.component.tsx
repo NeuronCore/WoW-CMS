@@ -2,10 +2,12 @@ import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { FormEvent, useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 const Button = dynamic(() => import('@/components/button'));
 
 import styles from '@/styles/pages/blog.module.scss';
+import stylesForm from '@/styles/components/form.module.scss';
 
 import { useUser } from '@/hooks/use-user';
 
@@ -20,15 +22,17 @@ interface Props
 const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
 {
     const [user] = useUser();
+    const { t } = useTranslation();
 
+    const [errors, setErrors] = useState<any[]>([]);
     const [comment, setComment] = useState('');
 
     const addComment = async(event: FormEvent<HTMLFormElement>) =>
     {
         event.preventDefault();
 
-        if (comment === '' || comment === ' ') return;
-        if (comment.length < 8 || comment.length > 250) return;
+        if (comment === '' || comment === ' ' || comment.length < 8 || comment.length > 250)
+            setErrors([{ content: '1004' }]);
 
         const newComment = { content: comment, username: user.username, avatar: user.avatar, created_at: new Date() };
 
@@ -42,7 +46,6 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
     return (
         <form className={styles.blogMainCommentsForm} data-reply={replyingTo} onSubmit={addComment} data-deactive={!user}>
             <textarea
-                required
                 disabled={!user}
                 className={styles.addCommentInput}
                 value={comment}
@@ -52,6 +55,14 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
                 }}
                 placeholder='Your comment content'
             />
+            {
+                errors[0]
+                    ?
+                    <p className={stylesForm.messageError} data-relative>
+                        { t(`common:${ errors[0].content }`) }
+                    </p>
+                    : null
+            }
 
             {
                 !user
