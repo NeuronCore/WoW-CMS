@@ -20,17 +20,15 @@ import Header1Image2 from '@/../public/images/backgrounds/background_1-wotlk.jpe
 import Header3Image1 from '@/../public/images/backgrounds/background_3-cataclysm.png';
 import Header3Image2 from '@/../public/images/backgrounds/background_3-wotlk.png';
 
-import blogs from '@/data/blogs.data.json';
-
 import styles from '@/styles/pages/home.module.scss';
 
-import { createUniqueKey } from '@/utils/helper.util';
+import { createUniqueKey, middleOfArray } from '@/utils/helper.util';
 
 const FAQ = dynamic(() => import('@/components/faq'));
 const Preloader = dynamic(() => import('@/components/preloader'));
 const Button = dynamic(() => import('@/components/button'));
 const Features = dynamic(() => import('@/components/features'));
-const BlogsHot = dynamic(() => import('@/components/blogs-card/blogs-hot.component'));
+const RealmsCard = dynamic(() => import('@/components/realms-card'));
 const BlogsNew = dynamic(() => import('@/components/blogs-card/blogs-new.component'));
 
 const Home = () =>
@@ -38,12 +36,34 @@ const Home = () =>
     const { t } = useTranslation();
     const { locale } = useRouter();
 
+    const [realms, setRealms] = useState<any[] | 'loading'>('loading');
     const [faq, setFaq] = useState<any[] | 'loading'>('loading');
     const [features, setFeatures] = useState<any[] | 'loading'>('loading');
     const [newestBlogs, setNewestBlogs] = useState<any[] | 'loading'>('loading');
     const [activeBlog, setActiveBlog] = useState<number>(0);
     const [faqs, setFaqs] = useState<number[]>([]);
-    const [headerBlog, setHeaderBlog] = useState<number>(0);
+    const [headerRealm, setHeaderRealm] = useState<number>(0);
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                try
+                {
+                    const getRealms = await axios.get('/database/realms');
+
+                    setRealms(getRealms.data.data.realms);
+                }
+                catch (error)
+                {
+                    console.log(error);
+
+                    setRealms([]);
+                }
+            }
+        )();
+    }, [locale]);
 
     useEffect(() =>
     {
@@ -156,32 +176,37 @@ const Home = () =>
                     </div>
                 </div>
 
-                <Swiper
-                    slidesPerView={4}
-                    centeredSlides
-                    grabCursor
-                    initialSlide={+blogs}
-                    keyboard={{ enabled: true }}
-                    className={styles.homeHeaderSwiper}
-                    onSlideChange={(swiper) => setHeaderBlog(swiper.realIndex)}
-                    autoplay={{ delay: 2500, disableOnInteraction: false }}
-                    modules={[ Keyboard, Autoplay ]}
-                    breakpoints={{
-                        0: { slidesPerView: 1 },
-                        800: { slidesPerView: 2 },
-                        1150: { slidesPerView: 3 },
-                        1500: { slidesPerView: 4 }
-                    }}
-                >
-                    {
-                        blogs.map((item, index: number) =>
-                            (
-                                <SwiperSlide key={ createUniqueKey([item.alt, index, 'blogs_1']) } virtualIndex={ index }>
-                                    <BlogsHot item={ item } active={ index === headerBlog }/>
-                                </SwiperSlide>
-                            ))
-                    }
-                </Swiper>
+                {
+                    realms === 'loading'
+                        ? <Preloader component/>
+                        :
+                        <Swiper
+                            slidesPerView={5}
+                            centeredSlides
+                            grabCursor
+                            initialSlide={middleOfArray(realms)}
+                            keyboard={{ enabled: true }}
+                            className={styles.homeHeaderSwiper}
+                            onSlideChange={(swiper) => setHeaderRealm(swiper.realIndex)}
+                            autoplay={{ delay: 5000, disableOnInteraction: false }}
+                            modules={[ Keyboard, Autoplay ]}
+                            breakpoints={{
+                                0: { slidesPerView: 1 },
+                                800: { slidesPerView: 2 },
+                                1050: { slidesPerView: 3 },
+                                1460: { slidesPerView: 4 }
+                            }}
+                        >
+                            {
+                                realms.map((realm, index: number) =>
+                                    (
+                                        <SwiperSlide key={ createUniqueKey([realm.alt, index, 'realms_1']) } virtualIndex={ index }>
+                                            <RealmsCard realm={ realm } active={ index === headerRealm }/>
+                                        </SwiperSlide>
+                                    ))
+                            }
+                        </Swiper>
+                }
             </div>
 
             <div className={styles.homeBlogs}>
