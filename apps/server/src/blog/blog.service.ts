@@ -312,11 +312,18 @@ export class BlogService
         if (!Object.values(Locale)?.includes(locale))
             throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
 
-        const sql = 
+        const sql =
         `
             SELECT
-                content_${ locale } ,
-                summary_${ locale }
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
+                id,
+                title_${ locale }, meta_title_${ locale },
+                slug_${ locale },
+                thumbnail,
+                summary_${ locale },
+                published, published_at
             FROM
                 blog
             WHERE 
@@ -326,8 +333,9 @@ export class BlogService
             LIKE '%${ search }%'
             LIMIT ${ page - 1 }, ${ limit }
         `;
-        const [contents] = await this.webDatabase.query(sql);
-        
-        return { statusCode: HttpStatus.OK, data: { contents }};
+        const [blogs] = await this.webDatabase.query(sql);
+        const [blogsCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `blog`');
+
+        return { statusCode: HttpStatus.OK, data: { ...blogsCount[0], hasMore: Number(page) < Math.ceil(blogsCount[0].totals / Number(limit)), blogs } };
     }
 }

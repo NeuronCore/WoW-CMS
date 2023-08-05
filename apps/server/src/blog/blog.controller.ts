@@ -126,7 +126,7 @@ export class BlogController
         return this.blogService.findAllAndOrder(locale, type, page, limit);
     }
 
-    @Get('/find-content')
+    @Get('/search-In-Content-And-Summary')
     public async searchInContentAndSummary(@Query('locale') locale: Locale, @Query('search') search: string, @Query('page') page: number, @Query('limit') limit: number)
     {
         return this.blogService.searchInContentAndSummary(locale, search, page, limit);
