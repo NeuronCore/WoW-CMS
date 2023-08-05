@@ -98,6 +98,7 @@ const Home = () =>
 
                     setNewestBlogs(getNewestBlogs.data.data.blogs);
                 }
+
                 catch (error)
                 {
                     console.log(error);

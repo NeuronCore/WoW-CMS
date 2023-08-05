@@ -512,6 +512,23 @@
         font-size: 1.25rem;
         color: var(--red);
         opacity: 1;
+
+        &[data-relative]
+        {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            margin-top: -1rem;
+            margin-bottom: 1rem;
+            translate: none;
+
+            position: relative;
+            left: auto;
+            right: auto;
+            top: auto;
+            bottom: auto;
+        }
     }
 }
 

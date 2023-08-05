@@ -483,6 +483,11 @@
                         padding: 1rem 2rem;
                         width: 100%;
 
+                        @media only screen and (max-width: 94rem)
+                        {
+                            padding: 1rem 0;
+                        }
+
                         & > div
                         {
                             width: 100%;
@@ -813,6 +818,11 @@
                         font-size: 1.5rem;
                         transition: all .2s;
 
+                        @media only screen and (max-width: 380px)
+                        {
+                            display: none;
+                        }
+
                         &:hover
                         {
                             color: var(--color-primary-dark);
@@ -862,7 +872,6 @@
                 position: relative;
 
                 width: 100%;
-                height: 70vh;
                 overflow: hidden;
 
                 @media only screen and (width <= 1500px)
@@ -979,12 +988,18 @@
 
                     & h1
                     {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        margin: 0 auto;
+                        margin-bottom: 1rem;
+                        width: fit-content;
                         font-weight: 300;
                         text-align: center;
                         font-size: 5rem;
                         color: var(--color-primary);
                         font-family: warcraft, sans-serif;
-                        max-width: 100%;
                         word-break: break-all;
                     }
 
