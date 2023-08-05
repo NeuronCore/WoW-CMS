@@ -45,6 +45,8 @@ const Blog = () =>
 
                     setBlog(getBlog.data.data.blog);
                     setIsLiked(getBlog.data.data.blog.isLiked);
+
+                    document.title = getBlog.data.data.blog[`meta_title_${ locale }`];
                 }
                 catch (error)
                 {
