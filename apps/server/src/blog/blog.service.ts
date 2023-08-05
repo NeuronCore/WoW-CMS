@@ -307,7 +307,7 @@ export class BlogService
         return { statusCode: HttpStatus.OK, data: { ...blogsCount[0], hasMore: Number(page) < Math.ceil(blogsCount[0].totals / Number(limit)), blogs } };
     }
 
-    public async findContent(locale: Locale, content: string, page = 1, limit = 20)
+    public async searchInContentAndSummary(locale: Locale, search: string, page = 1, limit = 20)
     {
         if (!Object.values(Locale)?.includes(locale))
             throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
@@ -315,12 +315,15 @@ export class BlogService
         const sql = 
         `
             SELECT
-                content_${ locale } 
+                content_${ locale } ,
+                summary_${ locale }
             FROM
                 blog
             WHERE 
                 content_${ locale }
-            LIKE '%${ content }%'
+            OR
+                summary_${ locale }
+            LIKE '%${ search }%'
             LIMIT ${ page - 1 }, ${ limit }
         `;
         const [contents] = await this.webDatabase.query(sql);

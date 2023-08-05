@@ -13,7 +13,6 @@ import { BlogService } from './blog.service';
 
 import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from '@/blog/dto/update-blog.dto';
-import { query } from 'express';
 
 @Controller('blog')
 @ApiTags('Blog')
@@ -127,9 +126,9 @@ export class BlogController
         return this.blogService.findAllAndOrder(locale, type, page, limit);
     }
 
-    @Get('/find-content/:content')
-    public async findContent(@Query('locale') locale: Locale, @Query('content') content: string, @Query('page') page: number, @Query('limit') limit: number)
+    @Get('/find-content')
+    public async searchInContentAndSummary(@Query('locale') locale: Locale, @Query('search') search: string, @Query('page') page: number, @Query('limit') limit: number)
     {
-        return this.blogService.findContent(locale, content, page, limit);
+        return this.blogService.searchInContentAndSummary(locale, search, page, limit);
     }
 }
