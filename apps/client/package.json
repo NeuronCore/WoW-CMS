@@ -7,16 +7,15 @@
         "url": "NeuronCore.diff"
     },
     "private": true,
-    "main": "server.js",
     "scripts": {
         "dev": "next dev",
         "export": "next export",
         "build": "next build",
         "start": "next start",
         "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
-        "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx ./src",
-        "lint:scss": "stylelint \"src/**/**/*.scss\"",
-        "lint:scss:fix": "npm run lint:scss -- --fix"
+        "lint-fix": "eslint --fix --ext .js,.jsx,.ts,.tsx ./src",
+        "lint-scss": "stylelint \"src/**/**/*.scss\"",
+        "lint-scss-fix": "npm run lint-scss -- --fix"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.5",

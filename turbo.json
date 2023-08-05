@@ -11,9 +11,9 @@
         },
         "test": { },
         "lint": { },
-        "lint:fix": { },
-        "lint:scss": { },
-        "lint:scss:fix": { },
+        "lint-fix": { },
+        "lint-scss": { },
+        "lint-scss-fix": { },
         "deploy":
         {
             "dependsOn": ["build", "test", "lint"]
