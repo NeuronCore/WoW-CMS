@@ -269,9 +269,14 @@ const Home = () =>
                                         1100: { slidesPerView: 3 }
                                     }}
                                 >
-                                    <SwiperSlide key={ createUniqueKey([newestBlogs[0].alt, 0, 'blogs_2']) } virtualIndex={ 0 }>
-                                        <BlogsNew blog={ newestBlogs[0] } active={ 0 === activeBlog }/>
-                                    </SwiperSlide>
+                                    {
+                                        newestBlogs.map((blog, index: number) =>
+                                            (
+                                                <SwiperSlide key={ createUniqueKey([blog.alt, index, 'blogs_2']) } virtualIndex={ index }>
+                                                    <BlogsNew blog={ blog } active={ index === activeBlog }/>
+                                                </SwiperSlide>
+                                            ))
+                                    }
                                     <SwiperSlide />
                                     <SwiperSlide />
                                 </Swiper>
