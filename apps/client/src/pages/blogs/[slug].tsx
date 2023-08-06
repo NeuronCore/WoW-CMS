@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -45,8 +46,6 @@ const Blog = () =>
 
                     setBlog(getBlog.data.data.blog);
                     setIsLiked(getBlog.data.data.blog.isLiked);
-
-                    document.title = getBlog.data.data.blog[`meta_title_${ locale }`];
                 }
                 catch (error)
                 {
@@ -243,6 +242,17 @@ const Blog = () =>
             : blog?.published === 'Confirmed'
                 ?
                 <>
+                    <Head>
+                        <title>
+                            { blog[`meta_title_${ locale }`] }
+                        </title>
+                        <meta
+                            name='description'
+                            content={ blog[`summary_${ locale }`] }
+                            key='desc'
+                        />
+                    </Head>
+
                     <nav data-blog='true' className={styles.blogNavbarHeaderNav}>
                         <div className='container'>
                             <div>

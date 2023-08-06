@@ -247,8 +247,7 @@
 
             @media only screen and (max-width: 650px)
             {
-                flex-wrap: wrap;
-                flex-direction: column;
+                flex-flow: column wrap;
                 justify-content: center;
                 gap: 2rem;
 
