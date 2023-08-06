@@ -1,8 +1,9 @@
+import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
-import { Fragment, ReactNode, useEffect } from 'react';
+import {Fragment, ReactNode, useEffect, useState} from 'react';
 
 import stylesAccount from '@/styles/pages/account.module.scss';
 import styles from '@/components/layouts/main/main.module.scss';
@@ -30,7 +31,7 @@ interface Props
 const Main = ({ children }: Props) =>
 {
     const [user, { loading }] = useUser();
-    const { push, pathname } = useRouter();
+    const { push, pathname, reload } = useRouter();
     const dispatch = useAppDispatch();
 
     useEffect(() =>
@@ -48,6 +49,12 @@ const Main = ({ children }: Props) =>
             }
         )();
     }, [user, pathname, loading]);
+
+    const logoutHandle = async() =>
+    {
+        await axios.get('/auth/logout');
+        reload();
+    };
 
     return (
         <>
@@ -104,7 +111,7 @@ const Main = ({ children }: Props) =>
                                                         </Fragment>
                                                     ))
                                             }
-                                            <li className={classnames(stylesAccount.accountAsideListItem, stylesAccount.accountAsideListItemLogout)}>
+                                            <li onClick={() => logoutHandle()} className={classnames(stylesAccount.accountAsideListItem, stylesAccount.accountAsideListItemLogout)}>
                                                 Log Out
                                             </li>
                                         </ul>

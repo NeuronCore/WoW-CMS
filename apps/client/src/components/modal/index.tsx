@@ -4,7 +4,7 @@ import useOutside from '@/hooks/use-outside';
 
 import styles from '@/styles/components/modal.module.scss';
 
-const Modal = ({ modal, setModal }: any) =>
+const Modal = ({ modal, setModal, timeout = 5000 }: any) =>
 {
     const modalRef = useRef(null);
 
@@ -21,7 +21,7 @@ const Modal = ({ modal, setModal }: any) =>
             setTimeout(() =>
             {
                 modal.onHidden();
-            }, 5000);
+            }, timeout);
         }
         )();
     }, []);
