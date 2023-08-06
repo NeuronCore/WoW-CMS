@@ -11,8 +11,6 @@
         "declaration-block-no-redundant-longhand-properties": null,
         "no-descending-specificity": null,
         "media-feature-range-notation": null,
-        "function-url-quotes": null,
-        "font-family-name-quotes": null,
         "rule-empty-line-before": null,
         "keyframe-block-no-duplicate-selectors": null
     },

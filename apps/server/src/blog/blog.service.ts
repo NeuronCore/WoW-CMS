@@ -187,6 +187,11 @@ export class BlogService
             if (!blog[0])
                 return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
+            await this.webDatabase.execute('DELETE FROM `blog_category` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `blog_reads` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `blog_tag` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `comments` WHERE `blog_id` = ?', [id]);
+            await this.webDatabase.execute('DELETE FROM `likes` WHERE `blog_id` = ?', [id]);
             await this.webDatabase.execute('DELETE FROM `blog` WHERE `id` = ?', [id]);
 
             return { statusCode: HttpStatus.OK, message: [{ field: 'successfully', code: '2029' }] };
@@ -302,6 +307,38 @@ export class BlogService
             LIMIT ${ page - 1 }, ${ limit };
         `;
         const [blogs]: any = await this.webDatabase.query(sql);
+        const [blogsCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `blog`');
+
+        return { statusCode: HttpStatus.OK, data: { ...blogsCount[0], hasMore: Number(page) < Math.ceil(blogsCount[0].totals / Number(limit)), blogs } };
+    }
+
+    public async searchInContentAndSummary(locale: Locale, search: string, page = 1, limit = 20)
+    {
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        const sql =
+        `
+            SELECT
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
+                id,
+                title_${ locale }, meta_title_${ locale },
+                slug_${ locale },
+                thumbnail,
+                summary_${ locale },
+                published, published_at
+            FROM
+                blog
+            WHERE 
+                content_${ locale }
+            OR
+                summary_${ locale }
+            LIKE '%${ search }%'
+            LIMIT ${ page - 1 }, ${ limit }
+        `;
+        const [blogs] = await this.webDatabase.query(sql);
         const [blogsCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `blog`');
 
         return { statusCode: HttpStatus.OK, data: { ...blogsCount[0], hasMore: Number(page) < Math.ceil(blogsCount[0].totals / Number(limit)), blogs } };
