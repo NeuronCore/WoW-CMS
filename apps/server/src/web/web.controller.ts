@@ -174,6 +174,12 @@ export class WebController
         return this.webService.findAllTags(locale);
     }
 
+    @Get('/search-in-tag')
+    public async searchInTag(@Query('locale') local: Locale, @Query('search') search: string, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.webService.searchInTag(local, search, page, limit);
+    }
+
     @Patch('update/tag/id/:id')
     @ApiSecurity('JsonWebToken')
     @UseGuards(AuthGuard)
