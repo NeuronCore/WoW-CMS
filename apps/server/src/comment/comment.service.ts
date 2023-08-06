@@ -31,9 +31,9 @@ export class CommentService
         if (!blog[0])
             return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
-        await this.webDatabase.execute('INSERT INTO `comments` (`account`, `blog_id`, `content`) VALUES (?, ?, ?)', [accountID, blogID, createCommentDto.content]);
+        const comments: any = await this.webDatabase.execute('INSERT INTO `comments` (`account`, `blog_id`, `content`) VALUES (?, ?, ?)', [accountID, blogID, createCommentDto.content]);
 
-        return { statusCode: HttpStatus.CREATED, message: 'Comment created' };
+        return { statusCode: HttpStatus.CREATED, data: { commentID: comments[0].insertId }, message: 'Comment created' };
     }
 
     /**
