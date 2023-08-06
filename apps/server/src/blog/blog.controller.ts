@@ -125,4 +125,10 @@ export class BlogController
     {
         return this.blogService.findAllAndOrder(locale, type, page, limit);
     }
+
+    @Get('/search-in-content-and-summary')
+    public async searchInContentAndSummary(@Query('locale') locale: Locale, @Query('search') search: string, @Query('page') page: number, @Query('limit') limit: number)
+    {
+        return this.blogService.searchInContentAndSummary(locale, search, page, limit);
+    }
 }

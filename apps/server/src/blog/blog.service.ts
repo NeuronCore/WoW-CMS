@@ -311,4 +311,36 @@ export class BlogService
 
         return { statusCode: HttpStatus.OK, data: { ...blogsCount[0], hasMore: Number(page) < Math.ceil(blogsCount[0].totals / Number(limit)), blogs } };
     }
+
+    public async searchInContentAndSummary(locale: Locale, search: string, page = 1, limit = 20)
+    {
+        if (!Object.values(Locale)?.includes(locale))
+            throw new BadRequestException({ statusCode: HttpStatus.BAD_REQUEST, message: 'Invalid Locale' });
+
+        const sql =
+        `
+            SELECT
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
+                id,
+                title_${ locale }, meta_title_${ locale },
+                slug_${ locale },
+                thumbnail,
+                summary_${ locale },
+                published, published_at
+            FROM
+                blog
+            WHERE 
+                content_${ locale }
+            OR
+                summary_${ locale }
+            LIKE '%${ search }%'
+            LIMIT ${ page - 1 }, ${ limit }
+        `;
+        const [blogs] = await this.webDatabase.query(sql);
+        const [blogsCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `blog`');
+
+        return { statusCode: HttpStatus.OK, data: { ...blogsCount[0], hasMore: Number(page) < Math.ceil(blogsCount[0].totals / Number(limit)), blogs } };
+    }
 }
