@@ -17,18 +17,12 @@ interface Props
     updateVote?: any,
     addNewReply?: any,
     editComment?: any,
+    getComments: any,
     deleteComment?: any,
     setDeleteModalState?: any
 }
 
-const Reply = ({
-    commentData,
-    updateVote,
-    addNewReply,
-    editComment,
-    deleteComment,
-    setDeleteModalState,
-}: Props) =>
+const Reply = ({ commentData, updateVote, addNewReply, editComment, deleteComment, setDeleteModalState, getComments }: Props) =>
 {
     const [content, setContent] = useState(commentData.content);
     const [replying, setReplying] = useState(false);
@@ -121,6 +115,7 @@ const Reply = ({
             {
                 replying &&
                 <AddComment
+                    getComments={getComments}
                     commentId={commentData.id}
                     addComments={addReply}
                     replyingTo={commentData.username}
@@ -131,7 +126,7 @@ const Reply = ({
                     ?
                     commentData?.replies.map((reply: { id: string }) =>
                         (
-                            <Reply key={reply.id} commentData={reply} addNewReply={addReply} />
+                            <Reply getComments={getComments} key={reply.id} commentData={reply} addNewReply={addReply} />
                         ))
                     : null
             }

@@ -15,11 +15,12 @@ interface Props
 {
     blogId?: number,
     addComments: any,
+    getComments: any,
     replyingTo?: string,
     commentId?: number
 }
 
-const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
+const AddComment = ({ addComments, replyingTo, getComments, blogId, commentId }: Props) =>
 {
     const [user] = useUser();
     const { t } = useTranslation();
@@ -34,13 +35,14 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
         if (comment === '' || comment === ' ' || comment.length < 8 || comment.length > 250)
             setErrors([{ content: '1004' }]);
 
-        const newComment = { content: comment, username: user.username, avatar: user.avatar, created_at: new Date() };
+        const newComment = { content: comment, username: user.username, avatar: user.avatar, created_at: new Date(), loading: true };
 
         addComments(newComment);
-
         setComment('');
 
         await axios.post(`/comment/${ replyingTo ? 'reply' : 'create' }/${ replyingTo ? 'comment' : 'blog' }-id/${ replyingTo ? commentId : blogId }`, { content: comment });
+
+        getComments();
     };
 
     return (
@@ -71,7 +73,7 @@ const AddComment = ({ addComments, replyingTo, blogId, commentId }: Props) =>
             }
 
             <Button disabled={!user}>
-                    Confirm
+                Confirm
             </Button>
         </form>
     );

@@ -12,15 +12,7 @@ const CommentFooter = dynamic(() => import('@/components/comment/comment-parts/c
 
 import styles from '@/styles/components/comment.module.scss';
 
-const Comment = ({
-    commentData,
-    updateVote,
-    updateReplies,
-    editComment,
-    commentDelete,
-    setDeleteModalState,
-    blogId
-}: any) =>
+const Comment = ({ commentData, updateVote, updateReplies, editComment, commentDelete, setDeleteModalState, blogId, getComments }: any) =>
 {
     const [content, setContent] = useState(commentData.content);
     const [replying, setReplying] = useState(false);
@@ -65,14 +57,19 @@ const Comment = ({
                     type="comment"
                 />
                 <div className={styles.commentBody}>
-                    <CommentHeader
-                        commentData={commentData}
-                        replying={replying}
-                        setReplying={setReplying}
-                        setDeleting={setDeleting}
-                        setDeleteModalState={setDeleteModalState}
-                        setEditing={setEditing}
-                    />
+                    {
+                        !commentData.loading
+                            ?
+                            <CommentHeader
+                                commentData={commentData}
+                                replying={replying}
+                                setReplying={setReplying}
+                                setDeleting={setDeleting}
+                                setDeleteModalState={setDeleteModalState}
+                                setEditing={setEditing}
+                            />
+                            : null
+                    }
                     {
                         !editing
                             ?
@@ -110,6 +107,7 @@ const Comment = ({
             {
                 replying &&
                 <AddComment
+                    getComments={getComments}
                     blogId={blogId}
                     commentId={commentData.id}
                     addComments={addReply}
@@ -120,6 +118,7 @@ const Comment = ({
                 commentData?.replies
                     ?
                     <ReplyContainer
+                        getComments={getComments}
                         key={commentData?.replies.id}
                         commentData={commentData?.replies}
                         updateVote={updateVote}

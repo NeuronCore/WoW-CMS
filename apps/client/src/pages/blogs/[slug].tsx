@@ -94,12 +94,46 @@ const Blog = () =>
         )();
     }, [blog?.id]);
 
-    useEffect(() =>
+    const getComments = () =>
     {
-        deleteModalState
-            ? document.body.classList.add('overflow--hidden')
-            : document.body.classList.remove('overflow--hidden');
-    }, [comments, deleteModalState]);
+        (
+            async() =>
+            {
+                try
+                {
+                    if (blog?.id)
+                    {
+                        const getComments = await axios.get(`/comment/find-all/blog-id/${ blog.id }?page=${ page }&limit=20`);
+
+                        if (comments !== 'loading')
+                        {
+                            const newComments = [...comments];
+
+                            for (const newComment of getComments.data.data.comments)
+                            {
+
+                                const xComment = newComments.find(xComment => xComment.id === newComment.id);
+                                const zComment = newComments.find(zComment => zComment.loading === true);
+
+                                if (!xComment && !zComment)
+                                    newComments.push(newComment);
+                            }
+
+                            setComments(newComments);
+                        }
+                        else
+                            setComments(getComments.data.data.comments);
+
+                        setHasMore(getComments.data.data.hasMore);
+                    }
+                }
+                catch (error)
+                {
+                    setComments([]);
+                }
+            }
+        )();
+    };
 
     const likeHandler = async() =>
     {
@@ -533,6 +567,7 @@ const Blog = () =>
                                                             key={createUniqueKey([comment.id, index, 'comment', 'blog', comment.username])}
                                                             commentData={comment}
                                                             updateVote={updateVote}
+                                                            getComments={getComments}
                                                             updateReplies={updateReplies}
                                                             editComment={editComment}
                                                             commentDelete={commentDelete}
@@ -542,7 +577,7 @@ const Blog = () =>
                                             }
                                         </InfiniteScroll>
                             }
-                            <AddComment addComments={ addComments } blogId={ blog.id } />
+                            <AddComment getComments={ getComments } addComments={ addComments } blogId={ blog.id } />
                         </div>
                     </section>
                 </>

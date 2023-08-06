@@ -6,14 +6,7 @@ import styles from '@/styles/components/comment.module.scss';
 
 import { createUniqueKey } from '@/utils/helper.util';
 
-const ReplyContainer = ({
-    commentData,
-    updateVote,
-    addReply,
-    editComment,
-    deleteComment,
-    setDeleteModalState,
-}: any) =>
+const ReplyContainer = ({ commentData, updateVote, addReply, editComment, deleteComment, setDeleteModalState, getComments }: any) =>
 {
     return (
         <div className={styles.commentReplyContainer} data-reply>
@@ -21,6 +14,7 @@ const ReplyContainer = ({
                 commentData.map((comment: { id: string | number }, index: number) =>
                     (
                         <Reply
+                            getComments={getComments}
                             key={createUniqueKey([comment.id, index, 'comment', 'reply', 'container'])}
                             commentData={comment}
                             updateVote={updateVote}
