@@ -454,7 +454,7 @@ export class WebService
         const [tags] = await this.webDatabase.query(sql);
         return { statusCode: HttpStatus.OK, data: { tags } };
     }
-    
+
     public async searchInTag(locale: Locale, search: string, page = 1, limit = 20)
     {
         if (!Object.values(Locale)?.includes(locale))
@@ -470,14 +470,13 @@ export class WebService
                 title_${ locale }
             OR
                 content_${ locale }
-
             LIKE '%${ search }%'
             LIMIT ${ page - 1 }, ${ limit }
         `;
-        const [Tags] = await this.webDatabase.query(sql);
-        const [TagsCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `tag`');
+        const [tags] = await this.webDatabase.query(sql);
+        const [tagsCount] = await this.webDatabase.query('SELECT COUNT(id) AS totals FROM `tag`');
 
-        return { statusCode: HttpStatus.OK, data: { ...TagsCount[0], hasMore: Number(page) < Math.ceil(TagsCount[0].totals / Number(limit)), Tags } };
+        return { statusCode: HttpStatus.OK, data: { tagsCount, hasMore: Number(page) < Math.ceil(tagsCount[0].totals / Number(limit)), tags } };
     }
 
     /**
