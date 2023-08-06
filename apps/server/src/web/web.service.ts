@@ -463,7 +463,14 @@ export class WebService
         const sql =
         `
             SELECT
-                id, title_${ locale }, meta_title_${ locale }, slug_${ locale }, content_${ locale }
+                (SELECT COUNT(likes.blog_id) FROM likes WHERE blog.id = likes.blog_id) AS likes,
+                (SELECT COUNT(blog_reads.blog_id) FROM blog_reads WHERE blog.id = blog_reads.blog_id) AS readz,
+                (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
+                id,
+                title_${ locale },
+                meta_title_${ locale },
+                slug_${ locale },
+                content_${ locale }
             FROM
                 tag
             WHERE
