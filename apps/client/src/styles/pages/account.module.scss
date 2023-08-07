@@ -91,7 +91,7 @@
 
     &Button
     {
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
 
@@ -109,6 +109,11 @@
         & > svg
         {
             transform: rotate(90deg);
+        }
+
+        @media only screen and (max-width: 900px)
+        {
+            display: flex;
         }
     }
 
@@ -875,6 +880,35 @@
                         & > h2
                         {
                             font-size: 2rem;
+                        }
+
+                        & > div
+                        {
+                            display: flex;
+                            align-items: flex-start;
+                            justify-content: flex-start;
+                            flex-wrap: wrap;
+                            gap: 1rem;
+
+                            & > button
+                            {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
+                                width: 5rem;
+                                height: 5rem;
+                                background: var(--color-primary);
+                                border: none;
+                                cursor: pointer;
+                                transition: all .2s;
+                                font-size: 2rem;
+
+                                &:hover
+                                {
+                                    background: var(--color-primary-dark);
+                                }
+                            }
                         }
                     }
                 }

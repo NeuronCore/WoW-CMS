@@ -1,11 +1,14 @@
+import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import ImageUploading, { ImageListType } from 'react-images-uploading';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 
-import { BsCheckCircle, BsChevronRight, BsCoin, BsDiscord } from 'react-icons/bs';
+import { BsCheck, BsCheckCircle, BsChevronRight, BsCoin, BsDiscord, BsTrash } from 'react-icons/bs';
 
 import styles from '@/styles/pages/account.module.scss';
 
@@ -18,9 +21,38 @@ const Button = dynamic(() => import('@/components/button'));
 
 const Overview = () =>
 {
-    const [user] = useUser();
+    const [user, { mutate }] = useUser();
 
     const { t } = useTranslation();
+
+    const [images, setImages] = useState<any[]>([]);
+
+    const onChange = (imageList: ImageListType, addUpdateIndex: number[] | undefined) =>
+    {
+        console.log(imageList, addUpdateIndex);
+
+        setImages(imageList as never[]);
+    };
+
+    const updateProfile = async() =>
+    {
+        try
+        {
+            if (images[0])
+            {
+                const formData = new FormData();
+                formData.append('avatar', images[0].file);
+                await axios.post('/account/avatar', formData, { headers: { 'Content-Type': 'multipart/form-data' }});
+                await mutate();
+
+                setImages([]);
+            }
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+    };
 
     return (
         <motion.div
@@ -53,7 +85,7 @@ const Overview = () =>
                             <div data-container>
                                 <span>
                                     <Image
-                                        src={ user.avatar ? user.avatar : Profile }
+                                        src={ images[0] ? (images[0].dataURL) : (user.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ user.avatar }` : Profile) }
                                         alt='WoW CMS'
                                         fill
                                         style={{ objectFit: 'contain' }}
@@ -64,9 +96,29 @@ const Overview = () =>
                                     <h2>
                                         { user.username }
                                     </h2>
-                                    <Button>
-                                        { t('account:overview.updateAvatar') }
-                                    </Button>
+                                    <ImageUploading value={images} onChange={onChange}>
+                                        {({ onImageUpload, onImageRemoveAll, isDragging, dragProps }) =>
+                                            (
+                                                <div>
+                                                    <Button style={isDragging ? { color: 'red' } : undefined} onClick={onImageUpload} {...dragProps}>
+                                                        { t('account:overview.updateAvatar') }
+                                                    </Button>
+                                                    {
+                                                        images[0]
+                                                            ?
+                                                            <>
+                                                                <button onClick={updateProfile}>
+                                                                    <BsCheck />
+                                                                </button>
+                                                                <button onClick={onImageRemoveAll}>
+                                                                    <BsTrash />
+                                                                </button>
+                                                            </>
+                                                            : null
+                                                    }
+                                                </div>
+                                            )}
+                                    </ImageUploading>
                                 </div>
                             </div>
                             <ul data-info>

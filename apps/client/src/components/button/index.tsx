@@ -10,10 +10,11 @@ interface Props
     type?: string,
     onClick?: (event?: any) => Promise<void> | void,
     href?: string,
-    disabled?: boolean
+    disabled?: boolean,
+    style?: any
 }
 
-const Button = ({ children, content, type, onClick, href, disabled }: Props) =>
+const Button = ({ children, content, type, onClick, href, disabled, style }: Props) =>
 {
     return (
         href
@@ -26,7 +27,7 @@ const Button = ({ children, content, type, onClick, href, disabled }: Props) =>
                 </button>
             </Link>
             :
-            <div className={styles.buttonFrame} onClick={ onClick } data-type={ type } data-disabled={ disabled }>
+            <div style={style} className={styles.buttonFrame} onClick={ onClick } data-type={ type } data-disabled={ disabled }>
                 <button className={styles.button}>
                     {
                         children ?? content
