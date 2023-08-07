@@ -3,7 +3,9 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter } from 'next/router';
-import {Fragment, ReactNode, useEffect, useState} from 'react';
+import React, { Fragment, ReactNode, useEffect, useState } from 'react';
+
+import {BsThreeDots, BsX} from 'react-icons/bs';
 
 import stylesAccount from '@/styles/pages/account.module.scss';
 import styles from '@/components/layouts/main/main.module.scss';
@@ -21,7 +23,7 @@ const Preloader = dynamic(() => import('@/components/preloader'));
 const Navbar = dynamic(() => import('@/components/layouts/navbar/navbar.component'));
 const Footer = dynamic(() => import('@/components/layouts/footer/footer.component'));
 
-import aside from '@/data/account.data.json';
+import asideData from '@/data/account.data.json';
 
 interface Props
 {
@@ -33,6 +35,8 @@ const Main = ({ children }: Props) =>
     const [user, { loading }] = useUser();
     const { push, pathname, reload } = useRouter();
     const dispatch = useAppDispatch();
+
+    const [aside, setAside] = useState<boolean>(false);
 
     useEffect(() =>
     {
@@ -87,12 +91,12 @@ const Main = ({ children }: Props) =>
                                 </span>
 
                                 <section className={stylesAccount.accountContainer}>
-                                    <aside className={stylesAccount.accountAside}>
+                                    <aside className={classnames(stylesAccount.accountAside, { [stylesAccount.accountAsideActive]: aside })}>
                                         <h1 className={stylesAccount.accountAsideHeader}>Settings</h1>
 
                                         <ul className={stylesAccount.accountAsideList}>
                                             {
-                                                aside.data.map((item, index) =>
+                                                asideData.data.map((item, index) =>
                                                     (
                                                         <Fragment key={createUniqueKey([item.title, index])}>
                                                             <li className={stylesAccount.accountAsideListItemTitle}>
@@ -118,7 +122,17 @@ const Main = ({ children }: Props) =>
                                     </aside>
                                     {
                                         user
-                                            ? children
+                                            ?
+                                            <>
+                                                { children }
+                                                <span onClick={() => setAside(!aside)} className={stylesAccount.accountButton}>
+                                                    {
+                                                        aside
+                                                            ? <BsX />
+                                                            : <BsThreeDots />
+                                                    }
+                                                </span>
+                                            </>
                                             : null
                                     }
                                 </section>

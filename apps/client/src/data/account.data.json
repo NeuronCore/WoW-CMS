@@ -48,22 +48,6 @@
                 {
                     "path": "#",
                     "title": "Make a Donation"
-                },
-                {
-                    "path": "#",
-                    "title": "Visit Shop"
-                },
-                {
-                    "path": "#",
-                    "title": "View Cart"
-                },
-                {
-                    "path": "order-history",
-                    "title": "Order History"
-                },
-                {
-                    "path": "wishlist",
-                    "title": "Wishlist"
                 }
             ]
         }
