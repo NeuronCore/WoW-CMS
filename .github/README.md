@@ -5,15 +5,17 @@
     <img src="https://github.com/NeuronCore/WoW-CMS/blob/main/.github/screenshot.png?raw=true" height="fit-content" alt="Screenshot">
   </a>
 
-<h3 align="center">WoW-CMS</h3>
+  <h3 align="center">WoW-CMS</h3>
 
   <p align="center">
     <a href="https://github.com/NeuronCore/WoW-CMS/issues">Report Bug</a>
   </p>
 
-<b>
+  <b>
     Our server-side is ready to use with REST API & GraphQL, there are no restrictions for those who want to use client and server separately
-</b>
+  </b>
+
+<br />
 
 [![GitHub stars](https://img.shields.io/github/stars/NeuronCore/WoW-CMS.svg?style=for-the-badge)](https://github.com/NeuronCore/WoW-CMS/stargazers)
 &nbsp;
