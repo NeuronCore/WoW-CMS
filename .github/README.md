@@ -11,6 +11,9 @@
     <a href="https://github.com/NeuronCore/WoW-CMS/issues">Report Bug</a>
   </p>
 
+<b>
+    Our server-side is ready to use with REST API & GraphQL, there are no restrictions for those who want to use client and server separately
+</b>
 
 [![GitHub stars](https://img.shields.io/github/stars/NeuronCore/WoW-CMS.svg?style=for-the-badge)](https://github.com/NeuronCore/WoW-CMS/stargazers)
 &nbsp;
