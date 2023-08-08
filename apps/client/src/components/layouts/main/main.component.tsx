@@ -64,7 +64,7 @@ const Main = ({ children }: Props) =>
         <>
             <Navbar />
 
-            <div className={styles.main}>
+            <main className={styles.main}>
                 {
                     pathname.split('/')[1] === 'account'
                         ?
@@ -140,7 +140,7 @@ const Main = ({ children }: Props) =>
                         :
                         children
                 }
-            </div>
+            </main>
 
             {
                 routesData.noFooterRoutes.includes(pathname.split('/')[1])
