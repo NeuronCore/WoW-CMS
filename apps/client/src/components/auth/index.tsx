@@ -290,7 +290,7 @@ const Auth = ({ type }: Props) =>
                                     error={errors.filter((error: any) => error.field === 'password')}
                                 />
 
-                                <Link href='/password-forgot'>
+                                <Link href='/forgot-password'>
                                     { t('auth:login.forgot') }
                                 </Link>
 
