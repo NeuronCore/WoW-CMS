@@ -75,7 +75,7 @@ export class AccountPasswordService
      */
     public async resetPassword(updateResetPasswordDto: UpdateResetPasswordDto, token: string): Promise<object>
     {
-        const { password, passwordConfirm } = updateResetPasswordDto;
+        const { password, confirmPassword } = updateResetPasswordDto;
 
         const hashedToken: string = createHash('sha256').update(token).digest('hex');
 
@@ -83,7 +83,7 @@ export class AccountPasswordService
         if (!accountPassword[0])
             throw new BadRequestException([{ field: 'all', code: '2021' }]);
 
-        if (passwordConfirm !== password)
+        if (confirmPassword !== password)
             throw new BadRequestException([{ field: 'all', code: '2002' }]);
 
         const [account] = await this.authDatabase.query('SELECT `id`, `username`, `salt` FROM `account` WHERE `id` = ?', [accountPassword[0].id]);

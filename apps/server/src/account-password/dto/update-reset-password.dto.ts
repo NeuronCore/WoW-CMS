@@ -13,5 +13,5 @@ export class UpdateResetPasswordDto
     @ApiProperty()
     @Length(8, 30, { message: '1002' })
     @Field()
-    public readonly passwordConfirm: string;
+    public readonly confirmPassword: string;
 }
