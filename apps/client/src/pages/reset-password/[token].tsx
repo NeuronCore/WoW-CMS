@@ -1,14 +1,67 @@
+import axios from 'axios';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
+import { useRouter } from 'next/router';
+import useTranslation from 'next-translate/useTranslation';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 import styles from '../../styles/pages/auth.module.scss';
 import stylesForm from '../../styles/components/form.module.scss';
 
+const Modal = dynamic(() => import('@/components/modal'));
 const Input = dynamic(() => import('../../components/input'));
 const Button = dynamic(() => import('../../components/button'));
 
-const PasswordReset = () =>
+const defaultForm =
+    {
+        password: '',
+        confirmPassword: ''
+    };
+
+const ResetPassword = () =>
 {
+    const { push, query } = useRouter();
+
+    const [errors, setErrors] = useState<any[]>([]);
+    const [formValues, setFormValues] = useState(defaultForm);
+    const [modal, setModal] = useState<any>({ hidden: true, title: '', description: '', onHidden: null });
+
+    const { t } = useTranslation();
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    {
+        setFormValues({ ...formValues, [event.target.name]: event.target.value });
+    };
+
+    const handleResetPassword = async(event: FormEvent<HTMLFormElement>) =>
+    {
+        event.preventDefault();
+
+        await axios.patch(`/account-password/reset-password/${ query.token }`, formValues)
+            .then(async(response: any) =>
+            {
+                if (response?.response?.data?.message)
+                    setErrors(response.response.data.message);
+                else if (response?.data?.error)
+                    setErrors(response.data.message);
+                else if (response?.data?.statusCode === 200)
+                {
+                    setModal
+                    ({
+                        hidden: false,
+                        title: t('auth:resetPassword.modal.successful.title'),
+                        description: t(`common:${ errors[0].code }`),
+                        onHidden: async() => await push('/login')
+                    });
+                }
+            })
+            .catch((error) =>
+            {
+                if (error?.response?.data?.message)
+                    setErrors(error?.response.data.message);
+            });
+    };
+
     return (
         <div className={styles.auth}>
             <span className={styles.authVideo}>
@@ -38,7 +91,7 @@ const PasswordReset = () =>
 
                 <div className={stylesForm.formLittle}>
                     <div className={classnames(stylesForm.formContainer, stylesForm.formContainerPassword)}>
-                        <form>
+                        <form onSubmit={handleResetPassword}>
                             <h2>
                                 Reset Your Password!
                             </h2>
@@ -47,16 +100,20 @@ const PasswordReset = () =>
                                 required
                                 type='password'
                                 name='password'
-                                label='Password'
-                                placeholder='Your password'
+                                label={ t('auth:register.passwordInput.label') }
+                                placeholder={ t('auth:register.passwordInput.placeholder') }
+                                onChange={(event) => handleChange(event)}
+                                error={errors.filter((error: any) => error.field === 'password' || error.field === 'all')}
                             />
 
                             <Input
                                 required
                                 type='password'
-                                name='confirm_password'
-                                label='Confirm Password'
-                                placeholder='Confirm your password'
+                                name='confirmPassword'
+                                label={ t('auth:register.confirmPasswordInput.label') }
+                                placeholder={ t('auth:register.confirmPasswordInput.placeholder') }
+                                onChange={(event) => handleChange(event)}
+                                error={errors.filter((error: any) => error.field === 'confirmPassword')}
                             />
 
                             <Button>
@@ -66,8 +123,14 @@ const PasswordReset = () =>
                     </div>
                 </div>
             </div>
+
+            {
+                modal.hidden
+                    ? null
+                    : <Modal modal={modal} setModal={setModal} />
+            }
         </div>
     );
 };
 
-export default PasswordReset;
+export default ResetPassword;

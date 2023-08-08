@@ -51,7 +51,7 @@ export class AccountService
      */
     public async updatePassword(accountID: number, updatePasswordDto: UpdatePasswordDto, response: Response)
     {
-        const { currentPassword, newPassword, newPasswordConfirm } = updatePasswordDto;
+        const { currentPassword, newPassword, newConfirmPassword } = updatePasswordDto;
 
         const [account] = await this.authDatabase.query('SELECT `id`, `username`, `salt`, `verifier` FROM `account` WHERE `id` = ?', [accountID]);
         if (!account[0])
@@ -60,8 +60,8 @@ export class AccountService
         if (!SRP6.verifySRP6(account[0]?.username, currentPassword, account[0]?.salt, account[0]?.verifier))
             throw new UnauthorizedException([{ field: 'currentPassword', code: '2012' }]);
 
-        if (newPassword !== newPasswordConfirm)
-            throw new BadRequestException([{ field: 'newPasswordConfirm', code: '2013' }]);
+        if (newPassword !== newConfirmPassword)
+            throw new BadRequestException([{ field: 'newConfirmPassword', code: '2013' }]);
 
         const verifier = SRP6.calculateSRP6Verifier(account[0].username, newPassword, account[0].salt);
         await this.authDatabase.execute('UPDATE `account` SET `verifier` = ? WHERE `id` = ?', [verifier, accountID]);

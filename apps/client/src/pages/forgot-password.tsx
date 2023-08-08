@@ -38,11 +38,13 @@ const ForgotPassword = () =>
 
         try
         {
-            const response = await axios.post('/account-password/forgot-password', formValues);
+            const response: any = await axios.post('/account-password/forgot-password', formValues);
 
-            if (response.data.error)
+            if (response?.response?.data?.message)
+                setErrors(response.response.data.message);
+            else if (response?.data?.error)
                 setErrors(response.data.message);
-            else
+            else if (response?.data?.statusCode === 200)
             {
                 setModal
                 ({
