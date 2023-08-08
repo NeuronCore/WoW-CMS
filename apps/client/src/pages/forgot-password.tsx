@@ -36,29 +36,29 @@ const ForgotPassword = () =>
     {
         event.preventDefault();
 
-        try
-        {
-            const response: any = await axios.post('/account-password/forgot-password', formValues);
-
-            if (response?.response?.data?.message)
-                setErrors(response.response.data.message);
-            else if (response?.data?.error)
-                setErrors(response.data.message);
-            else if (response?.data?.statusCode === 200)
+        await axios.post('/account-password/forgot-password', formValues)
+            .then(async(response: any) =>
             {
-                setModal
-                ({
-                    hidden: false,
-                    title: t('auth:forgotPassword.modal.successful.title'),
-                    description: t('auth:forgotPassword.modal.successful.description'),
-                    onHidden: async() => await push('/')
-                });
-            }
-        }
-        catch (error)
-        {
-            console.log(error);
-        }
+                if (response?.response?.data?.message)
+                    setErrors(response.response.data.message);
+                else if (response?.data?.error)
+                    setErrors(response.data.message);
+                else if (response?.data?.statusCode === 200)
+                {
+                    setModal
+                    ({
+                        hidden: false,
+                        title: t('auth:forgotPassword.modal.title'),
+                        description: t('common:2020'),
+                        onHidden: async() => await push('/')
+                    });
+                }
+            })
+            .catch((error) =>
+            {
+                if (error?.response?.data?.message)
+                    setErrors(error?.response.data.message);
+            });
     };
 
     return (
@@ -92,11 +92,11 @@ const ForgotPassword = () =>
                     <div className={classnames(stylesForm.formContainer, stylesForm.formContainerPassword)}>
                         <form onSubmit={handleForgotPassword}>
                             <h2>
-                                Don't Worry!
+                                { t('auth:forgotPassword.title') }
                             </h2>
 
                             <p>
-                                Enter your email and reset your password
+                                { t('auth:forgotPassword.subtitle') }
                             </p>
 
                             <Input

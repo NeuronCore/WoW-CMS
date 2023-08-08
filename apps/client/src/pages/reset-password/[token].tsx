@@ -49,8 +49,8 @@ const ResetPassword = () =>
                     setModal
                     ({
                         hidden: false,
-                        title: t('auth:resetPassword.modal.successful.title'),
-                        description: t(`common:${ errors[0].code }`),
+                        title: t('auth:resetPassword.modal.title'),
+                        description: t('common:2022'),
                         onHidden: async() => await push('/login')
                     });
                 }
@@ -93,7 +93,7 @@ const ResetPassword = () =>
                     <div className={classnames(stylesForm.formContainer, stylesForm.formContainerPassword)}>
                         <form onSubmit={handleResetPassword}>
                             <h2>
-                                Reset Your Password!
+                                { t('auth:resetPassword.title') }
                             </h2>
 
                             <Input
