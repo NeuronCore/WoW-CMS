@@ -29,15 +29,7 @@ export class UpdateBlogDto
 
     @Length(1, 75, { message: '1007' })
     @IsOptional()
-    public readonly slugEN: string;
-
-    @Length(1, 75, { message: '1007' })
-    @IsOptional()
-    public readonly slugDE: string;
-
-    @Length(1, 75, { message: '1007' })
-    @IsOptional()
-    public readonly slugFA: string;
+    public readonly slug: string;
 
     @Length(1, 75, { message: '1004' })
     @IsOptional()

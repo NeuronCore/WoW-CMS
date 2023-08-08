@@ -240,7 +240,7 @@ const Home = () =>
                                         <p>
                                             { newestBlogs[activeBlog][`summary_${ locale }`] }
                                         </p>
-                                        <Button href={ `/blogs/${ newestBlogs[activeBlog][`slug_${ locale }`] }` }>
+                                        <Button href={ `/blogs/${ newestBlogs[activeBlog]['slug'] }` }>
                                             Read
                                         </Button>
                                     </div>

@@ -41,9 +41,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `meta_title_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
   `meta_title_de` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
   `meta_title_fa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
-  `slug_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_de` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_fa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `thumbnail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `summary_en` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'The summary of the post to mention the key highlights.',
   `summary_de` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'The summary of the post to mention the key highlights.',
@@ -56,9 +54,7 @@ CREATE TABLE IF NOT EXISTS `blog` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `slug_en` (`slug_en`),
-  UNIQUE KEY `slug_de` (`slug_de`),
-  UNIQUE KEY `slug_fa` (`slug_fa`),
+  UNIQUE KEY `slug` (`slug`),
   KEY `idx_blog_account` (`account`) USING BTREE,
   CONSTRAINT `FK_BLOG_ACCOUNT` FOREIGN KEY (`account`) REFERENCES `account_information` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -133,16 +129,12 @@ CREATE TABLE IF NOT EXISTS `category` (
   `meta_title_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The meta title to be used for browser title and SEO.',
   `meta_title_de` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `meta_title_fa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `slug_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_de` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_fa` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `content_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'The column used to store the category data.',
   `content_de` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `content_fa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `slug_en` (`slug_en`),
-  UNIQUE KEY `slug_de` (`slug_de`),
-  UNIQUE KEY `slug_fa` (`slug_fa`)
+  UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `character_service` (
@@ -219,16 +211,12 @@ CREATE TABLE IF NOT EXISTS `tag` (
   `meta_title_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `meta_title_de` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `meta_title_fa` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `slug_en` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_de` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `slug_fa` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `content_en` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `content_de` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `content_fa` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `slug_en` (`slug_en`),
-  UNIQUE KEY `slug_de` (`slug_de`),
-  UNIQUE KEY `slug_fa` (`slug_fa`)
+  UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE IF NOT EXISTS `votes` (

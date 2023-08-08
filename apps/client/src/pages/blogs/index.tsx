@@ -137,7 +137,7 @@ const Blogs = () =>
                             {
                                 hottestBlogs.map((blog: any, index: number) =>
                                     (
-                                        <Link href={ `/blogs/${ blog[`slug_${ locale }`] }` } key={createUniqueKey([blog.id, index, 'blog', 'hottest'])}>
+                                        <Link href={ `/blogs/${ blog.slug }` } key={createUniqueKey([blog.id, index, 'blog', 'hottest'])}>
                                             <div>
                                                 <i data-top_right>
                                                     <span/>

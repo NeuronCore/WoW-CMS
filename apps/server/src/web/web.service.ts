@@ -250,7 +250,7 @@ export class WebService
      */
     public async createCategory(createCategoryDto: CreateCategoryDto)
     {
-        const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, contentEN, contentDE, contentFA } = createCategoryDto;
+        const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, contentEN, contentDE, contentFA } = createCategoryDto;
 
         const sql =
         `
@@ -259,15 +259,15 @@ export class WebService
                 (
                     title_en, title_de, title_fa,
                     meta_title_en, meta_title_de, meta_title_fa,
-                    slug_en, slug_de, slug_fa,
+                    slug,
                     content_en, content_de, content_fa
                 )
             VALUES
-                (? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?);
+                (? ,? ,? ,? ,? ,? ,? ,? ,? ,?);
         `;
 
-        const [category] = await this.webDatabase.query('SELECT `slug_en`, `slug_de`, `slug_fa` FROM `category` WHERE `slug_en` = ? OR `slug_de` = ? OR `slug_fa` = ?', [Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA)]);
-        if (category[0]?.slug_en || category[0]?.slug_de || category[0]?.slug_fa)
+        const [category] = await this.webDatabase.query('SELECT `slug` FROM `category` WHERE `slug` = ?', [Helper.stringToSlug(slug)]);
+        if (category[0]?.slug)
             return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
         await this.webDatabase.execute
@@ -276,7 +276,7 @@ export class WebService
             [
                 titleEN, titleDE, titleFA,
                 metaTitleEN, metaTitleDE, metaTitleFA,
-                Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA),
+                Helper.stringToSlug(slug),
                 contentEN, contentDE, contentFA
             ]
         );
@@ -292,7 +292,7 @@ export class WebService
         const sql =
         `
             SELECT
-                id, title_${ locale }, meta_title_${ locale }, slug_${ locale }, content_${ locale }
+                id, title_${ locale }, meta_title_${ locale }, slug, content_${ locale }
             FROM
                 category
         `;
@@ -320,7 +320,7 @@ export class WebService
     {
         try
         {
-            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, contentEN, contentDE, contentFA } = updateCategoryDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, contentEN, contentDE, contentFA } = updateCategoryDto;
 
             const [category] = await this.webDatabase.query('SELECT * FROM `category` WHERE `id` = ?', [id]);
             if (!category[0])
@@ -333,7 +333,7 @@ export class WebService
                 SET
                     title_en = ?, title_de = ?, title_fa = ?,
                     meta_title_en = ?, meta_title_de = ?, meta_title_fa = ?,
-                    slug_en = ?, slug_de = ?, slug_fa = ?,
+                    slug = ?,
                     content_en = ?, content_de = ?, content_fa = ?
                 WHERE
                     id = ?;
@@ -345,7 +345,7 @@ export class WebService
                 [
                     titleEN || category[0].title_en, titleDE || category[0].title_de, titleFA || category[0].title_fa,
                     metaTitleEN || category[0].meta_title_en, metaTitleDE || category[0].meta_title_de, metaTitleFA || category[0].meta_title_fa,
-                    slugEN || category[0].slug_en, slugDE || category[0].slug_de, slugFA || category[0].slug_fa,
+                    slug || category[0].slug,
                     contentEN || category[0].content_en, contentDE || category[0].content_de, contentFA || category[0].content_fa,
                     id
                 ]
@@ -404,7 +404,7 @@ export class WebService
      */
     public async createTag(createTagDto: CreateTagDto)
     {
-        const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, contentEN, contentDE, contentFA } = createTagDto;
+        const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, contentEN, contentDE, contentFA } = createTagDto;
 
         const sql =
         `
@@ -413,15 +413,15 @@ export class WebService
                 (
                     title_en, title_de, title_fa,
                     meta_title_en, meta_title_de, meta_title_fa,
-                    slug_en, slug_de, slug_fa,
+                    slug,
                     content_en, content_de, content_fa
                 )
             VALUES
-                (? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,? ,?);
+                (? ,? ,? ,? ,? ,? ,? ,? ,? ,?);
         `;
 
-        const [tag] = await this.webDatabase.query('SELECT `slug_en`, `slug_de`, `slug_fa` FROM `tag` WHERE `slug_en` = ? OR `slug_de` = ? OR `slug_fa` = ?', [Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA)]);
-        if (tag[0]?.slug_en || tag[0]?.slug_de || tag[0]?.slug_fa)
+        const [tag] = await this.webDatabase.query('SELECT `slug` FROM `tag` WHERE `slug` = ?', [Helper.stringToSlug(slug)]);
+        if (tag[0]?.slug)
             return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
         await this.webDatabase.execute
@@ -430,7 +430,7 @@ export class WebService
             [
                 titleEN, titleDE, titleFA,
                 metaTitleEN, metaTitleDE, metaTitleFA,
-                Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA),
+                Helper.stringToSlug(slug),
                 contentEN, contentDE, contentFA
             ]
         );
@@ -446,7 +446,7 @@ export class WebService
         const sql =
         `
             SELECT
-                id, title_${ locale }, meta_title_${ locale }, slug_${ locale }, content_${ locale }
+                id, title_${ locale }, meta_title_${ locale }, slug, content_${ locale }
             FROM
                 tag
         `;
@@ -474,7 +474,7 @@ export class WebService
     {
         try
         {
-            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, contentEN, contentDE, contentFA } = updateTagDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, contentEN, contentDE, contentFA } = updateTagDto;
 
             const [tag] = await this.webDatabase.query('SELECT * FROM `tag` WHERE `id` = ?', [id]);
             if (!tag[0])
@@ -487,7 +487,7 @@ export class WebService
                 SET
                     title_en = ?, title_de = ?, title_fa = ?,
                     meta_title_en = ?, meta_title_de = ?, meta_title_fa = ?,
-                    slug_en = ?, slug_de = ?, slug_fa = ?,
+                    slug = ?,
                     content_en = ?, content_de = ?, content_fa = ?
                 WHERE
                     id = ?;
@@ -499,7 +499,7 @@ export class WebService
                 [
                     titleEN || tag[0].title_en, titleDE || tag[0].title_de, titleFA || tag[0].title_fa,
                     metaTitleEN || tag[0].meta_title_en, metaTitleDE || tag[0].meta_title_de, metaTitleFA || tag[0].meta_title_fa,
-                    slugEN || tag[0].slug_en, slugDE || tag[0].slug_de, slugFA || tag[0].slug_fa,
+                    slug || tag[0].slug,
                     contentEN || tag[0].content_en, contentDE || tag[0].content_de, contentFA || tag[0].content_fa,
                     id
                 ]

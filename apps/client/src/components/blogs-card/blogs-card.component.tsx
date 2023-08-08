@@ -27,7 +27,7 @@ const BlogsCard = ({ blog }: any) =>
                 <span/>
             </i>
 
-            <Link className={styles.blogsItem} href={ `/blogs/${ blog[`slug_${ locale }`] }` }>
+            <Link className={styles.blogsItem} href={ `/blogs/${ blog.slug }` }>
                 <span className={styles.blogsItemImage}>
                     <Image
                         src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }

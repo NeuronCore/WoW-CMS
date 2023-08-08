@@ -37,17 +37,7 @@ export class CreateCategoryDto
     @ApiProperty()
     @Length(1, 255, { message: '1007' })
     @Field()
-    public readonly slugEN: string;
-
-    @ApiProperty()
-    @Length(1, 255, { message: '1007' })
-    @Field()
-    public readonly slugDE: string;
-
-    @ApiProperty()
-    @Length(1, 255, { message: '1007' })
-    @Field()
-    public readonly slugFA: string;
+    public readonly slug: string;
 
     @ApiProperty()
     @Length(1, 255, { message: '1004' })

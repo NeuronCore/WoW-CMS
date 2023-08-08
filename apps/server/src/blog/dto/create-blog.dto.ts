@@ -28,13 +28,7 @@ export class CreateBlogDto
     public readonly metaTitleFA: string;
 
     @Length(1, 75, { message: '1007' })
-    public readonly slugEN: string;
-
-    @Length(1, 75, { message: '1007' })
-    public readonly slugDE: string;
-
-    @Length(1, 75, { message: '1007' })
-    public readonly slugFA: string;
+    public readonly slug: string;
 
     @Length(1, 75, { message: '1004' })
     public readonly summaryEN: string;

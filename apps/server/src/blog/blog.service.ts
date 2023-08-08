@@ -42,15 +42,15 @@ export class BlogService
     {
         try
         {
-            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = createBlogDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = createBlogDto;
 
             const originalName = path.parse(thumbnail.originalname).name;
             const filename = accountID + '-' + 'thumbnail' + '-' + Date.now() + '-' + originalName + '.jpg';
 
             await sharp(thumbnail.buffer).toFile(path.join('uploads/thumbnail', filename));
 
-            const [blog] = await this.webDatabase.query('SELECT `slug_en`, `slug_de`, `slug_fa` FROM `blog` WHERE `slug_en` = ? OR `slug_de` = ? OR `slug_fa` = ?', [Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA)]);
-            if (blog[0]?.slug_en || blog[0]?.slug_de || blog[0]?.slug_fa)
+            const [blog] = await this.webDatabase.query('SELECT `slug` FROM `blog` WHERE `slug` =', [Helper.stringToSlug(slug)]);
+            if (blog[0]?.slug)
                 return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             const sql =
@@ -59,13 +59,13 @@ export class BlogService
                     blog (account,
                           title_en, title_de, title_fa,
                           meta_title_en, meta_title_de, meta_title_fa,
-                          slug_en, slug_de, slug_fa,
+                          slug,
                           thumbnail,
                           summary_en, summary_de, summary_fa,
                           content_en, content_de, content_fa,
                           published, published_at)
                VALUES
-                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)
+                    (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
 
             await this.webDatabase.execute
@@ -75,7 +75,7 @@ export class BlogService
                     accountID,
                     titleEN, titleDE, titleFA,
                     metaTitleEN, metaTitleDE, metaTitleFA,
-                    Helper.stringToSlug(slugEN), Helper.stringToSlug(slugDE), Helper.stringToSlug(slugFA),
+                    Helper.stringToSlug(slug),
                     filename,
                     summaryEN, summaryDE, summaryFA,
                     contentEN, contentDE, contentFA,
@@ -115,13 +115,13 @@ export class BlogService
     {
         try
         {
-            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slugEN, slugDE, slugFA, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = updateBlogDto;
+            const { titleEN, titleDE, titleFA, metaTitleEN, metaTitleDE, metaTitleFA, slug, summaryEN, summaryDE, summaryFA, contentEN, contentDE, contentFA, published } = updateBlogDto;
 
             const [blog] = await this.webDatabase.query('SELECT * FROM `blog` WHERE `id` = ?', [id]);
             if (!blog[0])
                 return { statusCode: HttpStatus.NOT_FOUND, message: [{ field: 'all', code: '2007' }] };
 
-            if (blog[0].slug_en === Helper.stringToSlug(slugEN) || blog[0].slug_de === Helper.stringToSlug(slugDE) || blog[0].slug_fa === Helper.stringToSlug(slugFA))
+            if (blog[0].slug === Helper.stringToSlug(slug))
                 return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
             let filename = null;
@@ -154,7 +154,7 @@ export class BlogService
                 [
                     titleEN || blog[0].title_en, titleDE || blog[0].title_de, titleFA || blog[0].title_fa,
                     metaTitleEN || blog[0].meta_title_en, metaTitleDE || blog[0].meta_title_de, metaTitleFA || blog[0].meta_title_fa,
-                    Helper.stringToSlug(slugEN) || blog[0].slug_en, Helper.stringToSlug(slugDE) || blog[0].slug_de, Helper.stringToSlug(slugFA) || blog[0].slug_fa,
+                    Helper.stringToSlug(slug) || blog[0].slug,
                     filename || blog[0].thumbnail,
                     summaryEN || blog[0].summary_en, summaryDE || blog[0].summary_de, summaryFA || blog[0].summary_fa,
                     contentEN || blog[0].content_en, contentDE || blog[0].content_de, contentFA || blog[0].content_fa,
@@ -247,14 +247,14 @@ export class BlogService
                     (SELECT avatar FROM account_information WHERE account_information.id = blog.account) AS avatar,
                     id, account,
                     title_${ locale }, meta_title_${ locale },
-                    slug_${ locale },
+                    slug,
                     thumbnail,
                     summary_${ locale }, content_${ locale },
                     published, published_at, created_at, updated_at
                 FROM
                     blog
                 WHERE
-                    blog.slug_${ locale } = ?
+                    blog.slug = ?
             `;
             const [blog] = await this.webDatabase.query(sql, [slug]);
 
@@ -296,7 +296,7 @@ export class BlogService
                 (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
                 id,
                 title_${ locale }, meta_title_${ locale },
-                slug_${ locale },
+                slug,
                 thumbnail,
                 summary_${ locale },
                 published, published_at
@@ -325,13 +325,13 @@ export class BlogService
                 (SELECT COUNT(comments.blog_id) FROM comments WHERE blog.id = comments.blog_id) AS comments,
                 id,
                 title_${ locale }, meta_title_${ locale },
-                slug_${ locale },
+                slug,
                 thumbnail,
                 summary_${ locale },
                 published, published_at
             FROM
                 blog
-            WHERE 
+            WHERE
                 content_${ locale }
             OR
                 summary_${ locale }
