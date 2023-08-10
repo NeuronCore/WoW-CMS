@@ -49,7 +49,7 @@ export class BlogService
 
             await sharp(thumbnail.buffer).toFile(path.join('uploads/thumbnail', filename));
 
-            const [blog] = await this.webDatabase.query('SELECT `slug` FROM `blog` WHERE `slug` =', [Helper.stringToSlug(slug)]);
+            const [blog] = await this.webDatabase.query('SELECT `slug` FROM `blog` WHERE `slug` = ?', [Helper.stringToSlug(slug)]);
             if (blog[0]?.slug)
                 return { statusCode: HttpStatus.CONFLICT, message: [{ field: 'all', code: '2006' }] };
 
