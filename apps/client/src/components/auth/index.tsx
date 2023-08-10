@@ -1,12 +1,10 @@
+import axios from 'axios';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import classnames from 'classnames';
 import { useRouter} from 'next/router';
-import axios, { AxiosResponse } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
-import { ChangeEvent, useState, useEffect, useMemo, FormEvent } from 'react';
-
-import HttpService from '@/services/http.service';
+import { ChangeEvent, useState, useEffect, FormEvent } from 'react';
 
 import styles from '@/styles/pages/auth.module.scss';
 import stylesForm from '@/styles/components/form.module.scss';
@@ -49,8 +47,6 @@ const Auth = ({ type }: Props) =>
     const { push } = useRouter();
     const [user, { mutate, loading }] = useUser();
 
-    const httpService = useMemo(() => (new HttpService()), []);
-
     const [errors, setErrors] = useState<any[]>([]);
     const [active, setActive] = useState<boolean>(type === 'register');
     const [formValues, setFormValues] = useState(defaultForm);
@@ -68,10 +64,12 @@ const Auth = ({ type }: Props) =>
         event.preventDefault();
 
         await axios.post('/auth/register', formValues.register)
-            .then(async(response: AxiosResponse<any>) =>
+            .then(async(response: any) =>
             {
-                if (response.data.error)
+                if (response?.data?.error)
                     setErrors(response.data.message);
+                else if (response?.response?.data?.error)
+                    setErrors(response?.response?.data?.message);
                 else
                 {
                     setModal
@@ -109,10 +107,12 @@ const Auth = ({ type }: Props) =>
         event.preventDefault();
 
         await axios.post('/auth/login', formValues.login)
-            .then(async(response: AxiosResponse<any>) =>
+            .then(async(response: any) =>
             {
-                if (response.data.error)
+                if (response?.data?.error)
                     setErrors(response.data.message);
+                else if (response?.response?.data?.error)
+                    setErrors(response?.response?.data?.message);
                 else
                 {
                     axios.defaults.headers.common['authorization'] = `Bearer ${ response.data.data.accessToken }`;
@@ -133,8 +133,8 @@ const Auth = ({ type }: Props) =>
             })
             .catch((error) =>
             {
-                if (error?.response.data.message)
-                    setErrors(error?.response.data.message);
+                if (error?.response?.data?.message)
+                    setErrors(error.response.data.message);
 
                 setModal
                 ({
