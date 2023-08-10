@@ -265,8 +265,8 @@ const Home = () =>
                                     modules={[ Keyboard, Autoplay ]}
                                     breakpoints={{
                                         0: { slidesPerView: 1 },
-                                        800: { slidesPerView: 2, spaceBetween: 0 },
-                                        1100: { slidesPerView: 3 }
+                                        1200: { slidesPerView: 2, spaceBetween: 0 },
+                                        1100: { slidesPerView: 2 }
                                     }}
                                 >
                                     {

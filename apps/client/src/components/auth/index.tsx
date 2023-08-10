@@ -63,7 +63,7 @@ const Auth = ({ type }: Props) =>
     {
         event.preventDefault();
 
-        await axios.post('/auth/register', formValues.register)
+        axios.post('/auth/register', formValues.register)
             .then(async(response: any) =>
             {
                 if (response?.data?.error)
@@ -106,7 +106,7 @@ const Auth = ({ type }: Props) =>
     {
         event.preventDefault();
 
-        await axios.post('/auth/login', formValues.login)
+        axios.post('/auth/login', formValues.login)
             .then(async(response: any) =>
             {
                 if (response?.data?.error)

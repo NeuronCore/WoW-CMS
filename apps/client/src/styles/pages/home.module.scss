@@ -12,7 +12,8 @@
         z-index: 90;
 
         width: 100%;
-        height: 100vh;
+        height: fit-content;
+        min-height: 100vh;
         overflow: hidden;
 
         @media only screen and (max-width: 1000px)
@@ -45,6 +46,7 @@
 
             padding-top: 10rem;
             width: 100%;
+            margin-top: 3rem;
 
             @media only screen and (max-width: 1000px)
             {
@@ -61,6 +63,7 @@
             width: 100vw;
             height: 20rem;
             overflow: visible;
+            margin-bottom: 3rem;
 
             @media only screen and (max-width: 1000px)
             {
@@ -834,7 +837,7 @@
                 position: relative;
 
                 width: 58.75vw;
-                height: 60vh;
+                height: 40vh;
 
                 @media only screen and (max-width: 1550px)
                 {
@@ -858,8 +861,8 @@
                     align-items: center;
                     justify-content: center;
 
-                    height: 25rem;
-                    width: 20rem;
+                    height: 20rem;
+                    width: 30rem;
 
                     padding: 2rem;
 
@@ -868,8 +871,8 @@
 
                     @media only screen and (max-width: 1400px)
                     {
-                        height: 22rem;
-                        width: 18rem;
+                        height: 18rem;
+                        width: 25rem;
                     }
 
                     & > div
@@ -1034,13 +1037,13 @@
 
                     &Active
                     {
-                        height: 40rem;
-                        width: 30rem;
+                        height: 35rem;
+                        width: 50rem;
 
                         @media only screen and (max-width: 1400px)
                         {
                             height: 30rem;
-                            width: 25rem;
+                            width: 45rem;
                         }
                     }
                 }
