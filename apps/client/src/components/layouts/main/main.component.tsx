@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { useRouter } from 'next/router';
 import React, { Fragment, ReactNode, useEffect, useState } from 'react';
 
-import {BsThreeDots, BsX} from 'react-icons/bs';
+import { BsThreeDots, BsX } from 'react-icons/bs';
 
 import stylesAccount from '@/styles/pages/account.module.scss';
 import styles from '@/components/layouts/main/main.module.scss';
