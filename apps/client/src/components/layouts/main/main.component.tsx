@@ -182,7 +182,7 @@ const Main = ({ children }: Props) =>
                                                                         item.items.map((link, index) =>
                                                                             (
                                                                                 <li key={createUniqueKey([item.title, link.title, index])} className={classnames(stylesAccount.accountAsideListItem, { [stylesAccount.accountAsideListItemActive]: query.type?.toString().includes(link.path) })}>
-                                                                                    <Link href={ `/leaderboard/${ link.path }/hi` }>
+                                                                                    <Link href={`/leaderboard/${ link.path }/${ query.realm }`}>
                                                                                         { link.title }
                                                                                     </Link>
                                                                                 </li>

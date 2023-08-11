@@ -10,7 +10,7 @@ import { createUniqueKey } from '@/utils/helper.util';
 
 const Leaderboard = () =>
 {
-    const { query } = useRouter();
+    const { query, push } = useRouter();
 
     const [realm, setRealm] = useState<string>('');
     const [realms, setRealms] = useState<[]>([]);
@@ -22,8 +22,18 @@ const Leaderboard = () =>
             {
                 const response = await axios.get('/database/realms');
 
-                setRealm(response.data.data.realms[0]);
                 setRealms(response.data.data.realms);
+
+                if (query?.realm)
+                {
+                    for (const realmX of response.data.data.realms)
+                    {
+                        if (realmX === query.realm)
+                            setRealm(realmX);
+                    }
+                }
+                else
+                    setRealm(response.data.data.realms[0]);
             }
         )();
     }, []);
@@ -47,7 +57,14 @@ const Leaderboard = () =>
                     {
                         realms.map((realmData, index) =>
                             (
-                                <li onClick={() => setRealm(realmData)} className={classnames(styles.leaderboardContentRealmsItem, { [styles.leaderboardContentRealmsItemActive]: realmData === realm })} key={createUniqueKey([realmData, index])}>
+                                <li
+                                    onClick={async() =>
+                                    {
+                                        await push(`/leaderboard/${ query.type }/${ realmData }`);
+                                    }}
+                                    className={classnames(styles.leaderboardContentRealmsItem, { [styles.leaderboardContentRealmsItemActive]: realmData === realm })}
+                                    key={ createUniqueKey([realmData, index, 'realm_2']) }
+                                >
                                     { realmData }
                                 </li>
                             ))
