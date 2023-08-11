@@ -18,7 +18,7 @@ const DefaultLeaderboard = () =>
             {
                 const response = await axios.get('/database/realms');
 
-                await push(`/leaderboard/${leaderboard.aside[0].items[0].path}/${ response.data.data.realms[0] }`);
+                await push(`/leaderboard/${ leaderboard.aside[0].items[0].path }/${ response.data.data.realms[0] }`);
             }
         )();
     }, []);
