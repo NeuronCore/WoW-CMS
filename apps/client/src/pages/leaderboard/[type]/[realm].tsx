@@ -1,11 +1,12 @@
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/router';
-
-import styles from '@/styles/pages/leaderbaord.module.scss';
-import {useEffect, useState} from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
-import {createUniqueKey} from '@/utils/helper.util';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+
+import styles from '@/styles/pages/leaderbaord.module.scss';
+
+import { createUniqueKey } from '@/utils/helper.util';
 
 const Leaderboard = () =>
 {
