@@ -166,7 +166,7 @@ const Home = () =>
                                     : process.env.NEXT_PUBLIC_THEME === 'wotlk'
                                         ? ButtonImage2.src
                                         : ButtonImage1.src
-                            })` }} href='/'>
+                            })` }} href='/login'>
                                 <>
                                     { t('home:header.button') }
                                     <span />
