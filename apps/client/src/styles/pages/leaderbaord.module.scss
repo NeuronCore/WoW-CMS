@@ -1,0 +1,140 @@
+.leaderboard
+{
+    &Content
+    {
+        grid-template: content-start / content-end;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 2rem;
+
+        padding-left: 6rem;
+        height: 100%;
+        max-height: calc(90vh - 17rem);
+        width: 100%;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar
+        {
+            display: none;
+        }
+
+        @media only screen and (max-width: 1200px)
+        {
+            padding-left: 1rem;
+        }
+
+        @media only screen and (max-width: 900px)
+        {
+            padding: 2rem 1rem 11rem;
+            max-height: 100%;
+            height: fit-content;
+        }
+
+        &Header
+        {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+
+            @media only screen and (max-width: 1200px)
+            {
+                font-size: 3rem;
+            }
+        }
+
+        &Realms
+        {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            &Item
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 1rem 2rem;
+                font-weight: 500;
+                font-size: 1.25rem;
+                cursor: pointer;
+                background: var(--base-primary-light);
+                transition: all .2s;
+
+                &:hover
+                {
+                    background: var(--base-primary-lighter);
+                }
+
+                &Active
+                {
+                    color: var(--base-primary-dark);
+                    background: var(--color-primary-dark);
+
+                    &:hover
+                    {
+                        background: var(--color-primary);
+                    }
+                }
+            }
+        }
+
+        &Table
+        {
+            &Wrapper
+            {
+                background: var(--base-primary-lighter);
+                overflow-y: scroll;
+                overflow-x: scroll;
+                width: 100%;
+                height: calc(100vh - 38rem);
+
+                &Header
+                {
+                    background: var(--base-primary-lighter);
+                    width: 100%;
+                    height: 10rem;
+                }
+
+                & > div
+                {
+                    width: 100%;
+                }
+
+                table
+                {
+                    position: relative;
+
+                    width: 100%;
+                    text-align: center;
+                    border-collapse: collapse;
+
+                    thead
+                    {
+                        background: var(--color-primary-darker);
+                    }
+
+                    td
+                    {
+                        font-size: 1.5rem;
+                        padding: 2rem 0;
+                    }
+
+                    th
+                    {
+                        font-size: 1.75rem;
+                        padding: 2rem 0;
+                        color: var(--color-base-text-primary);
+                    }
+                }
+
+            }
+        }
+    }
+}

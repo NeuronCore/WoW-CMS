@@ -23,7 +23,8 @@ const Preloader = dynamic(() => import('@/components/preloader'));
 const Navbar = dynamic(() => import('@/components/layouts/navbar/navbar.component'));
 const Footer = dynamic(() => import('@/components/layouts/footer/footer.component'));
 
-import asideData from '@/data/account.data.json';
+import account from '@/data/account.data.json';
+import leaderboard from '@/data/leaderboard.data.json';
 
 interface Props
 {
@@ -33,7 +34,7 @@ interface Props
 const Main = ({ children }: Props) =>
 {
     const [user, { loading }] = useUser();
-    const { push, pathname, reload } = useRouter();
+    const { push, pathname, reload, query } = useRouter();
     const dispatch = useAppDispatch();
 
     const [aside, setAside] = useState<boolean>(false);
@@ -96,7 +97,7 @@ const Main = ({ children }: Props) =>
 
                                         <ul className={stylesAccount.accountAsideList}>
                                             {
-                                                asideData.data.map((item, index) =>
+                                                account.aside.map((item, index) =>
                                                     (
                                                         <Fragment key={createUniqueKey([item.title, index])}>
                                                             <li className={stylesAccount.accountAsideListItemTitle}>
@@ -138,7 +139,80 @@ const Main = ({ children }: Props) =>
                                 </section>
                             </>
                         :
-                        children
+                        (
+                            pathname.split('/')[1] === 'leaderboard'
+                                ?
+                                loading
+                                    ? <Preloader />
+                                    :
+                                    <>
+                                        <span className={stylesAccount.accountVideo}>
+                                            <video autoPlay loop>
+                                                <source src={ `/videos/video_1-${ process.env.NEXT_PUBLIC_THEME }.mp4` } />
+                                            </video>
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter} />
+                                            <span className={stylesAccount.accountFilter2} />
+                                        </span>
+
+                                        <section className={stylesAccount.accountContainer}>
+                                            <aside className={classnames(stylesAccount.accountAside, { [stylesAccount.accountAsideActive]: aside })}>
+                                                <h1 className={stylesAccount.accountAsideHeader}>
+                                                    Types
+                                                </h1>
+
+                                                <ul className={stylesAccount.accountAsideList}>
+                                                    {
+                                                        leaderboard.aside.map((item, index) =>
+                                                            (
+                                                                <Fragment key={createUniqueKey([item.title, index])}>
+                                                                    <li className={stylesAccount.accountAsideListItemTitle}>
+                                                                        { item.title }
+                                                                    </li>
+                                                                    {
+                                                                        item.items.map((link, index) =>
+                                                                            (
+                                                                                <li key={createUniqueKey([item.title, link.title, index])} className={classnames(stylesAccount.accountAsideListItem, { [stylesAccount.accountAsideListItemActive]: query.type?.toString().includes(link.path) })}>
+                                                                                    <Link href={ `/leaderboard/${ link.path }/hi` }>
+                                                                                        { link.title }
+                                                                                    </Link>
+                                                                                </li>
+                                                                            ))
+                                                                    }
+                                                                </Fragment>
+                                                            ))
+                                                    }
+                                                </ul>
+                                            </aside>
+                                            {
+                                                user
+                                                    ?
+                                                    <>
+                                                        { children }
+                                                        <span onClick={() => setAside(!aside)} className={stylesAccount.accountButton}>
+                                                            {
+                                                                aside
+                                                                    ? <BsX />
+                                                                    : <BsThreeDots />
+                                                            }
+                                                        </span>
+                                                    </>
+                                                    : null
+                                            }
+                                        </section>
+                                    </>
+                                :
+                                children
+                        )
                 }
             </main>
 

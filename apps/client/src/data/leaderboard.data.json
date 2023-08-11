@@ -1,0 +1,27 @@
+{
+    "aside":
+    [
+        {
+            "title": "Arena (PVP)",
+            "items":
+            [
+                {
+                    "path": "arena-2v2",
+                    "title": "Honorable Kills"
+                },
+                {
+                    "path": "arena-2v2",
+                    "title": "2v2 Teams"
+                },
+                {
+                    "path": "arena-3v3",
+                    "title": "3v3 Teams"
+                },
+                {
+                    "path": "arena-5v5",
+                    "title": "5v5 Teams"
+                }
+            ]
+        }
+    ]
+}
