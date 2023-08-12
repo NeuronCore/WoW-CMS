@@ -74,7 +74,7 @@ const Leaderboard = () =>
                     <table>
                         <thead>
                             <tr>
-                                <th>0</th>
+                                <th>Place</th>
                                 <th>0</th>
                                 <th>0</th>
                                 <th>0</th>
@@ -86,27 +86,11 @@ const Leaderboard = () =>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
+                                <td>
+                                    <span>
+                                        1
+                                    </span>
+                                </td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
@@ -116,27 +100,11 @@ const Leaderboard = () =>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
+                                <td>
+                                    <span>
+                                        2
+                                    </span>
+                                </td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
@@ -146,27 +114,11 @@ const Leaderboard = () =>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
+                                <td>
+                                    <span>
+                                        3
+                                    </span>
+                                </td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
@@ -176,7 +128,11 @@ const Leaderboard = () =>
                                 <td>1</td>
                             </tr>
                             <tr>
-                                <td>1</td>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>
@@ -186,7 +142,95 @@ const Leaderboard = () =>
                                 <td>1</td>
                             </tr>
                             <tr>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
                                 <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>
+                                        11
+                                    </span>
+                                </td>
                                 <td>1</td>
                                 <td>1</td>
                                 <td>1</td>

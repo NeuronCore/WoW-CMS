@@ -120,6 +120,113 @@
                         background: var(--color-primary-darker);
                     }
 
+                    & > tbody
+                    {
+                        & > tr
+                        {
+                            & > td
+                            {
+                                & > span
+                                {
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    margin: auto;
+                                    height: 3.5rem;
+                                    width: 3.5rem;
+                                    min-height: 3.5rem;
+                                    min-width: 3.5rem;
+                                    max-height: 3.5rem;
+                                    max-width: 3.5rem;
+                                    border-radius: .25rem;
+                                }
+                            }
+
+                            &:nth-child(1)
+                            {
+                                & > td:nth-child(1)
+                                {
+                                    position: relative;
+
+                                    & > span
+                                    {
+                                        color: #1e1e1e;
+                                        background: var(--gold);
+                                        box-shadow: 0 0 .75rem var(--gold);
+                                    }
+
+                                    &::after
+                                    {
+                                        content: '';
+
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+
+                                        background: var(--gold);
+                                        height: 100%;
+                                        width: .25rem;
+                                    }
+                                }
+                            }
+                            &:nth-child(2)
+                            {
+                                & > td:nth-child(1)
+                                {
+                                    position: relative;
+
+                                    & > span
+                                    {
+                                        color: #1e1e1e;
+                                        background: var(--silver);
+                                        box-shadow: 0 0 .75rem var(--silver);
+                                    }
+
+                                    &::after
+                                    {
+                                        content: '';
+
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+
+                                        background: var(--silver);
+                                        height: 100%;
+                                        width: .25rem;
+                                    }
+                                }
+                            }
+                            &:nth-child(3)
+                            {
+                                & > td:nth-child(1)
+                                {
+                                    position: relative;
+
+                                    & > span
+                                    {
+                                        color: #1e1e1e;
+                                        background: var(--bronze);
+                                        box-shadow: 0 0 .75rem var(--bronze);
+                                    }
+
+                                    &::after
+                                    {
+                                        content: '';
+
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+
+                                        background: var(--bronze);
+                                        height: 100%;
+                                        width: .25rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     td
                     {
                         font-size: 1.5rem;
