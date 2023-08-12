@@ -8,6 +8,8 @@ import styles from '@/styles/pages/leaderbaord.module.scss';
 
 import { createUniqueKey } from '@/utils/helper.util';
 
+import leaderboard from '@/data/leaderboard.data.json';
+
 const Leaderboard = () =>
 {
     const { query, push } = useRouter();
@@ -74,14 +76,14 @@ const Leaderboard = () =>
                     <table>
                         <thead>
                             <tr>
-                                <th>Place</th>
-                                <th>0</th>
-                                <th>0</th>
-                                <th>0</th>
-                                <th>0</th>
-                                <th>0</th>
-                                <th>0</th>
-                                <th>0</th>
+                                {
+                                    leaderboard.table.thead.map((item) =>
+                                        (
+                                            <td>
+                                                { item }
+                                            </td>
+                                        ))
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -130,7 +132,7 @@ const Leaderboard = () =>
                             <tr>
                                 <td>
                                     <span>
-                                        11
+                                        4
                                     </span>
                                 </td>
                                 <td>1</td>
@@ -144,7 +146,7 @@ const Leaderboard = () =>
                             <tr>
                                 <td>
                                     <span>
-                                        11
+                                        5
                                     </span>
                                 </td>
                                 <td>1</td>
@@ -158,7 +160,7 @@ const Leaderboard = () =>
                             <tr>
                                 <td>
                                     <span>
-                                        11
+                                        6
                                     </span>
                                 </td>
                                 <td>1</td>
@@ -172,7 +174,7 @@ const Leaderboard = () =>
                             <tr>
                                 <td>
                                     <span>
-                                        11
+                                        7
                                     </span>
                                 </td>
                                 <td>1</td>
@@ -186,7 +188,7 @@ const Leaderboard = () =>
                             <tr>
                                 <td>
                                     <span>
-                                        11
+                                        8
                                     </span>
                                 </td>
                                 <td>1</td>
@@ -200,7 +202,7 @@ const Leaderboard = () =>
                             <tr>
                                 <td>
                                     <span>
-                                        11
+                                        9
                                     </span>
                                 </td>
                                 <td>1</td>
@@ -214,21 +216,7 @@ const Leaderboard = () =>
                             <tr>
                                 <td>
                                     <span>
-                                        11
-                                    </span>
-                                </td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>
-                                        11
+                                        10
                                     </span>
                                 </td>
                                 <td>1</td>

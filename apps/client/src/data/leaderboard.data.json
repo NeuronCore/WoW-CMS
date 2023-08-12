@@ -19,5 +19,19 @@
                 }
             ]
         }
-    ]
+    ],
+    "table":
+    {
+        "thead":
+            [
+                "Place",
+                "Just",
+                "For",
+                "Test",
+                "Just",
+                "For",
+                "Test",
+                "Yes"
+            ]
+    }
 }
