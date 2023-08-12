@@ -34,10 +34,21 @@ interface Props
 const Main = ({ children }: Props) =>
 {
     const [user, { loading }] = useUser();
-    const { push, pathname, reload, query } = useRouter();
     const dispatch = useAppDispatch();
+    const { push, asPath, pathname, reload, query, locale } = useRouter();
 
     const [aside, setAside] = useState<boolean>(false);
+
+    useEffect(() =>
+    {
+        (
+            async() =>
+            {
+                if (!locale)
+                    await push(asPath, asPath, { locale: (process.env.NEXT_PUBLIC_DEFAULT_LANGUAGE || 'en').toString().toLowerCase() });
+            }
+        )();
+    }, []);
 
     useEffect(() =>
     {
