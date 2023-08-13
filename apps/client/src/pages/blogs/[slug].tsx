@@ -355,7 +355,6 @@ const Blog = () =>
                                         src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
                                         alt={ blog[`meta_title_${ locale }`] }
                                         fill
-                                        style={{ objectFit: 'cover' }}
                                         sizes={'100'}
                                     />
                                 </span>
@@ -367,7 +366,6 @@ const Blog = () =>
                                             src={ blog.avatar ? `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/avatar/${ blog.avatar }` : Profile }
                                             alt={ blog.username }
                                             fill
-                                            style={{ objectFit: 'cover' }}
                                             sizes={'100'}
                                         />
                                     </span>

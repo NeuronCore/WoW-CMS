@@ -38,7 +38,6 @@ const BlogsNew = ({ active, blog }: Props) =>
                         src={ `${ process.env.NEXT_PUBLIC_SERVER_IP_OR_URL }/account/uploaded-image/thumbnail/${ blog.thumbnail }` }
                         alt={ blog[`meta_title_${ locale }`] }
                         fill
-                        style={{ objectFit: 'cover' }}
                         sizes={'100'}
                     />
                 </span>
