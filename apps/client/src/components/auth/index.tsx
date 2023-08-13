@@ -117,10 +117,7 @@ const Auth = ({ type }: Props) =>
                 {
                     axios.defaults.headers.common['authorization'] = `Bearer ${ response.data.data.accessToken }`;
 
-                    const responseToken = await axios.get('/account/current');
-                    const userInformation = await responseToken.data.data.information;
-
-                    await mutate(userInformation);
+                    await mutate();
 
                     setModal
                     ({
